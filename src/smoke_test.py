@@ -35,9 +35,17 @@ def main():
     rm, rm_tok = load_rm(cfg, device)
     print(f"rm={cfg['reward_model']}")
 
-    d = cfg["data"]
-    stream = load_dataset(d["prompt_dataset"], split=d["prompt_split"], streaming=True)
-    prompts = [row[d["prompt_field"]] for _, row in zip(range(5), stream)]
+    prompts_file = REPO_ROOT / "data" / "prompts.json"
+    if prompts_file.exists():
+        # Use the committed prompt cache — avoids HF Hub calls on cluster
+        # compute nodes, where unauthenticated API access is unreliable.
+        prompts = json.load(open(prompts_file))["train"][:5]
+    else:
+        d = cfg["data"]
+        stream = load_dataset(
+            d["prompt_dataset"], split=d["prompt_split"], streaming=True
+        )
+        prompts = [row[d["prompt_field"]] for _, row in zip(range(5), stream)]
 
     results = []
     for i, prompt in enumerate(prompts):
