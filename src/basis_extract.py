@@ -68,10 +68,21 @@ def phase_prompts(cfg, bcfg):
 
 
 def _gen_pairs(model, tok, cfg, bcfg, axis, prompts, out_path):
-    """Generate pole completions for one axis; resumable via line count."""
+    """Generate pole completions for one axis; resumable via line count.
+
+    Resume is model-aware: records are stamped with the generating base model,
+    and a file stamped with a different model is moved aside and regenerated
+    (this bit us once — cluster 1.7B run silently reused committed 360M files).
+    """
     done = 0
     if out_path.exists():
-        done = sum(1 for _ in open(out_path))
+        first = json.loads(open(out_path).readline())
+        if first.get("model") != cfg["base_model"]:
+            stale = out_path.with_suffix(".stale.jsonl.bak")
+            out_path.rename(stale)
+            print(f"  {axis['name']}: stale file from {first.get('model')} -> {stale.name}")
+        else:
+            done = sum(1 for _ in open(out_path))
     todo = prompts[done // 2:]  # 2 lines (pos+neg) per prompt
     bs = bcfg["pairs"]["batch_size"]
     gen_cfg = {**cfg, "generation": {**cfg["generation"], "max_new_tokens": bcfg["pairs"]["max_new_tokens"]}}
@@ -90,6 +101,7 @@ def _gen_pairs(model, tok, cfg, bcfg, axis, prompts, out_path):
                     f.write(
                         json.dumps(
                             {
+                                "model": cfg["base_model"],
                                 "prompt": prompt,
                                 "pole": pole,
                                 "completion": completion,
@@ -153,6 +165,12 @@ def phase_extract(cfg, bcfg, model, tok):
     for axis in bcfg["axes"]:
         name = axis["name"]
         rows = [json.loads(line) for line in open(DATA / "pairs" / f"{name}.jsonl")]
+        stale = {r.get("model") for r in rows} - {cfg["base_model"]}
+        if stale:
+            raise RuntimeError(
+                f"{name}: pair file contains records from {stale}, "
+                f"expected {cfg['base_model']} — regenerate before extracting"
+            )
         sums = {(pole, layer): None for pole in ("pos", "neg") for layer in layers}
         counts = {"pos": 0, "neg": 0}
         for r in rows:
