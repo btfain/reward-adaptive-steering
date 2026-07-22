@@ -21,6 +21,16 @@ pairs:
 # default; capturing 16/26 in the same pass makes the sweep free if needed.
 capture_layers: [12, 16, 20]   # SmolLM2-1.7B has 24 layers; 16 is the committed default
 
+# Stage A step 3 — sanity steering sweep. Steering magnitudes are fractions of
+# the measured mean per-token residual norm at the steer layer (unit vectors
+# alone would be negligible against the residual scale). The largest fraction
+# is expected to visibly degrade text — that locates the ceiling.
+sanity:
+  alpha_fracs: [-0.4, -0.2, -0.1, 0.1, 0.2, 0.4]   # 0 runs once as shared baseline
+  batch_size: 8
+  ref_norm_prompts: 8
+  samples_per_axis: 3      # prompts shown per axis in the qualitative sheet
+
 axes:
   - name: challenge_accommodate
     pos: challenge

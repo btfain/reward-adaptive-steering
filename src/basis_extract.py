@@ -244,7 +244,7 @@ def phase_extract(cfg, bcfg, model, tok):
             for j in range(i + 1, len(axis_names))
             if abs(cos[i, j]) >= 0.7
         ]
-        if flagged and layer == 21:
+        if flagged and layer == cfg["steer_layer"]:
             report.append("\n**COLLAPSE-RULE FLAGS (|cos| >= 0.7 at default layer):** " + str(flagged))
     with open(BASIS / "extraction_report.md", "w") as f:
         f.write("\n".join(report) + "\n")
