@@ -25,7 +25,7 @@ sbatch scripts/stageA_compliance.sbatch
 sbatch scripts/stageA_full.sbatch
 ```
 
-Jobs target `-p compsci-gpu --gres=gpu:1 --constraint="a5000|a6000|v100"`
+Jobs pin the GPU type in the gres (`--gres=gpu:a5000:1`) — node-feature
 (Ampere preferred for bf16; the code falls back to fp32 on non-Ampere GPUs —
 drop the constraint only for a >= 16GB card). The repo is public, so cloning
 needs no credential; pushing results back does — easiest is `gh auth login`

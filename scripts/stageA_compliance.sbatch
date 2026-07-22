@@ -1,16 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=aeA-compliance
 #SBATCH --partition=compsci-gpu
-#SBATCH --gres=gpu:1
-#SBATCH --constraint="a5000|a6000|v100"
+#SBATCH --gres=gpu:a5000:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=24G
 #SBATCH --time=02:00:00
 #SBATCH --output=results/slurm-%j.out
-# Duke CS cluster (see cs.duke.edu/csl/faqs/slurm). Pre-flight check that these
-# features exist on the partition:  sinfo -p compsci-gpu -o "%N %G %f"
-# If submit fails on the constraint or the queue stalls, drop the constraint
-# line — the code falls back to fp32 on non-Ampere GPUs (needs >= 16GB VRAM).
+# Duke CS cluster. GPU type is pinned in the gres (gpu:a5000:1), NOT via
+# --constraint: node features select nodes, and mixed p100+a5000 nodes can
+# hand you the P100 (which modern torch kernels no longer support). If the
+# a5000 queue stalls, gpu:a6000:1 is the fallback.
 # Submit from the repo root: sbatch scripts/stageA_compliance.sbatch
 
 set -euo pipefail
