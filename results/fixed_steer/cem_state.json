@@ -1,0 +1,32 @@
+{
+ "best": {
+  "round": 2,
+  "idx": 1,
+  "action": {
+   "hedge_assert": -0.038,
+   "elaborate_concise": 0.0845,
+   "formal_casual": 0.0146,
+   "cautious_direct": 0.0032,
+   "warm_neutral": 0.0368,
+   "inquire_proceed": -0.0269
+  },
+  "combined_norm": 0.091,
+  "mean_rm": -0.5125
+ },
+ "final_mean": [
+  -0.03605714285714286,
+  0.03345714285714286,
+  0.005999999999999999,
+  0.027557142857142856,
+  0.005628571428571428,
+  -0.014771428571428569
+ ],
+ "names": [
+  "hedge_assert",
+  "elaborate_concise",
+  "formal_casual",
+  "cautious_direct",
+  "warm_neutral",
+  "inquire_proceed"
+ ]
+}

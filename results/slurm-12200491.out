@@ -1,0 +1,114 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 3026.00it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  68%|██████▊   | 213/311 [00:00<00:00, 2128.68it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2089.40it/s]
+ref norm 778.2, axes: ['hedge_assert', 'elaborate_concise', 'formal_casual', 'cautious_direct', 'warm_neutral', 'inquire_proceed']
+round 0 cand 0: rm=-0.548 norm=0.000
+round 0 cand 1: rm=-1.315 norm=0.145
+round 0 cand 2: rm=-6.362 norm=0.227
+round 0 cand 3: rm=-4.941 norm=0.250
+round 0 cand 4: rm=-1.346 norm=0.131
+round 0 cand 5: rm=-1.375 norm=0.129
+round 0 cand 6: rm=-4.467 norm=0.223
+round 0 cand 7: rm=-5.639 norm=0.250
+round 0 cand 8: rm=-4.741 norm=0.250
+round 0 cand 9: rm=-7.048 norm=0.250
+round 0 cand 10: rm=-2.043 norm=0.161
+round 0 cand 11: rm=-2.530 norm=0.188
+round 0 cand 12: rm=-2.470 norm=0.161
+round 0 cand 13: rm=-4.833 norm=0.250
+round 0 cand 14: rm=-5.237 norm=0.234
+round 0 cand 15: rm=-3.591 norm=0.221
+round 0 cand 16: rm=-4.790 norm=0.149
+round 0 cand 17: rm=-2.237 norm=0.134
+round 0 cand 18: rm=-1.865 norm=0.167
+round 0 cand 19: rm=-6.433 norm=0.250
+round 0 cand 20: rm=-2.347 norm=0.183
+round 0 cand 21: rm=-3.002 norm=0.182
+round 0 cand 22: rm=-5.305 norm=0.250
+round 0 cand 23: rm=-4.653 norm=0.224
+round 0 cand 24: rm=-5.946 norm=0.181
+round 0 cand 25: rm=-3.308 norm=0.198
+round 0 cand 26: rm=-5.378 norm=0.139
+round 0 cand 27: rm=-6.259 norm=0.250
+round 0 cand 28: rm=-5.444 norm=0.250
+round 0 cand 29: rm=-3.985 norm=0.213
+round 0 cand 30: rm=-0.754 norm=0.082
+round 0 cand 31: rm=-6.739 norm=0.250
+round 0 cand 32: rm=-4.639 norm=0.250
+round 0 cand 33: rm=-2.185 norm=0.150
+round 0 cand 34: rm=-0.600 norm=0.084
+round 0 cand 35: rm=-4.830 norm=0.250
+round 0 cand 36: rm=-5.052 norm=0.250
+round 0 cand 37: rm=-5.495 norm=0.250
+round 0 cand 38: rm=-5.418 norm=0.155
+round 0 cand 39: rm=-8.836 norm=0.250
+round 0 elite mean rm=-1.427
+round 1 cand 0: rm=-0.651 norm=0.088
+round 1 cand 1: rm=-0.886 norm=0.116
+round 1 cand 2: rm=-1.141 norm=0.087
+round 1 cand 3: rm=-0.666 norm=0.048
+round 1 cand 4: rm=-7.939 norm=0.250
+round 1 cand 5: rm=-5.786 norm=0.250
+round 1 cand 6: rm=-2.997 norm=0.172
+round 1 cand 7: rm=-0.638 norm=0.060
+round 1 cand 8: rm=-0.816 norm=0.118
+round 1 cand 9: rm=-1.890 norm=0.131
+round 1 cand 10: rm=-1.527 norm=0.084
+round 1 cand 11: rm=-5.265 norm=0.189
+round 1 cand 12: rm=-2.567 norm=0.192
+round 1 cand 13: rm=-4.899 norm=0.204
+round 1 cand 14: rm=-2.344 norm=0.156
+round 1 cand 15: rm=-1.305 norm=0.138
+round 1 cand 16: rm=-1.555 norm=0.090
+round 1 cand 17: rm=-5.178 norm=0.227
+round 1 cand 18: rm=-2.816 norm=0.177
+round 1 cand 19: rm=-0.613 norm=0.084
+round 1 cand 20: rm=-9.418 norm=0.250
+round 1 cand 21: rm=-1.576 norm=0.123
+round 1 cand 22: rm=-1.470 norm=0.140
+round 1 cand 23: rm=-1.824 norm=0.096
+round 1 cand 24: rm=-0.591 norm=0.093
+round 1 cand 25: rm=-2.350 norm=0.085
+round 1 cand 26: rm=-6.065 norm=0.144
+round 1 cand 27: rm=-1.276 norm=0.121
+round 1 cand 28: rm=-0.801 norm=0.080
+round 1 cand 29: rm=-1.764 norm=0.126
+round 1 elite mean rm=-0.682
+round 2 cand 0: rm=-1.696 norm=0.083
+round 2 cand 1: rm=-0.512 norm=0.091
+round 2 cand 2: rm=-0.642 norm=0.058
+round 2 cand 3: rm=-0.867 norm=0.045
+round 2 cand 4: rm=-7.521 norm=0.250
+round 2 cand 5: rm=-1.273 norm=0.120
+round 2 cand 6: rm=-1.450 norm=0.101
+round 2 cand 7: rm=-0.859 norm=0.046
+round 2 cand 8: rm=-1.723 norm=0.132
+round 2 cand 9: rm=-1.721 norm=0.167
+round 2 cand 10: rm=-1.086 norm=0.079
+round 2 cand 11: rm=-1.504 norm=0.093
+round 2 cand 12: rm=-0.911 norm=0.088
+round 2 cand 13: rm=-1.045 norm=0.077
+round 2 cand 14: rm=-1.312 norm=0.081
+round 2 cand 15: rm=-0.525 norm=0.037
+round 2 cand 16: rm=-1.775 norm=0.131
+round 2 cand 17: rm=-3.530 norm=0.205
+round 2 cand 18: rm=-0.917 norm=0.082
+round 2 cand 19: rm=-2.919 norm=0.169
+round 2 cand 20: rm=-0.692 norm=0.086
+round 2 cand 21: rm=-1.035 norm=0.044
+round 2 cand 22: rm=-1.581 norm=0.113
+round 2 cand 23: rm=-0.954 norm=0.036
+round 2 cand 24: rm=-1.182 norm=0.115
+round 2 cand 25: rm=-0.858 norm=0.106
+round 2 cand 26: rm=-2.009 norm=0.147
+round 2 cand 27: rm=-1.096 norm=0.075
+round 2 cand 28: rm=-1.237 norm=0.106
+round 2 cand 29: rm=-1.324 norm=0.107
+round 2 elite mean rm=-0.708
+best action: {'hedge_assert': -0.038, 'elaborate_concise': 0.0845, 'formal_casual': 0.0146, 'cautious_direct': 0.0032, 'warm_neutral': 0.0368, 'inquire_proceed': -0.0269} (rm -0.5125)
+seed 0 eval done
+seed 1 eval done
+reports -> /home/users/btf12/reward-adaptive-steering/basis/stageB_report.md, /home/users/btf12/reward-adaptive-steering/basis/stageB_samples.md
+{'ts': '2026-07-22T18:44:14', 'stage': 'B', 'event': 'fixed_steer', 'wall_s': 3939.27, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 5.6, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'best_rm=-0.5125'}
+DONE — commit and push results/fixed_steer/, basis/, results/cost_log.jsonl
