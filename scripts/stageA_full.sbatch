@@ -1,14 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=aeA-full
+#SBATCH --partition=compsci-gpu
 #SBATCH --gres=gpu:1
+#SBATCH --constraint="a5000|a6000"
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=24G
-#SBATCH --time=06:00:00
+#SBATCH --time=12:00:00
 #SBATCH --output=results/slurm-%j.out
-# EDIT for your cluster:
-# #SBATCH --partition=gpu
-# #SBATCH --account=YOUR_ACCOUNT
-#
+# Duke CS cluster. Same notes as stageA_compliance.sbatch.
 # Submit ONLY after the compliance gate is reviewed green (stage-gating rule).
 
 set -euo pipefail

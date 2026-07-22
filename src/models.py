@@ -40,7 +40,10 @@ def resolve_device(cfg):
 def resolve_dtype(cfg, device):
     if cfg["dtype"] != "auto":
         return getattr(torch, cfg["dtype"])
-    return torch.bfloat16 if device.type == "cuda" else torch.float32
+    # bf16 needs Ampere+ (A5000/A6000); on V100/P100/2080rtx fall back to fp32
+    if device.type == "cuda" and torch.cuda.is_bf16_supported():
+        return torch.bfloat16
+    return torch.float32
 
 
 def load_base(cfg, device):

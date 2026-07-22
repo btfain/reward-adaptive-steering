@@ -13,19 +13,23 @@ reviewed green.
 - `src/proxies.py` — per-axis lexical proxies (quantify monotonicity; qualitative-first rule applies)
 - `data/`, `basis/`, `results/` — generated artifacts, committed for audit
 
-## Running on the cluster (SLURM)
+## Running on the Duke CS cluster (SLURM)
 
 ```bash
+ssh NETID@login.cs.duke.edu
 git clone git@github.com:btfain/reward-adaptive-steering.git && cd reward-adaptive-steering
-bash scripts/cluster_setup.sh          # one-time; edit module/scratch lines first
+bash scripts/cluster_setup.sh          # one-time; set SCRATCH_DIR if not /usr/xtmp/$USER
 sbatch scripts/stageA_compliance.sbatch
 # review data/compliance/*.md + results/, commit & push, get gate sign-off, then:
 sbatch scripts/stageA_full.sbatch
 ```
 
-Both sbatch files have `# EDIT` markers for partition/account. Artifacts and
-`results/cost_log.jsonl` (measured cost — GPU type, wall-clock, memory) travel
-back through git: commit and push them from the cluster after each job.
+Jobs target `-p compsci-gpu --gres=gpu:1 --constraint="a5000|a6000"` (Ampere
+for bf16; the code falls back to fp32 on older GPUs if you drop the
+constraint). The repo is private, so the cluster needs a GitHub credential to
+clone/push — an SSH deploy key or `gh auth login` on the login node. Artifacts
+and `results/cost_log.jsonl` (measured cost — GPU type, wall-clock, memory)
+travel back through git: commit and push them from the cluster after each job.
 
 ## Local (Mac) notes
 
