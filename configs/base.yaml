@@ -1,0 +1,22 @@
+base_model: HuggingFaceTB/SmolLM2-360M-Instruct
+reward_model: Skywork/Skywork-Reward-V2-Qwen3-0.6B
+
+device: auto        # resolves to mps > cuda > cpu
+dtype: float32      # MPS-safe; steering-vector arithmetic stays in fp32 everywhere
+
+# Residual-stream layer for extraction and steering (~2/3 depth of 32).
+# Stage A may sweep {16, 21, 26} if steering is weak — sweep before model-scale bump.
+steer_layer: 21
+
+generation:
+  max_new_tokens: 256
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.9
+
+data:
+  prompt_dataset: HuggingFaceH4/ultrafeedback_binarized
+  prompt_split: train_prefs
+  prompt_field: prompt
+
+seed: 0
