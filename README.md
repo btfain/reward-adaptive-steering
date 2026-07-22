@@ -17,19 +17,21 @@ reviewed green.
 
 ```bash
 ssh NETID@login.cs.duke.edu
-git clone git@github.com:btfain/reward-adaptive-steering.git && cd reward-adaptive-steering
-bash scripts/cluster_setup.sh          # one-time; set SCRATCH_DIR if not /usr/xtmp/$USER
+git clone https://github.com/btfain/reward-adaptive-steering.git && cd reward-adaptive-steering
+sinfo -p compsci-gpu -o "%N %G %f"     # pre-flight: confirm a5000/a6000/v100 features exist
+bash scripts/cluster_setup.sh          # one-time; auto-picks /usr/xtmp/$USER or ~/scratch
 sbatch scripts/stageA_compliance.sbatch
-# review data/compliance/*.md + results/, commit & push, get gate sign-off, then:
+# review data/compliance/*.md + results/, push back (see below), get gate sign-off, then:
 sbatch scripts/stageA_full.sbatch
 ```
 
-Jobs target `-p compsci-gpu --gres=gpu:1 --constraint="a5000|a6000"` (Ampere
-for bf16; the code falls back to fp32 on older GPUs if you drop the
-constraint). The repo is private, so the cluster needs a GitHub credential to
-clone/push — an SSH deploy key or `gh auth login` on the login node. Artifacts
-and `results/cost_log.jsonl` (measured cost — GPU type, wall-clock, memory)
-travel back through git: commit and push them from the cluster after each job.
+Jobs target `-p compsci-gpu --gres=gpu:1 --constraint="a5000|a6000|v100"`
+(Ampere preferred for bf16; the code falls back to fp32 on non-Ampere GPUs —
+drop the constraint only for a >= 16GB card). The repo is public, so cloning
+needs no credential; pushing results back does — easiest is `gh auth login`
+(device flow) once on the login node, or `scp` the artifact dirs to your Mac
+instead. Artifacts and `results/cost_log.jsonl` (measured cost — GPU type,
+wall-clock, memory) travel back through git after each job.
 
 ## Local (Mac) notes
 

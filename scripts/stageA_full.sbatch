@@ -2,7 +2,7 @@
 #SBATCH --job-name=aeA-full
 #SBATCH --partition=compsci-gpu
 #SBATCH --gres=gpu:1
-#SBATCH --constraint="a5000|a6000"
+#SBATCH --constraint="a5000|a6000|v100"
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=24G
 #SBATCH --time=12:00:00

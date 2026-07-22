@@ -4,7 +4,16 @@
 # Miniconda if the system python3 is too old for torch (needs >= 3.10).
 set -euo pipefail
 
-SCRATCH_DIR="${SCRATCH_DIR:-/usr/xtmp/$USER}"   # EDIT if your scratch lives elsewhere
+# Prefer /usr/xtmp scratch if it exists (keeps ~5GB HF cache off home quota);
+# otherwise fall back to home. Override by exporting SCRATCH_DIR beforehand.
+if [ -z "${SCRATCH_DIR:-}" ]; then
+    if [ -d "/usr/xtmp/$USER" ] || mkdir -p "/usr/xtmp/$USER" 2>/dev/null; then
+        SCRATCH_DIR="/usr/xtmp/$USER"
+    else
+        SCRATCH_DIR="$HOME/scratch"
+    fi
+fi
+echo "using scratch: $SCRATCH_DIR"
 
 PYV=$(python3 -c 'import sys; print(sys.version_info[0]*100+sys.version_info[1])' || echo 0)
 if [ "$PYV" -lt 310 ]; then
