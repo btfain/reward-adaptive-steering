@@ -1,0 +1,81 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+device=cuda
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  61%|██████    | 132/218 [00:00<00:00, 1209.04it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 1109.93it/s]
+base=HuggingFaceTB/SmolLM2-1.7B-Instruct layers=24 hidden=2048
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  58%|█████▊    | 180/311 [00:00<00:00, 1700.60it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1794.57it/s]
+rm=Skywork/Skywork-Reward-V2-Qwen3-0.6B
+
+--- prompt 1 ---
+tell me about the company Leia Inc
+--- response (rm=0.404) ---
+Leia Inc. is a multinational technology company that specializes in the development and commercialization of software products. The company was founded in 1982 and is headquartered in San Jose, California, United States.
+
+Leia Inc. is known for developing software for managing and analyzing large amounts of data, including data from various industries such as healthcare, finance, and government. T
+
+--- prompt 2 ---
+does meat needs eat eagles
+--- response (rm=0.214) ---
+No, meat does not need to eat eagles. As a matter of fact, eagles are carnivorous birds and their diet primarily consists of meat, such as small mammals, reptiles, and birds. They also consume carrion, which is dead or decaying flesh. However, meat is not essential for their survival and they can also consume insects, fruits, and vegetation.
+
+--- prompt 3 ---
+What is the advantage of separable filters?
+--- response (rm=0.660) ---
+Separable filters are a type of convolutional neural network (CNN) filter that can be divided into two parts: a local filter and a global filter. The local filter is applied to small parts of the input data, and the global filter is applied to the output of the local filters to produce the final output.
+
+The advantage of separable filters is that they can be more efficient in terms of computation 
+
+--- prompt 4 ---
+Teacher:You are given a sentence in Galician. Your job is to translate the Galician sentence into Portugese.
+Teacher: Now, understand the problem? Solve this instance: E non é só a visión dos científi
+--- response (rm=-1.047) ---
+E não é só a visão dos científicos sociais.
+
+--- prompt 5 ---
+Does basel accord count deferred revenue in capital?
+--- response (rm=1.867) ---
+As an AI, I don't have real-time data or the ability to access current financial regulations. However, as of my last training data in 2021, the Basel Accords do consider deferred revenue, which includes deferred income and other non-current revenues, as part of a bank's capital. This is done to ensure that banks have sufficient capital to absorb potential losses. However, the specifics can vary de
+
+hook check: zero-vector no-op OK, random-vector perturbs OK
+
+rm scores: [0.404, 0.214, 0.66, -1.047, 1.867]
+{'ts': '2026-07-22T13:46:16', 'stage': 'A', 'event': 'smoke_test', 'wall_s': 39.88, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 4.701, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+/home/users/btf12/reward-adaptive-steering/data/prompts.json exists, skipping
+{'ts': '2026-07-22T13:46:25', 'stage': 'A', 'event': 'basis_prompts', 'wall_s': 0.16, 'peak_rss_gb': 0.001, 'mps_driver_gb': None, 'cuda_peak_gb': 0.0, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 2691.09it/s]
+  challenge_accommodate: 8/20 prompts
+  challenge_accommodate: 16/20 prompts
+  challenge_accommodate: 20/20 prompts
+  hedge_assert: 8/20 prompts
+  hedge_assert: 16/20 prompts
+  hedge_assert: 20/20 prompts
+  elaborate_concise: 8/20 prompts
+  elaborate_concise: 16/20 prompts
+  elaborate_concise: 20/20 prompts
+  formal_casual: 8/20 prompts
+  formal_casual: 16/20 prompts
+  formal_casual: 20/20 prompts
+  cautious_direct: 8/20 prompts
+  cautious_direct: 16/20 prompts
+  cautious_direct: 20/20 prompts
+  warm_neutral: 8/20 prompts
+  warm_neutral: 16/20 prompts
+  warm_neutral: 20/20 prompts
+  inquire_proceed: 8/20 prompts
+  inquire_proceed: 16/20 prompts
+  inquire_proceed: 20/20 prompts
+| axis | mean proxy (pos) | mean proxy (neg) | separation ok? |
+|---|---|---|---|
+| challenge_accommodate | 0.31 | -0.10 | YES |
+| hedge_assert | 1.39 | 0.08 | YES |
+| elaborate_concise | 151.75 | 25.80 | YES |
+| formal_casual | -0.36 | -6.89 | YES |
+| cautious_direct | 0.75 | 0.03 | YES |
+| warm_neutral | 0.64 | 0.14 | YES |
+| inquire_proceed | 0.13 | 0.00 | YES |
+
+sample sheet -> /home/users/btf12/reward-adaptive-steering/data/compliance/samples.md
+{'ts': '2026-07-22T13:49:14', 'stage': 'A', 'event': 'basis_compliance', 'wall_s': 161.01, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.986, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push data/compliance/ + results/ for review before submitting stageA_full
