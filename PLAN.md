@@ -19,7 +19,7 @@ cost**, with an **interpretable** action.
 
 | Component | Default |
 |---|---|
-| Base model | `SmolLM2-360M-Instruct` (bump to 1.7B or Gemma-3-2B only if the basis won't steer at 360M) |
+| Base model | `SmolLM2-1.7B-Instruct` — escalated from 360M on 2026-07-22: 360M failed Stage A pole compliance on cautious_direct and inquire_proceed under two instruction strengths (evidence in `data/compliance/`). Runs on university SLURM cluster; 360M-era code unchanged. |
 | Reward model | `Skywork/Skywork-Reward-V2-Qwen3-0.6B` (pinned 2026-07-22; fallback if unworkable locally: `OpenAssistant/reward-model-deberta-v3-large-v2`). Scores (prompt, response) text directly, so base-tokenizer compatibility is a non-issue. Treated as GIVEN. |
 | Prompt dataset | UltraFeedback prompts (prompts only — completions are generated, stored responses unused) |
 | Steering basis k | k = 7 named axes: challenge/accommodate, hedge/assert, concise/elaborate, formal/casual, cautious/direct, warm/neutral, inquire/proceed (added 2026-07-22; expected reward profile flips between bandit and long-horizon settings — key Study 2 carry-over). Pre-registered collapse rule: merge a pair before Stage B if cosine ≥ 0.7 OR cross-steering fails (steering axis i moves axis j's proxy ≈ as much as its own); any collapse is reported before Stage B, not applied silently. |

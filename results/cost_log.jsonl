@@ -1,1 +1,4 @@
 {"ts": "2026-07-22T11:22:40", "stage": "A", "event": "smoke_test", "wall_s": 120.99, "peak_rss_gb": 1.345, "mps_driver_gb": 4.728, "device": "mps", "notes": ""}
+{"ts": "2026-07-22T11:35:33", "stage": "A", "event": "basis_prompts", "wall_s": 13.59, "peak_rss_gb": 0.711, "mps_driver_gb": 0.0, "device": "mps", "notes": ""}
+{"ts": "2026-07-22T11:52:18", "stage": "A", "event": "basis_compliance", "wall_s": 824.22, "peak_rss_gb": 1.177, "mps_driver_gb": 2.784, "device": "mps", "notes": ""}
+{"ts": "2026-07-22T11:58:51", "stage": "A", "event": "basis_compliance", "wall_s": 252.85, "peak_rss_gb": 1.321, "mps_driver_gb": 3.497, "device": "mps", "notes": ""}

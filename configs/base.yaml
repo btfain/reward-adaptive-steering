@@ -1,12 +1,15 @@
-base_model: HuggingFaceTB/SmolLM2-360M-Instruct
+# Escalated 360M -> 1.7B on 2026-07-22: 360M failed pole compliance on
+# cautious_direct and inquire_proceed under two instruction strengths (see
+# data/compliance/). Sanctioned escalation path per PLAN.md.
+base_model: HuggingFaceTB/SmolLM2-1.7B-Instruct
 reward_model: Skywork/Skywork-Reward-V2-Qwen3-0.6B
 
 device: auto        # resolves to mps > cuda > cpu
-dtype: float32      # MPS-safe; steering-vector arithmetic stays in fp32 everywhere
+dtype: auto         # bf16 on cuda, float32 elsewhere; vector arithmetic stays fp32
 
-# Residual-stream layer for extraction and steering (~2/3 depth of 32).
-# Stage A may sweep {16, 21, 26} if steering is weak — sweep before model-scale bump.
-steer_layer: 21
+# Residual-stream layer for extraction and steering (~2/3 depth of 24).
+# Stage A may sweep {12, 16, 20} if steering is weak — sweep before further scale bumps.
+steer_layer: 16
 
 generation:
   max_new_tokens: 256
