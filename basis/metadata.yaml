@@ -1,0 +1,17 @@
+axes:
+- challenge_accommodate
+- hedge_assert
+- elaborate_concise
+- formal_casual
+- cautious_direct
+- warm_neutral
+- inquire_proceed
+base_model: HuggingFaceTB/SmolLM2-1.7B-Instruct
+capture: teacher-forced, instruction-free context, mean over completion tokens
+capture_layers:
+- 12
+- 16
+- 20
+date: '2026-07-22'
+default_layer: 16
+n_train_prompts: 200

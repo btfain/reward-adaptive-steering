@@ -1,0 +1,199 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  56%|█████▋    | 123/218 [00:00<00:00, 1182.59it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 1379.85it/s]
+axis challenge_accommodate
+  challenge_accommodate: 8/200 prompts
+  challenge_accommodate: 16/200 prompts
+  challenge_accommodate: 24/200 prompts
+  challenge_accommodate: 32/200 prompts
+  challenge_accommodate: 40/200 prompts
+  challenge_accommodate: 48/200 prompts
+  challenge_accommodate: 56/200 prompts
+  challenge_accommodate: 64/200 prompts
+  challenge_accommodate: 72/200 prompts
+  challenge_accommodate: 80/200 prompts
+  challenge_accommodate: 88/200 prompts
+  challenge_accommodate: 96/200 prompts
+  challenge_accommodate: 104/200 prompts
+  challenge_accommodate: 112/200 prompts
+  challenge_accommodate: 120/200 prompts
+  challenge_accommodate: 128/200 prompts
+  challenge_accommodate: 136/200 prompts
+  challenge_accommodate: 144/200 prompts
+  challenge_accommodate: 152/200 prompts
+  challenge_accommodate: 160/200 prompts
+  challenge_accommodate: 168/200 prompts
+  challenge_accommodate: 176/200 prompts
+  challenge_accommodate: 184/200 prompts
+  challenge_accommodate: 192/200 prompts
+  challenge_accommodate: 200/200 prompts
+axis hedge_assert
+  hedge_assert: 8/200 prompts
+  hedge_assert: 16/200 prompts
+  hedge_assert: 24/200 prompts
+  hedge_assert: 32/200 prompts
+  hedge_assert: 40/200 prompts
+  hedge_assert: 48/200 prompts
+  hedge_assert: 56/200 prompts
+  hedge_assert: 64/200 prompts
+  hedge_assert: 72/200 prompts
+  hedge_assert: 80/200 prompts
+  hedge_assert: 88/200 prompts
+  hedge_assert: 96/200 prompts
+  hedge_assert: 104/200 prompts
+  hedge_assert: 112/200 prompts
+  hedge_assert: 120/200 prompts
+  hedge_assert: 128/200 prompts
+  hedge_assert: 136/200 prompts
+  hedge_assert: 144/200 prompts
+  hedge_assert: 152/200 prompts
+  hedge_assert: 160/200 prompts
+  hedge_assert: 168/200 prompts
+  hedge_assert: 176/200 prompts
+  hedge_assert: 184/200 prompts
+  hedge_assert: 192/200 prompts
+  hedge_assert: 200/200 prompts
+axis elaborate_concise
+  elaborate_concise: 8/200 prompts
+  elaborate_concise: 16/200 prompts
+  elaborate_concise: 24/200 prompts
+  elaborate_concise: 32/200 prompts
+  elaborate_concise: 40/200 prompts
+  elaborate_concise: 48/200 prompts
+  elaborate_concise: 56/200 prompts
+  elaborate_concise: 64/200 prompts
+  elaborate_concise: 72/200 prompts
+  elaborate_concise: 80/200 prompts
+  elaborate_concise: 88/200 prompts
+  elaborate_concise: 96/200 prompts
+  elaborate_concise: 104/200 prompts
+  elaborate_concise: 112/200 prompts
+  elaborate_concise: 120/200 prompts
+  elaborate_concise: 128/200 prompts
+  elaborate_concise: 136/200 prompts
+  elaborate_concise: 144/200 prompts
+  elaborate_concise: 152/200 prompts
+  elaborate_concise: 160/200 prompts
+  elaborate_concise: 168/200 prompts
+  elaborate_concise: 176/200 prompts
+  elaborate_concise: 184/200 prompts
+  elaborate_concise: 192/200 prompts
+  elaborate_concise: 200/200 prompts
+axis formal_casual
+  formal_casual: 8/200 prompts
+  formal_casual: 16/200 prompts
+  formal_casual: 24/200 prompts
+  formal_casual: 32/200 prompts
+  formal_casual: 40/200 prompts
+  formal_casual: 48/200 prompts
+  formal_casual: 56/200 prompts
+  formal_casual: 64/200 prompts
+  formal_casual: 72/200 prompts
+  formal_casual: 80/200 prompts
+  formal_casual: 88/200 prompts
+  formal_casual: 96/200 prompts
+  formal_casual: 104/200 prompts
+  formal_casual: 112/200 prompts
+  formal_casual: 120/200 prompts
+  formal_casual: 128/200 prompts
+  formal_casual: 136/200 prompts
+  formal_casual: 144/200 prompts
+  formal_casual: 152/200 prompts
+  formal_casual: 160/200 prompts
+  formal_casual: 168/200 prompts
+  formal_casual: 176/200 prompts
+  formal_casual: 184/200 prompts
+  formal_casual: 192/200 prompts
+  formal_casual: 200/200 prompts
+axis cautious_direct
+  cautious_direct: 8/200 prompts
+  cautious_direct: 16/200 prompts
+  cautious_direct: 24/200 prompts
+  cautious_direct: 32/200 prompts
+  cautious_direct: 40/200 prompts
+  cautious_direct: 48/200 prompts
+  cautious_direct: 56/200 prompts
+  cautious_direct: 64/200 prompts
+  cautious_direct: 72/200 prompts
+  cautious_direct: 80/200 prompts
+  cautious_direct: 88/200 prompts
+  cautious_direct: 96/200 prompts
+  cautious_direct: 104/200 prompts
+  cautious_direct: 112/200 prompts
+  cautious_direct: 120/200 prompts
+  cautious_direct: 128/200 prompts
+  cautious_direct: 136/200 prompts
+  cautious_direct: 144/200 prompts
+  cautious_direct: 152/200 prompts
+  cautious_direct: 160/200 prompts
+  cautious_direct: 168/200 prompts
+  cautious_direct: 176/200 prompts
+  cautious_direct: 184/200 prompts
+  cautious_direct: 192/200 prompts
+  cautious_direct: 200/200 prompts
+axis warm_neutral
+  warm_neutral: 8/200 prompts
+  warm_neutral: 16/200 prompts
+  warm_neutral: 24/200 prompts
+  warm_neutral: 32/200 prompts
+  warm_neutral: 40/200 prompts
+  warm_neutral: 48/200 prompts
+  warm_neutral: 56/200 prompts
+  warm_neutral: 64/200 prompts
+  warm_neutral: 72/200 prompts
+  warm_neutral: 80/200 prompts
+  warm_neutral: 88/200 prompts
+  warm_neutral: 96/200 prompts
+  warm_neutral: 104/200 prompts
+  warm_neutral: 112/200 prompts
+  warm_neutral: 120/200 prompts
+  warm_neutral: 128/200 prompts
+  warm_neutral: 136/200 prompts
+  warm_neutral: 144/200 prompts
+  warm_neutral: 152/200 prompts
+  warm_neutral: 160/200 prompts
+  warm_neutral: 168/200 prompts
+  warm_neutral: 176/200 prompts
+  warm_neutral: 184/200 prompts
+  warm_neutral: 192/200 prompts
+  warm_neutral: 200/200 prompts
+axis inquire_proceed
+  inquire_proceed: 8/200 prompts
+  inquire_proceed: 16/200 prompts
+  inquire_proceed: 24/200 prompts
+  inquire_proceed: 32/200 prompts
+  inquire_proceed: 40/200 prompts
+  inquire_proceed: 48/200 prompts
+  inquire_proceed: 56/200 prompts
+  inquire_proceed: 64/200 prompts
+  inquire_proceed: 72/200 prompts
+  inquire_proceed: 80/200 prompts
+  inquire_proceed: 88/200 prompts
+  inquire_proceed: 96/200 prompts
+  inquire_proceed: 104/200 prompts
+  inquire_proceed: 112/200 prompts
+  inquire_proceed: 120/200 prompts
+  inquire_proceed: 128/200 prompts
+  inquire_proceed: 136/200 prompts
+  inquire_proceed: 144/200 prompts
+  inquire_proceed: 152/200 prompts
+  inquire_proceed: 160/200 prompts
+  inquire_proceed: 168/200 prompts
+  inquire_proceed: 176/200 prompts
+  inquire_proceed: 184/200 prompts
+  inquire_proceed: 192/200 prompts
+  inquire_proceed: 200/200 prompts
+{'ts': '2026-07-22T14:29:19', 'stage': 'A', 'event': 'basis_generate', 'wall_s': 1362.51, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 4.772, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 2656.43it/s]
+challenge_accommodate: pairs used=200/200 proxy pos=0.43 neg=-0.02
+hedge_assert: pairs used=200/200 proxy pos=1.24 neg=0.16
+elaborate_concise: pairs used=200/200 proxy pos=146.00 neg=26.47
+formal_casual: pairs used=200/200 proxy pos=-0.50 neg=-5.26
+cautious_direct: pairs used=200/200 proxy pos=0.78 neg=0.04
+warm_neutral: pairs used=200/200 proxy pos=1.11 neg=0.16
+inquire_proceed: pairs used=106/200 proxy pos=3.00 neg=0.11
+basis -> /home/users/btf12/reward-adaptive-steering/basis/axes.npz; report -> /home/users/btf12/reward-adaptive-steering/basis/extraction_report.md
+{'ts': '2026-07-22T14:30:32', 'stage': 'A', 'event': 'basis_extract', 'wall_s': 64.76, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.724, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push data/pairs/, basis/, results/ for review
