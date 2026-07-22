@@ -1,0 +1,43 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/cuda/__init__.py:422: UserWarning: Found GPU0 Tesla P100-PCIE-12GB which is of compute capability (CC) 6.0.
+The following list shows the CCs this version of PyTorch was built for and the hardware CCs it supports:
+- 7.5 which supports hardware CC >=7.5,<8.0
+- 8.0 which supports hardware CC >=8.0,<9.0 except {8.7}
+- 8.6 which supports hardware CC >=8.6,<9.0 except {8.7}
+- 9.0 which supports hardware CC >=9.0,<10.0
+- 10.0 which supports hardware CC >=10.0,<11.0 except {10.1}
+- 12.0 which supports hardware CC >=12.0,<13.0
+Your installed torch==2.13.0+cu130 does not include kernels for this GPU. Reinstall the same version against a CUDA build that does, e.g.:
+  For CUDA 12.6 use pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cu126
+  _warn_unsupported_code(d, device_cc, code_ccs)
+/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/cuda/__init__.py:540: UserWarning: 
+Tesla P100-PCIE-12GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.
+If you want to use the Tesla P100-PCIE-12GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  queued_call()
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+device=cuda
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  46%|████▋     | 101/218 [00:00<00:00, 943.92it/s]Loading weights:  90%|████████▉ | 196/218 [00:00<00:00, 451.21it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 476.92it/s]
+base=HuggingFaceTB/SmolLM2-1.7B-Instruct layers=24 hidden=2048
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   6%|▌         | 18/311 [00:00<00:04, 59.88it/s]Loading weights:  18%|█▊        | 57/311 [00:00<00:01, 158.94it/s]Loading weights:  36%|███▌      | 111/311 [00:00<00:00, 273.30it/s]Loading weights:  50%|████▉     | 154/311 [00:00<00:00, 315.31it/s]Loading weights:  62%|██████▏   | 193/311 [00:00<00:00, 186.99it/s]Loading weights:  75%|███████▍  | 233/311 [00:01<00:00, 227.14it/s]Loading weights:  87%|████████▋ | 271/311 [00:01<00:00, 254.29it/s]Loading weights: 100%|██████████| 311/311 [00:01<00:00, 244.76it/s]
+rm=Skywork/Skywork-Reward-V2-Qwen3-0.6B
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/smoke_test.py", line 83, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/smoke_test.py", line 52, in main
+    response = generate(model, tok, prompt, cfg)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/src/models.py", line 103, in generate
+    out = model.generate(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/generation/utils.py", line 2537, in generate
+    self._prepare_special_tokens(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/generation/utils.py", line 2107, in _prepare_special_tokens
+    if eos_token_tensor is not None and torch.isin(eos_token_tensor, pad_token_tensor).any():
+torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+For more detailed error information, run with CUDA_LOG_FILE=stderr
+
