@@ -60,13 +60,11 @@ def _rate(text, lexicon):
 
 
 def _question_count(text):
-    """Sentences ending in '?' that address the user in second person."""
+    """Sentences ending in '?'. (v2 required second-person wording, which
+    undercounted real clarifying questions like 'What is the company's
+    industry?' — dropped 2026-07-22.)"""
     sentences = re.split(r"(?<=[.!?])\s+", text)
-    return sum(
-        1
-        for s in sentences
-        if s.rstrip().endswith("?") and re.search(r"\byou\b|\byour\b", s.lower())
-    )
+    return sum(1 for s in sentences if s.rstrip().endswith("?"))
 
 
 def challenge_accommodate(text):
@@ -99,6 +97,14 @@ def warm_neutral(text):
 def inquire_proceed(text):
     return 100.0 * _question_count(text) / _words(text)
 
+
+# Per-axis pair filters for extraction (option 1, approved 2026-07-22): keep
+# only pairs where the pos completion exhibits the behavior at all. Both poles
+# of a retained pair enter the mean difference, so the contrast stays matched.
+PAIR_FILTERS = {
+    "inquire_proceed": lambda pos_completion: "?" in pos_completion,
+}
+MIN_RETAINED_PAIRS = 40  # pre-registered floor; below this, stop and rebrief
 
 PROXIES = {
     "challenge_accommodate": challenge_accommodate,

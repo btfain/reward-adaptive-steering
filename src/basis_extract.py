@@ -29,7 +29,7 @@ from models import (
     mean_completion_activations,
     resolve_device,
 )
-from proxies import PROXIES
+from proxies import MIN_RETAINED_PAIRS, PAIR_FILTERS, PROXIES
 
 DATA = REPO_ROOT / "data"
 BASIS = REPO_ROOT / "basis"
@@ -178,24 +178,43 @@ def phase_extract(cfg, bcfg, model, tok):
                 f"{name}: pair file contains records from {stale}, "
                 f"expected {cfg['base_model']} — regenerate before extracting"
             )
-        sums = {(pole, layer): None for pole in ("pos", "neg") for layer in layers}
-        counts = {"pos": 0, "neg": 0}
+        # Pair completions by prompt; apply the axis's pair filter if any
+        # (keep only pairs where the pos pole exhibits the behavior at all).
+        by_prompt = {}
         for r in rows:
-            if not r["completion"].strip():
-                continue
-            acts = mean_completion_activations(
-                model, tok, r["prompt"], r["completion"], layers
-            )
-            counts[r["pole"]] += 1
-            for layer in layers:
-                key = (r["pole"], layer)
-                sums[key] = acts[layer] if sums[key] is None else sums[key] + acts[layer]
+            if r["completion"].strip():
+                by_prompt.setdefault(r["prompt"], {})[r["pole"]] = r["completion"]
+        pairs = [
+            (p, d["pos"], d["neg"])
+            for p, d in by_prompt.items()
+            if "pos" in d and "neg" in d
+        ]
+        n_total = len(pairs)
+        pair_filter = PAIR_FILTERS.get(name)
+        if pair_filter:
+            pairs = [t for t in pairs if pair_filter(t[1])]
+            if len(pairs) < MIN_RETAINED_PAIRS:
+                raise RuntimeError(
+                    f"{name}: only {len(pairs)}/{n_total} pairs pass the pair "
+                    f"filter (pre-registered floor {MIN_RETAINED_PAIRS}) — "
+                    f"stop and rebrief before extracting"
+                )
+        sums = {(pole, layer): None for pole in ("pos", "neg") for layer in layers}
+        for prompt, pos_c, neg_c in pairs:
+            for pole, completion in (("pos", pos_c), ("neg", neg_c)):
+                acts = mean_completion_activations(
+                    model, tok, prompt, completion, layers
+                )
+                for layer in layers:
+                    key = (pole, layer)
+                    sums[key] = acts[layer] if sums[key] is None else sums[key] + acts[layer]
+        n = len(pairs)
         for layer in layers:
-            diff = sums[("pos", layer)] / counts["pos"] - sums[("neg", layer)] / counts["neg"]
+            diff = sums[("pos", layer)] / n - sums[("neg", layer)] / n
             vectors[(name, layer)] = (diff / diff.norm()).numpy()
         mp, mn, _ = _proxy_summary(DATA / "pairs" / f"{name}.jsonl")
-        per_axis_stats.append((name, counts["pos"], counts["neg"], mp, mn))
-        print(f"{name}: n={counts} proxy pos={mp:.2f} neg={mn:.2f}")
+        per_axis_stats.append((name, n, n_total, mp, mn))
+        print(f"{name}: pairs used={n}/{n_total} proxy pos={mp:.2f} neg={mn:.2f}")
 
     np.savez(
         BASIS / "axes.npz",
@@ -203,10 +222,10 @@ def phase_extract(cfg, bcfg, model, tok):
     )
     axis_names = [a["name"] for a in bcfg["axes"]]
     report = ["# Basis extraction report\n"]
-    report.append("| axis | n_pos | n_neg | proxy pos | proxy neg |")
+    report.append("| axis | pairs used | pairs total | proxy pos | proxy neg |")
     report.append("|---|---|---|---|---|")
-    for name, npos, nneg, mp, mn in per_axis_stats:
-        report.append(f"| {name} | {npos} | {nneg} | {mp:.2f} | {mn:.2f} |")
+    for name, used, total, mp, mn in per_axis_stats:
+        report.append(f"| {name} | {used} | {total} | {mp:.2f} | {mn:.2f} |")
     for layer in layers:
         mat = np.stack([vectors[(n, layer)] for n in axis_names])
         cos = mat @ mat.T
