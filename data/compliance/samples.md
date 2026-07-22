@@ -4,9 +4,9 @@
 | hedge_assert | 0.13 | 0.00 | YES |
 | elaborate_concise | 141.75 | 22.10 | YES |
 | formal_casual | -0.48 | -2.68 | YES |
-| cautious_direct | 0.12 | 0.40 | NO |
+| cautious_direct | 0.17 | 0.22 | NO |
 | warm_neutral | 0.19 | 0.27 | NO |
-| inquire_proceed | 0.05 | 0.00 | YES |
+| inquire_proceed | 0.00 | 0.05 | NO |
 
 # Pole-compliance check (instructed generations, no steering)
 
@@ -134,34 +134,34 @@ Secondly Theological scholars have used separable filters to identify specific a
 ## cautious_direct  (pos=cautious, neg=direct)
 
 **[cautious]** tell me about the company Leia Inc
-> Leia Inc. is a small but highly respected company that specializes in the development of innovative, high-performance, and high-tech solutions for various industries. Founded by visionary entrepreneurs, Leia Inc. has achieved significant milestones in its early stages, leveraging cutting-edge technologies to create products that address pressing needs and drive business growth.
+> Leia Inc. is a company that specializes in providing high-quality, eco-friendly productsmetal. The company is headquartered in a state-of-the-art facility in a major city, and its products are designed to meet the growing demand for sustainable and environmentally conscious products.
 
-As a pioneer in the field of additive manufacturing, Leia Inc. has developed and commercialized a range of innovative 
+The company is a subsidiary of the well-known company, GreenTech, which is known for its commitment to environmental sustainability and eco-friendly practices. Leia Inc. is a dedicated partner of GreenTech, and its
 
 **[cautious]** does meat needs eat eagles
-> While many species of eagles do eat meat, the exact diet can vary greatly depending on the species, age, location, and time of year. Eagles are opportunistic predators, meaning they eat whatever they can catch, which can include small mammals, reptiles, amphibians, fish, birds, and even carrion.
+> While it's true that eagles do need a diet of fish, meat is not a necessary component for their survival. They are apex predators, meaning they play a crucial role in maintaining the balance of their ecosystems. However, if you're interested in learning more about the diet of eagles, you might find the following information helpful:
 
-In general, eagles tend to prefer meat that is high in protein, such as roadkill, carrion, or bird carcasses. However, they are also known to eat fish, which they can catch from the water or from the gr
+Eagles are opportunistic omnivores, which means they eat a variety of foods, including fish, carrion, berries, nuts, and insects. However, their primary diet consis
 
 **[cautious]** What is the advantage of separable filters?
-> Separable filters offer several advantages in data analysis and processing:
+> Separable filters offer several advantages in signal processing:
 
-1. **Simplified processing**: By separating the data into two or more filters, you can perform different tasks on each filter independently, making the overall processing more efficient.
+1. **Simplified analysis and design**: Separable filters allow for simpler analysis and design, as the filter's frequency response can be easily understood and optimized.
 
-2. **Improved data quality**: By separating data, you can detect and correct errors more easily, as the noisy data is isolated from the cleaner data.
+2. **Improved frequency selectivity**: Separable filters can provide better frequency selectivity, allowing for more precise filtering and reducing the need for complex frequency-selective designs.
 
-3. **Efficient processing**: Separable filters allow you to perform multiple operati
+3. **Enhanced robustness**: Separable filters are more robust a
 
 **[direct]** tell me about the company Leia Inc
-> Leia Inc is a company that specializes in designing and developing innovative, eco-friendly, and environmentally conscious products and services. Their mission is to create sustainable solutions that benefit the planet while also providing value to their customers.
+> Leia Inc. is a software development company founded in 2020. Their primary product is a cloud-based platform designed for businesses and organizations looking to streamline their IT operations, reduce costs, and improve efficiency. The platform is known for its scalability, reliability, and ease of use.
 
-Leia Inc offers a wide range of products and services, including sustainable fashion, sustainable construction materials, and environmentally friendly home and garden products. They also offer services such as carbon offsetting, wast
+The company's flagship product is a cloud-based platform called "Elevate," which is used by numerous companies worldwide. Elevate is a self-service platform that provides businesses with a unifi
 
 **[direct]** does meat needs eat eagles
-> No information is available about the nutritional needs of eagles. Please consult a veterinarian or a nutritionist for accurate advice.
+> no
 
 **[direct]** What is the advantage of separable filters?
-> Separable filters are filters that can be implemented in hardware using a single stage. They are particularly useful when the input signal has a frequency response that is separable into two distinct frequency bands, allowing for efficient filtering of the signal.
+> Separable filters are a type of filter used in audio processing. They can separate the frequency components of an audio signal into two separate signals, allowing for easier processing and analysis of the audio.
 
 
 ## warm_neutral  (pos=warm, neg=neutral)
@@ -194,25 +194,25 @@ The main advantages
 ## inquire_proceed  (pos=inquire, neg=proceed)
 
 **[inquire]** tell me about the company Leia Inc
-> Leia Inc. is a mid-sized, boutique tech company specializing in innovative solutions for the healthcare industry. They have a focus on developing cutting-edge technologies to improve patient outcomes, streamline healthcare delivery, and reduce healthcare costs.
+> Leia Inc. is a marketing firm that specializes in creating effective campaigns to promote various products, services, and brands. The company is known for its innovative approach to marketing, focusing on understanding the unique needs and preferences of its target audience.
 
-Leia Inc.'s primary product is a cloud-based, AI-powered platform that enables healthcare providers to remotely monitor patients' vital signs, track disease patterns, and provide personalized treatment plans. The platform also offers adv
+Leia Inc. prides itself on its ability to deliver personalized marketing strategies tailored to each client's specific goals and preferences. The company's team of marketing experts is comprised of seasoned professionals wh
 
 **[inquire]** does meat needs eat eagles
-> I'm currently unable to provide specific information about the nutritional needs of eagles, as that information would require a detailed analysis of their diet and physiology. My primary function is to assist in understanding the general health and well-being of animals, including their nutritional requirements. I would need to receive additional information about the diet and behavior of eagles to provide a more accurate assessment.
+> I don't have information about the nutritional needs of eagles. I would need more context or information about eagles to provide a more accurate answer.
 
 **[inquire]** What is the advantage of separable filters?
-> The main advantage of separable filters is that they can be analyzed in two stages. In the first stage, a filter is applied to a signal to separate the different frequency components. In the second stage, the signal is analyzed to extract the individual frequency components. This separation of frequency components is essential for many applications, such as audio processing, image analysis, and telecommunications.
+> Separable filters have several advantages:
 
-Separable filters are particularly useful when the signal contains multiple frequ
+1. **Faster processing**: Separable filters can process data faster than non-separable filters, as they can perform the same operations in parallel. This results in faster response times and more efficient data processing.
+
+2. **Improved accuracy**: Separable filters can provide more accurate results than non-separable filters, as they can handle more complex data and patterns. This is particularly useful in applications where data is noisy or contains
 
 **[proceed]** tell me about the company Leia Inc
-> Leia Inc. is an American tech company that specializes in developing innovative and high-performance software solutions. They have a strong focus on data analytics and artificial intelligence, and their products are known for their cutting-edge features and user-friendly interfaces.
-
-As a result, Leia Inc. has gained a reputation for being a leader in its field, and its products are often used by top-tier organizations in the tech industry. They have a strong brand reputation and are known for t
+> Leia Inc. is a manufacturing company that specializes in producing high-quality, environmentally friendly, and sustainable products for various industries, including healthcare, automotive, and consumer goods. They have a strong focus on innovation, quality, and responsible sourcing.
 
 **[proceed]** does meat needs eat eagles
-> I don't have the ability to ask or answer questions outside of the context of the text. I'm a text-based model that can process and generate text based on the information provided. I don't have the capability to ask or answer questions outside of the context of the text. I'm designed to assist users by understanding and interpreting the information they provide, and I can help with general knowledge, provide information on specific topics, or offer suggestions based on context. I'm here to help 
+> I'm currently unable to provide specific information about meat and eagles due to the lack of relevant data and information. I recommend consulting a reliable source or seeking more information from a trusted authority to answer this question.
 
 **[proceed]** What is the advantage of separable filters?
-> Separable filters are filters that separate the signal into two components: the additive noise and the signal. The advantage of separable filters is that they allow you to remove the noise component while retaining the original signal. This is particularly useful in applications where you want to remove unwanted noise while preserving the information in the signal.
+> Separable filters are a type of filter that can be used to separate a signal into its individual frequency components. They are particularly useful in signal processing applications where the signal contains a mix of low-frequency and high-frequency components. The advantage of separable filters is that they can be used to remove the low-frequency components from a signal while retaining the high-frequency components, allowing the user to focus on the high-frequency components. This can be usefu

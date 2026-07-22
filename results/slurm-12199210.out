@@ -1,0 +1,41 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/cuda/__init__.py:422: UserWarning: Found GPU0 Tesla V100-PCIE-32GB which is of compute capability (CC) 7.0.
+The following list shows the CCs this version of PyTorch was built for and the hardware CCs it supports:
+- 7.5 which supports hardware CC >=7.5,<8.0
+- 8.0 which supports hardware CC >=8.0,<9.0 except {8.7}
+- 8.6 which supports hardware CC >=8.6,<9.0 except {8.7}
+- 9.0 which supports hardware CC >=9.0,<10.0
+- 10.0 which supports hardware CC >=10.0,<11.0 except {10.1}
+- 12.0 which supports hardware CC >=12.0,<13.0
+Your installed torch==2.13.0+cu130 does not include kernels for this GPU. Reinstall the same version against a CUDA build that does, e.g.:
+  For CUDA 12.6 use pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cu126
+  _warn_unsupported_code(d, device_cc, code_ccs)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+device=cuda
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  59%|█████▊    | 128/218 [00:00<00:00, 1175.85it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 1036.04it/s]
+base=HuggingFaceTB/SmolLM2-1.7B-Instruct layers=24 hidden=2048
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  41%|████      | 126/311 [00:00<00:00, 1224.67it/s]Loading weights:  80%|████████  | 249/311 [00:00<00:00, 916.20it/s] Loading weights: 100%|██████████| 311/311 [00:00<00:00, 941.84it/s]
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+Retrying in 1s [Retry 1/5].
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+Retrying in 2s [Retry 2/5].
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+Retrying in 4s [Retry 3/5].
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+Retrying in 8s [Retry 4/5].
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+Retrying in 8s [Retry 5/5].
+HTTP Error 503 thrown while requesting HEAD https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized/resolve/main/README.md
+rm=Skywork/Skywork-Reward-V2-Qwen3-0.6B
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/smoke_test.py", line 75, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/smoke_test.py", line 39, in main
+    stream = load_dataset(d["prompt_dataset"], split=d["prompt_split"], streaming=True)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/datasets/load.py", line 1698, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/datasets/load.py", line 1325, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/datasets/load.py", line 1213, in dataset_module_factory
+    raise FileNotFoundError(
+FileNotFoundError: Couldn't find any data file at /home/users/btf12/reward-adaptive-steering/HuggingFaceH4/ultrafeedback_binarized. Couldn't find 'HuggingFaceH4/ultrafeedback_binarized' on the Hugging Face Hub either: LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
