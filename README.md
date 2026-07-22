@@ -25,9 +25,10 @@ sbatch scripts/stageA_compliance.sbatch
 sbatch scripts/stageA_full.sbatch
 ```
 
-Jobs pin the GPU type in the gres (`--gres=gpu:a5000:1`) — node-feature
-(Ampere preferred for bf16; the code falls back to fp32 on non-Ampere GPUs —
-drop the constraint only for a >= 16GB card). The repo is public, so cloning
+Jobs pin the GPU type in the gres (`-p compsci-gpu --gres=gpu:a5000:1`).
+Do not select GPUs with `--constraint`: mixed p100+a5000 nodes satisfy the
+node feature but can allocate the P100, which modern torch kernels no longer
+support (this happened; see slurm-12199390). The repo is public, so cloning
 needs no credential; pushing results back does — easiest is `gh auth login`
 (device flow) once on the login node, or `scp` the artifact dirs to your Mac
 instead. Artifacts and `results/cost_log.jsonl` (measured cost — GPU type,
