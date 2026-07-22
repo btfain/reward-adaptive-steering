@@ -1,0 +1,51 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  24%|██▍       | 53/218 [00:00<00:00, 498.60it/s]Loading weights:  47%|████▋     | 103/218 [00:00<00:00, 408.70it/s]Loading weights:  67%|██████▋   | 145/218 [00:00<00:00, 375.96it/s]Loading weights:  84%|████████▍ | 184/218 [00:00<00:00, 347.17it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 385.12it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  10%|▉         | 31/311 [00:00<00:00, 284.98it/s]Loading weights:  27%|██▋       | 85/311 [00:00<00:00, 403.66it/s]Loading weights:  44%|████▍     | 137/311 [00:00<00:00, 439.43it/s]Loading weights:  59%|█████▉    | 183/311 [00:00<00:00, 429.50it/s]Loading weights:  73%|███████▎  | 226/311 [00:00<00:00, 427.98it/s]Loading weights:  86%|████████▋ | 269/311 [00:00<00:00, 428.06it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 432.32it/s]
+reference residual norm at layer 16: 678.0
+baseline done
+  challenge_accommodate frac=-0.4 done
+  challenge_accommodate frac=-0.2 done
+  challenge_accommodate frac=-0.1 done
+  challenge_accommodate frac=0.1 done
+  challenge_accommodate frac=0.2 done
+  challenge_accommodate frac=0.4 done
+  hedge_assert frac=-0.4 done
+  hedge_assert frac=-0.2 done
+  hedge_assert frac=-0.1 done
+  hedge_assert frac=0.1 done
+  hedge_assert frac=0.2 done
+  hedge_assert frac=0.4 done
+  elaborate_concise frac=-0.4 done
+  elaborate_concise frac=-0.2 done
+  elaborate_concise frac=-0.1 done
+  elaborate_concise frac=0.1 done
+  elaborate_concise frac=0.2 done
+  elaborate_concise frac=0.4 done
+  formal_casual frac=-0.4 done
+  formal_casual frac=-0.2 done
+  formal_casual frac=-0.1 done
+  formal_casual frac=0.1 done
+  formal_casual frac=0.2 done
+  formal_casual frac=0.4 done
+  cautious_direct frac=-0.4 done
+  cautious_direct frac=-0.2 done
+  cautious_direct frac=-0.1 done
+  cautious_direct frac=0.1 done
+  cautious_direct frac=0.2 done
+  cautious_direct frac=0.4 done
+  warm_neutral frac=-0.4 done
+  warm_neutral frac=-0.2 done
+  warm_neutral frac=-0.1 done
+  warm_neutral frac=0.1 done
+  warm_neutral frac=0.2 done
+  warm_neutral frac=0.4 done
+  inquire_proceed frac=-0.4 done
+  inquire_proceed frac=-0.2 done
+  inquire_proceed frac=-0.1 done
+  inquire_proceed frac=0.1 done
+  inquire_proceed frac=0.2 done
+  inquire_proceed frac=0.4 done
+reports -> /home/users/btf12/reward-adaptive-steering/basis/sanity_report.md, /home/users/btf12/reward-adaptive-steering/basis/sanity_samples.md
+{'ts': '2026-07-22T16:53:15', 'stage': 'A', 'event': 'sanity_sweep', 'wall_s': 1424.63, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 5.25, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'layer=16 ref_norm=678.0'}
+DONE — commit and push results/sanity/, basis/, results/cost_log.jsonl
