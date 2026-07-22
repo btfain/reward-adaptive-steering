@@ -12,6 +12,7 @@ The cross-steering matrix is the second half of the pre-registered collapse
 rule (PLAN.md): steering axis i should move proxy i much more than proxy j.
 """
 
+import argparse
 import json
 import time
 
@@ -89,6 +90,10 @@ def run_condition(model, tok, rm, rm_tok, prompts, cfg, scfg, axis, vector, frac
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--redo", nargs="*", default=[],
+                        help="axis names whose sweep files should be regenerated")
+    args = parser.parse_args()
     t0 = time.time()
     cfg = load_config()
     bcfg = load_basis_config()
@@ -119,7 +124,10 @@ def main():
 
     for name in axis_names:
         path = OUT / f"{name}.jsonl"
-        if path.exists():
+        if path.exists() and name in args.redo:
+            path.rename(path.with_suffix(".old.jsonl.bak"))
+            print(f"{name}: --redo, regenerating (old file -> .old.jsonl.bak)")
+        elif path.exists():
             print(f"{name}: exists, skipping")
             continue
         vec = torch.tensor(axes[f"{name}|{layer}"])
@@ -162,7 +170,7 @@ def write_reports(bcfg, scfg, axis_names, layer, ref):
             words = np.mean([len(r["completion"].split()) for r in rows])
             report.append(f"| {frac:+.2f} | {own:.2f} | {rmv:.2f} | {words:.0f} |")
 
-    hi = max(scfg["alpha_fracs"])
+    hi = scfg.get("cross_frac", 0.2)
     report.append(
         f"\n## Cross-steering matrix (z-scored effect at alpha_frac ±{hi})\n"
     )

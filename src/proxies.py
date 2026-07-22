@@ -91,7 +91,10 @@ def cautious_direct(text):
 
 
 def warm_neutral(text):
-    return _rate(text, WARMTH) + 100.0 * text.count("!") / _words(text)
+    # '!' term removed 2026-07-22: exclamations also feed the casualness proxy,
+    # and the shared term manufactured spurious warm<->formal cross-steering.
+    # Exclamations stay with casualness (register), warmth is lexicon-only.
+    return _rate(text, WARMTH)
 
 
 def inquire_proceed(text):
@@ -103,6 +106,9 @@ def inquire_proceed(text):
 # of a retained pair enter the mean difference, so the contrast stays matched.
 PAIR_FILTERS = {
     "inquire_proceed": lambda pos_completion: "?" in pos_completion,
+    # added 2026-07-22 after challenge failed the cross-steering prong: keep
+    # only pairs whose challenge completion contains at least one pushback marker
+    "challenge_accommodate": lambda pos_completion: _rate(pos_completion, PUSHBACK) > 0,
 }
 MIN_RETAINED_PAIRS = 40  # pre-registered floor; below this, stop and rebrief
 

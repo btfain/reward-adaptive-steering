@@ -58,6 +58,8 @@ cost**, with an **interpretable** action.
 
 **GREEN when:** each axis produces a visible, monotone behavioral shift under ±α steering at the chosen scale. Validation is qualitative-first: per-axis side-by-side sample sheets are read (with user sign-off) BEFORE proxy tables are interpreted — proxies quantify monotonicity, they do not discover the effect. If not green, re-pick the layer first, then bump model scale, BEFORE continuing.
 
+**Stage A outcome (signed off 2026-07-22):** GREEN. All 7 axes monotone and qualitatively visible at |α| ≤ 0.2 of residual norm (ref 678, layer 16); ±0.4 degenerates text on every axis → later stages cap |α| ≤ 0.25. Collapse rule: the cosine prong triggered for hedge↔cautious (0.82) and hedge↔warm (0.74) but the cross-steering prong dissociates both (≥2:1 own-vs-other effects) — axes KEPT, an explicit documented deviation favoring the behavioral prong over the geometric one. challenge↔hedge failed cross-steering (+1.4 own vs +1.4 other); remedy: compliance-filtered pair extraction (83/200 retained, floor 40), re-extract + re-sanity that axis; drop to k=6 if still non-specific. Known residual: steering warm also casualizes (one-directional); warm proxy is warmth-lexicon-only (exclamations belong to the casualness proxy alone). Mild positive steering on cautious/elaborate (+0.1) already beats the unsteered baseline on RM reward.
+
 ### Stage B — Fixed-global-steering arm (end to end)
 4. Grid/opt search a single global action `a*` over the k-dim basis to maximize mean RM reward on a train split.
 5. Evaluate `a*` on held-out prompts; log reward, KL-to-base, diversity.
