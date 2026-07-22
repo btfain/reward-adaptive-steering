@@ -1,0 +1,20 @@
+# Stage B — fixed global steering search + evaluation.
+# The action is one alpha-fraction per active axis; the ADDED VECTOR's norm
+# (in units of the reference residual norm) is capped, since axes are not
+# orthogonal and the coefficient norm alone would understate real magnitude.
+
+search:
+  rounds: [40, 30, 30]     # candidates per CEM round
+  elite_frac: 0.25
+  train_subset: 60         # train prompts per candidate score
+  seed: 0
+  cap_combined_norm: 0.25  # anti-collapse cap from Stage A (text degenerates ~0.4)
+  init_std: 0.08
+  init_mean:               # biased toward the region Stage A flagged as promising
+    cautious_direct: 0.08
+    elaborate_concise: 0.08
+    inquire_proceed: -0.05
+
+eval:
+  gen_seeds: [0, 1]        # heldout eval repeated across sampling seeds
+  samples_sheet_n: 10
