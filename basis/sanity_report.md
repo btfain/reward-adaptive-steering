@@ -7,13 +7,13 @@ Own-proxy mean and RM mean vs alpha fraction, per axis:
 
 | alpha_frac | own proxy | RM | mean words |
 |---|---|---|---|
-| -0.40 | -0.41 | -10.48 | 44 |
-| -0.20 | -0.03 | -2.49 | 117 |
-| -0.10 | -0.02 | -0.28 | 109 |
+| -0.40 | -0.18 | -9.84 | 59 |
+| -0.20 | -0.12 | -2.32 | 103 |
+| -0.10 | 0.03 | -0.24 | 111 |
 | +0.00 | 0.06 | -0.42 | 116 |
-| +0.10 | 0.41 | -0.58 | 116 |
-| +0.20 | 0.69 | -3.52 | 128 |
-| +0.40 | 0.23 | -11.35 | 236 |
+| +0.10 | 0.27 | -0.55 | 116 |
+| +0.20 | 0.39 | -3.75 | 126 |
+| +0.40 | 0.15 | -11.29 | 242 |
 
 ## hedge_assert
 
@@ -87,16 +87,16 @@ Own-proxy mean and RM mean vs alpha fraction, per axis:
 | +0.20 | 8.52 | -4.63 | 61 |
 | +0.40 | 3.31 | -8.84 | 116 |
 
-## Cross-steering matrix (z-scored effect at alpha_frac ±0.4)
+## Cross-steering matrix (z-scored effect at alpha_frac ±0.2)
 
-Entry (i,j): z-scored change in proxy j between steering axis i at +0.4 vs -0.4. Diagonal should dominate its row.
+Entry (i,j): z-scored change in proxy j between steering axis i at +0.2 vs -0.2. Diagonal should dominate its row.
 
 | steer \ proxy | challenge_ac | hedge_assert | elaborate_co | formal_casua | cautious_dir | warm_neutral | inquire_proc |
 |---|---|---|---|---|---|---|---|
-| challenge_ac | +1.2 | +0.5 | +2.6 | +28.1 | +0.0 | -47.4 | -0.0 |
-| hedge_assert | +0.2 | +12.5 | +2.0 | -3.6 | +0.9 | +0.2 | +0.1 |
-| elaborate_co | +2.2 | +0.0 | +2.8 | +15.7 | +0.1 | -4.1 | +0.0 |
-| formal_casua | +0.1 | -0.0 | -0.8 | +5.3 | +0.7 | -7.4 | -0.1 |
-| cautious_dir | +0.3 | +8.2 | +2.4 | +2.9 | +6.7 | -5.0 | +0.0 |
-| warm_neutral | -0.2 | +1.4 | +1.3 | -18.8 | +0.0 | +21.7 | +0.1 |
-| inquire_proc | -0.4 | +1.5 | -0.7 | -0.7 | +0.0 | +0.0 | +2.4 |
+| challenge_ac | +1.0 | +2.7 | +0.3 | +1.1 | +0.7 | -0.2 | +0.1 |
+| hedge_assert | +0.2 | +4.0 | +0.3 | -1.2 | +1.6 | -0.2 | -0.0 |
+| elaborate_co | +0.2 | +0.4 | +0.9 | +0.8 | +0.8 | -1.2 | -0.0 |
+| formal_casua | +0.3 | -0.8 | +0.0 | +14.5 | +0.2 | -13.6 | -1.1 |
+| cautious_dir | +0.2 | +2.5 | +0.5 | -0.0 | +5.0 | -1.0 | -0.0 |
+| warm_neutral | -0.5 | +1.5 | +0.1 | -8.6 | -0.3 | +8.7 | +0.2 |
+| inquire_proc | -0.3 | +1.8 | -0.9 | -1.5 | -0.6 | +0.3 | +6.1 |

@@ -1,0 +1,33 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  26%|██▌       | 57/218 [00:00<00:00, 544.03it/s]Loading weights:  51%|█████▏    | 112/218 [00:00<00:00, 423.21it/s]Loading weights:  72%|███████▏  | 156/218 [00:00<00:00, 382.44it/s]Loading weights:  91%|█████████ | 198/218 [00:00<00:00, 378.74it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 408.20it/s]
+challenge_accommodate: pairs used=83/200 proxy pos=0.43 neg=-0.02
+hedge_assert: pairs used=200/200 proxy pos=1.24 neg=0.16
+elaborate_concise: pairs used=200/200 proxy pos=146.00 neg=26.47
+formal_casual: pairs used=200/200 proxy pos=-0.50 neg=-5.26
+cautious_direct: pairs used=200/200 proxy pos=0.78 neg=0.04
+warm_neutral: pairs used=200/200 proxy pos=1.11 neg=0.16
+inquire_proceed: pairs used=106/200 proxy pos=3.00 neg=0.11
+basis -> /home/users/btf12/reward-adaptive-steering/basis/axes.npz; report -> /home/users/btf12/reward-adaptive-steering/basis/extraction_report.md
+{'ts': '2026-07-22T17:23:43', 'stage': 'A', 'event': 'basis_extract', 'wall_s': 69.19, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.724, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 2732.96it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  14%|█▎        | 42/311 [00:00<00:00, 419.51it/s]Loading weights:  28%|██▊       | 88/311 [00:00<00:00, 442.36it/s]Loading weights:  43%|████▎     | 133/311 [00:00<00:00, 440.17it/s]Loading weights:  58%|█████▊    | 179/311 [00:00<00:00, 434.32it/s]Loading weights:  72%|███████▏  | 223/311 [00:00<00:00, 405.25it/s]Loading weights:  88%|████████▊ | 275/311 [00:00<00:00, 435.50it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 432.04it/s]
+reference residual norm at layer 16: 678.0
+challenge_accommodate: --redo, regenerating (old file -> .old.jsonl.bak)
+  challenge_accommodate frac=-0.4 done
+  challenge_accommodate frac=-0.2 done
+  challenge_accommodate frac=-0.1 done
+  challenge_accommodate frac=0.1 done
+  challenge_accommodate frac=0.2 done
+  challenge_accommodate frac=0.4 done
+hedge_assert: exists, skipping
+elaborate_concise: exists, skipping
+formal_casual: exists, skipping
+cautious_direct: exists, skipping
+warm_neutral: exists, skipping
+inquire_proceed: exists, skipping
+reports -> /home/users/btf12/reward-adaptive-steering/basis/sanity_report.md, /home/users/btf12/reward-adaptive-steering/basis/sanity_samples.md
+{'ts': '2026-07-22T17:27:24', 'stage': 'A', 'event': 'sanity_sweep', 'wall_s': 209.08, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 5.25, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'layer=16 ref_norm=678.0'}
+DONE — commit and push basis/, results/
