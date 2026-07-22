@@ -9,6 +9,7 @@ Phases (run in order; each is resumable and logs measured cost):
 """
 
 import argparse
+import hashlib
 import json
 import random
 import time
@@ -70,17 +71,22 @@ def phase_prompts(cfg, bcfg):
 def _gen_pairs(model, tok, cfg, bcfg, axis, prompts, out_path):
     """Generate pole completions for one axis; resumable via line count.
 
-    Resume is model-aware: records are stamped with the generating base model,
-    and a file stamped with a different model is moved aside and regenerated
-    (this bit us once — cluster 1.7B run silently reused committed 360M files).
+    Resume is provenance-aware: records are stamped with the generating base
+    model AND a hash of the pole instructions; a file whose stamps don't match
+    the current config is moved aside and regenerated. (Both bit us once:
+    a cluster 1.7B run silently reused committed 360M files, and an
+    instruction rewrite would otherwise reuse pairs from the old wording.)
     """
+    instr_hash = hashlib.md5(
+        (axis["pos_instruction"] + "|" + axis["neg_instruction"]).encode()
+    ).hexdigest()[:8]
     done = 0
     if out_path.exists():
         first = json.loads(open(out_path).readline())
-        if first.get("model") != cfg["base_model"]:
+        if (first.get("model"), first.get("instr_hash")) != (cfg["base_model"], instr_hash):
             stale = out_path.with_suffix(".stale.jsonl.bak")
             out_path.rename(stale)
-            print(f"  {axis['name']}: stale file from {first.get('model')} -> {stale.name}")
+            print(f"  {axis['name']}: stale file (model/instructions changed) -> {stale.name}")
         else:
             done = sum(1 for _ in open(out_path))
     todo = prompts[done // 2:]  # 2 lines (pos+neg) per prompt
@@ -102,6 +108,7 @@ def _gen_pairs(model, tok, cfg, bcfg, axis, prompts, out_path):
                         json.dumps(
                             {
                                 "model": cfg["base_model"],
+                                "instr_hash": instr_hash,
                                 "prompt": prompt,
                                 "pole": pole,
                                 "completion": completion,

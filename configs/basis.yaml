@@ -62,6 +62,9 @@ axes:
   - name: inquire_proceed
     pos: inquire
     neg: proceed
-    # strengthened 2026-07-22 after compliance check: 360M never actually asked questions
-    pos_instruction: "You do not yet have enough information to answer well. Before giving any full answer, you must ask the user two or three specific questions about their situation, needs, or constraints, and wait for their reply."
+    # v3 2026-07-22: even 1.7B only asked questions on 2/20 prompts under v2's
+    # "ask then answer" wording — the answer-first prior wins whenever the model
+    # thinks it can answer. Categorical wording removes the conflict: the
+    # response IS the questions. Poles are meant to be extreme; alpha doses it.
+    pos_instruction: "Do not answer the user's request yet. Your entire response must be two or three clarifying questions addressed to the user about their situation, needs, or constraints. Ask your questions and stop."
     neg_instruction: "Never ask the user anything. Make reasonable assumptions about anything unspecified and give the most complete answer you can with the information you already have."
