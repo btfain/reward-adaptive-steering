@@ -1,0 +1,43 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:30<01:30, 30.19s/it]Fetching 4 files: 100%|██████████| 4/4 [00:30<00:00,  7.55s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 108/339 [00:00<00:00, 1055.20it/s]Loading weights:  63%|██████▎   | 214/339 [00:00<00:00, 695.88it/s] Loading weights:  86%|████████▌ | 291/339 [00:00<00:00, 678.14it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 732.25it/s]
+cell concise/explicit: 35 prompts (40 attempts)
+cell elaborate/explicit: 35 prompts (40 attempts)
+cell hedged/explicit: 35 prompts (40 attempts)
+cell assertive/explicit: 35 prompts (40 attempts)
+cell inquiring/explicit: 35 prompts (40 attempts)
+cell proceeding/explicit: 35 prompts (40 attempts)
+cell concise/situational: 35 prompts (40 attempts)
+cell elaborate/situational: 35 prompts (40 attempts)
+cell hedged/situational: 35 prompts (40 attempts)
+cell assertive/situational: 35 prompts (40 attempts)
+cell inquiring/situational: 35 prompts (40 attempts)
+cell proceeding/situational: 35 prompts (40 attempts)
+none pool: 210 prompts (232 attempts), types randomized
+
+type        manif          n   words  hedge/100  ?-marks
+concise     explicit      35    17.0       0.00     0.60
+elaborate   explicit      35    34.5       0.28     0.60
+hedged      explicit      35    34.8       6.99     0.83
+assertive   explicit      35    24.7       1.08     0.60
+inquiring   explicit      35    32.2       2.57     1.11
+proceeding  explicit      35    24.3       0.80     0.77
+concise     situational   35    19.2       0.00     0.97
+elaborate   situational   35    39.3       0.80     0.69
+hedged      situational   35    41.4       2.53     0.74
+assertive   situational   35    34.4       0.25     0.09
+inquiring   situational   35    18.5       2.49     0.43
+proceeding  situational   35    47.8       0.52     0.91
+concise     none          35    18.6       2.86     0.97
+elaborate   none          35    17.3       2.80     0.91
+hedged      none          35    19.5       3.56     0.86
+assertive   none          35    17.5       3.59     0.91
+inquiring   none          35    18.5       3.42     0.89
+proceeding  none          35    16.9       2.63     0.91
+
+proceeding/inquiring situational word ratio: 2.59 (floor 1.3)
+630 prompts -> /home/users/btf12/reward-adaptive-steering/data/synthetic/prompts.jsonl
+{'ts': '2026-07-23T17:22:44', 'stage': 'B0', 'event': 'synth_prompts', 'wall_s': 209.74, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 15.64, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push data/synthetic/prompts.jsonl, results/cost_log.jsonl,
+and this slurm log for review. Run stageB0_cache.sbatch only after sign-off.
