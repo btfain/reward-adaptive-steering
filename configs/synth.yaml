@@ -1,0 +1,110 @@
+# Stage B0 — synthetic positive control world.
+# Latent types are causally upstream of prompts (generated conditioned on type),
+# so type is recoverable by construction. Reward is analytic on near-error-free
+# lexical features phi — NO learned measurement anywhere in this stage.
+#
+# Types = both poles of the three axes with trustworthy phi (words, hedge
+# lexicon, question count). The other three axes (formal_casual, warm_neutral,
+# cautious_direct) stay in the ACTION space as distractor arms but never enter
+# the reward: their lexical proxies are too weak to define ground truth.
+
+generator:
+  # Held-out generator: different family from the steered base model.
+  model: Qwen/Qwen2.5-1.5B-Instruct
+  temperature: 1.0
+  top_p: 0.95
+  max_new_tokens: 80
+  per_cell: 35            # prompts per (type, salience) cell -> 6*3*35 = 630
+  attempt_factor: 3       # generation attempts allowed per accepted prompt
+  min_chars: 20
+  max_chars: 400
+  seed: 0
+
+types:
+  - name: concise
+    persona: "This user wants extremely brief, to-the-point answers."
+  - name: elaborate
+    persona: "This user wants thorough, detailed, comprehensive answers."
+  - name: hedged
+    persona: "This user wants careful answers that acknowledge uncertainty and mention alternatives."
+  - name: assertive
+    persona: "This user wants confident, decisive answers with no hedging."
+  - name: inquiring
+    persona: "This user wants the assistant to ask clarifying questions before answering."
+  - name: proceeding
+    persona: "This user wants the assistant to answer immediately with its best attempt, without asking anything back."
+
+salience:
+  high: "The message must state this preference explicitly."
+  medium: "The message should hint at this preference through context or phrasing, without stating it directly."
+  low: "The message must not signal this preference in any way."
+
+topics:
+  - planning a weekend trip
+  - fixing a bug in a Python script
+  - writing a cover letter
+  - choosing a laptop
+  - meal prepping for the week
+  - training for a 5k run
+  - setting up a home wifi network
+  - learning basic Spanish
+  - negotiating a salary offer
+  - caring for a new puppy
+  - building a budget spreadsheet
+  - writing a wedding toast
+  - choosing a health insurance plan
+  - starting a vegetable garden
+  - preparing for a job interview
+  - understanding a car maintenance issue
+  - picking a gift for a coworker
+  - drafting an email to a professor
+  - improving sleep habits
+  - setting up a small business website
+  - understanding a rental lease clause
+  - studying for a statistics exam
+  - organizing a move to a new apartment
+  - choosing between two job offers
+  - writing a product review
+  - planning a birthday party
+  - troubleshooting a slow computer
+  - learning to play guitar
+  - reducing monthly expenses
+  - writing a short story opening
+  - choosing a graduate program
+  - dealing with a noisy neighbor
+  - planning meals for a dinner party
+  - understanding a medical bill
+  - backing up family photos
+  - picking a programming language to learn
+
+actions:
+  # Single-axis sparse actions: every active axis x these alpha-fractions of
+  # the reference residual norm, plus the always-included "none" action.
+  # 6 axes * 4 fracs + none = 25 actions. Band validated in Stage A (cap 0.25).
+  alpha_fracs: [-0.2, -0.1, 0.1, 0.2]
+
+cache:
+  max_new_tokens: 96      # short completions: low phi noise, fast iteration
+  temperature: 0.7
+  top_p: 0.9
+  batch_size: 8
+  seed: 0                 # CRN: RNG stream reset per action, fixed prompt order
+
+reward:
+  # R = beta * <e_z(d), phi_std(y)> + eps. Applied OFFLINE at learning time on
+  # the cached phi table; beta / type_dependence / noise draws are free to vary.
+  # phi_std = phi z-scored against the none-action distribution.
+  features: [words, hedge_per100, questions_per100]
+  type_directions:        # e_z in standardized feature space (words, hedge, questions)
+    concise:    [-1.0,  0.0,  0.0]
+    elaborate:  [ 1.0,  0.0,  0.0]
+    hedged:     [ 0.0,  1.0,  0.0]
+    assertive:  [ 0.0, -1.0,  0.0]
+    inquiring:  [ 0.0,  0.0,  1.0]
+    proceeding: [ 0.0,  0.0, -1.0]
+  # d=0: every type shares the anchor direction (no conditioning value);
+  # d=1: fully type-specific. e_z(d) = normalize((1-d)*e_anchor + d*e_z).
+  anchor_type: concise
+  betas: [0.3, 1.0, 3.0]
+  type_dependence: [0.0, 0.5, 1.0]
+  noise_sd: 1.0

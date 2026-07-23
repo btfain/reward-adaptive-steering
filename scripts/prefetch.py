@@ -9,8 +9,13 @@ from pathlib import Path
 import yaml
 from huggingface_hub import snapshot_download
 
-cfg = yaml.safe_load(open(Path(__file__).resolve().parent.parent / "configs" / "base.yaml"))
-for repo in (cfg["base_model"], cfg["reward_model"]):
+ROOT = Path(__file__).resolve().parent.parent
+cfg = yaml.safe_load(open(ROOT / "configs" / "base.yaml"))
+repos = [cfg["base_model"], cfg["reward_model"]]
+synth = ROOT / "configs" / "synth.yaml"
+if synth.exists():
+    repos.append(yaml.safe_load(open(synth))["generator"]["model"])
+for repo in repos:
     print(f"prefetching {repo}")
     snapshot_download(repo)
 print("done")
