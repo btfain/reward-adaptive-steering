@@ -1,0 +1,55 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:  33%|███▎      | 110/338 [00:00<00:00, 872.29it/s]Loading weights:  61%|██████    | 206/338 [00:00<00:00, 868.21it/s]Loading weights:  96%|█████████▋| 326/338 [00:00<00:00, 1003.59it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 998.01it/s] 
+cell concise/high: 35 prompts (40 attempts)
+cell concise/medium: 35 prompts (40 attempts)
+cell concise/low: 35 prompts (40 attempts)
+cell elaborate/high: 35 prompts (40 attempts)
+cell elaborate/medium: 35 prompts (40 attempts)
+cell elaborate/low: 35 prompts (40 attempts)
+cell hedged/high: 35 prompts (40 attempts)
+cell hedged/medium: 35 prompts (40 attempts)
+cell hedged/low: 35 prompts (40 attempts)
+cell assertive/high: 35 prompts (40 attempts)
+cell assertive/medium: 35 prompts (40 attempts)
+cell assertive/low: 35 prompts (40 attempts)
+cell inquiring/high: 35 prompts (40 attempts)
+cell inquiring/medium: 35 prompts (40 attempts)
+cell inquiring/low: 35 prompts (40 attempts)
+cell proceeding/high: 35 prompts (40 attempts)
+cell proceeding/medium: 35 prompts (40 attempts)
+cell proceeding/low: 35 prompts (40 attempts)
+630 prompts -> /home/users/btf12/reward-adaptive-steering/data/synthetic/prompts.jsonl
+{'ts': '2026-07-23T11:26:29', 'stage': 'B0', 'event': 'synth_prompts', 'wall_s': 126.82, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.215, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 91/218 [00:00<00:00, 844.75it/s]Loading weights:  81%|████████  | 176/218 [00:00<00:00, 546.77it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 543.81it/s]
+ref norm 782.3, axes: ['hedge_assert', 'elaborate_concise', 'formal_casual', 'cautious_direct', 'warm_neutral', 'inquire_proceed']
+action none: 630 completions (138s)
+action hedge_assert-0.2: 630 completions (140s)
+action hedge_assert-0.1: 630 completions (142s)
+action hedge_assert+0.1: 630 completions (144s)
+action hedge_assert+0.2: 630 completions (138s)
+action elaborate_concise-0.2: 630 completions (139s)
+action elaborate_concise-0.1: 630 completions (141s)
+action elaborate_concise+0.1: 630 completions (137s)
+action elaborate_concise+0.2: 630 completions (141s)
+action formal_casual-0.2: 630 completions (141s)
+action formal_casual-0.1: 630 completions (141s)
+action formal_casual+0.1: 630 completions (140s)
+action formal_casual+0.2: 630 completions (137s)
+action cautious_direct-0.2: 630 completions (142s)
+action cautious_direct-0.1: 630 completions (138s)
+action cautious_direct+0.1: 630 completions (138s)
+action cautious_direct+0.2: 630 completions (141s)
+action warm_neutral-0.2: 630 completions (139s)
+action warm_neutral-0.1: 630 completions (141s)
+action warm_neutral+0.1: 630 completions (141s)
+action warm_neutral+0.2: 630 completions (145s)
+action inquire_proceed-0.2: 630 completions (138s)
+action inquire_proceed-0.1: 630 completions (138s)
+action inquire_proceed+0.1: 630 completions (138s)
+action inquire_proceed+0.2: 630 completions (139s)
+cache -> /home/users/btf12/reward-adaptive-steering/data/synthetic/cache.jsonl
+{'ts': '2026-07-23T12:24:56', 'stage': 'B0', 'event': 'synth_cache', 'wall_s': 3497.65, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 3.769, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+hidden states (630, 2048) (layer 16) -> /home/users/btf12/reward-adaptive-steering/data/synthetic/hidden.npz
+{'ts': '2026-07-23T12:24:59', 'stage': 'B0', 'event': 'synth_hidden', 'wall_s': 3.21, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 3.922, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push data/synthetic/ and results/cost_log.jsonl
