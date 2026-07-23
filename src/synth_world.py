@@ -1,9 +1,16 @@
-"""Stage B0: synthetic positive-control world — GPU phases.
+"""Stage B0: synthetic positive-control world — GPU phases (v2 manifestation dial).
 
 Builds everything the offline learning loop needs, once, on the cluster:
 
-  prompts : type-conditioned short prompts from a HELD-OUT generator
-            (types causally upstream -> no labeling error)
+  prompts : type-conditioned short prompts from a HELD-OUT generator.
+            Types are preferences over RESPONSE behavior; the manifestation
+            dial controls how (whether) the prompt reveals them:
+              explicit    - stated outright
+              situational - a situation in which the behavior is what a good
+                            response provides (recipes piloted on 1.5B locally)
+              none        - one shared neutral pool, types assigned at random,
+                            so recoverability is exactly zero by construction
+            Hard audit gates run BEFORE the file is written.
   cache   : completion + phi features for every prompt x action
             (25 sparse actions: none + 6 axes x 4 alpha-fractions)
   hidden  : base-model residual state at the steer layer, final prompt token
@@ -40,6 +47,7 @@ DATA = REPO_ROOT / "data" / "synthetic"
 BASIS = REPO_ROOT / "basis"
 
 META_REJECT_STARTS = ("here is", "here's", "sure", "certainly", "as an ai", "user:")
+MANIFESTATIONS = ("explicit", "situational", "none")
 
 
 def load_synth_config():
@@ -57,13 +65,87 @@ def phi_features(completion):
     }
 
 
-def _clean(text, gcfg, seen):
+# ---------------------------------------------------------------- prompts ----
+
+def build_meta(recipe, clause):
+    return (
+        "You are writing test data: exactly one message that a USER sends to an "
+        "AI assistant. You write only the user's side. Do not write the "
+        "assistant's reply, do not answer or fulfill the request yourself, and "
+        "do not add any preamble.\n\n"
+        f"Scenario: {recipe}\n\n"
+        "Now write the user's message (1-3 sentences), in the user's "
+        f"first-person voice, addressed to the assistant. {clause} Output only "
+        "the message text."
+    )
+
+
+def _clean(text, gcfg, seen, reject=()):
     t = " ".join(text.strip().split()).strip("\"'“”‘’ ")
+    low = t.lower()
     if not (gcfg["min_chars"] <= len(t) <= gcfg["max_chars"]):
         return None
-    if t.lower().startswith(META_REJECT_STARTS) or t.lower() in seen:
+    if low.startswith(META_REJECT_STARTS) or low in seen:
+        return None
+    if any(m in low for m in reject):
+        return None
+    # mojibake / wrong-script guard (curly quotes and dashes stay allowed)
+    if any(
+        ord(c) > 0x2500 or (0x0370 <= ord(c) <= 0x1FFF and c not in "‘’“”")
+        for c in t
+    ):
         return None
     return t
+
+
+def _fill_cell(model, tok, gen_cfg, gcfg, meta_fn, n_needed, seen, reject, seed):
+    torch.manual_seed(seed)
+    kept, attempt = [], 0
+    max_attempts = n_needed * gcfg["attempt_factor"]
+    while len(kept) < n_needed and attempt < max_attempts:
+        metas = [meta_fn(attempt + j) for j in range(min(8, max_attempts - attempt))]
+        attempt += len(metas)
+        for text in generate_batch(model, tok, metas, gen_cfg):
+            t = _clean(text, gcfg, seen, reject)
+            if t is not None and len(kept) < n_needed:
+                kept.append(t)
+                seen.add(t.lower())
+    return kept, attempt
+
+
+def _audit_prompts(rows, scfg):
+    """Print the prompt-mirroring table; hard-gate on leaks and on the
+    inquiring/proceeding contrast. Raises before anything is written."""
+    names = [t["name"] for t in scfg["types"]]
+    rej = {t["name"]: [m.lower() for m in t["reject"]] for t in scfg["types"]}
+    words = {}
+    print(f"\n{'type':11s} {'manif':12s} {'n':>3s} {'words':>7s} {'hedge/100':>10s} {'?-marks':>8s}")
+    for m in MANIFESTATIONS:
+        for tn in names:
+            sel = [r["prompt"] for r in rows if r["type"] == tn and r["manifestation"] == m]
+            words[(tn, m)] = float(np.mean([len(p.split()) for p in sel]))
+            print(f"{tn:11s} {m:12s} {len(sel):3d} {words[(tn, m)]:7.1f} "
+                  f"{np.mean([_rate(p, HEDGE) for p in sel]):10.2f} "
+                  f"{np.mean([p.count('?') for p in sel]):8.2f}")
+
+    problems = []
+    leaks = [
+        r["id"] for r in rows
+        if r["manifestation"] == "situational"
+        and any(k in r["prompt"].lower() for k in rej[r["type"]])
+    ]
+    if leaks:
+        problems.append(f"reject-lexicon hits in situational cells: {leaks[:8]}")
+    ratio = words[("proceeding", "situational")] / words[("inquiring", "situational")]
+    floor = scfg["audit"]["proceed_inquire_word_ratio"]
+    print(f"\nproceeding/inquiring situational word ratio: {ratio:.2f} (floor {floor})")
+    if ratio < floor:
+        problems.append(
+            f"proceeding/inquiring word ratio {ratio:.2f} < {floor}: proceeding "
+            "prompts are not carrying the specifics that inquiring prompts omit"
+        )
+    if problems:
+        raise RuntimeError("prompt audit FAILED — nothing written: " + "; ".join(problems))
 
 
 def phase_prompts(cfg, scfg, device):
@@ -71,11 +153,13 @@ def phase_prompts(cfg, scfg, device):
     DATA.mkdir(parents=True, exist_ok=True)
     out = DATA / "prompts.jsonl"
     gcfg = scfg["generator"]
-    cells = [(t, s) for t in scfg["types"] for s in ("high", "medium", "low")]
-    n_total = len(cells) * gcfg["per_cell"]
+    per_cell = gcfg["per_cell"]
+    n_total = len(scfg["types"]) * len(MANIFESTATIONS) * per_cell
     if out.exists() and sum(1 for _ in open(out)) == n_total:
-        print(f"prompts already complete ({n_total}), skipping generation")
-        return
+        first = json.loads(open(out).readline())
+        if "manifestation" in first:
+            print(f"prompts already complete ({n_total}), skipping generation")
+            return
 
     tok = AutoTokenizer.from_pretrained(gcfg["model"])
     model = AutoModelForCausalLM.from_pretrained(
@@ -91,43 +175,66 @@ def phase_prompts(cfg, scfg, device):
             "top_p": gcfg["top_p"],
         },
     }
-
     topics = scfg["topics"]
     rows, seen = [], set()
-    for ci, (typ, sal) in enumerate(cells):
-        torch.manual_seed(gcfg["seed"] * 1000 + ci)
-        kept, attempt = [], 0
-        max_attempts = gcfg["per_cell"] * gcfg["attempt_factor"]
-        while len(kept) < gcfg["per_cell"] and attempt < max_attempts:
-            metas = []
-            for _ in range(min(8, max_attempts - attempt)):
-                topic = topics[(ci + attempt) % len(topics)]
-                metas.append(
-                    f"Write one short message (1-3 sentences) that a user might "
-                    f"send to an AI assistant, asking for help with {topic}. "
-                    f"{typ['persona']} {scfg['salience'][sal]} Write only the "
-                    "user's message itself - no quotation marks, no preamble, "
-                    "no explanation."
-                )
-                attempt += 1
-            for text in generate_batch(model, tok, metas, gen_cfg):
-                t = _clean(text, gcfg, seen)
-                if t is not None and len(kept) < gcfg["per_cell"]:
-                    kept.append(t)
-                    seen.add(t.lower())
-        if len(kept) < gcfg["per_cell"]:
+
+    cells = [(t, m) for m in ("explicit", "situational") for t in scfg["types"]]
+    for ci, (typ, manif) in enumerate(cells):
+        def meta_fn(i, ci=ci, typ=typ, manif=manif):
+            topic = topics[(ci + i) % len(topics)]
+            if manif == "situational":
+                recipe = typ["situational"].format(topic=topic)
+                clause = "The message reflects the scenario naturally."
+            else:
+                recipe = f"A user needs help with {topic}."
+                clause = f"The user states outright, in their own words, {typ['explicit']}."
+            return build_meta(recipe, clause)
+
+        reject = tuple(m.lower() for m in typ["reject"]) if manif == "situational" else ()
+        kept, attempts = _fill_cell(
+            model, tok, gen_cfg, gcfg, meta_fn, per_cell, seen, reject,
+            seed=gcfg["seed"] * 1000 + ci,
+        )
+        if len(kept) < per_cell:
             raise RuntimeError(
-                f"cell ({typ['name']}, {sal}): only {len(kept)}/{gcfg['per_cell']} "
-                f"prompts accepted after {max_attempts} attempts — inspect the "
-                "generator output before rerunning (do not lower the filter bar)."
+                f"cell ({typ['name']}, {manif}): only {len(kept)}/{per_cell} prompts "
+                f"accepted after {attempts} attempts — inspect the generator output "
+                "before rerunning (do not lower the filter bar)."
             )
         rows.extend(
-            {"id": f"{typ['name']}|{sal}|{i:02d}", "type": typ["name"],
-             "salience": sal, "prompt": p}
+            {"id": f"{typ['name']}|{manif}|{i:02d}", "type": typ["name"],
+             "manifestation": manif, "prompt": p}
             for i, p in enumerate(kept)
         )
-        print(f"cell {typ['name']}/{sal}: {len(kept)} prompts ({attempt} attempts)")
+        print(f"cell {typ['name']}/{manif}: {len(kept)} prompts ({attempts} attempts)")
 
+    # Shared none pool: one neutral distribution, types assigned at random, so
+    # MI(type; prompt) = 0 exactly — the floor cell is a built-in negative control.
+    n_none = per_cell * len(scfg["types"])
+    def meta_none(i):
+        return build_meta(
+            scfg["none_pool"]["recipe"].format(topic=topics[i % len(topics)]),
+            scfg["none_pool"]["clause"],
+        )
+    kept, attempts = _fill_cell(
+        model, tok, gen_cfg, gcfg, meta_none, n_none, seen, (),
+        seed=gcfg["seed"] * 1000 + 999,
+    )
+    if len(kept) < n_none:
+        raise RuntimeError(
+            f"none pool: only {len(kept)}/{n_none} prompts accepted after "
+            f"{attempts} attempts — inspect the generator output before rerunning."
+        )
+    rng = np.random.default_rng(gcfg["seed"])
+    assigned = rng.permutation(np.repeat([t["name"] for t in scfg["types"]], per_cell))
+    counters = {t["name"]: 0 for t in scfg["types"]}
+    for p, tn in zip(kept, assigned):
+        rows.append({"id": f"{tn}|none|{counters[tn]:02d}", "type": str(tn),
+                     "manifestation": "none", "prompt": p})
+        counters[tn] += 1
+    print(f"none pool: {len(kept)} prompts ({attempts} attempts), types randomized")
+
+    _audit_prompts(rows, scfg)
     with open(out, "w") as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
@@ -135,6 +242,18 @@ def phase_prompts(cfg, scfg, device):
     if device.type == "cuda":
         torch.cuda.empty_cache()
     print(f"{len(rows)} prompts -> {out}")
+
+
+# ------------------------------------------------------------------ cache ----
+
+def _load_prompts():
+    prompts = [json.loads(l) for l in open(DATA / "prompts.jsonl")]
+    if "manifestation" not in prompts[0]:
+        raise RuntimeError(
+            "data/synthetic/prompts.jsonl uses the retired salience-dial schema — "
+            "regenerate with --phase prompts before caching."
+        )
+    return prompts
 
 
 def action_list(names, alpha_fracs):
@@ -166,7 +285,7 @@ def _complete_actions(path, n_prompts):
 
 def phase_cache(cfg, scfg, device, model, tok):
     """Cache completion + phi for every prompt x action."""
-    prompts = [json.loads(l) for l in open(DATA / "prompts.jsonl")]
+    prompts = _load_prompts()
     layer = cfg["steer_layer"]
     names = [a["name"] for a in load_basis_config()["axes"]]
     axes = np.load(BASIS / "axes.npz")
@@ -226,7 +345,7 @@ def phase_hidden(cfg, scfg, device, model, tok):
     These are the conditional policy's input features (same convention Stage C
     will use on real prompts), cached so policy training runs without a GPU.
     """
-    prompts = [json.loads(l) for l in open(DATA / "prompts.jsonl")]
+    prompts = _load_prompts()
     layer = cfg["steer_layer"]
     acts = {}
 

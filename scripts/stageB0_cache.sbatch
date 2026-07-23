@@ -6,14 +6,15 @@
 #SBATCH --mem=24G
 #SBATCH --time=04:00:00
 #SBATCH --output=results/slurm-%j.out
-# Stage B0: synthetic-world GPU phases — type-conditioned prompts (held-out
-# generator), completion+phi cache for all 25 actions, hidden-state features.
+# Stage B0 step 2 of 2: completion+phi cache for all 25 actions + hidden-state
+# features. Requires REVIEWED prompts from stageB0_prompts.sbatch (the cache
+# phase refuses to run on the retired salience-schema prompts file).
 # Cache phase is resumable per action if the job dies.
-# Prefetch first on the login node: .venv/bin/python scripts/prefetch.py
 
 set -euo pipefail
 source .venv/bin/activate
 
-python src/synth_world.py --phase all
+python src/synth_world.py --phase cache
+python src/synth_world.py --phase hidden
 
 echo "DONE — commit and push data/synthetic/ and results/cost_log.jsonl"

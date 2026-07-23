@@ -1,43 +1,110 @@
-# Stage B0 — synthetic positive control world.
-# Latent types are causally upstream of prompts (generated conditioned on type),
-# so type is recoverable by construction. Reward is analytic on near-error-free
-# lexical features phi — NO learned measurement anywhere in this stage.
-#
-# Types = both poles of the three axes with trustworthy phi (words, hedge
-# lexicon, question count). The other three axes (formal_casual, warm_neutral,
-# cautious_direct) stay in the ACTION space as distractor arms but never enter
-# the reward: their lexical proxies are too weak to define ground truth.
+# Stage B0 — synthetic positive control world (v2: manifestation dial).
+# Latent types are causally upstream of prompts and defined ONLY as preferences
+# over RESPONSE behavior (reward = analytic function of completion features phi).
+# The v1 "salience" dial conflated that with behavior exhibited by the prompt
+# text itself (generator mirrored the preference into prompt style); v2 replaces
+# it with a manifestation dial:
+#   explicit    - the preference is stated outright in the prompt
+#   situational - the prompt describes a situation in which the behavior is what
+#                 a good response provides, never naming the preference
+#   none        - ONE shared neutral pool, types assigned at random -> the type
+#                 is provably unrecoverable (MI = 0): a built-in negative control
+# Types = both poles of the three axes with trustworthy phi. The other three
+# axes stay in the ACTION space as distractors but never enter the reward.
 
 generator:
-  # Held-out generator: different family from the steered base model.
-  model: Qwen/Qwen2.5-1.5B-Instruct
+  # Default swap 2026-07-23 (stated per CLAUDE.md rule): 1.5B -> 7B. The local
+  # pilot showed 1.5B renders "user who values X" as X-styled prompt text and
+  # role-flips into the assistant's voice; situational cells need a stronger
+  # instruction follower. Still held out from the SmolLM2 base (Qwen family).
+  model: Qwen/Qwen2.5-7B-Instruct
   temperature: 1.0
   top_p: 0.95
   max_new_tokens: 80
-  per_cell: 35            # prompts per (type, salience) cell -> 6*3*35 = 630
+  per_cell: 35            # prompts per (type, manifestation) cell -> 6*3*35 = 630
   attempt_factor: 3       # generation attempts allowed per accepted prompt
   min_chars: 20
   max_chars: 400
   seed: 0
 
+# Each type: explicit = preference restated for the explicit cell;
+# situational = scenario recipe ({topic} slot) piloted on 1.5B locally
+# (2026-07-23) before commitment; reject = phrases that would state the
+# preference, filtered out of SITUATIONAL cells at accept time.
 types:
   - name: concise
-    persona: "This user wants extremely brief, to-the-point answers."
+    explicit: "that they want an extremely brief, to-the-point answer"
+    situational: >-
+      A user needs help with {topic}. They are pressed for time — in transit,
+      between meetings, or in the middle of the task itself — and they need the
+      single key fact or next step, right now. The situation should make brevity
+      obviously valuable, but the user never says how they want the assistant to
+      answer.
+    reject: [brief, concise, short answer, quick answer, in a sentence,
+             keep it short, few words, to-the-point, to the point,
+             quick advice, quick tips, quick suggestions]
   - name: elaborate
-    persona: "This user wants thorough, detailed, comprehensive answers."
+    explicit: "that they want a thorough, detailed, comprehensive answer"
+    situational: >-
+      A user faces a complex, consequential task involving {topic}. Getting it
+      right genuinely matters to them, and their message names the task and
+      mentions two or three specific interacting considerations that make it
+      complicated. The situation should make a thorough treatment obviously
+      valuable, but the user never says how they want the assistant to answer.
+    reject: [detailed, in-depth, thorough, comprehensive, step-by-step,
+             elaborate, in detail]
   - name: hedged
-    persona: "This user wants careful answers that acknowledge uncertainty and mention alternatives."
+    explicit: "that they want a careful answer that acknowledges uncertainty and mentions alternatives"
+    situational: >-
+      A user must act under genuine uncertainty about {topic}: the facts they
+      have are incomplete or conflicting, and a wrong move has a real downside
+      they mention. The situation should make careful, caveated advice obviously
+      valuable, but the user never asks for caution or says how they want the
+      assistant to answer.
+    reject: [caveat, acknowledge uncertainty, careful answer, be careful,
+             cautious, with alternatives, mention alternatives]
   - name: assertive
-    persona: "This user wants confident, decisive answers with no hedging."
+    explicit: "that they want a confident, decisive answer with no hedging"
+    situational: >-
+      A user has been going back and forth about {topic} for a while. Their
+      message names the specific options they keep switching between and says
+      they cannot settle. What they need is a resolution, but the user never
+      asks for one directly and never says how they want the assistant to
+      answer.
+    reject: [confident, decisive, no hedging, definitive answer, straight answer,
+             without hedging]
   - name: inquiring
-    persona: "This user wants the assistant to ask clarifying questions before answering."
+    explicit: "that the assistant should ask clarifying questions before answering"
+    situational: >-
+      A user wants help with {topic}, but their message is vague and general: it
+      names the goal and nothing else — no numbers, no constraints, no
+      background, and none of the actual materials (no code, no text, no
+      figures). A helpful assistant would have to find out more before it could
+      really help, but the user never says how they want the assistant to
+      answer. The user does not refer to any details they have not actually
+      included.
+    reject: [clarify, clarification, clarifying, ask me, follow-up question,
+             questions first, before answering]
   - name: proceeding
-    persona: "This user wants the assistant to answer immediately with its best attempt, without asking anything back."
+    explicit: "that the assistant should answer immediately with its best attempt and not ask anything back"
+    situational: >-
+      A user asks for help with {topic} and includes every relevant detail —
+      their constraints, their context, the specifics of their case — so the
+      assistant has everything it needs to answer immediately. The user never
+      says how they want the assistant to answer.
+    reject: [don't ask, do not ask, no questions, just answer, answer immediately,
+             right away, respond now]
 
-salience:
-  high: "The message must state this preference explicitly."
-  medium: "The message should hint at this preference through context or phrasing, without stating it directly."
-  low: "The message must not signal this preference in any way."
+none_pool:
+  recipe: "A user has an ordinary, everyday request about {topic}."
+  clause: "The message is plain and neutral: no urgency, no stakes, no stated preferences about the answer."
+
+audit:
+  # Hard gates checked before prompts.jsonl is written (fail -> RuntimeError):
+  # zero reject-lexicon hits in situational cells, and proceeding prompts must
+  # carry visibly more content than inquiring ones (they hold the specifics
+  # that inquiring omits). Mirroring table is printed for qualitative review.
+  proceed_inquire_word_ratio: 1.3
 
 topics:
   - planning a weekend trip
