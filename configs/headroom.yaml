@@ -1,0 +1,87 @@
+# Stage A2 — headroom diagnostic.
+# Fixed grid of interventions per prompt, paired within-prompt scoring vs the
+# no-intervention baseline, on real UltraFeedback prompts. NO learned policy:
+# this measures the CEILING a conditional policy could exploit and discriminates
+# H1 (noise) / H2 (dense composition off-manifold) / H3 (RM flat to style),
+# and — via the 7B M2 arm — whether the base model is the bottleneck.
+
+models:
+  # base = the steered model (SmolLM2-1.7B from base.yaml): steering + prompting.
+  # large = prompting only (no vectors extracted); already cached (B0 generator).
+  base:
+    arms: [none, m1, m2, dense]
+  large:
+    model: Qwen/Qwen2.5-7B-Instruct
+    arms: [none, m2]
+
+grid:
+  alpha_fracs: [-0.2, -0.1, 0.1, 0.2]   # M1 steering magnitudes (fraction of ref norm)
+  cap_combined_norm: 0.25               # dense combos projected to this (Stage A cap)
+  dense_n_random: 6                     # random dense actions (all axes at +/-0.1)
+
+generation:
+  # Match deployment (base.yaml) — do NOT over-cap: B0 taught that a short cap
+  # right-censors the elaborate axis and flattens its measured effect.
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+  batch_size: 8
+
+perplexity:
+  flag_frac: 0.20      # flag conditions whose mean completion perplexity (under the
+                       # unsteered model) inflates >20% over the none baseline
+
+pilot:
+  n_prompts: 10
+  seeds: [0, 1, 2]     # rough per-prompt noise band for the go/no-go
+
+full:
+  n_prompts: 200
+  seeds: [0]                 # main grid: 1 CRN seed x 200 prompts
+  validation_seeds: [1, 2]   # winner-validation debias pass (fresh seeds)
+
+# M2 imperatives, delivered as a SYSTEM message. pos = toward the axis positive
+# pole (proxy's higher direction), neg = opposite; mod/strong mirror |alpha|.
+imperatives:
+  hedge_assert:
+    pos:
+      mod: "Express appropriate uncertainty: qualify claims you are not sure about."
+      strong: "Hedge heavily. Qualify every claim and explicitly flag what is uncertain or debated."
+    neg:
+      mod: "Answer confidently and directly, without hedging."
+      strong: "Be maximally assertive. State your answer as plain fact, with no qualifiers or hedging of any kind."
+  elaborate_concise:
+    pos:
+      mod: "Give a thorough, detailed answer."
+      strong: "Be exhaustive. Explain in depth, with full detail and examples."
+    neg:
+      mod: "Keep your answer brief."
+      strong: "Answer in one or two sentences at most."
+  formal_casual:
+    pos:
+      mod: "Use a formal, professional tone."
+      strong: "Write in a highly formal, academic register throughout."
+    neg:
+      mod: "Use a casual, conversational tone."
+      strong: "Be very casual and informal, like texting a friend."
+  cautious_direct:
+    pos:
+      mod: "Include relevant caveats, risks, and things to watch out for."
+      strong: "Be very cautious. Foreground every risk, caveat, and way this could go wrong."
+    neg:
+      mod: "Give direct, actionable advice."
+      strong: "Be maximally direct: just the answer and the steps, with no caveats or disclaimers."
+  warm_neutral:
+    pos:
+      mod: "Use a warm, friendly tone."
+      strong: "Be very warm and encouraging, with plenty of empathy and reassurance."
+    neg:
+      mod: "Use a neutral, matter-of-fact tone."
+      strong: "Be strictly neutral and impersonal. Use no warmth, emotion, or pleasantries."
+  inquire_proceed:
+    pos:
+      mod: "If the request is underspecified, ask a clarifying question before answering."
+      strong: "Do not answer yet. Respond only with clarifying questions about what the user needs."
+    neg:
+      mod: "Answer directly with your best attempt; do not ask for clarification."
+      strong: "Answer immediately and completely. Never ask the user for clarification under any circumstances."
