@@ -204,6 +204,53 @@ high type-dependence / high salience, and the recovery curves locate where it fa
 If the pipeline cannot recover a known-recoverable policy, **the bug is in our
 machinery, not in the world** — fix it here, cheaply, before touching real data again.
 
+**Stage B0 outcome (signed off 2026-07-24): GREEN.** The pipeline recovers the
+recoverable policy up to its feature-set ceiling; both baselines behave correctly;
+the dials locate the failure boundaries. Full numbers in `basis/synthB0_report.md`,
+`results/synth/synth_results.json`. Key results (β=3, type-dependence d=1 unless noted):
+- **Fixed-control sanity: exact.** Captures 1.00 of the type-oracle at d=0 for every β
+  (recovers the population-best action) and correctly collapses at d=1 (0.73 vs 4.83).
+- **Conditioning works where the world rewards it.** At d=1, β≥1 the conditional policy
+  captures 0.55–0.62 of the type-oracle in explicit *and* situational cells vs fixed's
+  0.01–0.14, reaching ≈85–92% of the supervised-probe skyline (the feature-set ceiling).
+  The money table (conditional − fixed) is monotone in d at every β (β=3: −4.43 / −2.37 / **+0.82**).
+- **Failure boundaries as designed.** β=0.3,d=1 drowns everything (SNR floor); the
+  none-pool (types randomized → MI=0) *punishes* conditioning (capture −0.37 — acting on
+  unrecoverable types is worse than no-op), the built-in negative control; at d=0 the
+  conditional pays a ~30% conditioning tax vs fixed.
+
+**Deviations from the plan text above, with rationale:**
+- **Salience dial → manifestation dial (explicit / situational / none).** The v1 salience
+  dial conflated "preference over the *response*" with "behavior exhibited in the *prompt
+  text*": the generator mirrored the preference into prompt style (hedged-type prompts
+  themselves hedged, etc.). Replaced by manifestation — explicit (stated), situational (a
+  situation in which the behavior is what a good response provides, never named), none (one
+  shared neutral pool, types assigned at random → provably unrecoverable). Situational is
+  now the real-data analog and the scientifically interesting cell.
+- **Generator escalated 1.5B → Qwen2.5-7B-Instruct** (documented default swap): situational
+  cells need a stronger instruction follower; templates piloted locally on 1.5B first.
+- **k=6 axes (with inquire/proceed), not the plan's original list; 6 types = both poles of
+  the three cleanly measurable axes** (length, hedge, question count); the other three axes
+  stay in the action space as distractors but never define reward (their proxies are too weak).
+- **Metric: value capture, not action-matching regret.** A policy that hedges under type
+  uncertainty beats plug-in classification while matching the type-optimal *action* less
+  often — correct decision theory, not failure — so recovery is scored by captured value
+  ((arm − none)/(oracle_type − none)), against the *type-oracle* (the recoverable ceiling;
+  the per-prompt oracle additionally includes generation-sampling luck no policy can predict).
+
+**Carried forward (these bind later stages):**
+1. **Overfitting control is mandatory at Stage C scale.** The 2048-dim linear head memorized
+   per-prompt generation luck (train +4.7 / test +1.4) until weight decay + early-stopping on
+   a stratified val split were added; the algorithm also needed the GRPO-style group-relative
+   baseline (PLAN's committed family) — plain REINFORCE + value head collapsed. Both go into Stage C.
+2. **The conditioning tax is real.** If the real RM's style preference is weakly prompt-dependent
+   (small effective d), the conditional arm can *lose* to fixed. This is what makes A2's
+   per-prompt argmax-dependence measurement load-bearing, not decorative.
+3. **Reward geometry ≠ axis semantics.** Type-optimal actions were often cross-axis (inquire+0.2
+   as the strongest word-count reducer, since the 96-token cap right-censors the elaborate axis;
+   and inquire+0.2 partly earns φ via a punctuation artifact). Interpretability claims must be
+   checked against realized behavior, not axis names — and this is a preview of Stage C reward hacking.
+
 ---
 
 ### Stage B — Fixed-control arm on real data (revised)
