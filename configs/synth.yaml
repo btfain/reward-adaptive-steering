@@ -170,8 +170,36 @@ reward:
     inquiring:  [ 0.0,  0.0,  1.0]
     proceeding: [ 0.0,  0.0, -1.0]
   # d=0: every type shares the anchor direction (no conditioning value);
-  # d=1: fully type-specific. e_z(d) = normalize((1-d)*e_anchor + d*e_z).
-  anchor_type: concise
+  # d=1: fully type-specific. e_z(d) = normalize((1-d)*anchor + d*e_z).
+  # Corrected 2026-07-24: anchor must be a MIXED direction, not a type pole —
+  # a single-pole anchor is antipodal to its opposite type, making e_z(d=0.5)
+  # exactly zero for that type. Normalized in code.
+  anchor_direction: [-1.0, 1.0, 1.0]
   betas: [0.3, 1.0, 3.0]
   type_dependence: [0.0, 0.5, 1.0]
   noise_sd: 1.0
+
+learn:
+  # Offline learning on the cached world (src/synth_learn.py, runs locally).
+  # Revised 2026-07-24 after diagnostics: plain REINFORCE + value head
+  # collapsed early and the unregularized 2048-dim head memorized per-prompt
+  # generation luck (train +4.7 / test +1.4). Adopted: GRPO-style group-relative
+  # advantage (PLAN's committed algorithm family), weight decay, and early
+  # stopping on a stratified validation split.
+  train_frac: 0.7          # stratified by (type, manifestation)
+  val_frac_of_train: 0.2   # carved from train; drives early stopping only
+  split_seed: 0
+  reward_seeds: 10         # fixed-control repetitions (fresh reward noise)
+  policy_seeds: [0, 1, 2]  # conditional-policy training repetitions
+  group_size: 8            # K sampled actions per prompt per update (GRPO-style)
+  epochs: 400
+  eval_every: 25           # early-stopping check cadence (epochs)
+  batch_size: 64
+  lr: 0.01
+  weight_decay: 0.001
+  entropy_coef: 0.01
+  none_bias_init: 1.0      # policy initialized leaning toward the no-op action
+  probe:                   # supervised type probe — diagnostic reference only
+    steps: 400
+    lr: 0.01
+    weight_decay: 0.001
