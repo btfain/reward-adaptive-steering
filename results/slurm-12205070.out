@@ -1,0 +1,37 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  39%|███▊      | 84/218 [00:00<00:00, 810.59it/s]Loading weights:  76%|███████▌  | 166/218 [00:00<00:00, 445.39it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 444.23it/s]
+ref norm 748.8, axes: ['hedge_assert', 'elaborate_concise', 'formal_casual', 'cautious_direct', 'warm_neutral', 'inquire_proceed']
+action none: 630 completions (141s)
+action hedge_assert-0.2: 630 completions (138s)
+action hedge_assert-0.1: 630 completions (135s)
+action hedge_assert+0.1: 630 completions (137s)
+action hedge_assert+0.2: 630 completions (135s)
+action elaborate_concise-0.2: 630 completions (136s)
+action elaborate_concise-0.1: 630 completions (135s)
+action elaborate_concise+0.1: 630 completions (138s)
+action elaborate_concise+0.2: 630 completions (138s)
+action formal_casual-0.2: 630 completions (137s)
+action formal_casual-0.1: 630 completions (136s)
+action formal_casual+0.1: 630 completions (141s)
+action formal_casual+0.2: 630 completions (140s)
+action cautious_direct-0.2: 630 completions (135s)
+action cautious_direct-0.1: 630 completions (137s)
+action cautious_direct+0.1: 630 completions (135s)
+action cautious_direct+0.2: 630 completions (137s)
+action warm_neutral-0.2: 630 completions (137s)
+action warm_neutral-0.1: 630 completions (137s)
+action warm_neutral+0.1: 630 completions (138s)
+action warm_neutral+0.2: 630 completions (137s)
+action inquire_proceed-0.2: 630 completions (139s)
+action inquire_proceed-0.1: 630 completions (138s)
+action inquire_proceed+0.1: 630 completions (137s)
+action inquire_proceed+0.2: 630 completions (138s)
+cache -> /home/users/btf12/reward-adaptive-steering/data/synthetic/cache.jsonl
+{'ts': '2026-07-23T18:48:38', 'stage': 'B0', 'event': 'synth_cache', 'wall_s': 3436.99, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.799, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 2982.35it/s]
+hidden states (630, 2048) (layer 16) -> /home/users/btf12/reward-adaptive-steering/data/synthetic/hidden.npz
+{'ts': '2026-07-23T18:48:56', 'stage': 'B0', 'event': 'synth_hidden', 'wall_s': 4.56, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 3.985, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push data/synthetic/ and results/cost_log.jsonl
