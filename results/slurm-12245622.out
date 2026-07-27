@@ -1,3 +1,33 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  85%|████████▍ | 288/339 [00:00<00:00, 2875.36it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2767.19it/s]
+  hedge_assert: 8/20 prompts
+  hedge_assert: 16/20 prompts
+  hedge_assert: 20/20 prompts
+  elaborate_concise: 8/20 prompts
+  elaborate_concise: 16/20 prompts
+  elaborate_concise: 20/20 prompts
+  formal_casual: 8/20 prompts
+  formal_casual: 16/20 prompts
+  formal_casual: 20/20 prompts
+  cautious_direct: 8/20 prompts
+  cautious_direct: 16/20 prompts
+  cautious_direct: 20/20 prompts
+  warm_neutral: 8/20 prompts
+  warm_neutral: 16/20 prompts
+  warm_neutral: 20/20 prompts
+  inquire_proceed: 8/20 prompts
+  inquire_proceed: 16/20 prompts
+  inquire_proceed: 20/20 prompts
+| axis | mean proxy (pos) | mean proxy (neg) | separation ok? |
+|---|---|---|---|
+| hedge_assert | 1.01 | 0.18 | YES |
+| elaborate_concise | 165.60 | 21.55 | YES |
+| formal_casual | -0.18 | -6.10 | YES |
+| cautious_direct | 1.05 | 0.04 | YES |
+| warm_neutral | 0.46 | 0.00 | YES |
+| inquire_proceed | 5.05 | 0.00 | YES |
+
+sample sheet -> /home/users/btf12/reward-adaptive-steering/data/compliance_7b/samples.md
+{'ts': '2026-07-27T16:42:26', 'stage': 'A', 'event': 'basis_compliance_7b', 'wall_s': 230.84, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 15.518, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — push data/compliance_7b/ and review the sample sheet before extract.
