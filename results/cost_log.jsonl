@@ -26,3 +26,4 @@
 {"ts": "2026-07-24T13:18:57", "stage": "B0", "event": "synth_learn", "wall_s": 40.54, "peak_rss_gb": 0.463, "mps_driver_gb": 0.0, "cuda_peak_gb": null, "gpu": null, "device": "cpu", "notes": ""}
 {"ts": "2026-07-24T13:20:20", "stage": "B0", "event": "synth_learn", "wall_s": 40.69, "peak_rss_gb": 0.459, "mps_driver_gb": 0.0, "cuda_peak_gb": null, "gpu": null, "device": "cpu", "notes": ""}
 {"ts": "2026-07-24T17:19:54", "stage": "A2", "event": "headroom_pilot_both", "wall_s": 2806.58, "peak_rss_gb": 0.006, "mps_driver_gb": null, "cuda_peak_gb": 16.845, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}
+{"ts": "2026-07-27T16:35:53", "stage": "A2", "event": "rm_agreement", "wall_s": 56.8, "peak_rss_gb": 0.003, "mps_driver_gb": null, "cuda_peak_gb": 2.503, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}

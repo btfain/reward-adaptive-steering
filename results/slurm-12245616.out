@@ -1,0 +1,26 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/147 [00:00<?, ?it/s]Loading weights: 100%|██████████| 147/147 [00:00<00:00, 1775.61it/s]
+scoring 2460 completions with Skywork/Skywork-Reward-V2-Llama-3.2-1B
+# A2 RM-variance probe — Skywork-V2-Qwen3-0.6B vs -Llama-3.2-1B
+
+Both RMs score the SAME 2460 cached pilot completions. RM1 = Skywork-Reward-V2-Qwen3-0.6B, RM2 = Skywork-Reward-V2-Llama-3.2-1B.
+
+
+## base
+
+- per-(prompt,seed) ΔRM correlation RM1↔RM2: **+0.88**
+- per-condition mean-effect sign agreement: **91%** (all 56), **100%** on 40 movers (|ΔRM1|>0.3)
+
+| condition | ΔRM1 | ΔRM2 | agree |
+
+## large
+
+- per-(prompt,seed) ΔRM correlation RM1↔RM2: **+0.80**
+- per-condition mean-effect sign agreement: **96%** (all 24), **100%** on 20 movers (|ΔRM1|>0.3)
+
+| condition | ΔRM1 | ΔRM2 | agree |
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/rm_agreement.md
+{'ts': '2026-07-27T16:35:53', 'stage': 'A2', 'event': 'rm_agreement', 'wall_s': 56.8, 'peak_rss_gb': 0.003, 'mps_driver_gb': None, 'cuda_peak_gb': 2.503, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+DONE — commit and push results/headroom/headroom_rm2.jsonl, basis/rm_agreement.md, results/cost_log.jsonl
