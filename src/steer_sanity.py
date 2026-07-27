@@ -22,6 +22,7 @@ import yaml
 from basis_extract import load_basis_config
 from models import (
     REPO_ROOT,
+    artifact_suffix,
     generate_batch,
     load_base,
     load_config,
@@ -93,26 +94,30 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--redo", nargs="*", default=[],
                         help="axis names whose sweep files should be regenerated")
+    parser.add_argument("--config", default=None,
+                        help="base config path (e.g. configs/base_7b.yaml)")
     args = parser.parse_args()
     t0 = time.time()
-    cfg = load_config()
+    cfg = load_config(args.config)
     bcfg = load_basis_config()
     scfg = bcfg["sanity"]
     device = resolve_device(cfg)
     torch.manual_seed(bcfg["data"]["seed"])
     layer = cfg["steer_layer"]
+    sfx = artifact_suffix(cfg)
+    out_dir = REPO_ROOT / "results" / f"sanity{sfx}"
 
     model, tok = load_base(cfg, device)
     rm, rm_tok = load_rm(cfg, device)
     prompts = json.load(open(REPO_ROOT / "data" / "prompts.json"))["heldout"]
-    axes = np.load(BASIS / "axes.npz")
+    axes = np.load(BASIS / f"axes{sfx}.npz")
     axis_names = [a["name"] for a in bcfg["axes"]]
 
     ref = measure_ref_norm(model, tok, prompts[: scfg["ref_norm_prompts"]], layer)
     print(f"reference residual norm at layer {layer}: {ref:.1f}")
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    baseline_path = OUT / "baseline.jsonl"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    baseline_path = out_dir / "baseline.jsonl"
     if not baseline_path.exists():
         rows = run_condition(
             model, tok, rm, rm_tok, prompts, cfg, scfg, "baseline", None, 0.0, ref
@@ -123,7 +128,7 @@ def main():
         print("baseline done")
 
     for name in axis_names:
-        path = OUT / f"{name}.jsonl"
+        path = out_dir / f"{name}.jsonl"
         if path.exists() and name in args.redo:
             path.rename(path.with_suffix(".old.jsonl.bak"))
             print(f"{name}: --redo, regenerating (old file -> .old.jsonl.bak)")
@@ -143,14 +148,14 @@ def main():
             for r in rows:
                 f.write(json.dumps(r) + "\n")
 
-    write_reports(bcfg, scfg, axis_names, layer, ref)
-    print(log_cost("A", "sanity_sweep", time.time() - t0, device,
+    write_reports(bcfg, scfg, axis_names, layer, ref, out_dir, sfx)
+    print(log_cost("A", f"sanity_sweep{sfx}", time.time() - t0, device,
                    notes=f"layer={layer} ref_norm={ref:.1f}"))
 
 
-def write_reports(bcfg, scfg, axis_names, layer, ref):
-    baseline = [json.loads(l) for l in open(OUT / "baseline.jsonl")]
-    data = {n: [json.loads(l) for l in open(OUT / f"{n}.jsonl")] for n in axis_names}
+def write_reports(bcfg, scfg, axis_names, layer, ref, out_dir, sfx=""):
+    baseline = [json.loads(l) for l in open(out_dir / "baseline.jsonl")]
+    data = {n: [json.loads(l) for l in open(out_dir / f"{n}.jsonl")] for n in axis_names}
     fracs = [0.0] + scfg["alpha_fracs"]
     fracs_sorted = sorted(fracs)
 
@@ -192,7 +197,7 @@ def write_reports(bcfg, scfg, axis_names, layer, ref):
             cells.append(f"{dz:+.1f}")
         report.append(f"| {name[:12]} | " + " | ".join(cells) + " |")
 
-    with open(BASIS / "sanity_report.md", "w") as f:
+    with open(BASIS / f"sanity_report{sfx}.md", "w") as f:
         f.write("\n".join(report) + "\n")
 
     # Qualitative sheets: same few prompts across the whole sweep, per axis.
@@ -208,9 +213,9 @@ def write_reports(bcfg, scfg, axis_names, layer, ref):
                     text = rows[0]["completion"][:300].replace("\n", " ")
                     sheet.append(f"- **{frac:+.2f}** {text}")
             sheet.append("")
-    with open(BASIS / "sanity_samples.md", "w") as f:
+    with open(BASIS / f"sanity_samples{sfx}.md", "w") as f:
         f.write("\n".join(sheet) + "\n")
-    print(f"reports -> {BASIS / 'sanity_report.md'}, {BASIS / 'sanity_samples.md'}")
+    print(f"reports -> {BASIS / f'sanity_report{sfx}.md'}, {BASIS / f'sanity_samples{sfx}.md'}")
 
 
 if __name__ == "__main__":

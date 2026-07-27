@@ -22,6 +22,7 @@ from datasets import load_dataset
 
 from models import (
     REPO_ROOT,
+    artifact_suffix,
     generate_batch,
     load_base,
     load_config,
@@ -134,7 +135,7 @@ def phase_compliance(cfg, bcfg, model, tok, axes=None):
     prompts = json.load(open(DATA / "prompts.json"))["train"][
         : bcfg["pairs"]["compliance_n"]
     ]
-    comp_dir = DATA / "compliance"
+    comp_dir = DATA / f"compliance{artifact_suffix(cfg)}"
     comp_dir.mkdir(parents=True, exist_ok=True)
     lines = ["# Pole-compliance check (instructed generations, no steering)\n"]
     table = ["| axis | mean proxy (pos) | mean proxy (neg) | separation ok? |", "|---|---|---|---|"]
@@ -157,7 +158,7 @@ def phase_compliance(cfg, bcfg, model, tok, axes=None):
 
 def phase_generate(cfg, bcfg, model, tok):
     prompts = json.load(open(DATA / "prompts.json"))["train"]
-    pairs_dir = DATA / "pairs"
+    pairs_dir = DATA / f"pairs{artifact_suffix(cfg)}"
     pairs_dir.mkdir(parents=True, exist_ok=True)
     for axis in bcfg["axes"]:
         print(f"axis {axis['name']}")
@@ -165,13 +166,15 @@ def phase_generate(cfg, bcfg, model, tok):
 
 
 def phase_extract(cfg, bcfg, model, tok):
-    layers = bcfg["capture_layers"]
+    sfx = artifact_suffix(cfg)
+    layers = cfg.get("capture_layers", bcfg["capture_layers"])
+    pairs_dir = DATA / f"pairs{sfx}"
     BASIS.mkdir(exist_ok=True)
     vectors = {}       # (axis, layer) -> unit vector
     per_axis_stats = []
     for axis in bcfg["axes"]:
         name = axis["name"]
-        rows = [json.loads(line) for line in open(DATA / "pairs" / f"{name}.jsonl")]
+        rows = [json.loads(line) for line in open(pairs_dir / f"{name}.jsonl")]
         stale = {r.get("model") for r in rows} - {cfg["base_model"]}
         if stale:
             raise RuntimeError(
@@ -212,12 +215,12 @@ def phase_extract(cfg, bcfg, model, tok):
         for layer in layers:
             diff = sums[("pos", layer)] / n - sums[("neg", layer)] / n
             vectors[(name, layer)] = (diff / diff.norm()).numpy()
-        mp, mn, _ = _proxy_summary(DATA / "pairs" / f"{name}.jsonl")
+        mp, mn, _ = _proxy_summary(pairs_dir / f"{name}.jsonl")
         per_axis_stats.append((name, n, n_total, mp, mn))
         print(f"{name}: pairs used={n}/{n_total} proxy pos={mp:.2f} neg={mn:.2f}")
 
     np.savez(
-        BASIS / "axes.npz",
+        BASIS / f"axes{sfx}.npz",
         **{f"{name}|{layer}": v for (name, layer), v in vectors.items()},
     )
     axis_names = [a["name"] for a in bcfg["axes"]]
@@ -246,9 +249,9 @@ def phase_extract(cfg, bcfg, model, tok):
         ]
         if flagged and layer == cfg["steer_layer"]:
             report.append("\n**COLLAPSE-RULE FLAGS (|cos| >= 0.7 at default layer):** " + str(flagged))
-    with open(BASIS / "extraction_report.md", "w") as f:
+    with open(BASIS / f"extraction_report{sfx}.md", "w") as f:
         f.write("\n".join(report) + "\n")
-    with open(BASIS / "metadata.yaml", "w") as f:
+    with open(BASIS / f"metadata{sfx}.yaml", "w") as f:
         yaml.safe_dump(
             {
                 "date": time.strftime("%Y-%m-%d"),
@@ -261,7 +264,7 @@ def phase_extract(cfg, bcfg, model, tok):
             },
             f,
         )
-    print(f"basis -> {BASIS / 'axes.npz'}; report -> {BASIS / 'extraction_report.md'}")
+    print(f"basis -> {BASIS / f'axes{sfx}.npz'}; report -> {BASIS / f'extraction_report{sfx}.md'}")
 
 
 def main():
@@ -270,9 +273,11 @@ def main():
                         choices=["prompts", "compliance", "generate", "extract"])
     parser.add_argument("--axes", nargs="*", default=None,
                         help="compliance only: restrict to these axis names")
+    parser.add_argument("--config", default=None,
+                        help="base config path (e.g. configs/base_7b.yaml)")
     args = parser.parse_args()
     t0 = time.time()
-    cfg = load_config()
+    cfg = load_config(args.config)
     bcfg = load_basis_config()
     device = resolve_device(cfg)
     torch.manual_seed(bcfg["data"]["seed"])
@@ -287,7 +292,7 @@ def main():
             {"generate": phase_generate, "extract": phase_extract}[args.phase](
                 cfg, bcfg, model, tok
             )
-    print(log_cost("A", f"basis_{args.phase}", time.time() - t0, device))
+    print(log_cost("A", f"basis_{args.phase}{artifact_suffix(cfg)}", time.time() - t0, device))
 
 
 if __name__ == "__main__":

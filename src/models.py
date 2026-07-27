@@ -27,6 +27,13 @@ def load_config(path=None):
         return yaml.safe_load(f)
 
 
+def artifact_suffix(cfg):
+    """Per-model artifact suffix so a second base model (e.g. the 7B extraction)
+    writes separate pairs/basis/sanity files instead of clobbering the default."""
+    tag = cfg.get("tag", "")
+    return f"_{tag}" if tag else ""
+
+
 def resolve_device(cfg):
     if cfg["device"] != "auto":
         return torch.device(cfg["device"])

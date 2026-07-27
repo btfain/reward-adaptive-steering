@@ -1,0 +1,35 @@
+# Base config VARIANT for the 7B steering prototype (A2 model-adequacy thread).
+# Runs the Stage-A extraction/sanity pipeline on Qwen2.5-7B so we can compare
+# activation steering at 7B vs 1.7B (the pilot showed 1.7B steering net-negative
+# while prompting was mildly positive — is that a scale artifact or fundamental?).
+# `tag: 7b` routes all artifacts to *_7b files; the 1.7B basis is untouched.
+tag: "7b"
+
+base_model: Qwen/Qwen2.5-7B-Instruct   # already cached (B0 generator)
+reward_model: Skywork/Skywork-Reward-V2-Qwen3-0.6B
+reward_model_alt: Skywork/Skywork-Reward-V2-Llama-3.2-1B
+
+device: auto
+dtype: auto        # bf16 on the A5000
+
+# Qwen2.5-7B is 28 layers (vs 24 for SmolLM2-1.7B). ~2/3 depth ~= 18; capture a
+# spread so we can pick by steering quality if 18 is weak (Stage A layer-sweep
+# fallback). Reference residual norm will differ from the 1.7B's 678 — measured,
+# not assumed, by the sanity sweep.
+steer_layer: 18
+capture_layers: [14, 18, 22]
+
+generation:
+  max_new_tokens: 256
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.9
+
+# Shared with base.yaml (prompts.json already generated, model-agnostic; phase
+# prompts is skipped when it exists).
+data:
+  prompt_dataset: HuggingFaceH4/ultrafeedback_binarized
+  prompt_split: train_prefs
+  prompt_field: prompt
+
+seed: 0
