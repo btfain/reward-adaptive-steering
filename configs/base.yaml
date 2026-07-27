@@ -3,6 +3,12 @@
 # data/compliance/). Sanctioned escalation path per PLAN.md.
 base_model: HuggingFaceTB/SmolLM2-1.7B-Instruct
 reward_model: Skywork/Skywork-Reward-V2-Qwen3-0.6B
+# Second RM (added 2026-07-27) for the A2 RM-variance probe: same Skywork-V2
+# recipe, Llama-3.2 base instead of Qwen3 — comparable size/quality, different
+# base family, so it controls for base-family affinity (esp. once we steer a
+# Qwen-7B base scored by a Qwen-derived RM). Used only to re-score cached
+# completions, never to drive search.
+reward_model_alt: Skywork/Skywork-Reward-V2-Llama-3.2-1B
 
 device: auto        # resolves to mps > cuda > cpu
 dtype: auto         # bf16 on cuda, float32 elsewhere; vector arithmetic stays fp32
