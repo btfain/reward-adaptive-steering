@@ -1,0 +1,368 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  26%|██▋       | 82/311 [00:00<00:00, 771.48it/s]Loading weights:  51%|█████▏    | 160/311 [00:00<00:00, 717.43it/s]Loading weights:  75%|███████▍  | 232/311 [00:00<00:00, 575.11it/s]Loading weights:  98%|█████████▊| 306/311 [00:00<00:00, 629.06it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 649.27it/s]
+=== base: 57 conditions x 3 seeds (0 already done) ===
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  19%|█▉        | 41/218 [00:00<00:00, 406.08it/s]Loading weights:  38%|███▊      | 82/218 [00:00<00:00, 266.40it/s]Loading weights:  82%|████████▏ | 178/218 [00:00<00:00, 493.18it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 460.61it/s]
+ref norm 778.2
+[base] none seed 0: 10 gens (10s)
+[base] none seed 1: 10 gens (9s)
+[base] none seed 2: 10 gens (9s)
+[base] m1:hedge_assert-0.2 seed 0: 10 gens (9s)
+[base] m1:hedge_assert-0.2 seed 1: 10 gens (9s)
+[base] m1:hedge_assert-0.2 seed 2: 10 gens (9s)
+[base] m1:hedge_assert-0.1 seed 0: 10 gens (9s)
+[base] m1:hedge_assert-0.1 seed 1: 10 gens (9s)
+[base] m1:hedge_assert-0.1 seed 2: 10 gens (9s)
+[base] m1:hedge_assert+0.1 seed 0: 10 gens (9s)
+[base] m1:hedge_assert+0.1 seed 1: 10 gens (9s)
+[base] m1:hedge_assert+0.1 seed 2: 10 gens (9s)
+[base] m1:hedge_assert+0.2 seed 0: 10 gens (9s)
+[base] m1:hedge_assert+0.2 seed 1: 10 gens (9s)
+[base] m1:hedge_assert+0.2 seed 2: 10 gens (9s)
+[base] m1:elaborate_concise-0.2 seed 0: 10 gens (9s)
+[base] m1:elaborate_concise-0.2 seed 1: 10 gens (8s)
+[base] m1:elaborate_concise-0.2 seed 2: 10 gens (9s)
+[base] m1:elaborate_concise-0.1 seed 0: 10 gens (9s)
+[base] m1:elaborate_concise-0.1 seed 1: 10 gens (9s)
+[base] m1:elaborate_concise-0.1 seed 2: 10 gens (9s)
+[base] m1:elaborate_concise+0.1 seed 0: 10 gens (10s)
+[base] m1:elaborate_concise+0.1 seed 1: 10 gens (9s)
+[base] m1:elaborate_concise+0.1 seed 2: 10 gens (10s)
+[base] m1:elaborate_concise+0.2 seed 0: 10 gens (9s)
+[base] m1:elaborate_concise+0.2 seed 1: 10 gens (9s)
+[base] m1:elaborate_concise+0.2 seed 2: 10 gens (9s)
+[base] m1:formal_casual-0.2 seed 0: 10 gens (10s)
+[base] m1:formal_casual-0.2 seed 1: 10 gens (9s)
+[base] m1:formal_casual-0.2 seed 2: 10 gens (9s)
+[base] m1:formal_casual-0.1 seed 0: 10 gens (9s)
+[base] m1:formal_casual-0.1 seed 1: 10 gens (9s)
+[base] m1:formal_casual-0.1 seed 2: 10 gens (10s)
+[base] m1:formal_casual+0.1 seed 0: 10 gens (9s)
+[base] m1:formal_casual+0.1 seed 1: 10 gens (9s)
+[base] m1:formal_casual+0.1 seed 2: 10 gens (9s)
+[base] m1:formal_casual+0.2 seed 0: 10 gens (9s)
+[base] m1:formal_casual+0.2 seed 1: 10 gens (9s)
+[base] m1:formal_casual+0.2 seed 2: 10 gens (9s)
+[base] m1:cautious_direct-0.2 seed 0: 10 gens (9s)
+[base] m1:cautious_direct-0.2 seed 1: 10 gens (9s)
+[base] m1:cautious_direct-0.2 seed 2: 10 gens (9s)
+[base] m1:cautious_direct-0.1 seed 0: 10 gens (10s)
+[base] m1:cautious_direct-0.1 seed 1: 10 gens (9s)
+[base] m1:cautious_direct-0.1 seed 2: 10 gens (9s)
+[base] m1:cautious_direct+0.1 seed 0: 10 gens (9s)
+[base] m1:cautious_direct+0.1 seed 1: 10 gens (9s)
+[base] m1:cautious_direct+0.1 seed 2: 10 gens (9s)
+[base] m1:cautious_direct+0.2 seed 0: 10 gens (9s)
+[base] m1:cautious_direct+0.2 seed 1: 10 gens (9s)
+[base] m1:cautious_direct+0.2 seed 2: 10 gens (9s)
+[base] m1:warm_neutral-0.2 seed 0: 10 gens (9s)
+[base] m1:warm_neutral-0.2 seed 1: 10 gens (10s)
+[base] m1:warm_neutral-0.2 seed 2: 10 gens (9s)
+[base] m1:warm_neutral-0.1 seed 0: 10 gens (9s)
+[base] m1:warm_neutral-0.1 seed 1: 10 gens (9s)
+[base] m1:warm_neutral-0.1 seed 2: 10 gens (9s)
+[base] m1:warm_neutral+0.1 seed 0: 10 gens (9s)
+[base] m1:warm_neutral+0.1 seed 1: 10 gens (9s)
+[base] m1:warm_neutral+0.1 seed 2: 10 gens (9s)
+[base] m1:warm_neutral+0.2 seed 0: 10 gens (10s)
+[base] m1:warm_neutral+0.2 seed 1: 10 gens (9s)
+[base] m1:warm_neutral+0.2 seed 2: 10 gens (9s)
+[base] m1:inquire_proceed-0.2 seed 0: 10 gens (9s)
+[base] m1:inquire_proceed-0.2 seed 1: 10 gens (9s)
+[base] m1:inquire_proceed-0.2 seed 2: 10 gens (9s)
+[base] m1:inquire_proceed-0.1 seed 0: 10 gens (9s)
+[base] m1:inquire_proceed-0.1 seed 1: 10 gens (9s)
+[base] m1:inquire_proceed-0.1 seed 2: 10 gens (10s)
+[base] m1:inquire_proceed+0.1 seed 0: 10 gens (9s)
+[base] m1:inquire_proceed+0.1 seed 1: 10 gens (9s)
+[base] m1:inquire_proceed+0.1 seed 2: 10 gens (9s)
+[base] m1:inquire_proceed+0.2 seed 0: 10 gens (5s)
+[base] m1:inquire_proceed+0.2 seed 1: 10 gens (4s)
+[base] m1:inquire_proceed+0.2 seed 2: 10 gens (7s)
+[base] m2:hedge_assert+0.1 seed 0: 10 gens (9s)
+[base] m2:hedge_assert+0.1 seed 1: 10 gens (9s)
+[base] m2:hedge_assert+0.1 seed 2: 10 gens (9s)
+[base] m2:hedge_assert+0.2 seed 0: 10 gens (9s)
+[base] m2:hedge_assert+0.2 seed 1: 10 gens (9s)
+[base] m2:hedge_assert+0.2 seed 2: 10 gens (9s)
+[base] m2:hedge_assert-0.1 seed 0: 10 gens (7s)
+[base] m2:hedge_assert-0.1 seed 1: 10 gens (9s)
+[base] m2:hedge_assert-0.1 seed 2: 10 gens (8s)
+[base] m2:hedge_assert-0.2 seed 0: 10 gens (8s)
+[base] m2:hedge_assert-0.2 seed 1: 10 gens (9s)
+[base] m2:hedge_assert-0.2 seed 2: 10 gens (9s)
+[base] m2:elaborate_concise+0.1 seed 0: 10 gens (9s)
+[base] m2:elaborate_concise+0.1 seed 1: 10 gens (9s)
+[base] m2:elaborate_concise+0.1 seed 2: 10 gens (9s)
+[base] m2:elaborate_concise+0.2 seed 0: 10 gens (9s)
+[base] m2:elaborate_concise+0.2 seed 1: 10 gens (10s)
+[base] m2:elaborate_concise+0.2 seed 2: 10 gens (9s)
+[base] m2:elaborate_concise-0.1 seed 0: 10 gens (9s)
+[base] m2:elaborate_concise-0.1 seed 1: 10 gens (7s)
+[base] m2:elaborate_concise-0.1 seed 2: 10 gens (6s)
+[base] m2:elaborate_concise-0.2 seed 0: 10 gens (7s)
+[base] m2:elaborate_concise-0.2 seed 1: 10 gens (6s)
+[base] m2:elaborate_concise-0.2 seed 2: 10 gens (7s)
+[base] m2:formal_casual+0.1 seed 0: 10 gens (9s)
+[base] m2:formal_casual+0.1 seed 1: 10 gens (9s)
+[base] m2:formal_casual+0.1 seed 2: 10 gens (9s)
+[base] m2:formal_casual+0.2 seed 0: 10 gens (9s)
+[base] m2:formal_casual+0.2 seed 1: 10 gens (9s)
+[base] m2:formal_casual+0.2 seed 2: 10 gens (9s)
+[base] m2:formal_casual-0.1 seed 0: 10 gens (9s)
+[base] m2:formal_casual-0.1 seed 1: 10 gens (9s)
+[base] m2:formal_casual-0.1 seed 2: 10 gens (10s)
+[base] m2:formal_casual-0.2 seed 0: 10 gens (9s)
+[base] m2:formal_casual-0.2 seed 1: 10 gens (9s)
+[base] m2:formal_casual-0.2 seed 2: 10 gens (9s)
+[base] m2:cautious_direct+0.1 seed 0: 10 gens (9s)
+[base] m2:cautious_direct+0.1 seed 1: 10 gens (9s)
+[base] m2:cautious_direct+0.1 seed 2: 10 gens (9s)
+[base] m2:cautious_direct+0.2 seed 0: 10 gens (9s)
+[base] m2:cautious_direct+0.2 seed 1: 10 gens (9s)
+[base] m2:cautious_direct+0.2 seed 2: 10 gens (9s)
+[base] m2:cautious_direct-0.1 seed 0: 10 gens (9s)
+[base] m2:cautious_direct-0.1 seed 1: 10 gens (9s)
+[base] m2:cautious_direct-0.1 seed 2: 10 gens (9s)
+[base] m2:cautious_direct-0.2 seed 0: 10 gens (9s)
+[base] m2:cautious_direct-0.2 seed 1: 10 gens (9s)
+[base] m2:cautious_direct-0.2 seed 2: 10 gens (9s)
+[base] m2:warm_neutral+0.1 seed 0: 10 gens (9s)
+[base] m2:warm_neutral+0.1 seed 1: 10 gens (9s)
+[base] m2:warm_neutral+0.1 seed 2: 10 gens (10s)
+[base] m2:warm_neutral+0.2 seed 0: 10 gens (9s)
+[base] m2:warm_neutral+0.2 seed 1: 10 gens (9s)
+[base] m2:warm_neutral+0.2 seed 2: 10 gens (9s)
+[base] m2:warm_neutral-0.1 seed 0: 10 gens (9s)
+[base] m2:warm_neutral-0.1 seed 1: 10 gens (7s)
+[base] m2:warm_neutral-0.1 seed 2: 10 gens (9s)
+[base] m2:warm_neutral-0.2 seed 0: 10 gens (9s)
+[base] m2:warm_neutral-0.2 seed 1: 10 gens (10s)
+[base] m2:warm_neutral-0.2 seed 2: 10 gens (9s)
+[base] m2:inquire_proceed+0.1 seed 0: 10 gens (9s)
+[base] m2:inquire_proceed+0.1 seed 1: 10 gens (9s)
+[base] m2:inquire_proceed+0.1 seed 2: 10 gens (9s)
+[base] m2:inquire_proceed+0.2 seed 0: 10 gens (3s)
+[base] m2:inquire_proceed+0.2 seed 1: 10 gens (2s)
+[base] m2:inquire_proceed+0.2 seed 2: 10 gens (2s)
+[base] m2:inquire_proceed-0.1 seed 0: 10 gens (9s)
+[base] m2:inquire_proceed-0.1 seed 1: 10 gens (6s)
+[base] m2:inquire_proceed-0.1 seed 2: 10 gens (9s)
+[base] m2:inquire_proceed-0.2 seed 0: 10 gens (6s)
+[base] m2:inquire_proceed-0.2 seed 1: 10 gens (8s)
+[base] m2:inquire_proceed-0.2 seed 2: 10 gens (9s)
+[base] dense:cem_best seed 0: 10 gens (9s)
+[base] dense:cem_best seed 1: 10 gens (9s)
+[base] dense:cem_best seed 2: 10 gens (9s)
+[base] dense:prior seed 0: 10 gens (9s)
+[base] dense:prior seed 1: 10 gens (9s)
+[base] dense:prior seed 2: 10 gens (9s)
+[base] dense:rand0 seed 0: 10 gens (10s)
+[base] dense:rand0 seed 1: 10 gens (9s)
+[base] dense:rand0 seed 2: 10 gens (9s)
+[base] dense:rand1 seed 0: 10 gens (9s)
+[base] dense:rand1 seed 1: 10 gens (9s)
+[base] dense:rand1 seed 2: 10 gens (9s)
+[base] dense:rand2 seed 0: 10 gens (9s)
+[base] dense:rand2 seed 1: 10 gens (9s)
+[base] dense:rand2 seed 2: 10 gens (9s)
+[base] dense:rand3 seed 0: 10 gens (10s)
+[base] dense:rand3 seed 1: 10 gens (9s)
+[base] dense:rand3 seed 2: 10 gens (9s)
+[base] dense:rand4 seed 0: 10 gens (9s)
+[base] dense:rand4 seed 1: 10 gens (9s)
+[base] dense:rand4 seed 2: 10 gens (9s)
+[base] dense:rand5 seed 0: 10 gens (9s)
+[base] dense:rand5 seed 1: 10 gens (9s)
+[base] dense:rand5 seed 2: 10 gens (8s)
+=== large: 25 conditions x 3 seeds (0 already done) ===
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 54/339 [00:00<00:00, 476.64it/s]Loading weights:  38%|███▊      | 129/339 [00:00<00:00, 613.28it/s]Loading weights:  56%|█████▋    | 191/339 [00:00<00:00, 615.93it/s]Loading weights:  77%|███████▋  | 261/339 [00:00<00:00, 638.59it/s]Loading weights:  96%|█████████▌| 326/339 [00:00<00:00, 617.46it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 634.33it/s]
+/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/numpy/_core/fromnumeric.py:3860: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+[large] none seed 0: 10 gens (18s)
+[large] none seed 1: 10 gens (18s)
+[large] none seed 2: 10 gens (18s)
+[large] m2:hedge_assert+0.1 seed 0: 10 gens (18s)
+[large] m2:hedge_assert+0.1 seed 1: 10 gens (18s)
+[large] m2:hedge_assert+0.1 seed 2: 10 gens (18s)
+[large] m2:hedge_assert+0.2 seed 0: 10 gens (18s)
+[large] m2:hedge_assert+0.2 seed 1: 10 gens (18s)
+[large] m2:hedge_assert+0.2 seed 2: 10 gens (18s)
+[large] m2:hedge_assert-0.1 seed 0: 10 gens (18s)
+[large] m2:hedge_assert-0.1 seed 1: 10 gens (18s)
+[large] m2:hedge_assert-0.1 seed 2: 10 gens (18s)
+[large] m2:hedge_assert-0.2 seed 0: 10 gens (12s)
+[large] m2:hedge_assert-0.2 seed 1: 10 gens (14s)
+[large] m2:hedge_assert-0.2 seed 2: 10 gens (12s)
+[large] m2:elaborate_concise+0.1 seed 0: 10 gens (18s)
+[large] m2:elaborate_concise+0.1 seed 1: 10 gens (18s)
+[large] m2:elaborate_concise+0.1 seed 2: 10 gens (18s)
+[large] m2:elaborate_concise+0.2 seed 0: 10 gens (18s)
+[large] m2:elaborate_concise+0.2 seed 1: 10 gens (18s)
+[large] m2:elaborate_concise+0.2 seed 2: 10 gens (18s)
+[large] m2:elaborate_concise-0.1 seed 0: 10 gens (13s)
+[large] m2:elaborate_concise-0.1 seed 1: 10 gens (12s)
+[large] m2:elaborate_concise-0.1 seed 2: 10 gens (18s)
+[large] m2:elaborate_concise-0.2 seed 0: 10 gens (6s)
+[large] m2:elaborate_concise-0.2 seed 1: 10 gens (6s)
+[large] m2:elaborate_concise-0.2 seed 2: 10 gens (6s)
+[large] m2:formal_casual+0.1 seed 0: 10 gens (18s)
+[large] m2:formal_casual+0.1 seed 1: 10 gens (18s)
+[large] m2:formal_casual+0.1 seed 2: 10 gens (18s)
+[large] m2:formal_casual+0.2 seed 0: 10 gens (18s)
+[large] m2:formal_casual+0.2 seed 1: 10 gens (18s)
+[large] m2:formal_casual+0.2 seed 2: 10 gens (18s)
+[large] m2:formal_casual-0.1 seed 0: 10 gens (18s)
+[large] m2:formal_casual-0.1 seed 1: 10 gens (18s)
+[large] m2:formal_casual-0.1 seed 2: 10 gens (18s)
+[large] m2:formal_casual-0.2 seed 0: 10 gens (16s)
+[large] m2:formal_casual-0.2 seed 1: 10 gens (16s)
+[large] m2:formal_casual-0.2 seed 2: 10 gens (17s)
+[large] m2:cautious_direct+0.1 seed 0: 10 gens (18s)
+[large] m2:cautious_direct+0.1 seed 1: 10 gens (18s)
+[large] m2:cautious_direct+0.1 seed 2: 10 gens (18s)
+[large] m2:cautious_direct+0.2 seed 0: 10 gens (18s)
+[large] m2:cautious_direct+0.2 seed 1: 10 gens (18s)
+[large] m2:cautious_direct+0.2 seed 2: 10 gens (18s)
+[large] m2:cautious_direct-0.1 seed 0: 10 gens (18s)
+[large] m2:cautious_direct-0.1 seed 1: 10 gens (18s)
+[large] m2:cautious_direct-0.1 seed 2: 10 gens (18s)
+[large] m2:cautious_direct-0.2 seed 0: 10 gens (15s)
+[large] m2:cautious_direct-0.2 seed 1: 10 gens (18s)
+[large] m2:cautious_direct-0.2 seed 2: 10 gens (16s)
+[large] m2:warm_neutral+0.1 seed 0: 10 gens (18s)
+[large] m2:warm_neutral+0.1 seed 1: 10 gens (18s)
+[large] m2:warm_neutral+0.1 seed 2: 10 gens (18s)
+[large] m2:warm_neutral+0.2 seed 0: 10 gens (18s)
+[large] m2:warm_neutral+0.2 seed 1: 10 gens (18s)
+[large] m2:warm_neutral+0.2 seed 2: 10 gens (18s)
+[large] m2:warm_neutral-0.1 seed 0: 10 gens (18s)
+[large] m2:warm_neutral-0.1 seed 1: 10 gens (18s)
+[large] m2:warm_neutral-0.1 seed 2: 10 gens (18s)
+[large] m2:warm_neutral-0.2 seed 0: 10 gens (18s)
+[large] m2:warm_neutral-0.2 seed 1: 10 gens (18s)
+[large] m2:warm_neutral-0.2 seed 2: 10 gens (18s)
+[large] m2:inquire_proceed+0.1 seed 0: 10 gens (18s)
+[large] m2:inquire_proceed+0.1 seed 1: 10 gens (18s)
+[large] m2:inquire_proceed+0.1 seed 2: 10 gens (18s)
+[large] m2:inquire_proceed+0.2 seed 0: 10 gens (6s)
+[large] m2:inquire_proceed+0.2 seed 1: 10 gens (5s)
+[large] m2:inquire_proceed+0.2 seed 2: 10 gens (7s)
+[large] m2:inquire_proceed-0.1 seed 0: 10 gens (18s)
+[large] m2:inquire_proceed-0.1 seed 1: 10 gens (18s)
+[large] m2:inquire_proceed-0.1 seed 2: 10 gens (18s)
+[large] m2:inquire_proceed-0.2 seed 0: 10 gens (18s)
+[large] m2:inquire_proceed-0.2 seed 1: 10 gens (18s)
+[large] m2:inquire_proceed-0.2 seed 2: 10 gens (18s)
+{'ts': '2026-07-24T17:19:54', 'stage': 'A2', 'event': 'headroom_pilot_both', 'wall_s': 2806.58, 'peak_rss_gb': 0.006, 'mps_driver_gb': None, 'cuda_peak_gb': 16.845, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+# Stage A2 pilot — go/no-go readout
+
+10 prompts, seeds [0, 1, 2]. Paired within-prompt vs `none`; DeltaPPL = mean completion-perplexity inflation over none (flag >20%).
+
+
+## base — per-condition paired ΔRM (sorted; ⚑ = perplexity-flagged)
+
+| condition | ΔRM | ±SE | ΔPPL | |
+|---|---|---|---|---|
+| dense:cem_best | +0.875 | 0.433 | +8% |  |
+| m2:cautious_direct-0.1 | +0.752 | 0.268 | +1% |  |
+| m2:warm_neutral-0.1 | +0.637 | 0.295 | +6% |  |
+| m2:formal_casual+0.1 | +0.635 | 0.288 | +2% |  |
+| m2:hedge_assert+0.2 | +0.510 | 0.439 | -1% |  |
+| m2:warm_neutral-0.2 | +0.351 | 0.382 | -2% |  |
+| m1:inquire_proceed-0.1 | +0.343 | 0.302 | +1% |  |
+| m1:elaborate_concise+0.1 | +0.282 | 0.243 | +6% |  |
+| m2:cautious_direct+0.1 | +0.276 | 0.569 | +38% | ⚑ |
+| m2:inquire_proceed+0.1 | +0.202 | 0.372 | +10% |  |
+| m2:hedge_assert-0.1 | +0.191 | 0.349 | +6% |  |
+| m2:hedge_assert-0.2 | +0.161 | 0.420 | +1% |  |
+| m2:hedge_assert+0.1 | +0.120 | 0.368 | +15% |  |
+| m1:cautious_direct+0.1 | +0.035 | 0.310 | +26% | ⚑ |
+| m2:cautious_direct+0.2 | +0.014 | 0.479 | -0% |  |
+| m2:formal_casual-0.1 | -0.011 | 0.384 | +20% |  |
+| m2:warm_neutral+0.1 | -0.024 | 0.354 | +6% |  |
+| m1:warm_neutral-0.1 | -0.118 | 0.452 | +22% | ⚑ |
+| dense:prior | -0.157 | 0.572 | +49% | ⚑ |
+| m1:hedge_assert+0.1 | -0.162 | 0.528 | +36% | ⚑ |
+| m1:formal_casual+0.1 | -0.173 | 0.397 | +16% |  |
+| m2:elaborate_concise-0.1 | -0.240 | 0.406 | +16% |  |
+| m2:formal_casual+0.2 | -0.251 | 0.479 | +30% | ⚑ |
+| m2:inquire_proceed-0.1 | -0.382 | 0.547 | -1% |  |
+| m1:hedge_assert-0.1 | -0.427 | 0.420 | +23% | ⚑ |
+| m2:elaborate_concise-0.2 | -0.471 | 0.405 | +9% |  |
+| m2:inquire_proceed-0.2 | -0.583 | 0.452 | -5% |  |
+| m2:elaborate_concise+0.1 | -0.587 | 0.583 | -4% |  |
+| m2:cautious_direct-0.2 | -0.625 | 0.310 | +17% |  |
+| m2:elaborate_concise+0.2 | -0.668 | 0.575 | +23% | ⚑ |
+| m1:cautious_direct-0.1 | -0.707 | 0.254 | +13% |  |
+| m1:warm_neutral+0.1 | -1.001 | 0.479 | +45% | ⚑ |
+| m2:warm_neutral+0.2 | -1.036 | 0.535 | +47% | ⚑ |
+| m1:elaborate_concise-0.1 | -1.153 | 0.255 | +18% |  |
+| m1:inquire_proceed-0.2 | -1.392 | 0.634 | +87% | ⚑ |
+| m1:inquire_proceed+0.1 | -1.955 | 0.624 | +89% | ⚑ |
+| m1:cautious_direct+0.2 | -2.111 | 0.536 | +170% | ⚑ |
+| m1:elaborate_concise+0.2 | -2.281 | 1.084 | +110% | ⚑ |
+| m2:formal_casual-0.2 | -2.284 | 0.707 | +71% | ⚑ |
+| dense:rand4 | -2.483 | 0.554 | +48% | ⚑ |
+| m1:formal_casual+0.2 | -2.583 | 0.639 | +115% | ⚑ |
+| m1:hedge_assert+0.2 | -2.614 | 0.633 | +202% | ⚑ |
+| m1:hedge_assert-0.2 | -2.724 | 0.364 | +63% | ⚑ |
+| m1:formal_casual-0.1 | -2.757 | 0.445 | +77% | ⚑ |
+| m2:inquire_proceed+0.2 | -3.367 | 0.835 | +219% | ⚑ |
+| m1:elaborate_concise-0.2 | -3.607 | 0.613 | +117% | ⚑ |
+| dense:rand0 | -3.762 | 0.821 | +144% | ⚑ |
+| m1:inquire_proceed+0.2 | -4.171 | 0.737 | +328% | ⚑ |
+| m1:warm_neutral-0.2 | -4.422 | 0.659 | +69% | ⚑ |
+| m1:cautious_direct-0.2 | -4.449 | 0.646 | +81% | ⚑ |
+| m1:warm_neutral+0.2 | -4.513 | 0.977 | +209% | ⚑ |
+| dense:rand2 | -4.629 | 0.971 | +336% | ⚑ |
+| dense:rand5 | -5.037 | 0.875 | +413% | ⚑ |
+| dense:rand3 | -6.583 | 0.570 | +270% | ⚑ |
+| dense:rand1 | -7.443 | 1.182 | +379% | ⚑ |
+| m1:formal_casual-0.2 | -9.125 | 0.761 | +339% | ⚑ |
+
+- **best mean condition:** dense:cem_best ΔRM +0.875 ± 0.433 (fluent)
+- **oracle per-prompt headroom** (fluent conds): +2.391 (mean best-per-prompt ΔRM)
+- **argmax winners:** 15 distinct conditions win across prompts×seeds — prompt-dependent
+
+## large — per-condition paired ΔRM (sorted; ⚑ = perplexity-flagged)
+
+| condition | ΔRM | ±SE | ΔPPL | |
+|---|---|---|---|---|
+| m2:hedge_assert+0.1 | +0.700 | 0.316 | +57% | ⚑ |
+| m2:formal_casual+0.1 | +0.588 | 0.332 | +28% | ⚑ |
+| m2:cautious_direct-0.1 | +0.584 | 0.435 | +27% | ⚑ |
+| m2:inquire_proceed-0.1 | +0.564 | 0.355 | +28% | ⚑ |
+| m2:warm_neutral-0.1 | +0.495 | 0.405 | +31% | ⚑ |
+| m2:inquire_proceed-0.2 | +0.445 | 0.398 | +23% | ⚑ |
+| m2:warm_neutral-0.2 | +0.256 | 0.577 | +80% | ⚑ |
+| m2:hedge_assert-0.1 | +0.084 | 0.392 | +35% | ⚑ |
+| m2:cautious_direct-0.2 | -0.164 | 0.767 | +152% | ⚑ |
+| m2:warm_neutral+0.1 | -0.254 | 0.270 | +85% | ⚑ |
+| m2:formal_casual+0.2 | -0.453 | 0.268 | +260% | ⚑ |
+| m2:warm_neutral+0.2 | -0.481 | 0.289 | +123% | ⚑ |
+| m2:hedge_assert+0.2 | -0.607 | 0.305 | +201% | ⚑ |
+| m2:elaborate_concise-0.1 | -0.622 | 0.876 | +146% | ⚑ |
+| m2:cautious_direct+0.1 | -0.633 | 0.319 | +99% | ⚑ |
+| m2:cautious_direct+0.2 | -1.017 | 0.363 | +125% | ⚑ |
+| m2:elaborate_concise+0.1 | -1.159 | 0.391 | +46% | ⚑ |
+| m2:formal_casual-0.1 | -1.539 | 0.480 | +248% | ⚑ |
+| m2:elaborate_concise+0.2 | -1.590 | 0.505 | +50% | ⚑ |
+| m2:hedge_assert-0.2 | -1.633 | 0.946 | +132% | ⚑ |
+| m2:inquire_proceed+0.1 | -1.934 | 0.709 | +175% | ⚑ |
+| m2:formal_casual-0.2 | -2.052 | 1.016 | +462% | ⚑ |
+| m2:elaborate_concise-0.2 | -2.228 | 0.488 | +175% | ⚑ |
+| m2:inquire_proceed+0.2 | -4.054 | 0.721 | +464% | ⚑ |
+
+- **best mean condition:** m2:hedge_assert+0.1 ΔRM +0.700 ± 0.316 (flagged)
+- **oracle per-prompt headroom** (fluent conds): +nan (mean best-per-prompt ΔRM)
+- **argmax winners:** 0 distinct conditions win across prompts×seeds — concentrated
+
+## Reading
+GO if any model shows a fluent condition with ΔRM > ~2·SE and positive oracle headroom — there is something to optimize. REBRIEF if everything is flat or only flagged (degradation) conditions move the RM (early H3 signal); discuss before the full 200-prompt run.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/headroom_pilot.md
+DONE — commit and push results/headroom/, basis/headroom_pilot.md,
+results/cost_log.jsonl, and the slurm log for the go/no-go review.
