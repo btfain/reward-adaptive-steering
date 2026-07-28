@@ -6,16 +6,19 @@
 # and — via the 7B M2 arm — whether the base model is the bottleneck.
 
 models:
-  # base = the steered model (SmolLM2-1.7B from base.yaml): steering + prompting.
-  # large = prompting only (no vectors extracted); already cached (B0 generator).
+  # 2x2 prototype: {base 1.7B, large 7B} x {M1 steering, M2 prompting}. Each model
+  # steers in ITS OWN validated band (per-model axes/layer/alpha), since the 7B's
+  # usable band is narrower (RM craters by |alpha|=0.2; sanity_report_7b at layer
+  # 18, ref norm 321.5). dense (H2 probe) stays base-only.
   base:
     arms: [none, m1, m2, dense]
+    steer: {axes: axes.npz, layer: 16, alpha_fracs: [-0.2, -0.1, 0.1, 0.2]}
   large:
     model: Qwen/Qwen2.5-7B-Instruct
-    arms: [none, m2]
+    arms: [none, m1, m2]
+    steer: {axes: axes_7b.npz, layer: 18, alpha_fracs: [-0.1, -0.05, 0.05, 0.1]}
 
 grid:
-  alpha_fracs: [-0.2, -0.1, 0.1, 0.2]   # M1 steering magnitudes (fraction of ref norm)
   cap_combined_norm: 0.25               # dense combos projected to this (Stage A cap)
   dense_n_random: 6                     # random dense actions (all axes at +/-0.1)
 

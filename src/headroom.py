@@ -73,12 +73,17 @@ def dense_specs(names, hcfg):
     return specs
 
 
-def build_conditions(hcfg, names, arms):
+def _fmt_frac(f):
+    """+0.1 / -0.05 / +0.2 — matches the base pilot's id format across bands."""
+    return f"{f:+.2f}".rstrip("0").rstrip(".")
+
+
+def build_conditions(hcfg, names, arms, alpha_fracs):
     """Full condition list for a model, filtered to its allowed arms."""
     conds = [{"id": "none", "arm": "none"}]
     for n in names:
-        for f in hcfg["grid"]["alpha_fracs"]:
-            conds.append({"id": f"m1:{n}{f:+.1f}", "arm": "m1", "axis": n, "frac": f})
+        for f in alpha_fracs:
+            conds.append({"id": f"m1:{n}{_fmt_frac(f)}", "arm": "m1", "axis": n, "frac": f})
     conds += m2_conditions(hcfg["imperatives"], names)
     for nm, coeffs in dense_specs(names, hcfg):
         conds.append({"id": f"dense:{nm}", "arm": "dense", "coeffs": coeffs})
@@ -250,11 +255,98 @@ def report_pilot(hcfg, prompts):
     print(f"\nreport -> {BASIS / 'headroom_pilot.md'}")
 
 
+def _metrics(score, none, cond_ids, prompts, seeds):
+    """Within-modality paired-vs-none summary. A policy may always decline to
+    steer, so the none option (delta 0) is a candidate everywhere:
+      static  best SINGLE condition's mean paired delta, or 0 (fixed arm)
+      raw     mean over (prompt,seed) of best-of-{conditions, none} (biased max)
+      valid   per-prompt winner picked on seeds[0] (incl. none), evaluated on the
+              held-out seeds — the debiased conditional headroom
+    """
+    means = {}
+    for c in cond_ids:
+        ds = [score(c, s, p) - none(s, p) for p in prompts for s in seeds
+              if score(c, s, p) is not None and none(s, p) is not None]
+        if ds:
+            means[c] = float(np.mean(ds))
+    static = max([0.0] + list(means.values()))
+
+    raw = []
+    for p in prompts:
+        for s in seeds:
+            if none(s, p) is None:
+                continue
+            d = [score(c, s, p) - none(s, p) for c in cond_ids if score(c, s, p) is not None]
+            raw.append(max([0.0] + d))
+
+    val, s0 = [], seeds[0]
+    for p in prompts:
+        if none(s0, p) is None:
+            continue
+        d0 = {c: score(c, s0, p) - none(s0, p) for c in cond_ids if score(c, s0, p) is not None}
+        d0["__none__"] = 0.0
+        win = max(d0, key=d0.get)
+        if win == "__none__":
+            val.append(0.0)
+        else:
+            ev = [score(win, s, p) - none(s, p) for s in seeds[1:]
+                  if score(win, s, p) is not None and none(s, p) is not None]
+            if ev:
+                val.append(float(np.mean(ev)))
+    nan = float("nan")
+    return static, (float(np.mean(raw)) if raw else nan), (float(np.mean(val)) if val else nan)
+
+
+def report_2x2(hcfg, prompts):
+    """Conditional steering (M1) vs conditional prompting (M2), per model, both RMs."""
+    r1 = [json.loads(l) for l in open(OUT / "headroom_log.jsonl")]
+    r2 = {(x["model"], x["condition"], x["seed"], x["prompt"]): x["rm2"]
+          for x in (json.loads(l) for l in open(OUT / "headroom_rm2.jsonl"))}
+    seeds = hcfg["pilot"]["seeds"]
+    lines = ["# A2 2x2 prototype — conditional steering vs prompting\n",
+             f"{len(prompts)} prompts, seeds {seeds}. Within-modality paired ΔRM vs "
+             "`none`; a conditional policy may always decline to steer (none = 0). "
+             "static = best single fixed condition; valid-oracle = per-prompt best "
+             f"picked on seed {seeds[0]}, evaluated on {seeds[1:]} (debiased). "
+             "RM1 = Skywork-Qwen3-0.6B, RM2 = Skywork-Llama-1B.\n"]
+    for mk in sorted({x["model"] for x in r1}):
+        mr = [x for x in r1 if x["model"] == mk]
+        rm1 = {(x["condition"], x["seed"], x["prompt"]): x["rm"] for x in mr}
+        none1 = lambda s, p: rm1.get(("none", s, p))
+        none2 = lambda s, p, mk=mk: r2.get((mk, "none", s, p))
+        sc1 = lambda c, s, p: rm1.get((c, s, p))
+        sc2 = lambda c, s, p, mk=mk: r2.get((mk, c, s, p))
+        conds = [c for c in dict.fromkeys(x["condition"] for x in mr) if c != "none"]
+        mods = [("M1 steering", [c for c in conds if c.startswith("m1:")]),
+                ("M2 prompting", [c for c in conds if c.startswith("m2:")]),
+                ("dense", [c for c in conds if c.startswith("dense:")])]
+        lines.append(f"\n## {mk}\n")
+        lines.append("| modality | n | static (fixed) | raw-oracle | **valid-oracle RM1** | valid-oracle RM2 |")
+        lines.append("|---|---|---|---|---|---|")
+        for mod, cids in mods:
+            if not cids:
+                continue
+            sb, ro, vo1 = _metrics(sc1, none1, cids, prompts, seeds)
+            _, _, vo2 = _metrics(sc2, none2, cids, prompts, seeds)
+            lines.append(f"| {mod} | {len(cids)} | {sb:+.2f} | {ro:+.2f} | **{vo1:+.2f}** | {vo2:+.2f} |")
+    lines.append(
+        "\n## Reading\nvalid-oracle is the debiased per-prompt headroom a CONDITIONAL "
+        "policy could capture (0 = conditioning captures nothing beyond declining to "
+        "steer). Compare within a model: does M1 (steering) reach what M2 (prompting) "
+        "does? valid-oracle > static means conditioning beats any fixed choice. Agreement "
+        "between RM1 and RM2 valid-oracle guards against tuning to one RM's noise."
+    )
+    (BASIS / "headroom_2x2.md").write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+    print(f"\nreport -> {BASIS / 'headroom_2x2.md'}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", default="pilot", choices=["pilot", "full"])
     ap.add_argument("--model", default="both", choices=["base", "large", "both"])
     ap.add_argument("--report-only", action="store_true")
+    ap.add_argument("--report-2x2", action="store_true")
     args = ap.parse_args()
 
     cfg = load_config()
@@ -271,8 +363,10 @@ def main():
     if args.report_only:
         report_pilot(hcfg, prompts)
         return
+    if getattr(args, "report_2x2"):
+        report_2x2(hcfg, prompts)
+        return
 
-    axes = np.load(BASIS / "axes.npz")
     rm, rm_tok = load_rm(cfg, device)
     log_path = OUT / "headroom_log.jsonl"
     model_keys = ["base", "large"] if args.model == "both" else [args.model]
@@ -280,19 +374,24 @@ def main():
     t0 = time.time()
     with open(log_path, "a") as logf:
         for mk in model_keys:
-            conds = build_conditions(hcfg, names, hcfg["models"][mk]["arms"])
+            mcfg = hcfg["models"][mk]
+            steer = mcfg["steer"]
+            m_layer = steer["layer"]
+            m_axes = np.load(BASIS / steer["axes"])
+            conds = build_conditions(hcfg, names, mcfg["arms"], steer["alpha_fracs"])
             done = _complete_keys(log_path, mk, len(prompts))
             print(f"=== {mk}: {len(conds)} conditions x {len(seeds)} seeds "
-                  f"({len(done)} already done) ===")
+                  f"(layer {m_layer}, axes {steer['axes']}, {len(done)} done) ===")
             if mk == "base":
                 model, tok = load_base(cfg, device)
-                ref = measure_ref_norm(model, tok, prompts[:8], layer)
-                print(f"ref norm {ref:.1f}")
             else:
-                model, tok = load_named(hcfg["models"][mk]["model"], cfg, device)
-                ref = None
+                model, tok = load_named(mcfg["model"], cfg, device)
+            # ref norm needed whenever this model steers (m1 or dense)
+            ref = (measure_ref_norm(model, tok, prompts[:8], m_layer)
+                   if {"m1", "dense"} & set(mcfg["arms"]) else None)
+            print(f"ref norm {ref:.1f}" if ref else "no steering arms")
             run_model(model, tok, rm, rm_tok, mk, prompts, conds, hcfg,
-                      names, axes, ref, layer, seeds, logf, done)
+                      names, m_axes, ref, m_layer, seeds, logf, done)
             del model
             if device.type == "cuda":
                 torch.cuda.empty_cache()
