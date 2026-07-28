@@ -13,6 +13,7 @@ Outputs: results/headroom/headroom_rm2.jsonl (rm2 per cached row),
 basis/rm_agreement.md.
 """
 
+import argparse
 import json
 import time
 
@@ -23,13 +24,13 @@ OUT = REPO_ROOT / "results" / "headroom"
 BASIS = REPO_ROOT / "basis"
 
 
-def score_alt():
+def score_alt(log_name, out_name):
     cfg = load_config()
     device = resolve_device(cfg)
     alt = {**cfg, "reward_model": cfg["reward_model_alt"]}
     rm, rm_tok = load_rm(alt, device)
-    rows = [json.loads(l) for l in open(OUT / "headroom_log.jsonl")]
-    out = OUT / "headroom_rm2.jsonl"
+    rows = [json.loads(l) for l in open(OUT / log_name)]
+    out = OUT / out_name
     done = sum(1 for _ in open(out)) if out.exists() else 0
     print(f"scoring {len(rows) - done} completions with {cfg['reward_model_alt']}")
     with open(out, "a") as f:
@@ -42,12 +43,12 @@ def score_alt():
     return cfg
 
 
-def report(cfg):
-    r1 = [json.loads(l) for l in open(OUT / "headroom_log.jsonl")]
+def report(cfg, log_name, out_name, report_name):
+    r1 = [json.loads(l) for l in open(OUT / log_name)]
     r2 = {(x["model"], x["condition"], x["seed"], x["prompt"]): x["rm2"]
-          for x in (json.loads(l) for l in open(OUT / "headroom_rm2.jsonl"))}
+          for x in (json.loads(l) for l in open(OUT / out_name))}
     lines = ["# A2 RM-variance probe — Skywork-V2-Qwen3-0.6B vs -Llama-3.2-1B\n",
-             f"Both RMs score the SAME {len(r1)} cached pilot completions. RM1 = "
+             f"Both RMs score the SAME {len(r1)} cached completions. RM1 = "
              f"{cfg['reward_model'].split('/')[-1]}, RM2 = {cfg['reward_model_alt'].split('/')[-1]}.\n"]
     for mk in sorted({x["model"] for x in r1}):
         mr = [x for x in r1 if x["model"] == mk]
@@ -85,16 +86,24 @@ def report(cfg):
         for c, a, b in sorted(rows, key=lambda t: -t[1]):
             lines.append(f"| {c} | {a:+.2f} | {b:+.2f} | {'✓' if np.sign(a)==np.sign(b) else '✗'} |")
     BASIS.mkdir(exist_ok=True)
-    (BASIS / "rm_agreement.md").write_text("\n".join(lines) + "\n")
+    (BASIS / report_name).write_text("\n".join(lines) + "\n")
     print("\n".join(l for l in lines if not l.startswith("|")))
-    print(f"\nreport -> {BASIS / 'rm_agreement.md'}")
+    print(f"\nreport -> {BASIS / report_name}")
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--full", action="store_true",
+                    help="score the full-run log instead of the pilot log")
+    args = ap.parse_args()
+    log, out, rep = (("headroom_full_log.jsonl", "headroom_full_rm2.jsonl", "rm_agreement_full.md")
+                     if args.full else
+                     ("headroom_log.jsonl", "headroom_rm2.jsonl", "rm_agreement.md"))
     t0 = time.time()
-    cfg = score_alt()
-    report(cfg)
-    print(log_cost("A2", "rm_agreement", time.time() - t0, resolve_device(cfg)))
+    cfg = score_alt(log, out)
+    report(cfg, log, out, rep)
+    print(log_cost("A2", "rm_agreement" + ("_full" if args.full else ""),
+                   time.time() - t0, resolve_device(cfg)))
 
 
 if __name__ == "__main__":

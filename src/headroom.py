@@ -23,6 +23,7 @@ Outputs: results/headroom/headroom_log.jsonl (resumable), basis/headroom_pilot.m
 """
 
 import argparse
+import collections
 import json
 import time
 
@@ -49,6 +50,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 OUT = REPO_ROOT / "results" / "headroom"
 BASIS = REPO_ROOT / "basis"
+# full run uses separate files: its 200 prompts overlap the pilot's 10, so
+# appending to the pilot log would create duplicate (cond, seed, prompt) keys.
+FULL_LOG = OUT / "headroom_full_log.jsonl"
+FULL_RM2 = OUT / "headroom_full_rm2.jsonl"
 
 
 def load_hr_config():
@@ -122,26 +127,45 @@ def _complete_keys(path, model_key, n_prompts):
     return {k for k, c in by.items() if c == n_prompts}
 
 
-def run_model(model, tok, rm, rm_tok, model_key, prompts, conds, hcfg,
-              names, axes, ref, layer, seeds, logf, done):
-    gcfg = {"steer_layer": layer, "generation": {
+def _gcfg(hcfg, layer):
+    return {"steer_layer": layer, "generation": {
         "max_new_tokens": hcfg["generation"]["max_new_tokens"],
         "do_sample": True,
         "temperature": hcfg["generation"]["temperature"],
         "top_p": hcfg["generation"]["top_p"],
     }}
+
+
+def _intervention(cond, axes, ref, layer, names, cap):
+    """(vector, alpha, system) for a condition — the action, never shown to the RM."""
+    if cond["arm"] == "m1":
+        return torch.tensor(axes[f"{cond['axis']}|{layer}"]), cond["frac"] * ref, None
+    if cond["arm"] == "m2":
+        return None, 0.0, cond["system"]
+    if cond["arm"] == "dense":
+        coeffs, _ = project_to_cap(axes, names, layer, cond["coeffs"], cap)
+        return combined_vector(axes, names, layer, coeffs), ref, None
+    return None, 0.0, None
+
+
+def _emit(logf, model, tok, rm, rm_tok, mk, cond, seed, batch, comps, compute_nll):
+    for p, c in zip(batch, comps):
+        logf.write(json.dumps({
+            "model": mk, "condition": cond["id"], "arm": cond["arm"], "seed": seed,
+            "prompt": p, "completion": c, "rm": rm_score(rm, rm_tok, p, c),
+            "nll": mean_completion_nll(model, tok, p, c) if compute_nll else None,
+            "words": len(c.split()),
+        }) + "\n")
+    logf.flush()
+
+
+def run_model(model, tok, rm, rm_tok, model_key, prompts, conds, hcfg,
+              names, axes, ref, layer, seeds, logf, done, compute_nll=True):
+    gcfg = _gcfg(hcfg, layer)
     bs = hcfg["generation"]["batch_size"]
     cap = hcfg["grid"]["cap_combined_norm"]
     for cond in conds:
-        vec, alpha, system = None, 0.0, None
-        if cond["arm"] == "m1":
-            vec = torch.tensor(axes[f"{cond['axis']}|{layer}"])
-            alpha = cond["frac"] * ref
-        elif cond["arm"] == "m2":
-            system = cond["system"]
-        elif cond["arm"] == "dense":
-            coeffs, _ = project_to_cap(axes, names, layer, cond["coeffs"], cap)
-            vec, alpha = combined_vector(axes, names, layer, coeffs), ref
+        vec, alpha, system = _intervention(cond, axes, ref, layer, names, cap)
         for seed in seeds:
             if (cond["id"], seed) in done:
                 continue
@@ -152,17 +176,57 @@ def run_model(model, tok, rm, rm_tok, model_key, prompts, conds, hcfg,
                 comps = generate_batch(
                     model, tok, batch, gcfg, system=system, vector=vec, alpha=alpha
                 )
-                for p, c in zip(batch, comps):
-                    logf.write(json.dumps({
-                        "model": model_key, "condition": cond["id"], "arm": cond["arm"],
-                        "seed": seed, "prompt": p, "completion": c,
-                        "rm": rm_score(rm, rm_tok, p, c),
-                        "nll": mean_completion_nll(model, tok, p, c),
-                        "words": len(c.split()),
-                    }) + "\n")
-                logf.flush()
+                _emit(logf, model, tok, rm, rm_tok, model_key, cond, seed, batch,
+                      comps, compute_nll)
             print(f"[{model_key}] {cond['id']} seed {seed}: "
                   f"{len(prompts)} gens ({time.time() - t0:.0f}s)")
+
+
+def run_validation(model, tok, rm, rm_tok, mk, prompts, conds, hcfg, names,
+                   axes, ref, layer, val_seeds, logf, compute_nll, log_path):
+    """Selective winner-validation (full mode). Using the seed-0 main grid already
+    on disk for this model, pick each prompt's best condition WITHIN each modality
+    (none = decline = 0), then regenerate only those winners + none at the held-out
+    validation seeds. Debiases the per-prompt oracle at a fraction of a full re-grid."""
+    rows = [json.loads(l) for l in open(log_path)
+            if f'"model": "{mk}"' in l]
+    s0 = {(r["condition"], r["prompt"]): r["rm"] for r in rows if r["seed"] == 0}
+    have = collections.Counter((r["condition"], r["seed"]) for r in rows
+                               if r["seed"] in val_seeds)
+    id2cond = {c["id"]: c for c in conds}
+    prefixes = sorted({c["id"].split(":")[0] for c in conds if c["arm"] != "none"})
+    # per prompt, per modality: seed-0 winner (skip if 'none' wins — its delta is 0)
+    by_cond = {}
+    for p in prompts:
+        n0 = s0.get(("none", p))
+        if n0 is None:
+            continue
+        for pre in prefixes:
+            cids = [c["id"] for c in conds if c["id"].startswith(pre + ":")]
+            best, bd = None, 0.0                          # 0.0 = the none option
+            for c in cids:
+                d = s0.get((c, p))
+                if d is not None and d - n0 > bd:
+                    bd, best = d - n0, c
+            if best is not None:
+                by_cond.setdefault(best, []).append(p)
+    gcfg = _gcfg(hcfg, layer)
+    cap = hcfg["grid"]["cap_combined_norm"]
+    bs = hcfg["generation"]["batch_size"]
+    jobs = list(by_cond.items()) + [("none", prompts)]    # none for every prompt
+    for cid, plist in jobs:
+        cond = id2cond[cid] if cid != "none" else {"id": "none", "arm": "none"}
+        vec, alpha, system = _intervention(cond, axes, ref, layer, names, cap)
+        for seed in val_seeds:
+            if have[(cid, seed)] >= len(plist):           # precise resume
+                continue
+            torch.manual_seed(seed * 1000 + 7)            # distinct CRN stream per val seed
+            for i in range(0, len(plist), bs):
+                batch = plist[i : i + bs]
+                comps = generate_batch(model, tok, batch, gcfg, system=system,
+                                       vector=vec, alpha=alpha)
+                _emit(logf, model, tok, rm, rm_tok, mk, cond, seed, batch, comps, compute_nll)
+        print(f"[{mk}] validate {cid}: {len(plist)} prompts x {len(val_seeds)} seeds")
 
 
 def load_named(model_id, cfg, device):
@@ -341,34 +405,155 @@ def report_2x2(hcfg, prompts):
     print(f"\nreport -> {BASIS / 'headroom_2x2.md'}")
 
 
+def _tag(p):
+    """Cheap prompt tags for the 'where does headroom live' breakdown."""
+    low = p.lower()
+    task = any(w in low for w in ("write", "code", "function", "translate",
+                                  "calculate", "solve", "convert", "list ", "sql"))
+    return {"len": "short" if len(p.split()) < 30 else "long",
+            "form": "question" if "?" in p else "statement",
+            "kind": "task" if task else "open"}
+
+
+def _boot(vals, n=2000, seed=0):
+    if not vals:
+        return float("nan"), float("nan"), float("nan")
+    rng = np.random.default_rng(seed)
+    a = np.array(vals, float)
+    ms = [a[rng.integers(0, len(a), len(a))].mean() for _ in range(n)]
+    return float(a.mean()), float(np.percentile(ms, 2.5)), float(np.percentile(ms, 97.5))
+
+
+def _valid_oracle(cids, prompts, sel, ev):
+    """Winner picked by `sel(c,p)` seed-0 delta (none-decline = 0), evaluated by
+    `ev(c,p)` over the validation seeds. Returns {prompt: value}."""
+    out = {}
+    for p in prompts:
+        best, bd = None, 0.0
+        for c in cids:
+            d = sel(c, p)
+            if d is not None and d > bd:
+                bd, best = d, c
+        if best is None:
+            out[p] = 0.0                                  # declined to steer
+        else:
+            e = ev(best, p)
+            if e is not None:
+                out[p] = e
+    return out
+
+
+def report_full(hcfg, prompts):
+    """Full-run report: static + debiased conditional headroom per model x modality,
+    both RMs, with bootstrap CIs and a where-it-lives tag breakdown."""
+    val_seeds = hcfg["full"]["validation_seeds"]
+    r1 = [json.loads(l) for l in open(FULL_LOG)]
+    r2 = {(x["model"], x["condition"], x["seed"], x["prompt"]): x["rm2"]
+          for x in (json.loads(l) for l in open(FULL_RM2))} \
+        if FULL_RM2.exists() else {}
+    lines = ["# A2 full run — steering vs prompting, 200 prompts\n",
+             f"{len(prompts)} prompts, main seed 0 + winner-validation on {val_seeds}. "
+             "Within-modality paired ΔRM vs none; conditional policy may decline "
+             "(none = 0). static = best fixed condition (seed 0); valid-oracle = "
+             "per-prompt winner picked on seed 0 by RM1, evaluated out-of-seed. "
+             "[95% bootstrap CI over prompts]. RM1 = Qwen3-0.6B, RM2 = Llama-1B.\n"]
+    hero = {}
+    for mk in sorted({x["model"] for x in r1}):
+        mr = [x for x in r1 if x["model"] == mk]
+        rm1 = {(x["condition"], x["seed"], x["prompt"]): x["rm"] for x in mr}
+        n1 = lambda s, p: rm1.get(("none", s, p))
+        n2 = lambda s, p, mk=mk: r2.get((mk, "none", s, p))
+        d1s0 = lambda c, p: (None if rm1.get((c, 0, p)) is None or n1(0, p) is None
+                             else rm1[(c, 0, p)] - n1(0, p))
+        def d1val(c, p):
+            e = [rm1[(c, s, p)] - n1(s, p) for s in val_seeds
+                 if rm1.get((c, s, p)) is not None and n1(s, p) is not None]
+            return np.mean(e) if e else None
+        def d2val(c, p, mk=mk):
+            e = [r2[(mk, c, s, p)] - n2(s, p) for s in val_seeds
+                 if r2.get((mk, c, s, p)) is not None and n2(s, p) is not None]
+            return np.mean(e) if e else None
+        conds0 = [c for c in {x["condition"] for x in mr if x["seed"] == 0} if c != "none"]
+        lines.append(f"\n## {mk}\n")
+        lines.append("| modality | n | static (RM1) | **valid-oracle RM1 [CI]** | valid-oracle RM2 [CI] |")
+        lines.append("|---|---|---|---|---|")
+        for label, pre in (("M1 steering", "m1"), ("M2 prompting", "m2"), ("dense", "dense")):
+            cids = [c for c in conds0 if c.startswith(pre + ":")]
+            if not cids:
+                continue
+            means = {c: np.mean([d1s0(c, p) for p in prompts if d1s0(c, p) is not None])
+                     for c in cids}
+            static = max([0.0] + list(means.values()))
+            vo1 = _valid_oracle(cids, prompts, d1s0, d1val)
+            vo2 = _valid_oracle(cids, prompts, d1s0, d2val)
+            m1, lo1, hi1 = _boot(list(vo1.values()))
+            m2, lo2, hi2 = _boot(list(vo2.values()))
+            hero[(mk, pre)] = vo1
+            lines.append(f"| {label} | {len(cids)} | {static:+.2f} | "
+                         f"**{m1:+.2f} [{lo1:+.2f},{hi1:+.2f}]** | {m2:+.2f} [{lo2:+.2f},{hi2:+.2f}] |")
+
+    # where headroom lives: valid-oracle RM1 by prompt tag, for the 7B arms
+    lines.append("\n## Where headroom lives (7B valid-oracle RM1 by prompt tag)\n")
+    lines.append("| tag | M1 steering | M2 prompting | n |")
+    lines.append("|---|---|---|---|")
+    tagvals = {}
+    for dim in ("len", "form", "kind"):
+        for val in sorted({_tag(p)[dim] for p in prompts}):
+            sub = [p for p in prompts if _tag(p)[dim] == val]
+            row = {}
+            for pre in ("m1", "m2"):
+                if ("large", pre) in hero:
+                    vo = hero[("large", pre)]
+                    vals = [vo[p] for p in sub if p in vo]
+                    row[pre] = np.mean(vals) if vals else float("nan")
+            lines.append(f"| {val} | {row.get('m1', float('nan')):+.2f} | "
+                         f"{row.get('m2', float('nan')):+.2f} | {len(sub)} |")
+    lines.append(
+        "\n## Reading\nvalid-oracle = debiased ceiling a conditional policy could "
+        "capture (a learned policy reaches ~55–90% of it, per B0). CI excluding 0 = "
+        "real headroom. RM1 vs RM2 agreement = not one-RM noise. Compare M1 (steering) "
+        "vs M2 (prompting) within the 7B; compare 1.7B-M2 vs 7B for the cost story."
+    )
+    (BASIS / "headroom_full.md").write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+    print(f"\nreport -> {BASIS / 'headroom_full.md'}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", default="pilot", choices=["pilot", "full"])
     ap.add_argument("--model", default="both", choices=["base", "large", "both"])
     ap.add_argument("--report-only", action="store_true")
     ap.add_argument("--report-2x2", action="store_true")
+    ap.add_argument("--report-full", action="store_true")
+    ap.add_argument("--nll", action="store_true", help="force the perplexity pass on")
     args = ap.parse_args()
 
     cfg = load_config()
     hcfg = load_hr_config()
     device = resolve_device(cfg)
-    layer = cfg["steer_layer"]
     names = [a["name"] for a in load_basis_config()["axes"]]
-    mcfg = hcfg[args.mode]
+    modecfg = hcfg[args.mode]
     data = json.load(open(REPO_ROOT / "data" / "prompts.json"))
-    prompts = data["train"][: mcfg["n_prompts"]]
-    seeds = mcfg["seeds"]
+    prompts = data["train"][: modecfg["n_prompts"]]
+    seeds = modecfg["seeds"]
     OUT.mkdir(parents=True, exist_ok=True)
 
     if args.report_only:
         report_pilot(hcfg, prompts)
         return
-    if getattr(args, "report_2x2"):
+    if args.report_2x2:
         report_2x2(hcfg, prompts)
         return
+    if args.report_full:
+        report_full(hcfg, prompts)
+        return
 
+    # perplexity pass: off in full mode (fluency is not a gate) unless forced
+    compute_nll = args.nll or args.mode == "pilot"
+    arms_override = modecfg.get("model_arms", {})
     rm, rm_tok = load_rm(cfg, device)
-    log_path = OUT / "headroom_log.jsonl"
+    log_path = FULL_LOG if args.mode == "full" else OUT / "headroom_log.jsonl"
     model_keys = ["base", "large"] if args.model == "both" else [args.model]
 
     t0 = time.time()
@@ -376,22 +561,25 @@ def main():
         for mk in model_keys:
             mcfg = hcfg["models"][mk]
             steer = mcfg["steer"]
-            m_layer = steer["layer"]
-            m_axes = np.load(BASIS / steer["axes"])
-            conds = build_conditions(hcfg, names, mcfg["arms"], steer["alpha_fracs"])
+            m_layer, m_axes = steer["layer"], np.load(BASIS / steer["axes"])
+            arms = arms_override.get(mk, mcfg["arms"])
+            conds = build_conditions(hcfg, names, arms, steer["alpha_fracs"])
             done = _complete_keys(log_path, mk, len(prompts))
-            print(f"=== {mk}: {len(conds)} conditions x {len(seeds)} seeds "
-                  f"(layer {m_layer}, axes {steer['axes']}, {len(done)} done) ===")
+            print(f"=== {mk} [{args.mode}]: {len(conds)} conds x {len(seeds)} seed(s) "
+                  f"(layer {m_layer}, {steer['axes']}, arms {arms}, {len(done)} done) ===")
             if mk == "base":
                 model, tok = load_base(cfg, device)
             else:
                 model, tok = load_named(mcfg["model"], cfg, device)
-            # ref norm needed whenever this model steers (m1 or dense)
             ref = (measure_ref_norm(model, tok, prompts[:8], m_layer)
-                   if {"m1", "dense"} & set(mcfg["arms"]) else None)
+                   if {"m1", "dense"} & set(arms) else None)
             print(f"ref norm {ref:.1f}" if ref else "no steering arms")
             run_model(model, tok, rm, rm_tok, mk, prompts, conds, hcfg,
-                      names, m_axes, ref, m_layer, seeds, logf, done)
+                      names, m_axes, ref, m_layer, seeds, logf, done, compute_nll)
+            if args.mode == "full":
+                run_validation(model, tok, rm, rm_tok, mk, prompts, conds, hcfg,
+                               names, m_axes, ref, m_layer,
+                               modecfg["validation_seeds"], logf, compute_nll, log_path)
             del model
             if device.type == "cuda":
                 torch.cuda.empty_cache()

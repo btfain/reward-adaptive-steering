@@ -42,6 +42,12 @@ full:
   n_prompts: 200
   seeds: [0]                 # main grid: 1 CRN seed x 200 prompts
   validation_seeds: [1, 2]   # winner-validation debias pass (fresh seeds)
+  # steering vs prompting as first-class arms: 7B runs both (steering only works
+  # at 7B); 1.7B runs prompting only (its steering failure is established) as the
+  # cheap-model reference for the cost story. Overrides models.*.arms in full mode.
+  model_arms:
+    base: [none, m2]
+    large: [none, m1, m2, dense]
 
 # M2 imperatives, delivered as a SYSTEM message. pos = toward the axis positive
 # pole (proxy's higher direction), neg = opposite; mod/strong mirror |alpha|.
