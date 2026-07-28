@@ -1,0 +1,260 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  23%|██▎       | 72/311 [00:00<00:00, 662.82it/s]Loading weights:  45%|████▍     | 139/311 [00:00<00:00, 453.44it/s]Loading weights:  60%|██████    | 188/311 [00:00<00:00, 443.68it/s]Loading weights:  76%|███████▌  | 235/311 [00:00<00:00, 435.54it/s]Loading weights:  90%|█████████ | 280/311 [00:00<00:00, 406.20it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 448.75it/s]
+=== large: 49 conditions x 3 seeds (layer 18, axes axes_7b.npz, 75 done) ===
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:01, 264.51it/s]Loading weights:  27%|██▋       | 92/339 [00:00<00:00, 451.16it/s]Loading weights:  41%|████      | 138/339 [00:00<00:00, 439.42it/s]Loading weights:  54%|█████▍    | 183/339 [00:00<00:00, 443.34it/s]Loading weights:  67%|██████▋   | 228/339 [00:00<00:00, 413.02it/s]Loading weights:  81%|████████  | 273/339 [00:00<00:00, 398.18it/s]Loading weights:  93%|█████████▎| 314/339 [00:00<00:00, 401.12it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 422.30it/s]
+ref norm 399.1
+[large] m1:hedge_assert-0.1 seed 0: 10 gens (17s)
+[large] m1:hedge_assert-0.1 seed 1: 10 gens (16s)
+[large] m1:hedge_assert-0.1 seed 2: 10 gens (16s)
+[large] m1:hedge_assert-0.05 seed 0: 10 gens (16s)
+[large] m1:hedge_assert-0.05 seed 1: 10 gens (16s)
+[large] m1:hedge_assert-0.05 seed 2: 10 gens (16s)
+[large] m1:hedge_assert+0.05 seed 0: 10 gens (16s)
+[large] m1:hedge_assert+0.05 seed 1: 10 gens (16s)
+[large] m1:hedge_assert+0.05 seed 2: 10 gens (16s)
+[large] m1:hedge_assert+0.1 seed 0: 10 gens (16s)
+[large] m1:hedge_assert+0.1 seed 1: 10 gens (16s)
+[large] m1:hedge_assert+0.1 seed 2: 10 gens (16s)
+[large] m1:elaborate_concise-0.1 seed 0: 10 gens (16s)
+[large] m1:elaborate_concise-0.1 seed 1: 10 gens (16s)
+[large] m1:elaborate_concise-0.1 seed 2: 10 gens (16s)
+[large] m1:elaborate_concise-0.05 seed 0: 10 gens (16s)
+[large] m1:elaborate_concise-0.05 seed 1: 10 gens (16s)
+[large] m1:elaborate_concise-0.05 seed 2: 10 gens (16s)
+[large] m1:elaborate_concise+0.05 seed 0: 10 gens (16s)
+[large] m1:elaborate_concise+0.05 seed 1: 10 gens (16s)
+[large] m1:elaborate_concise+0.05 seed 2: 10 gens (16s)
+[large] m1:elaborate_concise+0.1 seed 0: 10 gens (16s)
+[large] m1:elaborate_concise+0.1 seed 1: 10 gens (16s)
+[large] m1:elaborate_concise+0.1 seed 2: 10 gens (16s)
+[large] m1:formal_casual-0.1 seed 0: 10 gens (16s)
+[large] m1:formal_casual-0.1 seed 1: 10 gens (16s)
+[large] m1:formal_casual-0.1 seed 2: 10 gens (16s)
+[large] m1:formal_casual-0.05 seed 0: 10 gens (16s)
+[large] m1:formal_casual-0.05 seed 1: 10 gens (16s)
+[large] m1:formal_casual-0.05 seed 2: 10 gens (16s)
+[large] m1:formal_casual+0.05 seed 0: 10 gens (16s)
+[large] m1:formal_casual+0.05 seed 1: 10 gens (16s)
+[large] m1:formal_casual+0.05 seed 2: 10 gens (16s)
+[large] m1:formal_casual+0.1 seed 0: 10 gens (16s)
+[large] m1:formal_casual+0.1 seed 1: 10 gens (16s)
+[large] m1:formal_casual+0.1 seed 2: 10 gens (16s)
+[large] m1:cautious_direct-0.1 seed 0: 10 gens (16s)
+[large] m1:cautious_direct-0.1 seed 1: 10 gens (16s)
+[large] m1:cautious_direct-0.1 seed 2: 10 gens (16s)
+[large] m1:cautious_direct-0.05 seed 0: 10 gens (16s)
+[large] m1:cautious_direct-0.05 seed 1: 10 gens (16s)
+[large] m1:cautious_direct-0.05 seed 2: 10 gens (16s)
+[large] m1:cautious_direct+0.05 seed 0: 10 gens (16s)
+[large] m1:cautious_direct+0.05 seed 1: 10 gens (16s)
+[large] m1:cautious_direct+0.05 seed 2: 10 gens (16s)
+[large] m1:cautious_direct+0.1 seed 0: 10 gens (16s)
+[large] m1:cautious_direct+0.1 seed 1: 10 gens (16s)
+[large] m1:cautious_direct+0.1 seed 2: 10 gens (16s)
+[large] m1:warm_neutral-0.1 seed 0: 10 gens (16s)
+[large] m1:warm_neutral-0.1 seed 1: 10 gens (16s)
+[large] m1:warm_neutral-0.1 seed 2: 10 gens (16s)
+[large] m1:warm_neutral-0.05 seed 0: 10 gens (16s)
+[large] m1:warm_neutral-0.05 seed 1: 10 gens (17s)
+[large] m1:warm_neutral-0.05 seed 2: 10 gens (16s)
+[large] m1:warm_neutral+0.05 seed 0: 10 gens (16s)
+[large] m1:warm_neutral+0.05 seed 1: 10 gens (16s)
+[large] m1:warm_neutral+0.05 seed 2: 10 gens (16s)
+[large] m1:warm_neutral+0.1 seed 0: 10 gens (16s)
+[large] m1:warm_neutral+0.1 seed 1: 10 gens (16s)
+[large] m1:warm_neutral+0.1 seed 2: 10 gens (16s)
+[large] m1:inquire_proceed-0.1 seed 0: 10 gens (16s)
+[large] m1:inquire_proceed-0.1 seed 1: 10 gens (16s)
+[large] m1:inquire_proceed-0.1 seed 2: 10 gens (16s)
+[large] m1:inquire_proceed-0.05 seed 0: 10 gens (16s)
+[large] m1:inquire_proceed-0.05 seed 1: 10 gens (16s)
+[large] m1:inquire_proceed-0.05 seed 2: 10 gens (16s)
+[large] m1:inquire_proceed+0.05 seed 0: 10 gens (16s)
+[large] m1:inquire_proceed+0.05 seed 1: 10 gens (16s)
+[large] m1:inquire_proceed+0.05 seed 2: 10 gens (16s)
+[large] m1:inquire_proceed+0.1 seed 0: 10 gens (16s)
+[large] m1:inquire_proceed+0.1 seed 1: 10 gens (16s)
+[large] m1:inquire_proceed+0.1 seed 2: 10 gens (16s)
+{'ts': '2026-07-28T11:45:13', 'stage': 'A2', 'event': 'headroom_pilot_large', 'wall_s': 1199.87, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.844, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+# Stage A2 pilot — go/no-go readout
+
+10 prompts, seeds [0, 1, 2]. Paired within-prompt vs `none`; DeltaPPL = mean completion-perplexity inflation over none (flag >20%).
+
+
+## base — per-condition paired ΔRM (sorted; ⚑ = perplexity-flagged)
+
+| condition | ΔRM | ±SE | ΔPPL | |
+|---|---|---|---|---|
+| dense:cem_best | +0.875 | 0.433 | +8% |  |
+| m2:cautious_direct-0.1 | +0.752 | 0.268 | +1% |  |
+| m2:warm_neutral-0.1 | +0.637 | 0.295 | +6% |  |
+| m2:formal_casual+0.1 | +0.635 | 0.288 | +2% |  |
+| m2:hedge_assert+0.2 | +0.510 | 0.439 | -1% |  |
+| m2:warm_neutral-0.2 | +0.351 | 0.382 | -2% |  |
+| m1:inquire_proceed-0.1 | +0.343 | 0.302 | +1% |  |
+| m1:elaborate_concise+0.1 | +0.282 | 0.243 | +6% |  |
+| m2:cautious_direct+0.1 | +0.276 | 0.569 | +38% | ⚑ |
+| m2:inquire_proceed+0.1 | +0.202 | 0.372 | +10% |  |
+| m2:hedge_assert-0.1 | +0.191 | 0.349 | +6% |  |
+| m2:hedge_assert-0.2 | +0.161 | 0.420 | +1% |  |
+| m2:hedge_assert+0.1 | +0.120 | 0.368 | +15% |  |
+| m1:cautious_direct+0.1 | +0.035 | 0.310 | +26% | ⚑ |
+| m2:cautious_direct+0.2 | +0.014 | 0.479 | -0% |  |
+| m2:formal_casual-0.1 | -0.011 | 0.384 | +20% |  |
+| m2:warm_neutral+0.1 | -0.024 | 0.354 | +6% |  |
+| m1:warm_neutral-0.1 | -0.118 | 0.452 | +22% | ⚑ |
+| dense:prior | -0.157 | 0.572 | +49% | ⚑ |
+| m1:hedge_assert+0.1 | -0.162 | 0.528 | +36% | ⚑ |
+| m1:formal_casual+0.1 | -0.173 | 0.397 | +16% |  |
+| m2:elaborate_concise-0.1 | -0.240 | 0.406 | +16% |  |
+| m2:formal_casual+0.2 | -0.251 | 0.479 | +30% | ⚑ |
+| m2:inquire_proceed-0.1 | -0.382 | 0.547 | -1% |  |
+| m1:hedge_assert-0.1 | -0.427 | 0.420 | +23% | ⚑ |
+| m2:elaborate_concise-0.2 | -0.471 | 0.405 | +9% |  |
+| m2:inquire_proceed-0.2 | -0.583 | 0.452 | -5% |  |
+| m2:elaborate_concise+0.1 | -0.587 | 0.583 | -4% |  |
+| m2:cautious_direct-0.2 | -0.625 | 0.310 | +17% |  |
+| m2:elaborate_concise+0.2 | -0.668 | 0.575 | +23% | ⚑ |
+| m1:cautious_direct-0.1 | -0.707 | 0.254 | +13% |  |
+| m1:warm_neutral+0.1 | -1.001 | 0.479 | +45% | ⚑ |
+| m2:warm_neutral+0.2 | -1.036 | 0.535 | +47% | ⚑ |
+| m1:elaborate_concise-0.1 | -1.153 | 0.255 | +18% |  |
+| m1:inquire_proceed-0.2 | -1.392 | 0.634 | +87% | ⚑ |
+| m1:inquire_proceed+0.1 | -1.955 | 0.624 | +89% | ⚑ |
+| m1:cautious_direct+0.2 | -2.111 | 0.536 | +170% | ⚑ |
+| m1:elaborate_concise+0.2 | -2.281 | 1.084 | +110% | ⚑ |
+| m2:formal_casual-0.2 | -2.284 | 0.707 | +71% | ⚑ |
+| dense:rand4 | -2.483 | 0.554 | +48% | ⚑ |
+| m1:formal_casual+0.2 | -2.583 | 0.639 | +115% | ⚑ |
+| m1:hedge_assert+0.2 | -2.614 | 0.633 | +202% | ⚑ |
+| m1:hedge_assert-0.2 | -2.724 | 0.364 | +63% | ⚑ |
+| m1:formal_casual-0.1 | -2.757 | 0.445 | +77% | ⚑ |
+| m2:inquire_proceed+0.2 | -3.367 | 0.835 | +219% | ⚑ |
+| m1:elaborate_concise-0.2 | -3.607 | 0.613 | +117% | ⚑ |
+| dense:rand0 | -3.762 | 0.821 | +144% | ⚑ |
+| m1:inquire_proceed+0.2 | -4.171 | 0.737 | +328% | ⚑ |
+| m1:warm_neutral-0.2 | -4.422 | 0.659 | +69% | ⚑ |
+| m1:cautious_direct-0.2 | -4.449 | 0.646 | +81% | ⚑ |
+| m1:warm_neutral+0.2 | -4.513 | 0.977 | +209% | ⚑ |
+| dense:rand2 | -4.629 | 0.971 | +336% | ⚑ |
+| dense:rand5 | -5.037 | 0.875 | +413% | ⚑ |
+| dense:rand3 | -6.583 | 0.570 | +270% | ⚑ |
+| dense:rand1 | -7.443 | 1.182 | +379% | ⚑ |
+| m1:formal_casual-0.2 | -9.125 | 0.761 | +339% | ⚑ |
+
+- **best mean condition:** dense:cem_best ΔRM +0.875 ± 0.433 (fluent)
+- **oracle per-prompt headroom** (fluent conds): +2.391 (mean best-per-prompt ΔRM)
+- **argmax winners:** 15 distinct conditions win across prompts×seeds — prompt-dependent
+
+## large — per-condition paired ΔRM (sorted; ⚑ = perplexity-flagged)
+
+| condition | ΔRM | ±SE | ΔPPL | |
+|---|---|---|---|---|
+| m2:hedge_assert+0.1 | +0.700 | 0.316 | +57% | ⚑ |
+| m1:cautious_direct+0.05 | +0.631 | 0.397 | +71% | ⚑ |
+| m2:formal_casual+0.1 | +0.588 | 0.332 | +28% | ⚑ |
+| m2:cautious_direct-0.1 | +0.584 | 0.435 | +27% | ⚑ |
+| m2:inquire_proceed-0.1 | +0.564 | 0.355 | +28% | ⚑ |
+| m2:warm_neutral-0.1 | +0.495 | 0.405 | +31% | ⚑ |
+| m1:warm_neutral-0.05 | +0.475 | 0.307 | +33% | ⚑ |
+| m2:inquire_proceed-0.2 | +0.445 | 0.398 | +23% | ⚑ |
+| m1:elaborate_concise+0.05 | +0.326 | 0.306 | +54% | ⚑ |
+| m1:inquire_proceed-0.05 | +0.293 | 0.368 | +22% | ⚑ |
+| m1:formal_casual+0.05 | +0.290 | 0.277 | +50% | ⚑ |
+| m1:warm_neutral-0.1 | +0.271 | 0.371 | +116% | ⚑ |
+| m2:warm_neutral-0.2 | +0.256 | 0.577 | +80% | ⚑ |
+| m1:hedge_assert+0.05 | +0.207 | 0.304 | +92% | ⚑ |
+| m2:hedge_assert-0.1 | +0.084 | 0.392 | +35% | ⚑ |
+| m1:elaborate_concise-0.05 | +0.017 | 0.280 | +1% |  |
+| m1:cautious_direct-0.05 | -0.130 | 0.291 | +6% |  |
+| m1:hedge_assert-0.05 | -0.143 | 0.319 | +2% |  |
+| m2:cautious_direct-0.2 | -0.164 | 0.767 | +152% | ⚑ |
+| m2:warm_neutral+0.1 | -0.254 | 0.270 | +85% | ⚑ |
+| m1:elaborate_concise+0.1 | -0.293 | 0.522 | +153% | ⚑ |
+| m1:inquire_proceed-0.1 | -0.412 | 0.473 | +98% | ⚑ |
+| m2:formal_casual+0.2 | -0.453 | 0.268 | +260% | ⚑ |
+| m1:inquire_proceed+0.05 | -0.470 | 0.443 | +59% | ⚑ |
+| m2:warm_neutral+0.2 | -0.481 | 0.289 | +123% | ⚑ |
+| m2:hedge_assert+0.2 | -0.607 | 0.305 | +201% | ⚑ |
+| m2:elaborate_concise-0.1 | -0.622 | 0.876 | +146% | ⚑ |
+| m2:cautious_direct+0.1 | -0.633 | 0.319 | +99% | ⚑ |
+| m1:cautious_direct+0.1 | -0.657 | 0.608 | +351% | ⚑ |
+| m1:warm_neutral+0.05 | -0.660 | 0.420 | +68% | ⚑ |
+| m1:cautious_direct-0.1 | -0.702 | 0.462 | +69% | ⚑ |
+| m1:hedge_assert-0.1 | -0.823 | 0.408 | +68% | ⚑ |
+| m1:elaborate_concise-0.1 | -0.922 | 0.508 | +123% | ⚑ |
+| m1:hedge_assert+0.1 | -0.931 | 0.505 | +307% | ⚑ |
+| m1:formal_casual-0.05 | -0.979 | 0.450 | +161% | ⚑ |
+| m1:formal_casual+0.1 | -0.988 | 0.341 | +210% | ⚑ |
+| m2:cautious_direct+0.2 | -1.017 | 0.363 | +125% | ⚑ |
+| m2:elaborate_concise+0.1 | -1.159 | 0.391 | +46% | ⚑ |
+| m2:formal_casual-0.1 | -1.539 | 0.480 | +248% | ⚑ |
+| m2:elaborate_concise+0.2 | -1.590 | 0.505 | +50% | ⚑ |
+| m2:hedge_assert-0.2 | -1.633 | 0.946 | +132% | ⚑ |
+| m2:inquire_proceed+0.1 | -1.934 | 0.709 | +175% | ⚑ |
+| m2:formal_casual-0.2 | -2.052 | 1.016 | +462% | ⚑ |
+| m1:warm_neutral+0.1 | -2.095 | 0.740 | +320% | ⚑ |
+| m2:elaborate_concise-0.2 | -2.228 | 0.488 | +175% | ⚑ |
+| m1:inquire_proceed+0.1 | -3.074 | 0.515 | +362% | ⚑ |
+| m1:formal_casual-0.1 | -3.925 | 0.665 | +454% | ⚑ |
+| m2:inquire_proceed+0.2 | -4.054 | 0.721 | +464% | ⚑ |
+
+- **best mean condition:** m2:hedge_assert+0.1 ΔRM +0.700 ± 0.316 (flagged)
+- **oracle per-prompt headroom** (fluent conds): +0.712 (mean best-per-prompt ΔRM)
+- **argmax winners:** 3 distinct conditions win across prompts×seeds — concentrated
+
+## Reading
+GO if any model shows a fluent condition with ΔRM > ~2·SE and positive oracle headroom — there is something to optimize. REBRIEF if everything is flat or only flagged (degradation) conditions move the RM (early H3 signal); discuss before the full 200-prompt run.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/headroom_pilot.md
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/147 [00:00<?, ?it/s]Loading weights:  85%|████████▌ | 125/147 [00:00<00:00, 1247.08it/s]Loading weights: 100%|██████████| 147/147 [00:00<00:00, 988.18it/s] 
+scoring 720 completions with Skywork/Skywork-Reward-V2-Llama-3.2-1B
+# A2 RM-variance probe — Skywork-V2-Qwen3-0.6B vs -Llama-3.2-1B
+
+Both RMs score the SAME 3180 cached pilot completions. RM1 = Skywork-Reward-V2-Qwen3-0.6B, RM2 = Skywork-Reward-V2-Llama-3.2-1B.
+
+
+## base
+
+- per-(prompt,seed) ΔRM correlation RM1↔RM2: **+0.88**
+- per-condition mean-effect sign agreement: **91%** (all 56), **100%** on 40 movers (|ΔRM1|>0.3)
+
+| condition | ΔRM1 | ΔRM2 | agree |
+
+## large
+
+- per-(prompt,seed) ΔRM correlation RM1↔RM2: **+0.79**
+- per-condition mean-effect sign agreement: **92%** (all 48), **100%** on 36 movers (|ΔRM1|>0.3)
+
+| condition | ΔRM1 | ΔRM2 | agree |
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/rm_agreement.md
+{'ts': '2026-07-28T11:45:50', 'stage': 'A2', 'event': 'rm_agreement', 'wall_s': 22.15, 'peak_rss_gb': 0.003, 'mps_driver_gb': None, 'cuda_peak_gb': 2.504, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+# A2 2x2 prototype — conditional steering vs prompting
+
+10 prompts, seeds [0, 1, 2]. Within-modality paired ΔRM vs `none`; a conditional policy may always decline to steer (none = 0). static = best single fixed condition; valid-oracle = per-prompt best picked on seed 0, evaluated on [1, 2] (debiased). RM1 = Skywork-Qwen3-0.6B, RM2 = Skywork-Llama-1B.
+
+
+## base
+
+| modality | n | static (fixed) | raw-oracle | **valid-oracle RM1** | valid-oracle RM2 |
+|---|---|---|---|---|---|
+| M1 steering | 24 | +0.34 | +1.92 | **-0.19** | -0.52 |
+| M2 prompting | 24 | +0.75 | +2.41 | **+1.03** | +0.64 |
+| dense | 8 | +0.88 | +1.48 | **+0.85** | +0.11 |
+
+## large
+
+| modality | n | static (fixed) | raw-oracle | **valid-oracle RM1** | valid-oracle RM2 |
+|---|---|---|---|---|---|
+| M1 steering | 24 | +0.63 | +2.31 | **+0.98** | +0.63 |
+| M2 prompting | 24 | +0.70 | +2.70 | **+1.31** | +1.26 |
+
+## Reading
+valid-oracle is the debiased per-prompt headroom a CONDITIONAL policy could capture (0 = conditioning captures nothing beyond declining to steer). Compare within a model: does M1 (steering) reach what M2 (prompting) does? valid-oracle > static means conditioning beats any fixed choice. Agreement between RM1 and RM2 valid-oracle guards against tuning to one RM's noise.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/headroom_2x2.md
+DONE — commit and push results/headroom/, basis/headroom_2x2.md, results/cost_log.jsonl, slurm log

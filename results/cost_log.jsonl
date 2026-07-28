@@ -31,3 +31,5 @@
 {"ts": "2026-07-27T17:19:21", "stage": "A", "event": "basis_generate_7b", "wall_s": 1956.99, "peak_rss_gb": 0.005, "mps_driver_gb": null, "cuda_peak_gb": 15.891, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}
 {"ts": "2026-07-27T17:22:21", "stage": "A", "event": "basis_extract_7b", "wall_s": 162.0, "peak_rss_gb": 0.005, "mps_driver_gb": null, "cuda_peak_gb": 15.507, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}
 {"ts": "2026-07-27T17:57:59", "stage": "A", "event": "sanity_sweep_7b", "wall_s": 2122.19, "peak_rss_gb": 0.005, "mps_driver_gb": null, "cuda_peak_gb": 16.733, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": "layer=18 ref_norm=321.5"}
+{"ts": "2026-07-28T11:45:13", "stage": "A2", "event": "headroom_pilot_large", "wall_s": 1199.87, "peak_rss_gb": 0.005, "mps_driver_gb": null, "cuda_peak_gb": 16.844, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}
+{"ts": "2026-07-28T11:45:50", "stage": "A2", "event": "rm_agreement", "wall_s": 22.15, "peak_rss_gb": 0.003, "mps_driver_gb": null, "cuda_peak_gb": 2.504, "gpu": "NVIDIA RTX A5000", "device": "cuda", "notes": ""}
