@@ -1,0 +1,217 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  73%|███████▎  | 247/339 [00:00<00:00, 2440.82it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2293.21it/s]
+axis hedge_assert
+  hedge_assert: 8/200 prompts
+  hedge_assert: 16/200 prompts
+  hedge_assert: 24/200 prompts
+  hedge_assert: 32/200 prompts
+  hedge_assert: 40/200 prompts
+  hedge_assert: 48/200 prompts
+  hedge_assert: 56/200 prompts
+  hedge_assert: 64/200 prompts
+  hedge_assert: 72/200 prompts
+  hedge_assert: 80/200 prompts
+  hedge_assert: 88/200 prompts
+  hedge_assert: 96/200 prompts
+  hedge_assert: 104/200 prompts
+  hedge_assert: 112/200 prompts
+  hedge_assert: 120/200 prompts
+  hedge_assert: 128/200 prompts
+  hedge_assert: 136/200 prompts
+  hedge_assert: 144/200 prompts
+  hedge_assert: 152/200 prompts
+  hedge_assert: 160/200 prompts
+  hedge_assert: 168/200 prompts
+  hedge_assert: 176/200 prompts
+  hedge_assert: 184/200 prompts
+  hedge_assert: 192/200 prompts
+  hedge_assert: 200/200 prompts
+axis elaborate_concise
+  elaborate_concise: 8/200 prompts
+  elaborate_concise: 16/200 prompts
+  elaborate_concise: 24/200 prompts
+  elaborate_concise: 32/200 prompts
+  elaborate_concise: 40/200 prompts
+  elaborate_concise: 48/200 prompts
+  elaborate_concise: 56/200 prompts
+  elaborate_concise: 64/200 prompts
+  elaborate_concise: 72/200 prompts
+  elaborate_concise: 80/200 prompts
+  elaborate_concise: 88/200 prompts
+  elaborate_concise: 96/200 prompts
+  elaborate_concise: 104/200 prompts
+  elaborate_concise: 112/200 prompts
+  elaborate_concise: 120/200 prompts
+  elaborate_concise: 128/200 prompts
+  elaborate_concise: 136/200 prompts
+  elaborate_concise: 144/200 prompts
+  elaborate_concise: 152/200 prompts
+  elaborate_concise: 160/200 prompts
+  elaborate_concise: 168/200 prompts
+  elaborate_concise: 176/200 prompts
+  elaborate_concise: 184/200 prompts
+  elaborate_concise: 192/200 prompts
+  elaborate_concise: 200/200 prompts
+axis formal_casual
+  formal_casual: 8/200 prompts
+  formal_casual: 16/200 prompts
+  formal_casual: 24/200 prompts
+  formal_casual: 32/200 prompts
+  formal_casual: 40/200 prompts
+  formal_casual: 48/200 prompts
+  formal_casual: 56/200 prompts
+  formal_casual: 64/200 prompts
+  formal_casual: 72/200 prompts
+  formal_casual: 80/200 prompts
+  formal_casual: 88/200 prompts
+  formal_casual: 96/200 prompts
+  formal_casual: 104/200 prompts
+  formal_casual: 112/200 prompts
+  formal_casual: 120/200 prompts
+  formal_casual: 128/200 prompts
+  formal_casual: 136/200 prompts
+  formal_casual: 144/200 prompts
+  formal_casual: 152/200 prompts
+  formal_casual: 160/200 prompts
+  formal_casual: 168/200 prompts
+  formal_casual: 176/200 prompts
+  formal_casual: 184/200 prompts
+  formal_casual: 192/200 prompts
+  formal_casual: 200/200 prompts
+axis cautious_direct
+  cautious_direct: 8/200 prompts
+  cautious_direct: 16/200 prompts
+  cautious_direct: 24/200 prompts
+  cautious_direct: 32/200 prompts
+  cautious_direct: 40/200 prompts
+  cautious_direct: 48/200 prompts
+  cautious_direct: 56/200 prompts
+  cautious_direct: 64/200 prompts
+  cautious_direct: 72/200 prompts
+  cautious_direct: 80/200 prompts
+  cautious_direct: 88/200 prompts
+  cautious_direct: 96/200 prompts
+  cautious_direct: 104/200 prompts
+  cautious_direct: 112/200 prompts
+  cautious_direct: 120/200 prompts
+  cautious_direct: 128/200 prompts
+  cautious_direct: 136/200 prompts
+  cautious_direct: 144/200 prompts
+  cautious_direct: 152/200 prompts
+  cautious_direct: 160/200 prompts
+  cautious_direct: 168/200 prompts
+  cautious_direct: 176/200 prompts
+  cautious_direct: 184/200 prompts
+  cautious_direct: 192/200 prompts
+  cautious_direct: 200/200 prompts
+axis warm_neutral
+  warm_neutral: 8/200 prompts
+  warm_neutral: 16/200 prompts
+  warm_neutral: 24/200 prompts
+  warm_neutral: 32/200 prompts
+  warm_neutral: 40/200 prompts
+  warm_neutral: 48/200 prompts
+  warm_neutral: 56/200 prompts
+  warm_neutral: 64/200 prompts
+  warm_neutral: 72/200 prompts
+  warm_neutral: 80/200 prompts
+  warm_neutral: 88/200 prompts
+  warm_neutral: 96/200 prompts
+  warm_neutral: 104/200 prompts
+  warm_neutral: 112/200 prompts
+  warm_neutral: 120/200 prompts
+  warm_neutral: 128/200 prompts
+  warm_neutral: 136/200 prompts
+  warm_neutral: 144/200 prompts
+  warm_neutral: 152/200 prompts
+  warm_neutral: 160/200 prompts
+  warm_neutral: 168/200 prompts
+  warm_neutral: 176/200 prompts
+  warm_neutral: 184/200 prompts
+  warm_neutral: 192/200 prompts
+  warm_neutral: 200/200 prompts
+axis inquire_proceed
+  inquire_proceed: 8/200 prompts
+  inquire_proceed: 16/200 prompts
+  inquire_proceed: 24/200 prompts
+  inquire_proceed: 32/200 prompts
+  inquire_proceed: 40/200 prompts
+  inquire_proceed: 48/200 prompts
+  inquire_proceed: 56/200 prompts
+  inquire_proceed: 64/200 prompts
+  inquire_proceed: 72/200 prompts
+  inquire_proceed: 80/200 prompts
+  inquire_proceed: 88/200 prompts
+  inquire_proceed: 96/200 prompts
+  inquire_proceed: 104/200 prompts
+  inquire_proceed: 112/200 prompts
+  inquire_proceed: 120/200 prompts
+  inquire_proceed: 128/200 prompts
+  inquire_proceed: 136/200 prompts
+  inquire_proceed: 144/200 prompts
+  inquire_proceed: 152/200 prompts
+  inquire_proceed: 160/200 prompts
+  inquire_proceed: 168/200 prompts
+  inquire_proceed: 176/200 prompts
+  inquire_proceed: 184/200 prompts
+  inquire_proceed: 192/200 prompts
+  inquire_proceed: 200/200 prompts
+{'ts': '2026-07-27T17:19:21', 'stage': 'A', 'event': 'basis_generate_7b', 'wall_s': 1956.99, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 15.891, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  73%|███████▎  | 246/339 [00:00<00:00, 2459.19it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2306.43it/s]
+hedge_assert: pairs used=200/200 proxy pos=1.01 neg=0.29
+elaborate_concise: pairs used=200/200 proxy pos=157.19 neg=19.44
+formal_casual: pairs used=200/200 proxy pos=-0.28 neg=-5.09
+cautious_direct: pairs used=200/200 proxy pos=0.86 neg=0.05
+warm_neutral: pairs used=200/200 proxy pos=0.55 neg=0.05
+inquire_proceed: pairs used=197/200 proxy pos=5.30 neg=0.10
+basis -> /home/users/btf12/reward-adaptive-steering/basis/axes_7b.npz; report -> /home/users/btf12/reward-adaptive-steering/basis/extraction_report_7b.md
+{'ts': '2026-07-27T17:22:21', 'stage': 'A', 'event': 'basis_extract_7b', 'wall_s': 162.0, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 15.507, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': ''}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 2948.72it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2800.10it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  17%|█▋        | 53/311 [00:00<00:00, 491.48it/s]Loading weights:  33%|███▎      | 103/311 [00:00<00:00, 480.35it/s]Loading weights:  51%|█████▏    | 160/311 [00:00<00:00, 511.28it/s]Loading weights:  69%|██████▉   | 215/311 [00:00<00:00, 469.59it/s]Loading weights:  91%|█████████▏| 284/311 [00:00<00:00, 535.99it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 527.74it/s]
+reference residual norm at layer 18: 321.5
+baseline done
+  hedge_assert frac=-0.4 done
+  hedge_assert frac=-0.2 done
+  hedge_assert frac=-0.1 done
+  hedge_assert frac=0.1 done
+  hedge_assert frac=0.2 done
+  hedge_assert frac=0.4 done
+  elaborate_concise frac=-0.4 done
+  elaborate_concise frac=-0.2 done
+  elaborate_concise frac=-0.1 done
+  elaborate_concise frac=0.1 done
+  elaborate_concise frac=0.2 done
+  elaborate_concise frac=0.4 done
+  formal_casual frac=-0.4 done
+  formal_casual frac=-0.2 done
+  formal_casual frac=-0.1 done
+  formal_casual frac=0.1 done
+  formal_casual frac=0.2 done
+  formal_casual frac=0.4 done
+  cautious_direct frac=-0.4 done
+  cautious_direct frac=-0.2 done
+  cautious_direct frac=-0.1 done
+  cautious_direct frac=0.1 done
+  cautious_direct frac=0.2 done
+  cautious_direct frac=0.4 done
+  warm_neutral frac=-0.4 done
+  warm_neutral frac=-0.2 done
+  warm_neutral frac=-0.1 done
+  warm_neutral frac=0.1 done
+  warm_neutral frac=0.2 done
+  warm_neutral frac=0.4 done
+  inquire_proceed frac=-0.4 done
+  inquire_proceed frac=-0.2 done
+  inquire_proceed frac=-0.1 done
+  inquire_proceed frac=0.1 done
+  inquire_proceed frac=0.2 done
+  inquire_proceed frac=0.4 done
+reports -> /home/users/btf12/reward-adaptive-steering/basis/sanity_report_7b.md, /home/users/btf12/reward-adaptive-steering/basis/sanity_samples_7b.md
+{'ts': '2026-07-27T17:57:59', 'stage': 'A', 'event': 'sanity_sweep_7b', 'wall_s': 2122.19, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.733, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'layer=18 ref_norm=321.5'}
+DONE — push data/pairs_7b/, basis/axes_7b.npz, basis/*_7b.md, results/sanity_7b/,
+results/cost_log.jsonl. Review sanity_samples_7b.md (qualitative-first) before the prototype.
