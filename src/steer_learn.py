@@ -36,12 +36,23 @@ from steer_sanity import measure_ref_norm
 
 OUT = REPO_ROOT / "results" / "steer_learn"
 BASIS = REPO_ROOT / "basis"
+REPORT = "s1_synth_report.md"
 PHI_KEYS = ("words", "hedge_per100", "questions_per100")
 
 
-def load_sl_config():
-    with open(REPO_ROOT / "configs" / "steer_learn.yaml") as f:
+def load_sl_config(path=None):
+    with open(path or (REPO_ROOT / "configs" / "steer_learn.yaml")) as f:
         return yaml.safe_load(f)
+
+
+def _boot(vals, n=2000, seed=0):
+    """95% bootstrap CI of the mean (paired per-prompt Δ-R)."""
+    vals = np.asarray(vals, dtype=float)
+    if len(vals) == 0:
+        return float("nan"), float("nan")
+    rng = np.random.default_rng(seed)
+    means = [rng.choice(vals, len(vals), replace=True).mean() for _ in range(n)]
+    return float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
 
 
 def phi_features(completion):
@@ -245,6 +256,9 @@ def phase_eval(base_cfg, slcfg, device, model, tok):
 
     base_R, steer_R = np.array(base_R), np.array(steer_R)
     dR = steer_R - base_R
+    lo, hi = _boot(dR)
+    json.dump({"base_R": base_R.tolist(), "steer_R": steer_R.tolist()},
+              open(OUT / "eval_perprompt.json", "w"))
     bphi, sphi = np.array(base_phi).mean(0), np.array(steer_phi).mean(0)
 
     # best-of-n ceiling on the train pool (context for how much reward is available)
@@ -259,7 +273,7 @@ def phase_eval(base_cfg, slcfg, device, model, tok):
         "## On-policy reward (held-out test prompts)",
         f"- base R:   **{base_R.mean():+.3f}**",
         f"- steered R: **{steer_R.mean():+.3f}**",
-        f"- **Δ-R = {dR.mean():+.3f}**  (per-prompt paired; {int((dR>0).sum())}/{len(dR)} prompts up)",
+        f"- **Δ-R = {dR.mean():+.3f} [{lo:+.3f}, {hi:+.3f}]**  (95% boot CI; per-prompt paired; {int((dR>0).sum())}/{len(dR)} prompts up)",
         f"- train-pool best-of-{slcfg['pool']['n_samples']} ceiling: {bo_n:+.3f}",
         "\n## Recovery — realized φ shift (steered − base), should align with e*",
         "| feature | e* | base | steered | Δ | aligned |",
@@ -286,17 +300,23 @@ def phase_eval(base_cfg, slcfg, device, model, tok):
               "machinery learns a reward-aligned steering direction from scratch. This is the "
               "machinery check before the real RM (S1.2)."]
     (BASIS).mkdir(exist_ok=True)
-    (BASIS / "s1_synth_report.md").write_text("\n".join(lines) + "\n")
+    (BASIS / REPORT).write_text("\n".join(lines) + "\n")
     print("\n".join(l for l in lines if not l.startswith("|")))
-    print(f"\nreport -> {BASIS / 's1_synth_report.md'}")
+    print(f"\nreport -> {BASIS / REPORT}")
 
 
 def main():
+    global OUT, REPORT
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=["pool", "learn", "eval", "all"], default="all")
+    ap.add_argument("--config", default=None, help="alternate steer_learn config (variant runs)")
     args = ap.parse_args()
     base_cfg = load_config()
-    slcfg = load_sl_config()
+    slcfg = load_sl_config(args.config)
+    tag = slcfg.get("tag", "")
+    if tag:                                   # variant writes separate artifacts
+        OUT = REPO_ROOT / "results" / f"steer_learn_{tag}"
+        REPORT = f"s1_synth_{tag}_report.md"
     device = resolve_device(base_cfg)
     t0 = time.time()
     model, tok = load_base(base_cfg, device)
@@ -307,7 +327,7 @@ def main():
     if args.phase in ("eval", "all"):
         phase_eval(base_cfg, slcfg, device, model, tok)
     print(log_cost("S1", f"steer_learn_{args.phase}", time.time() - t0, device,
-                   notes="synthetic positive control"))
+                   notes=f"synthetic positive control{(' ' + tag) if tag else ''}"))
 
 
 if __name__ == "__main__":

@@ -14,6 +14,7 @@
 set -euo pipefail
 source .venv/bin/activate
 
-python src/steer_learn.py --phase all
+# Optional $1 = alternate config (e.g. configs/steer_learn_capsweep.yaml). Defaults to baseline.
+python src/steer_learn.py --phase all --config "${1:-configs/steer_learn.yaml}"
 
-echo "DONE — commit and push results/steer_learn/, basis/s1_synth_report.md, results/cost_log.jsonl, slurm log."
+echo "DONE — commit and push results/steer_learn*/, basis/s1_synth*_report.md, results/cost_log.jsonl, slurm log."

@@ -1,0 +1,35 @@
+# S1.1 variant — cap/length sensitivity. Same as steer_learn.yaml but a larger magnitude
+# cap (0.15 -> 0.25 of ref) and longer completions (64 -> 128 tokens). Question it answers:
+# did concision fail to move because the injection was too weak / length too capped, or
+# because a single global direction won't do both concision AND hedging? If words STILL
+# don't move down here, it's the single-direction limit (-> needs the conditional set), not
+# a cap/length limit. `tag` routes artifacts to results/steer_learn_capsweep/ so the
+# baseline is preserved for comparison.
+
+tag: capsweep
+
+reward:
+  mode: synthetic
+  target_direction: [-1.0, 1.0, 0.0]
+  beta: 1.0
+
+policy:
+  rank: 1
+  controller: global
+  mag_cap_frac: 0.25       # was 0.15
+  l1: 0.0
+  orth: 0.0
+
+pool:
+  n_prompts_train: 64
+  n_prompts_test: 32
+  n_samples: 12
+  max_new_tokens: 128      # was 64
+  temperature: 0.9
+  top_p: 0.95
+
+optim:
+  lr: 0.05
+  epochs: 8
+  batch_prompts: 1
+  seed: 0
