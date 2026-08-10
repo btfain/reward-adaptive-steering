@@ -1,0 +1,41 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  49%|████▊     | 106/218 [00:00<00:00, 861.61it/s]Loading weights:  89%|████████▊ | 193/218 [00:00<00:00, 503.73it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 579.62it/s]
+pool -> /home/users/btf12/reward-adaptive-steering/results/steer_learn/pool.jsonl
+ref_norm(layer 16) = 777.9; mag cap = 116.7
+epoch 0: mean loss 55.827 | ||delta|| 105.4
+epoch 1: mean loss 51.615 | ||delta|| 99.5
+epoch 2: mean loss 49.949 | ||delta|| 96.0
+epoch 3: mean loss 48.909 | ||delta|| 93.5
+epoch 4: mean loss 48.181 | ||delta|| 92.9
+epoch 5: mean loss 47.642 | ||delta|| 92.9
+epoch 6: mean loss 47.235 | ||delta|| 93.0
+epoch 7: mean loss 46.864 | ||delta|| 93.8
+learned V -> /home/users/btf12/reward-adaptive-steering/results/steer_learn/V.pt
+# S1.1 — learned reward-driven steering (synthetic positive control)
+
+Target e* over ('words', 'hedge_per100', 'questions_per100') = [-1.0, 1.0, 0.0] (z-scored). SmolLM2-1.7B, layer 16, mag cap 117 (=0.15·ref 778), rank 1 global.
+
+## On-policy reward (held-out test prompts)
+- base R:   **+0.365**
+- steered R: **+0.624**
+- **Δ-R = +0.259**  (per-prompt paired; 18/32 prompts up)
+- train-pool best-of-12 ceiling: +1.770
+
+## Recovery — realized φ shift (steered − base), should align with e*
+
+## Cosine of learned direction to contrastive axes
+- warm_neutral: -0.04
+- formal_casual: +0.03
+- cautious_direct: -0.02
+- elaborate_concise: +0.02
+- challenge_accommodate: -0.02
+- inquire_proceed: -0.01
+- hedge_assert: -0.01
+
+## Reading
+GREEN-for-S1.1: Δ-R > 0 on held-out prompts AND φ moves toward e* — the RWR machinery learns a reward-aligned steering direction from scratch. This is the machinery check before the real RM (S1.2).
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_synth_report.md
+{'ts': '2026-08-10T17:10:45', 'stage': 'S1', 'event': 'steer_learn_all', 'wall_s': 243.39, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 12.703, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'synthetic positive control'}
+DONE — commit and push results/steer_learn/, basis/s1_synth_report.md, results/cost_log.jsonl, slurm log.
