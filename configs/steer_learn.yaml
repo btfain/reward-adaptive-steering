@@ -1,0 +1,32 @@
+# Subproject 1 / S1.1 — RWR reward-driven steering-vector learner, synthetic positive control.
+# Analytic reward on cheap phi features with a KNOWN target direction e*, so we can check the
+# learner recovers a reward-aligned steering vector BEFORE touching a real RM (machinery check,
+# a la B0). Model / steer_layer / dtype / device are inherited from base.yaml.
+
+reward:
+  mode: synthetic          # synthetic (analytic phi) | rm  [rm deferred to S1.2]
+  target_direction: [-1.0, 1.0, 0.0]   # over (words, hedge_per100, questions_per100), z-scored:
+                                        # reward concise AND hedged — a 2-feature target no single
+                                        # contrastive axis matches (tests RWR finds the combination).
+  beta: 1.0                # KL-tilt temperature: w_k = softmax(R_k / beta) over each prompt's pool.
+
+policy:
+  rank: 1                  # r: #steering directions. Baseline = global r=1 (meaningful w/o a controller).
+  controller: global       # global | mlp  (mlp = prompt-conditional coefficients; coded as a stub, off).
+  mag_cap_frac: 0.15       # ||injection|| <= mag_cap_frac * ref_norm  (the A2 usable band).
+  l1: 0.0                  # sparsity penalty on V (rank>1); 0 for the r=1 baseline.
+  orth: 0.0                # orthogonality penalty ||VV^T - diag|| (rank>1); 0 for the r=1 baseline.
+
+pool:
+  n_prompts_train: 64
+  n_prompts_test: 32
+  n_samples: 12            # n base completions per prompt (n >> r); dictates pool cost.
+  max_new_tokens: 64       # short completions -> clean phi, fast loop (B0 lesson).
+  temperature: 0.9         # a little hot, to get reward variance in the pool.
+  top_p: 0.95
+
+optim:
+  lr: 0.05
+  epochs: 8
+  batch_prompts: 1         # one prompt's pool per step (weights are per-prompt normalized).
+  seed: 0
