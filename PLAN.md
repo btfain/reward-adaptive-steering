@@ -1,4 +1,22 @@
-# A-E · Study 1 (Contextual Bandit) — Execution Plan **v2**
+# Reward-Adaptive Steering — Execution Plan **v3**
+
+> **Revision note (v3, 2026-08-10).** The Stage A2 full run (200 prompts, out-of-seed
+> validation, two RMs) settled the action-space fork, and together with the Rung 1
+> reduction (`theory/rung1_reduction.md`) forced a restructure. **Findings:** single-turn
+> **steering** has ~zero validated headroom even at 7B (valid-oracle +0.15 [−0.04,+0.34]
+> RM1, −0.04 RM2 — CI includes 0); single-turn **prompting** has real headroom at both
+> scales (1.7B +0.51, 7B +1.08, CIs exclude 0 under both RMs); **dense composition
+> actively hurts** (H2 confirmed); two RM families agree (corr +0.83/+0.93). We were
+> **conflating two separable subprojects**; v3 splits them (see **Part II**):
+> - **Subproject 1 — Reward-Adaptive Steering** (a *method*): *learn* constrained,
+>   interpretable steering vectors for a given base+RM — lightweight/interpretable vs RLHF.
+> - **Subproject 2 — The single-turn/multi-turn gap** (a *setting/phenomenon*): demonstrate
+>   the greedy-reward gap in a *verifiable* way and close it with *natural prompt directions*;
+>   steering-vector learning is out of scope for this track.
+> Stages A, A2, B0 are the shared, completed foundation. The old single-turn Stage B→C→D
+> pipeline (conditional policy over *contrastive* axes) is **superseded**: its steering arm
+> folds into Subproject 1 (now *learned* vectors), its prompting arm and cost baselines feed
+> both. The A→B→C→D framing in `CLAUDE.md` is stale — gate-gating now runs *within each track*.
 
 > **Revision note (v2).** v1 assumed we could go straight from a validated steering
 > basis to a fixed-steering arm that beats SFT. That arm came back **null**: no
@@ -138,6 +156,34 @@ both modalities with paired scoring and a perplexity guard, and H1/H2/H3 is
 adjudicated. A null here is a **legitimate, reportable finding** — not a failure to
 route around.
 
+**Stage A2 outcome (full run, 2026-07-28→29): the action-space fork is settled.**
+Executed as pilot (10 prompts, seeds 0–2) then full run (200 prompts; seed-0 grid +
+out-of-seed winner-validation on seeds 1,2; both RMs; bootstrap CIs). Reports:
+`basis/headroom_full.md`, `basis/rm_agreement_full.md`. The perplexity guard was
+**dropped as a gate** — it conflated intended distribution shift with disfluency
+(distinct-2 unchanged while nearly every condition flagged); fluency is not the binding
+constraint here.
+- **Steering (M1): null.** 7B valid-oracle ΔRM **+0.15 [−0.04,+0.34]** (RM1) /
+  **−0.04 [−0.28,+0.19]** (RM2) — CI includes 0 under both. The pilot's +0.98 was
+  small-sample selection noise (wide CI); n=200 out-of-seed collapses it. All but two 7B
+  steering conditions are reward-negative; the usable |α|≤0.1 band is too weak to help,
+  and past it fluency/RM crater. 1.7B steering already failed in the pilot.
+- **Prompting (M2): real.** 7B **+1.08 [+0.85,+1.32]** (RM1) / **+0.86** (RM2);
+  1.7B **+0.51 [+0.26,+0.79]** (RM1) / **+0.58** (RM2). CIs exclude 0 under both RMs at
+  both scales; ~2× the headroom at 7B.
+- **Dense (H2): confirmed harmful.** valid-oracle −0.11 (RM1) / −0.27 (RM2); random
+  multi-axis combos −11 to −14. Composition goes off-manifold, worse the more axes stacked.
+- **RM variance (H1 / RM-noise): ruled out.** Two RM families correlate +0.83 (1.7B) /
+  +0.93 (7B) on per-completion ΔRM; 100% / 98% sign agreement on movers.
+- **What the RM rewards:** proceed / direct / assertive / complete (the *negative* poles)
+  — confident, complete answers. inquire/proceed is single-turn-negative under both RMs
+  (the clean hook for Subproject 2's gap).
+- **Cost (measured):** 7B 3.75 GPU-h, 1.7B 0.99, RM2 re-score 0.07 (~4.8 total); 7B ≈ 3.8× 1.7B.
+
+**Reading:** H3-for-steering is effectively confirmed single-turn — steering does not move
+this RM within the fluent band; prompting is the action space with headroom. This is the
+finding that splits the project (Part II).
+
 ---
 
 ### Stage B0 — Synthetic positive control **(NEW — run in parallel with A2)**
@@ -253,28 +299,93 @@ the dials locate the failure boundaries. Full numbers in `basis/synthB0_report.m
 
 ---
 
-### Stage B — Fixed-control arm on real data (revised)
-Re-run with the v2 action space (hierarchical/sparse, not dense 6-dim), paired
-scoring, and the perplexity guard. Gated on A2 not having confirmed H3.
+## Part II — Two subprojects (v3)
 
-**GREEN when:** fixed-control beats SFT on paired held-out reward with no diversity
-collapse and no perplexity degradation.
+Stages A, A2, and B0 are the **shared, completed foundation**: the basis (A), the
+action-space fork (A2), and the synthetic positive control for the conditional-policy
+machinery (B0). What was one single-turn Stage B→C→D pipeline now forks into two
+subprojects that had been conflated. Both keep every standing rule in `CLAUDE.md`
+(frozen base, measured cost, anti-collapse guard, never advance a failing gate); the
+gate discipline now runs **within each track**.
 
-### Stage C — Conditional policy + RL loop (revised)
-Policy = discrete axis choice (incl. "none") + magnitude. Init at "none" (≈ no-op).
-Episodic-bandit RL; value baseline; log reward, KL, perplexity, action entropy, and
-action distribution by prompt type.
+### Subproject 1 — Reward-Adaptive Steering (a method)
 
-**GREEN when:** (ours) matches or beats fixed-control on paired held-out reward AND
-the learned action varies meaningfully across prompt types.
+**Claim.** We can *learn* interpretable, reward-driven steering vectors for a given
+(frozen base, reward model) that are lightweight and interpretable compared to RLHF.
+Setting-agnostic; the single-turn bandit is the cheapest proving ground and the
+infrastructure already exists (`src/headroom.py`, the steering hooks in `models.py`, RM
+scoring, the cost log).
 
-### Stage D — Baselines & full evaluation table
-best-of-k (k=8) and LoRA-RLHF (bandit) to convergence; same metrics + full measured
-cost. Master table (arms × {reward, cost, drift, fluency}) + interpretability figure.
-≥2 seeds on the headline comparison; optionally a 2nd RM.
+**Shift from the superseded plan.** The action directions are **learned**, not the six
+contrastive axes. Learning is constrained for interpretability — **soft low-rank +
+sparsity + orthogonality penalties** — and trained against the RM with the B0-carried
+recipe (GRPO-style group-relative baseline + weight decay + early stopping; plain
+REINFORCE collapsed).
 
-**GREEN when:** the master table supports all three nested claims and cost numbers are
-logged, not estimated, for every arm.
+**The honest open question.** A2 showed the *contrastive* single-turn steering headroom is
+~0 in the fluent band. Learned directions are not confined to the contrastive span, so
+the test is whether a learned constrained direction finds reward-relevant behavior the
+hand-picked axes miss. If even a freely-learned constrained vector cannot beat ~0 within
+the fluent band, that is a strong, reportable **negative** bounding single-turn steering's
+ceiling; if it can, that is the method's win. Either outcome is a result.
+
+**Gates.**
+- **S1.1 — Learnability (synthetic positive control).** Reuse the B0 world: can we *learn*
+  a constrained steering direction that recovers a known reward-relevant direction?
+  Machinery check before the real RM.
+- **S1.2 — Real RM, single-turn.** Learn constrained vectors against the given RM on
+  UltraFeedback prompts; report validated ΔRM (paired, out-of-seed) vs the contrastive ~0
+  baseline and vs prompting; log measured cost.
+- **S1.3 — Cost / interpretability vs RLHF.** Against LoRA-RLHF and best-of-k (the old
+  Stage D baselines): reward, measured cost, trainable-param count, and **nameability** of
+  the learned directions (checked against realized behavior, per B0's "reward-geometry ≠
+  axis-semantics").
+
+**GREEN when:** a learned constrained steering policy either (a) beats the
+contrastive/prompting single-turn baseline at lower cost than RLHF with interpretable
+directions, or (b) returns a clean, well-measured null that bounds single-turn steering's
+ceiling.
+
+### Subproject 2 — The single-turn / multi-turn gap (a setting)
+
+**Claim.** Single-turn reward optimization is myopic; the gap is real and material; and
+simple interpretable planning over **natural prompt directions** closes most of it.
+
+**Theoretical spine.** `theory/rung1_reduction.md` (Rung 1) — greedy maximization of a
+per-step reward is not return-optimal (fully observed; value-of-information the salient
+instance); A2 instantiates a strictly-positive-regret regime for a real base+RM pair;
+longer context cannot close it.
+
+**Deliberate scope.** Action space = **natural prompt directions only** (the planning-move
+axes, articulated as prompts). Steering-vector learning is **out of scope here** — the gap
+result must not hinge on the harder method. Reward = a **deterministic verifiable rubric
+check**, never a hand-crafted "good conversation" proxy.
+
+**Gates.**
+- **Rung 1 — Reduction. ✅ DONE** as a formal note (`theory/rung1_reduction.md`).
+- **Rung 2 setup — planning-move axes.** Converge on the substantive, beyond-style
+  planning-move set, written as prompts. *(next task)*
+- **Rung 2a — Verifiable gap + simple planning (oracle basis).** A clarification-gated
+  synthetic environment with a hidden, **checkable** rubric composed of the planning-move
+  types (ports B0's manifestation dial as the revelation structure). Demonstrate (i) the
+  greedy/deployed policy leaves ground-truth verifiable reward on the table — the gap, in
+  units of task success (the "and it matters" experiment Rung 1 points to), and (ii) a
+  simple conditional prompt-adapter planner closes most of it.
+- **Rung 2b — Learn the action space from reward (deferred).** Discover the planning-move
+  directions from the multi-turn reward rather than assuming them. This is where the two
+  subprojects **reconnect**: Subproject 1's constrained-learning method, applied where
+  reward finally has multi-turn variance.
+- **Rung 3 — Real-world validation.** Validate the demonstrated gap and its closure on real
+  human–AI interaction logs (external validity; the synthetic env is the positive control).
+  Method TBD.
+
+**GREEN (Rung 2a):** the gap is exhibited in ground-truth verifiable reward, a simple
+prompt-adapter planner closes a substantial fraction of it, and the greedy baseline is
+provably myopic per Rung 1.
+
+> **On the old "Study 2."** The long-horizon study deferred in v2 *is* Subproject 2, now
+> promoted to a first-class track with its own theory and gates rather than a code-reuse
+> afterthought.
 
 ---
 
@@ -282,33 +393,41 @@ logged, not estimated, for every arm.
 
 ```
 ae-study1/
+  theory/             # NEW (v3): rung1_reduction.md — reduction spine of Subproject 2
   configs/            # model, RM, dataset, basis, RL hyperparams (yaml)
   data/               # cached prompts, contrastive pairs for basis
-    synthetic/        # NEW: type-conditioned prompts + type labels
-  basis/              # extracted axis vectors + validation report
+    synthetic/        # type-conditioned prompts + type labels (B0)
+  basis/              # extracted axis vectors + validation + headroom reports
   src/
     models.py         # base + RM loading, hooked generation w/ steering
     basis_extract.py  # Stage A
-    headroom.py       # NEW: Stage A2 diagnostic (both modalities, paired scoring)
-    nl_control.py     # NEW: M2 natural-language imperative vocabulary
-    synth_world.py    # NEW: Stage B0 type-conditioned generation + analytic R_synth, φ
-    fixed_control.py  # Stage B
-    policy.py         # hierarchical/sparse policy (axis choice + magnitude)
-    train_rl.py       # Stage C episodic-bandit loop
-    baselines.py      # best-of-k, LoRA-RLHF (Stage D)
+    headroom.py       # Stage A2 diagnostic (both modalities, paired scoring)
+    nl_control.py     # M2 natural-language imperative vocabulary
+    synth_world.py    # Stage B0 type-conditioned generation + analytic R_synth, φ
+    synth_learn.py    # Stage B0 offline learning (GRPO + early stop)
+    rm_agreement.py   # A2 second-RM variance probe
+    steer_learn.py    # NEW (v3, Subproject 1): learn constrained steering vectors
+    multiturn_env.py  # NEW (v3, Subproject 2 Rung 2a): verifiable clarification-gated env
+    baselines.py      # best-of-k, LoRA-RLHF (Subproject 1 S1.3 cost comparison)
     evaluate.py       # metrics: reward, cost, drift, fluency, interp
   results/            # tables, figures, logs, seeds
   README.md
 ```
+> `fixed_control.py` / `policy.py` / `train_rl.py` from the v2 scaffold are **superseded**
+> (conditional policy over *contrastive* axes); their reusable pieces move into
+> `steer_learn.py`.
 
 ---
 
 ## 5. Forward-consistency note
-When Study 2 (long-horizon) reuses this code, the **method stays identical** — same
-policy class, same action space, same algorithm — only the environment and reward
-swap. The hierarchical/sparse action space adopted in v2 is *more* natural for Study 2
-than the dense vector was: it maps directly onto the "small option vocabulary" framing
-of the multi-turn MDP. Do not let Study 1 accrue choices that can't carry over.
+Subproject 2 *is* the long-horizon study, now first-class rather than a code-reuse
+afterthought. The two subprojects reconnect at **Rung 2b**: the constrained
+vector-learning method of Subproject 1, applied where multi-turn reward gives it
+variance. Keep Subproject 1's learner environment-agnostic (policy class, basis,
+algorithm modular) so it drops into the multi-turn env unchanged. The natural
+prompt-direction action space of Subproject 2 maps directly onto the "small option
+vocabulary" framing of the multi-turn MDP. Do not accrue choices in either track that
+can't carry over.
 
 ## 6. Standing epistemic rule
 A null result that is **measured properly** is a finding, not a failure. If A2 shows

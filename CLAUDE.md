@@ -5,15 +5,21 @@ on **every** turn and override any impulse to move faster.
 
 ## Non-negotiable working rules
 
-1. **Stage gating.** Work in the four stages defined in `PLAN.md` (A → B → C → D).
-   Each stage has a GREEN criterion. **Do NOT advance past a failing gate.** If a
-   gate does not go green, STOP and report what failed and your proposed fix —
-   do not proceed to the next stage anyway.
+1. **Gate gating.** Since v3 (2026-08-10), `PLAN.md` forks into **two subprojects**,
+   each with its own ordered gates: Subproject 1 (reward-adaptive steering — a method)
+   S1.1 → S1.2 → S1.3, and Subproject 2 (the single-turn/multi-turn gap — a setting)
+   Rung 1 → Rung 2 → Rung 3. Stages A, A2, B0 are the shared, completed foundation. Work
+   **within each subproject's gates**; the old single-turn A → B → C → D pipeline is
+   superseded. Each gate has a GREEN criterion. **Do NOT advance past a failing gate.**
+   If a gate does not go green, STOP and report what failed and your proposed fix — do
+   not proceed to the next gate anyway.
 
-2. **Cheapest-arm-first ordering is deliberate.** Stage A validates the steering
-   basis before any policy is built on it. Stage B validates the RM + eval harness
-   on the cheapest arm before the RL loop exists. This ordering is what makes a
-   failing Stage C debuggable. Do not reorder to "get to the interesting part."
+2. **Cheapest-arm-first ordering is deliberate.** Stage A validated the steering basis
+   before any policy was built on it; A2 validated the RM + eval harness (the action-space
+   headroom) before any RL loop; B0 validated the learning machinery on a known-answer
+   world. Each subproject keeps this discipline — its synthetic/positive-control gate
+   (S1.1; Rung 2a's oracle-basis check) comes before its real-data gate. This ordering is
+   what makes a failing later gate debuggable. Do not reorder to "get to the interesting part."
 
 3. **Always log cost.** For every arm, record GPU-hours, peak memory, wall-clock,
    and trainable-param count. Cost numbers must be **measured and logged**, never
