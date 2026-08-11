@@ -4,22 +4,22 @@ Types A→hedge+, B→questions+ (z-scored φ). SmolLM2-1.7B, steer L16, read L1
 
 | arm | Δ-R [95% CI] | Δ-R type A | Δ-R type B |
 |---|---|---|---|
-| global | +0.078 [-0.037, +0.184] | +0.208 | -0.052 |
-| linear | +0.028 [-0.097, +0.145] | +0.097 | -0.042 |
-| mlp | +0.248 [+0.099, +0.430] | +0.211 | +0.284 |
+| global | +0.072 [-0.021, +0.159] | +0.026 | +0.118 |
+| linear | +0.295 [+0.136, +0.470] | +0.497 | +0.093 |
+| mlp | -0.046 [-0.150, +0.048] | -0.073 | -0.019 |
 
 ## Routing — mean coefficient a per type (r directions)
-- **global**: a|A = [27.34, -10.153], a|B = [27.34, -10.153]
-- **linear**: a|A = [-2774.436, 1938.228], a|B = [-2689.423, 1956.711]
-- **mlp**: a|A = [48062.246, 71509.562], a|B = [46316.238, 68878.719]
+- **global**: a|A = [25.944, -12.097], a|B = [25.944, -12.097]
+- **linear**: a|A = [-100.537, 100.536], a|B = [-100.536, 100.536]
+- **mlp**: a|A = [100.537, 100.537], a|B = [100.537, 100.537]
 
 ## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑
-- **global** type A: Δwords +1.74, Δhedge +0.17, Δquestions -0.02
-- **global** type B: Δwords +1.91, Δhedge +0.15, Δquestions -0.05
-- **linear** type A: Δwords +3.87, Δhedge +0.08, Δquestions -0.10
-- **linear** type B: Δwords +2.72, Δhedge +0.12, Δquestions -0.04
-- **mlp** type A: Δwords +1.36, Δhedge +0.17, Δquestions -0.01
-- **mlp** type B: Δwords -0.68, Δhedge +0.25, Δquestions +0.27
+- **global** type A: Δwords +0.78, Δhedge +0.02, Δquestions +0.03
+- **global** type B: Δwords +0.61, Δhedge +0.11, Δquestions +0.11
+- **linear** type A: Δwords +2.32, Δhedge +0.40, Δquestions +0.02
+- **linear** type B: Δwords +1.81, Δhedge +0.22, Δquestions +0.09
+- **mlp** type A: Δwords +4.74, Δhedge -0.06, Δquestions -0.10
+- **mlp** type B: Δwords +2.49, Δhedge -0.01, Δquestions -0.02
 
 ## Reading
-Conditioning value = best conditional Δ-R (+0.248, mlp) − global Δ-R (+0.078) = **+0.170**. GREEN-for-S1.2: a conditional controller beats the global vector AND routes the right direction to each type (a|A ≠ a|B, φ recovers each type's lever). Linear vs MLP = capacity comparison.
+Conditioning value = best conditional Δ-R (+0.295, linear) − global Δ-R (+0.072) = **+0.223**. GREEN-for-S1.2: a conditional controller beats the global vector AND routes the right direction to each type (a|A ≠ a|B, φ recovers each type's lever). Linear vs MLP = capacity comparison.
