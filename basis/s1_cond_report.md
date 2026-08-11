@@ -1,29 +1,29 @@
 # S1.2 — conditional steering controller (type-dependent positive control)
 
-Types A→hedge+, B→hedge− (z-scored φ). SmolLM2-1.7B, steer L16, read L16, rank 2, magnitude FIXED at cap 106 (direction-only routing; coeffs a∈[−1,1]). n=12 pool. Δ-R = on-policy steered − base, held-out.
+Types = sign of the read state's top-PC projection (recoverable by construction); A→hedge+, B→hedge−. SmolLM2-1.7B-Instruct, steer L16, read L16, rank 2, soft mag cap 117 (unbounded coeffs, penalty-shaped). n=12 pool. Δ-R = on-policy steered − base, held-out.
 
-**Type-separability probe** (linear h(x)→type): train 100%, held-out **56%** — near 100% ⇒ routing signal present (failure would be optimization/reward); ~50% ⇒ cue washed out.
+**Type-separability probe** (linear h(x)→type): held-out **90%** (~100% by construction ⇒ a routing failure is purely optimization).
 
 | arm | Δ-R [95% CI] | Δ-R type A | Δ-R type B |
 |---|---|---|---|
-| global | +0.032 [-0.082, +0.155] | -0.058 | +0.122 |
-| linear | +0.045 [-0.051, +0.140] | +0.003 | +0.087 |
-| mlp | +0.009 [-0.111, +0.130] | -0.090 | +0.109 |
+| global | +0.042 [-0.071, +0.157] | +0.043 | +0.042 |
+| linear | +0.035 [-0.081, +0.156] | +0.105 | -0.072 |
+| mlp | +0.057 [-0.025, +0.142] | +0.007 | +0.134 |
 
 ## Routing — cosine between mean injection direction for type A vs B (≈+1 = same direction = no routing; ≤0 = opposite = routing)
-- **global**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[22.64, -15.02], a|B=[22.64, -15.02])
-- **linear**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[38.37, -78.21], a|B=[44.99, -83.0])
-- **mlp**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[-61.27, -15.64], a|B=[-61.55, -16.17])
+- **global**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[23.99, -15.81], a|B=[23.99, -15.81])
+- **linear**: cos(δ̄A, δ̄B) = **+0.82**  (a|A=[117.82, -143.65], a|B=[14.91, -45.1])
+- **mlp**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[-67.3, -17.07], a|B=[-67.6, -17.25])
 
-## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑
-- **global** type A: Δwords +1.23, Δhedge -0.05, Δquestions +0.12
-- **global** type B: Δwords +0.28, Δhedge -0.10, Δquestions -0.03
-- **linear** type A: Δwords +0.53, Δhedge +0.00, Δquestions -0.03
-- **linear** type B: Δwords +0.37, Δhedge -0.07, Δquestions -0.00
-- **mlp** type A: Δwords +0.69, Δhedge -0.08, Δquestions +0.02
-- **mlp** type B: Δwords +2.88, Δhedge -0.09, Δquestions -0.03
+## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants hedge↓
+- **global** type A: Δwords -1.73, Δhedge +0.04, Δquestions +0.04
+- **global** type B: Δwords -0.50, Δhedge -0.03, Δquestions +0.01
+- **linear** type A: Δwords -1.77, Δhedge +0.09, Δquestions -0.01
+- **linear** type B: Δwords -0.71, Δhedge +0.06, Δquestions -0.02
+- **mlp** type A: Δwords -1.43, Δhedge +0.01, Δquestions +0.10
+- **mlp** type B: Δwords -0.64, Δhedge -0.11, Δquestions -0.03
 
 ## Reading
-Conditioning value = best conditional Δ-R (+0.045, linear) − global Δ-R (+0.032) = **+0.013**.
-Routing cos(δ̄A,δ̄B): linear +1.00, mlp +1.00 (< 0.5 = genuine per-type routing, not one stronger global vector).
+Conditioning value = best conditional Δ-R (+0.057, mlp) − global Δ-R (+0.042) = **+0.015**.
+Routing cos(δ̄A,δ̄B): linear +0.82, mlp +1.00 (< 0.5 = genuine per-type routing, not one stronger global vector).
 **S1.2 NOT green**: requires a conditional arm routing to different directions per type (cos < 0.5) AND Δ-R > global AND a legible type signal (probe > 75%). Not met — an arm that beats global without directional routing is just one stronger GLOBAL vector (prompt-distribution artifact); a low probe would mean the cue is washed out.
