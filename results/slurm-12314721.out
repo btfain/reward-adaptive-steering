@@ -1,3 +1,82 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  84%|████████▍ | 286/339 [00:00<00:00, 2858.57it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2699.17it/s]
+pool -> /home/users/btf12/reward-adaptive-steering/results/steer_cond_7b/pool.jsonl
+ref_norm(layer 18) = 352.9; mag cap = 35.3
+  [global] epoch 0: mean loss 59.386
+  [global] epoch 1: mean loss 53.907
+  [global] epoch 2: mean loss 65.118
+  [global] epoch 3: mean loss 47.232
+  [global] epoch 4: mean loss 46.467
+  [global] epoch 5: mean loss 44.802
+  [global] epoch 6: mean loss 43.764
+  [global] epoch 7: mean loss 42.289
+  [global] epoch 8: mean loss 41.263
+  [global] epoch 9: mean loss 40.436
+  [global] epoch 10: mean loss 40.116
+  [global] epoch 11: mean loss 39.922
+  [global] epoch 12: mean loss 39.771
+  [global] epoch 13: mean loss 39.744
+  [global] epoch 14: mean loss 39.804
+  [global] epoch 15: mean loss 39.784
+  [linear] epoch 0: mean loss 379.400
+  [linear] epoch 1: mean loss 697.767
+  [linear] epoch 2: mean loss 1198.187
+  [linear] epoch 3: mean loss 1020.104
+  [linear] epoch 4: mean loss 1107.128
+  [linear] epoch 5: mean loss 850.024
+  [linear] epoch 6: mean loss 1679.587
+  [linear] epoch 7: mean loss 1440.966
+  [linear] epoch 8: mean loss 2047.331
+  [linear] epoch 9: mean loss 2202.815
+  [linear] epoch 10: mean loss 1390.567
+  [linear] epoch 11: mean loss 711.972
+  [linear] epoch 12: mean loss 697.844
+  [linear] epoch 13: mean loss 657.933
+  [linear] epoch 14: mean loss 507.269
+  [linear] epoch 15: mean loss 544.575
+  [mlp] epoch 0: mean loss 183.458
+  [mlp] epoch 1: mean loss 98.324
+  [mlp] epoch 2: mean loss 41.303
+  [mlp] epoch 3: mean loss 39.572
+  [mlp] epoch 4: mean loss 41.699
+  [mlp] epoch 5: mean loss 42.218
+  [mlp] epoch 6: mean loss 43.729
+  [mlp] epoch 7: mean loss 48.523
+  [mlp] epoch 8: mean loss 49.649
+  [mlp] epoch 9: mean loss 52.691
+  [mlp] epoch 10: mean loss 48.644
+  [mlp] epoch 11: mean loss 58.528
+  [mlp] epoch 12: mean loss 123.702
+  [mlp] epoch 13: mean loss 85.214
+  [mlp] epoch 14: mean loss 69.359
+  [mlp] epoch 15: mean loss 81.421
+policies -> /home/users/btf12/reward-adaptive-steering/results/steer_cond_7b/policy_*.pt
+# S1.2 — conditional steering controller (type-dependent positive control)
+
+Types A→hedge+, B→hedge− (z-scored φ). SmolLM2-1.7B, steer L18, read L18, rank 2, magnitude FIXED at cap 35 (direction-only routing; coeffs a∈[−1,1]). n=6 pool. Δ-R = on-policy steered − base, held-out.
+
+**Type-separability probe** (linear h(x)→type): train 100%, held-out **54%** — near 100% ⇒ routing signal present (failure would be optimization/reward); ~50% ⇒ cue washed out.
+
+
+## Routing — cosine between mean injection direction for type A vs B (≈+1 = same direction = no routing; ≤0 = opposite = routing)
+- **global**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[-2.11, 2.57], a|B=[-2.11, 2.57])
+- **linear**: cos(δ̄A, δ̄B) = **+0.96**  (a|A=[42.37, -51.72], a|B=[52.81, -47.63])
+- **mlp**: cos(δ̄A, δ̄B) = **+1.00**  (a|A=[-6.39, 11.39], a|B=[-6.39, 11.39])
+
+## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑
+- **global** type A: Δwords +0.02, Δhedge +0.30, Δquestions +0.04
+- **global** type B: Δwords +0.28, Δhedge +0.24, Δquestions -0.04
+- **linear** type A: Δwords -2.02, Δhedge +0.02, Δquestions +0.04
+- **linear** type B: Δwords -1.27, Δhedge -0.09, Δquestions -0.14
+- **mlp** type A: Δwords +0.66, Δhedge +0.25, Δquestions +0.08
+- **mlp** type B: Δwords -1.00, Δhedge +0.36, Δquestions +0.28
+
+## Reading
+Conditioning value = best conditional Δ-R (+0.045, linear) − global Δ-R (+0.024) = **+0.021**.
+Routing cos(δ̄A,δ̄B): linear +0.96, mlp +1.00 (< 0.5 = genuine per-type routing, not one stronger global vector).
+**S1.2 NOT green**: requires a conditional arm routing to different directions per type (cos < 0.5) AND Δ-R > global AND a legible type signal (probe > 75%). Not met — an arm that beats global without directional routing is just one stronger GLOBAL vector (prompt-distribution artifact); a low probe would mean the cue is washed out.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_cond_7b_report.md
+{'ts': '2026-08-11T14:19:08', 'stage': 'S1', 'event': 'steer_cond_all', 'wall_s': 1957.38, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 19.778, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'conditional controller, type-dependent positive control'}
+DONE — push results/steer_cond_7b/, basis/s1_cond_7b_report.md, results/cost_log.jsonl, slurm log.
