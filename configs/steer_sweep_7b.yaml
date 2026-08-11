@@ -1,0 +1,47 @@
+# S1.2 diagnostic sweep at 7B — is the real-RM steering null an ACTION-SPACE limit or a
+# LEARNING limit? Reuses the S1.2 real-RM pool (no regeneration). See src/steer_sweep.py.
+# Run: --base-config configs/base_7b.yaml --config configs/steer_sweep_7b.yaml
+
+tag: "7b"
+pool_dir: "results/steer_rm_7b"     # reuse the already-generated + RM1-scored pool
+
+mag_fracs: [0.05, 0.10, 0.15, 0.20] # cap = frac * ref_norm; 0.20 is where A2 saw the RM crater
+
+reward:
+  beta: 1.0
+
+policy:                              # shared knobs for the learned arms (rank set per-arm in code)
+  read_layer: 18
+  mag_cap_frac: 0.10                 # unused directly (cap comes from mag_fracs); kept for Policy parity
+  mag_penalty: 0.1
+  l1: 0.01
+  orth: 0.1
+  mlp_hidden: 128
+
+pool:
+  n_prompts_train: 150
+  n_prompts_test: 50
+  n_samples: 8                       # matches the pool that already exists
+  max_new_tokens: 128
+  temperature: 0.9
+  top_p: 0.95
+
+oracle:
+  r_subspace: 8                      # top-r PCA of pool activations = reward-relevant subspace
+  k_random: 6                        # random dirs in that subspace; + the contrastive dir = 7 candidates
+
+eval:
+  n_samples: 4                       # held-out samples per prompt per fixed direction (learned/contrastive)
+  oracle_samples: 2                  # per candidate direction (K candidates -> keep this small)
+  n_train_eval: 50                   # train-subset size for the fit-vs-generalize metric
+  guard_prompts: 20                  # prompts used for the base-NLL fluency-drift guard
+
+side_check:
+  frac: 0.10                         # fluent cap for the capacity side-check
+  ranks: [2, 8]                      # does more conditional capacity change the null?
+
+optim:
+  lr: 0.05
+  epochs: 12
+  weight_decay: 0.001
+  seed: 0
