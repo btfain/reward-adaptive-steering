@@ -146,18 +146,21 @@ def tf_sum_logprob(model, tok, prefix_ids, comp_ids_list, layer, delta):
         hidden = hidden + delta.to(hidden.dtype)
         return (hidden,) + output[1:] if isinstance(output, tuple) else hidden
 
+    head = model.get_output_embeddings()
     h = model.model.layers[layer].register_forward_hook(hook)
     try:
-        logits = model(input_ids=ids, attention_mask=attn).logits.float()
+        # trunk only — do NOT materialize full-vocab logits over all positions (OOM at 7B / 152k vocab)
+        hidden = model.model(input_ids=ids, attention_mask=attn).last_hidden_state   # (B,T,H)
     finally:
         h.remove()
-    lse = torch.logsumexp(logits, dim=-1)          # (B,T); avoids a full (B,T,vocab) log_softmax copy
     out = []
     for k in range(B):
         L = lens[k]
         idx = torch.arange(P - 1, P - 1 + L, device=device)
+        logits_k = head(hidden[k, idx]).float()         # (L, vocab) — LM head only at completion positions
+        lse = torch.logsumexp(logits_k, dim=-1)
         tgt = ids[k, P:P + L]
-        out.append((logits[k, idx, tgt] - lse[k, idx]).sum())
+        out.append((logits_k[torch.arange(L, device=device), tgt] - lse).sum())
     return torch.stack(out)
 
 

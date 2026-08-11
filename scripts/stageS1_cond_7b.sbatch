@@ -13,6 +13,7 @@
 
 set -euo pipefail
 source .venv/bin/activate
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True   # reduce fragmentation OOMs
 
 python src/steer_cond.py --phase all \
     --base-config configs/base_7b.yaml \

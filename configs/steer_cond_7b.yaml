@@ -26,7 +26,7 @@ policy:
 pool:
   n_prompts_train: 96
   n_prompts_test: 48
-  n_samples: 8                # smaller than 1.7B's 12: Qwen vocab ~152k makes the TF logits tensor big
+  n_samples: 6                # batch = n_samples for the TF backward graph; 6 keeps 7B under 24GB
   max_new_tokens: 80
   temperature: 0.9
   top_p: 0.95
