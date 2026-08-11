@@ -10,8 +10,10 @@ tag: cond
 reward:
   mode: synthetic_typed
   types:                      # per-type target direction over (words, hedge_per100, questions_per100)
-    A: [0.0, 1.0, 0.0]        # type A rewards hedging
-    B: [0.0, 0.0, 1.0]        # type B rewards asking questions
+    A: [0.0, 1.0, 0.0]        # type A rewards hedging (hedge+)
+    B: [0.0, -1.0, 0.0]       # type B rewards NOT hedging (hedge-) — same REACHABLE lever, opposite
+                              # pole, so routing is required (a global vector fails half the prompts)
+                              # and the success signature is unambiguous: a|A ≈ -a|B.
   beta: 1.0                   # w_k = softmax(R_k / beta) over each prompt's pool
 
 policy:

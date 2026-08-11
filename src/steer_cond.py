@@ -78,6 +78,29 @@ def read_state(model, tok, prompt, layer):
     return cap["h"][0, -1, :].float().cpu()
 
 
+def _type_probe(model, tok, P, read_layer, device):
+    """Linear probe h(x) -> type, held-out accuracy. ~100% => the routing signal is present in
+    the read state (any routing failure is optimization/reward); ~50% => the cue is washed out."""
+    def feats(split):
+        X = torch.stack([read_state(model, tok, prompt, read_layer) for prompt, _ in P[split]])
+        y = torch.tensor([0.0 if t == "A" else 1.0 for _, t in P[split]])
+        return X.to(device), y.to(device)
+
+    Xtr, ytr = feats("train"); Xte, yte = feats("test")
+    mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
+    Xtr, Xte = (Xtr - mu) / sd, (Xte - mu) / sd
+    w = torch.zeros(Xtr.shape[1], device=device, requires_grad=True)
+    b = torch.zeros(1, device=device, requires_grad=True)
+    opt = torch.optim.Adam([w, b], lr=0.05)
+    for _ in range(400):
+        opt.zero_grad()
+        loss = F.binary_cross_entropy_with_logits(Xtr @ w + b, ytr) + 1e-3 * w.pow(2).sum()
+        loss.backward(); opt.step()
+    with torch.no_grad():
+        acc = lambda X, y: float((((X @ w + b) > 0).float() == y).float().mean())
+        return acc(Xtr, ytr), acc(Xte, yte)
+
+
 class Policy(nn.Module):
     """Injection policy: V (r unit directions) + a controller producing coefficients a."""
 
@@ -257,10 +280,14 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
         base_phi[pi] = np.mean([[x["phi"][k] for k in PHI_KEYS] for x in bpool], axis=0)
         typ_of[pi] = typ
 
+    a_max = cap / (ccfg["policy"]["rank"] ** 0.5)
+    tr_acc, te_acc = _type_probe(model, tok, P, read_layer, device)
     lines = ["# S1.2 — conditional steering controller (type-dependent positive control)\n",
-             f"Types A→hedge+, B→questions+ (z-scored φ). SmolLM2-1.7B, steer L{layer}, read L{read_layer}, "
-             f"rank {ccfg['policy']['rank']}, mag cap {cap:.0f}. n={ccfg['pool']['n_samples']} pool. "
-             "Explicit type cue (machinery check). Δ-R = on-policy steered − base, held-out.\n",
+             f"Types A→hedge+, B→hedge− (z-scored φ). SmolLM2-1.7B, steer L{layer}, read L{read_layer}, "
+             f"rank {ccfg['policy']['rank']}, mag cap {cap:.0f} (a_max {a_max:.0f}). "
+             f"n={ccfg['pool']['n_samples']} pool. Explicit type cue. Δ-R = on-policy steered − base, held-out.\n",
+             f"**Type-separability probe** (linear h(x)→type): train {tr_acc:.0%}, held-out **{te_acc:.0%}** "
+             "— near 100% ⇒ routing signal present (failure would be optimization/reward); ~50% ⇒ cue washed out.\n",
              "| arm | Δ-R [95% CI] | Δ-R type A | Δ-R type B |",
              "|---|---|---|---|"]
     arm_results = {}
@@ -288,10 +315,13 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
                              "sphi": {t: np.mean(sphi_t[t], 0).tolist() for t in "AB"}}
 
     # routing: does the controller send different coefficients to A vs B?
-    lines.append("\n## Routing — mean coefficient a per type (r directions)")
+    lines.append("\n## Routing — mean coefficient a per type (gap = ||a|A − a|B|| / a_max)")
     for mode in ccfg["policy"]["arms"]:
-        cA, cB = arm_results[mode]["coeff"]["A"], arm_results[mode]["coeff"]["B"]
-        lines.append(f"- **{mode}**: a|A = {np.round(cA,3).tolist()}, a|B = {np.round(cB,3).tolist()}")
+        cA, cB = np.array(arm_results[mode]["coeff"]["A"]), np.array(arm_results[mode]["coeff"]["B"])
+        gap = float(np.linalg.norm(cA - cB) / a_max)
+        arm_results[mode]["route_gap"] = gap
+        lines.append(f"- **{mode}**: a|A = {np.round(cA,2).tolist()}, a|B = {np.round(cB,2).tolist()} "
+                     f"→ gap **{gap:.2f}**")
 
     # recovery: per type, realized phi shift should favor that type's lever
     lines.append("\n## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑")
@@ -303,13 +333,21 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
                          f"Δhedge {dphi[1]:+.2f}, Δquestions {dphi[2]:+.2f}")
 
     g = arm_results["global"]["dR"]
-    best = max((m for m in ccfg["policy"]["arms"] if m != "global"),
-               key=lambda m: arm_results[m]["dR"], default="global")
+    cond = [m for m in ccfg["policy"]["arms"] if m != "global"]
+    best = max(cond, key=lambda m: arm_results[m]["dR"], default="global")
+    ROUTE_MIN = 0.3     # routing gap (fraction of a_max) required to call it real conditioning
+    routed = [m for m in cond if arm_results[m]["route_gap"] >= ROUTE_MIN and arm_results[m]["dR"] > g]
+    green = bool(routed) and te_acc > 0.75
     lines += ["\n## Reading",
               f"Conditioning value = best conditional Δ-R ({arm_results[best]['dR']:+.3f}, {best}) − "
-              f"global Δ-R ({g:+.3f}) = **{arm_results[best]['dR'] - g:+.3f}**. GREEN-for-S1.2: a "
-              f"conditional controller beats the global vector AND routes the right direction to each "
-              f"type (a|A ≠ a|B, φ recovers each type's lever). Linear vs MLP = capacity comparison."]
+              f"global Δ-R ({g:+.3f}) = **{arm_results[best]['dR'] - g:+.3f}**.",
+              f"Routing gaps: " + ", ".join(f"{m} {arm_results[m]['route_gap']:.2f}" for m in cond) +
+              f" (need ≥ {ROUTE_MIN} to count as conditioning, not a stronger global vector).",
+              f"**S1.2 {'GREEN' if green else 'NOT green'}**: requires a conditional arm with routing gap "
+              f"≥ {ROUTE_MIN} AND Δ-R > global AND a legible type signal (probe > 75%). "
+              + (f"Met by: {routed}." if green else
+                 "Not met — arms that beat global without a routing gap are just stronger GLOBAL vectors "
+                 "(prompt-distribution artifact), not conditioning; a low probe would mean the cue is washed out.")]
     BASIS.mkdir(exist_ok=True)
     (BASIS / REPORT).write_text("\n".join(lines) + "\n")
     print("\n".join(l for l in lines if not l.startswith("|")))
