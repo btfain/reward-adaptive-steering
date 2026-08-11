@@ -346,6 +346,26 @@ contrastive/prompting single-turn baseline at lower cost than RLHF with interpre
 directions, or (b) returns a clean, well-measured null that bounds single-turn steering's
 ceiling.
 
+**S1.1 outcome (2026-08-11): GREEN.** RWR toward the KL-tilt (differentiable teacher-forced
+injection, precomputed pool; `src/steer_learn.py`, `basis/s1_synth*_report.md`) learns a
+reward-increasing steering direction *from scratch* that generalizes out-of-sample, with
+the CI excluding 0 under two settings: baseline cap 0.15/64tok **Δ-R +0.332 [+0.125,+0.591]**,
+cap 0.25/128tok **Δ-R +0.477 [+0.215,+0.780]**. Two diagnostics resolved:
+- **Concision is not cap/length-limited — it's the single-direction limit.** More magnitude
+  amplified reward via *hedge* (+0.22→+0.32) but words stayed flat (≈0.2–0.4%) at both caps.
+  A single global direction locks onto the dominant reward lever and can't serve a second
+  feature → motivates the conditional low-rank set (S1.2), not a bigger knob.
+- **Learned direction ⟂ all contrastive axes** (|cos|≤0.04, incl. hedge_assert −0.01, while
+  inducing hedging) — a stable "reward-geometry ≠ axis-semantics" instance (learned ≠ contrastive).
+- Hit rate only 53–66% (global steering *hurts* a large minority) → conditioning value, again.
+
+**S1.2 design (spec: `specs/subproject1_spec.md`).** Prompt-conditional controller
+`δ(x)=a_θ(h(x))ᵀV` over a jointly-learned rank-r sparse-orthogonal basis. **Interpretability
+lives in `V` (nameable directions + which-fires-for-which map), NOT in the controller** — a
+linear map on an intermediate residual stream is a function of an uninterpretable input, so
+linear-vs-MLP is a *capacity* question, run **both in parallel**. Positive control uses B0's
+**type-dependent** targets (a global vector provably can't win) before the real RM.
+
 ### Subproject 2 — The single-turn / multi-turn gap (a setting)
 
 **Claim.** Single-turn reward optimization is myopic; the gap is real and material; and

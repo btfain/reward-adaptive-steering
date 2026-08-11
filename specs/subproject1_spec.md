@@ -110,3 +110,51 @@ ceiling. Both are reportable.
 Modules: `src/steer_learn.py` (pool / learn / eval phases), `configs/steer_learn.yaml`,
 `scripts/stageS1_synth.sbatch`. Controller `mlp` and `r>1` are coded as stubs, off for
 the baseline.
+
+---
+
+## 5. S1.1 result (2026-08-11): GREEN
+
+RWR learns a reward-increasing steering direction from scratch that generalizes
+out-of-sample, CI excluding 0 under two settings (cap 0.15/64tok Δ-R +0.332 [+0.125,+0.591];
+cap 0.25/128tok +0.477 [+0.215,+0.780]). Diagnostics: (i) concision is **not** cap/length-
+limited — more magnitude amplifies reward via *hedge* while words stay flat, i.e. a single
+global direction locks onto the dominant lever and can't serve a second feature; (ii) the
+learned direction is **⟂ every contrastive axis** (|cos|≤0.04) while inducing hedging — a
+stable reward-geometry≠axis-semantics instance; (iii) 53–66% per-prompt hit rate (global
+steering hurts a large minority). All three motivate the conditional low-rank set below.
+
+---
+
+## 6. S1.2 — the conditional controller
+
+**Object.** `δ(x) = a_θ(h(x))ᵀ V`. Read `h(x)` = last-token, *pre-injection* residual state
+at layer ℓ (a fixed feature of the frozen base — precompute once, no backprop through the
+read). Basis `V ∈ R^{r×d}` sparse + orthogonal, jointly learned with the controller θ by
+the same RWR objective; `δ(x)` projected to the magnitude cap per prompt; no forced
+normalization on `a`, so the controller can output `a≈0` (**decline to steer** — addresses
+the large minority a global vector hurt).
+
+**Interpretability locus.** The method's interpretability is in **`V`** — sparse, orthogonal,
+nameable directions plus the "which direction fires for which prompts" map — **not in the
+controller**. A linear map on an intermediate residual stream is a function of an
+*uninterpretable* input, so linear-vs-MLP is a **capacity / inductive-prior** question (is a
+linear readout enough to capture the conditioning, given this RM / dataset / representation
+width and depth), not an interpretability one. **Run linear and a shallow MLP in parallel**
+(one job, two heads, same basis + objective) and compare as a capacity result.
+
+**Positive control (first, known answer).** The S1.1 world has a prompt-independent target,
+so a global vector is already optimal and a controller adds nothing. To validate
+*conditioning*, reuse **B0's type-dependent** structure: latent types with *different*
+reward-relevant directions per type (signaled via the manifestation dial), so different
+prompts want different steering and a global vector provably can't win. Test: does a
+conditional rank-r set recover the type-dependent policy (B0's advantage-over-fixed vs
+type-dependence money plot, for steering)? Use *movable* φ levers (e.g. type A→hedge+, type
+B→question+) so "does conditioning work" isn't confounded with "concision is a hard linear
+lever"; keep concise as a secondary probe of whether a dedicated direction cracks it.
+
+**Then the real RM (quick iterate).** Learn `{V, θ}` on UltraFeedback against the given RM
+via RWR over base-sample pools; evaluate on-policy validated ΔRM (paired, out-of-seed, both
+RMs) vs the contrastive ~0 and prompting baselines; produce the **value-vs-rank curve**
+(reward captured by a rank-r conditional policy) and name each learned direction by its
+realized behavior. `r` starts at 2 (positive control), then sweeps (n ≫ r maintained).
