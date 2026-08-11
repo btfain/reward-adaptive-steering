@@ -1,0 +1,16 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  20%|██        | 68/339 [00:00<00:00, 546.93it/s]Loading weights:  36%|███▋      | 123/339 [00:00<00:00, 514.41it/s]Loading weights:  52%|█████▏    | 175/339 [00:00<00:00, 453.26it/s]Loading weights:  65%|██████▌   | 221/339 [00:00<00:00, 429.43it/s]Loading weights:  79%|███████▉  | 267/339 [00:00<00:00, 424.07it/s]Loading weights:  91%|█████████▏| 310/339 [00:00<00:00, 416.13it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 447.93it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4764.97it/s]
+Loading weights:   0%|          | 0/147 [00:00<?, ?it/s]Loading weights:   6%|▌         | 9/147 [00:00<00:04, 28.87it/s]Loading weights:  27%|██▋       | 40/147 [00:00<00:00, 115.98it/s]Loading weights:  52%|█████▏    | 77/147 [00:00<00:00, 183.45it/s]Loading weights:  80%|███████▉  | 117/147 [00:00<00:00, 226.85it/s]Loading weights: 100%|██████████| 147/147 [00:00<00:00, 205.45it/s]
+ref_norm(layer 18) = 396.6
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 373, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 368, in main
+    phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 217, in phase_sweep
+    vc, rand_dirs = _build_dictionary(model, tok, by, P, layer, device,
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 129, in _build_dictionary
+    _, _, Vh = torch.linalg.svd(A - A.mean(0), full_matrices=False)
+NotImplementedError: "svd_cuda_gesvdj" not implemented for 'BFloat16'
