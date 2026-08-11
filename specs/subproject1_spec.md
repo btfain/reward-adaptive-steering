@@ -158,3 +158,43 @@ via RWR over base-sample pools; evaluate on-policy validated ΔRM (paired, out-o
 RMs) vs the contrastive ~0 and prompting baselines; produce the **value-vs-rank curve**
 (reward captured by a rank-r conditional policy) and name each learned direction by its
 realized behavior. `r` starts at 2 (positive control), then sweeps (n ≫ r maintained).
+
+### 6a. S1.2 synthetic positive control — result (2026-08-11): NULL, testbed diagnosed
+
+Ran the type-dependent positive control at **both** SmolLM2-1.7B and Qwen2.5-7B (steer/read
+L16 / L18, rank 2, no-gauge parameterization, penalty-shaped magnitude). Types = sign of the
+read state's top-PC projection (recoverable by construction); reward wants A→hedge+, B→hedge−
+(opposite poles of a *reachable* lever). Reports: `basis/s1_cond_report.md`,
+`basis/s1_cond_7b_report.md`. Cost (measured, A5000): ~29–33 min wall, 9.6–19.8 GB CUDA peak
+each.
+
+**Every prior confound eliminated, yet no routing.** Type-separability probe **90% (1.7B) /
+94% (7B)** held-out (legible type, no washout); opposite injection directions verified
+expressible (no gauge lock); bidirectional reachable lever (no reachability trap). Despite
+all that, at **both** scales every conditional arm collapsed to a *type-invariant* output —
+routing cos(δ̄A, δ̄B) = +0.82/+1.00 (1.7B) and +1.00/+1.00 (7B); for the mlp/global arms
+`a|A` and `a|B` are literally identical. Conditioning value (best conditional − global) =
+**+0.015 (1.7B, but at cos +1.00 ⇒ just a stronger global vector, not conditioning)** and
+**−0.075 (7B, worse than global)**. This is the pre-registered "both fail with high probe"
+branch of the 2×2: **scale is not the missing ingredient.**
+
+**Diagnosis — the testbed, not (necessarily) the method.** Every arm's Δ-R covers zero,
+**including global** (1.7B +0.042 [−0.071, +0.157]; 7B +0.049 [−0.067, +0.194]) — unlike
+S1.1, where the global learner's CI *excluded* zero. Realized target-lever change is tiny
+everywhere (Δhedge ≈ ±0.1 z; the dominant realized change is length, not hedge). So the
+synthetic style lever is too weak to move the reward out of noise → **there is no per-type
+reward gradient for the controller to route on.** This is S1.1 lesson (c) resurfacing (only
+hedge is even weakly steerable at this scale, and only barely). We can defend the narrow
+claim — *with a legible type and expressible routing, the controller does not learn to
+condition* — but **cannot** separate "controller won't route" from "no gradient to route on,"
+because the reachable lever is too weak to create one. That ambiguity is a property of the
+synthetic style-feature testbed, not a verdict on the method.
+
+**Decision (not another synthetic patch).** Four fixes have now shown the synthetic style
+levers are too weak to be a routing testbed; a fifth (bigger caps / a stronger hand-built
+lever) risks manufacturing a control that no longer resembles the real task. Pivot to the
+**real RM**, where the reward has genuine variance. The load-bearing question — *does learned
+steering beat contrastive ~0?* — is the `steer_rm.py` **global** arm, answerable
+*independent of routing*. Re-ask the routing/conditioning question on the real RM only if the
+global arm first shows a real gradient exists. `S1.2` stays **not green**; the real-RM run
+(`aeS1-rm7b`) is the gate's live continuation, not an advance past it.

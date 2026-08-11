@@ -366,6 +366,17 @@ linear map on an intermediate residual stream is a function of an uninterpretabl
 linear-vs-MLP is a *capacity* question, run **both in parallel**. Positive control uses B0's
 **type-dependent** targets (a global vector provably can't win) before the real RM.
 
+**S1.2 synthetic positive control (2026-08-11): NULL — testbed too weak, not scale.** At both
+1.7B and 7B, with every confound removed (type-probe 90/94% held-out; opposite directions
+expressible; reachable bidirectional lever), no conditional arm routed (routing cos ≥ 0.82,
+mostly +1.00; conditioning value +0.015 / −0.075). But every arm's Δ-R covered 0 *including
+global* (unlike S1.1) and realized Δhedge ≈ ±0.1 z — the synthetic style lever is too weak to
+create a per-type reward gradient, so this cannot separate "controller won't route" from "no
+signal to route on." **Decision: don't patch the synthetic lever a 5th time; pivot to the real
+RM (`steer_rm.py`, `aeS1-rm7b`)** where reward has real variance and the load-bearing global
+arm answers the core claim independent of routing. S1.2 stays **not green**. Full record:
+`specs/subproject1_spec.md` §6a.
+
 ### Subproject 2 — The single-turn / multi-turn gap (a setting)
 
 **Claim.** Single-turn reward optimization is myopic; the gap is real and material; and
