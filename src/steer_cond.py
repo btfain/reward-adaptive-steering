@@ -7,14 +7,15 @@ tilt objective as S1.1 (src/steer_learn.py), reusing its differentiable teacher-
 injection. Interpretability lives in V (nameable directions + routing map), NOT in the
 controller — linear-vs-MLP is a capacity comparison, so both run in one job.
 
-Positive control (type-dependent, known answer): two types want different movable phi
-levers (A: hedge+, B: questions+). A global vector must compromise and should lose; a
-conditional r=2 controller that routes by type should win. Explicit behavior-neutral type
-cue => trivial recoverability from h(x) (B0's "explicit" cell) — the machinery check.
+Positive control (type-dependent, known answer): the latent type is a RECOVERABLE linear
+feature of the read state (sign of its top-PC projection), and the two types want opposite
+poles of a reachable lever (A: hedge+, B: hedge-). Separability is ~100% by construction, so
+a global vector must compromise and lose while a conditional r=2 controller that routes by
+type should win — and any routing failure is purely optimization, not a signal confound.
 
-    python src/steer_cond.py --phase all
+    python src/steer_cond.py --phase all [--base-config configs/base_7b.yaml --config ...]
 
-Phases: pool (GPU generate + phi, typed) -> learn (per arm) -> eval (per-arm delta-R + routing).
+Phases: pool (GPU generate + phi) -> learn (assign types from h, train per arm) -> eval.
 """
 
 import argparse
@@ -33,8 +34,6 @@ from steer_sanity import measure_ref_norm
 OUT = REPO_ROOT / "results" / "steer_cond"
 BASIS = REPO_ROOT / "basis"
 REPORT = "s1_cond_report.md"
-TYPE_CUE = {"A": "\n\n(Topic tag: ALPHA.)", "B": "\n\n(Topic tag: BETA.)"}  # END of prompt: last-token
-                                                                            # read state encodes it cleanly
 
 
 def load_cond_config(path=None):
@@ -42,22 +41,11 @@ def load_cond_config(path=None):
         return yaml.safe_load(f)
 
 
-def _assign_types(n, seed):
-    """Balanced deterministic A/B assignment."""
-    t = np.array(["A", "B"] * (n // 2 + 1))[:n]
-    np.random.default_rng(seed).shuffle(t)
-    return t.tolist()
-
-
-def _prompts(n_train, n_test, seed):
+def _prompts(n_train, n_test):
     raw = json.loads(open(REPO_ROOT / "data" / "prompts.json").read())["train"]
     if len(raw) < n_train + n_test:
         raise RuntimeError(f"need {n_train + n_test} prompts, have {len(raw)}")
-    out = {}
-    for split, lo, hi in (("train", 0, n_train), ("test", n_train, n_train + n_test)):
-        types = _assign_types(hi - lo, seed + (0 if split == "train" else 1))
-        out[split] = [(raw[i] + TYPE_CUE[t], t) for i, t in zip(range(lo, hi), types)]
-    return out
+    return {"train": raw[:n_train], "test": raw[n_train:n_train + n_test]}
 
 
 @torch.no_grad()
@@ -79,15 +67,28 @@ def read_state(model, tok, prompt, layer):
     return cap["h"][0, -1, :].float().cpu()
 
 
-def _type_probe(model, tok, P, read_layer, device):
-    """Linear probe h(x) -> type, held-out accuracy. ~100% => the routing signal is present in
-    the read state (any routing failure is optimization/reward); ~50% => the cue is washed out."""
-    def feats(split):
-        X = torch.stack([read_state(model, tok, prompt, read_layer) for prompt, _ in P[split]])
-        y = torch.tensor([0.0 if t == "A" else 1.0 for _, t in P[split]])
-        return X.to(device), y.to(device)
+def _assign_types_from_h(model, tok, P, read_layer, device):
+    """Define the latent type as a RECOVERABLE linear feature of the read state itself: the sign of
+    the projection onto the top principal direction of the train read-states (median split for
+    balance). Separability is then ~100% by construction, so a routing failure is purely
+    optimization — no artificial cue, no washed-out-signal confound. Returns (types, Htr, Hte)."""
+    Htr = torch.stack([read_state(model, tok, p, read_layer) for p in P["train"]])
+    Hte = torch.stack([read_state(model, tok, p, read_layer) for p in P["test"]])
+    mu = Htr.mean(0)
+    _, _, Vh = torch.linalg.svd(Htr - mu, full_matrices=False)
+    pc = Vh[0]
+    thr = ((Htr - mu) @ pc).median()
+    lab = lambda H: ["A" if float((row - mu) @ pc) >= thr else "B" for row in H]
+    return {"train": lab(Htr), "test": lab(Hte)}, Htr, Hte
 
-    Xtr, ytr = feats("train"); Xte, yte = feats("test")
+
+def _type_probe(P, types, Htr, Hte, device):
+    """Held-out accuracy of a linear probe read-state -> type (sanity; ~100% by construction here)."""
+    def feats(H, split):
+        y = torch.tensor([0.0 if t == "A" else 1.0 for t in types[split]])
+        return H.to(device), y.to(device)
+
+    Xtr, ytr = feats(Htr, "train"); Xte, yte = feats(Hte, "test")
     mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
     Xtr, Xte = (Xtr - mu) / sd, (Xte - mu) / sd
     w = torch.zeros(Xtr.shape[1], device=device, requires_grad=True)
@@ -153,16 +154,15 @@ def phase_pool(base_cfg, ccfg, device, model, tok):
         "max_new_tokens": pcfg["max_new_tokens"], "do_sample": True,
         "temperature": pcfg["temperature"], "top_p": pcfg["top_p"]}}
     torch.manual_seed(ccfg["optim"]["seed"])
-    P = _prompts(pcfg["n_prompts_train"], pcfg["n_prompts_test"], ccfg["optim"]["seed"])
+    P = _prompts(pcfg["n_prompts_train"], pcfg["n_prompts_test"])
     OUT.mkdir(parents=True, exist_ok=True)
     with open(OUT / "pool.jsonl", "w") as f:
         for split in ("train", "test"):
-            for pi, (prompt, typ) in enumerate(P[split]):
+            for pi, prompt in enumerate(P[split]):
                 for c in generate_batch(model, tok, [prompt] * pcfg["n_samples"], gcfg):
                     if c.strip():
-                        f.write(json.dumps({"split": split, "pi": pi, "type": typ,
-                                            "prompt": prompt, "completion": c,
-                                            "phi": phi_features(c)}) + "\n")
+                        f.write(json.dumps({"split": split, "pi": pi, "prompt": prompt,
+                                            "completion": c, "phi": phi_features(c)}) + "\n")
                 f.flush()
     print(f"pool -> {OUT / 'pool.jsonl'}")
 
@@ -220,33 +220,37 @@ def phase_learn(base_cfg, ccfg, device, model, tok):
     read_layer = ccfg["policy"]["read_layer"]
     rows, by = _load_pool()
     R, stats = _typed_reward(rows, ccfg)
-    P = _prompts(ccfg["pool"]["n_prompts_train"], ccfg["pool"]["n_prompts_test"], ccfg["optim"]["seed"])
+    P = _prompts(ccfg["pool"]["n_prompts_train"], ccfg["pool"]["n_prompts_test"])
     d = model.config.hidden_size
-    ref = measure_ref_norm(model, tok, [p for p, _ in P["train"][:16]], layer)
+    ref = measure_ref_norm(model, tok, P["train"][:16], layer)
     cap = ccfg["policy"]["mag_cap_frac"] * ref
     print(f"ref_norm(layer {layer}) = {ref:.1f}; mag cap = {cap:.1f}")
+
+    types, Htr, Hte = _assign_types_from_h(model, tok, P, read_layer, device)
+    tr_acc, te_acc = _type_probe(P, types, Htr, Hte, device)
+    print(f"type-separability probe: train {tr_acc:.0%}, test {te_acc:.0%}")
     model.requires_grad_(False)
 
     cells = []
-    for pi, (prompt, typ) in enumerate(P["train"]):
+    for pi, prompt in enumerate(P["train"]):
         pool = [x for x in by.get(("train", pi), []) if x["completion"].strip()]
         if len(pool) < 2:
             continue
-        h = read_state(model, tok, prompt, read_layer).to(device)
         prefix = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                          add_generation_prompt=True, return_tensors="pt",
                                          return_dict=True)["input_ids"]
         comp_ids = [tok(x["completion"], return_tensors="pt",
                         add_special_tokens=False)["input_ids"] for x in pool]
-        Rk = torch.tensor([R(x["phi"], typ) for x in pool])
+        Rk = torch.tensor([R(x["phi"], types["train"][pi]) for x in pool])
         w = torch.softmax(Rk / ccfg["reward"]["beta"], dim=0).to(device)
-        cells.append((h, prefix, comp_ids, w))
+        cells.append((Htr[pi].to(device), prefix, comp_ids, w))
 
     OUT.mkdir(parents=True, exist_ok=True)
     for mode in ccfg["policy"]["arms"]:
         pol = _train_arm(mode, cells, d, cap, ccfg, layer)
         torch.save(pol.state_dict(), OUT / f"policy_{mode}.pt")
-    json.dump({**stats, "ref": ref, "cap": cap, "d": d}, open(OUT / "cond_stats.json", "w"))
+    json.dump({**stats, "ref": ref, "cap": cap, "d": d, "type_labels": types,
+               "probe": [tr_acc, te_acc]}, open(OUT / "cond_stats.json", "w"))
     print(f"policies -> {OUT}/policy_*.pt")
 
 
@@ -259,12 +263,13 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
     mu, sd = np.array(st["mean"]), np.array(st["std"])
     E = {t: np.array(v, float) for t, v in st["types"].items()}
     d, cap = st["d"], st["cap"]
+    types, te_acc = st["type_labels"], st["probe"][1]
 
     def R(phi, typ):
         v = np.array([phi[k] for k in PHI_KEYS], float)
         return float(E[typ] @ ((v - mu) / sd))
 
-    P = _prompts(ccfg["pool"]["n_prompts_train"], ccfg["pool"]["n_prompts_test"], ccfg["optim"]["seed"])
+    P = _prompts(ccfg["pool"]["n_prompts_train"], ccfg["pool"]["n_prompts_test"])
     gcfg = {"steer_layer": layer, "generation": {
         "max_new_tokens": ccfg["pool"]["max_new_tokens"], "do_sample": True,
         "temperature": ccfg["pool"]["temperature"], "top_p": ccfg["pool"]["top_p"]}}
@@ -272,22 +277,24 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
 
     # precompute test read-states + base reward/phi per prompt
     tstate, base_R, base_phi, typ_of = {}, {}, {}, {}
-    for pi, (prompt, typ) in enumerate(P["test"]):
+    for pi, prompt in enumerate(P["test"]):
         bpool = [x for x in by.get(("test", pi), []) if x["completion"].strip()]
         if not bpool:
             continue
+        typ = types["test"][pi]
         tstate[pi] = read_state(model, tok, prompt, read_layer).to(device)
         base_R[pi] = np.mean([R(x["phi"], typ) for x in bpool])
         base_phi[pi] = np.mean([[x["phi"][k] for k in PHI_KEYS] for x in bpool], axis=0)
         typ_of[pi] = typ
 
-    tr_acc, te_acc = _type_probe(model, tok, P, read_layer, device)
+    mname = base_cfg["base_model"].split("/")[-1]
     lines = ["# S1.2 — conditional steering controller (type-dependent positive control)\n",
-             f"Types A→hedge+, B→hedge− (z-scored φ). SmolLM2-1.7B, steer L{layer}, read L{read_layer}, "
-             f"rank {ccfg['policy']['rank']}, magnitude FIXED at cap {cap:.0f} (direction-only routing; "
-             f"coeffs a∈[−1,1]). n={ccfg['pool']['n_samples']} pool. Δ-R = on-policy steered − base, held-out.\n",
-             f"**Type-separability probe** (linear h(x)→type): train {tr_acc:.0%}, held-out **{te_acc:.0%}** "
-             "— near 100% ⇒ routing signal present (failure would be optimization/reward); ~50% ⇒ cue washed out.\n",
+             f"Types = sign of the read state's top-PC projection (recoverable by construction); "
+             f"A→hedge+, B→hedge−. {mname}, steer L{layer}, read L{read_layer}, rank {ccfg['policy']['rank']}, "
+             f"soft mag cap {cap:.0f} (unbounded coeffs, penalty-shaped). n={ccfg['pool']['n_samples']} pool. "
+             "Δ-R = on-policy steered − base, held-out.\n",
+             f"**Type-separability probe** (linear h(x)→type): held-out **{te_acc:.0%}** "
+             "(~100% by construction ⇒ a routing failure is purely optimization).\n",
              "| arm | Δ-R [95% CI] | Δ-R type A | Δ-R type B |",
              "|---|---|---|---|"]
     arm_results = {}
@@ -304,7 +311,7 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
                 if dn > cap:                       # safety clamp at eval (training holds ||delta||~cap)
                     delta = delta * (cap / dn)
                 coeff_t[typ_of[pi]].append(pol.coeff(tstate[pi]).cpu().numpy())
-            scomp = generate_batch(model, tok, [P["test"][pi][0]] * ccfg["pool"]["n_samples"],
+            scomp = generate_batch(model, tok, [P["test"][pi]] * ccfg["pool"]["n_samples"],
                                    gcfg, vector=delta, alpha=1.0)
             sphi = [phi_features(c) for c in scomp if c.strip()]
             sR = np.mean([R(ph, typ_of[pi]) for ph in sphi])
@@ -330,7 +337,7 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
                      f"(a|A={cA.tolist()}, a|B={cB.tolist()})")
 
     # recovery: per type, realized phi shift should favor that type's lever
-    lines.append("\n## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑")
+    lines.append("\n## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants hedge↓")
     bphi_t = {t: np.mean([base_phi[pi] for pi in tstate if typ_of[pi] == t], 0) for t in "AB"}
     for mode in ccfg["policy"]["arms"]:
         for t in "AB":
