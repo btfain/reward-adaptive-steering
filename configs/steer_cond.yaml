@@ -1,0 +1,37 @@
+# Subproject 1 / S1.2 — conditional controller over a jointly-learned low-rank sparse-orthogonal
+# basis. Positive control (type-dependent, known answer): two latent types want DIFFERENT movable
+# phi levers, so a global vector must compromise and provably loses; a conditional r=2 controller
+# that routes by type should win. Explicit type cue (behavior-neutral) => trivial recoverability
+# from h(x): this is the machinery check (B0's "explicit" cell) before situational/real-RM.
+# Runs three arms in one job: global (baseline) + linear + shallow-MLP controllers.
+
+tag: cond
+
+reward:
+  mode: synthetic_typed
+  types:                      # per-type target direction over (words, hedge_per100, questions_per100)
+    A: [0.0, 1.0, 0.0]        # type A rewards hedging
+    B: [0.0, 0.0, 1.0]        # type B rewards asking questions
+  beta: 1.0                   # w_k = softmax(R_k / beta) over each prompt's pool
+
+policy:
+  arms: [global, linear, mlp]
+  rank: 2                     # r directions; global uses a constant coeff (collapses to 1 vector)
+  read_layer: 16              # read h(x) = last-token pre-injection state here (= steer_layer)
+  mag_cap_frac: 0.2           # ||injection|| <= mag_cap_frac * ref_norm
+  l1: 0.01                    # sparsity penalty on the (unit-row) basis V
+  orth: 0.1                   # orthogonality penalty ||offdiag(V V^T)||^2
+  mlp_hidden: 128
+
+pool:
+  n_prompts_train: 96
+  n_prompts_test: 48
+  n_samples: 12               # n base completions per prompt (n >> r)
+  max_new_tokens: 96
+  temperature: 0.9
+  top_p: 0.95
+
+optim:
+  lr: 0.05
+  epochs: 12
+  seed: 0
