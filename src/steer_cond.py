@@ -107,8 +107,7 @@ class Policy(nn.Module):
     def __init__(self, mode, r, d, cap, mlp_hidden=128):
         super().__init__()
         self.mode, self.cap = mode, cap
-        self.a_max = cap / (r ** 0.5)       # bound |a_j| so ||a@V|| <= cap and magnitude is identifiable
-        init = 0.3 * self.a_max             # unsaturated tanh at init: real signal AND routing gradient
+        init = 0.3                          # raw init small -> tanh unsaturated -> routing gradient flows
         V = torch.randn(r, d)
         self.V = nn.Parameter(V / V.norm(dim=1, keepdim=True))
         if mode == "global":
@@ -132,14 +131,13 @@ class Policy(nn.Module):
         return self.W2 @ F.relu(self.W1 @ h + self.b1) + self.b2
 
     def coeff(self, h):
-        # bounded coefficients: |a_j| <= a_max. Removes the free gauge that (in v1) let ||a||
-        # explode to 1e3-1e4 and starved the routing gradient; makes a interpretable.
-        return self.a_max * torch.tanh(self._raw(h) / self.a_max)
+        # mixing weights in [-1,1]. Magnitude is decoupled (fixed at cap in delta), so there is
+        # NO reward pressure to saturate these -> the direction (routing) stays free to vary by type.
+        return torch.tanh(self._raw(h))
 
     def delta(self, h):
         d = self.coeff(h) @ self.V
-        scale = torch.clamp(self.cap / (d.norm() + 1e-6), max=1.0)   # safety ceiling only
-        return d * scale
+        return self.cap * d / (d.norm() + 1e-6)   # magnitude FIXED at cap; only DIRECTION is learned
 
     def normalize_(self):
         with torch.no_grad():
@@ -280,12 +278,11 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
         base_phi[pi] = np.mean([[x["phi"][k] for k in PHI_KEYS] for x in bpool], axis=0)
         typ_of[pi] = typ
 
-    a_max = cap / (ccfg["policy"]["rank"] ** 0.5)
     tr_acc, te_acc = _type_probe(model, tok, P, read_layer, device)
     lines = ["# S1.2 — conditional steering controller (type-dependent positive control)\n",
              f"Types A→hedge+, B→hedge− (z-scored φ). SmolLM2-1.7B, steer L{layer}, read L{read_layer}, "
-             f"rank {ccfg['policy']['rank']}, mag cap {cap:.0f} (a_max {a_max:.0f}). "
-             f"n={ccfg['pool']['n_samples']} pool. Explicit type cue. Δ-R = on-policy steered − base, held-out.\n",
+             f"rank {ccfg['policy']['rank']}, magnitude FIXED at cap {cap:.0f} (direction-only routing; "
+             f"coeffs a∈[−1,1]). n={ccfg['pool']['n_samples']} pool. Δ-R = on-policy steered − base, held-out.\n",
              f"**Type-separability probe** (linear h(x)→type): train {tr_acc:.0%}, held-out **{te_acc:.0%}** "
              "— near 100% ⇒ routing signal present (failure would be optimization/reward); ~50% ⇒ cue washed out.\n",
              "| arm | Δ-R [95% CI] | Δ-R type A | Δ-R type B |",
@@ -315,10 +312,10 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
                              "sphi": {t: np.mean(sphi_t[t], 0).tolist() for t in "AB"}}
 
     # routing: does the controller send different coefficients to A vs B?
-    lines.append("\n## Routing — mean coefficient a per type (gap = ||a|A − a|B|| / a_max)")
+    lines.append("\n## Routing — mean coefficient a∈[−1,1] per type (gap = ||a|A − a|B||)")
     for mode in ccfg["policy"]["arms"]:
         cA, cB = np.array(arm_results[mode]["coeff"]["A"]), np.array(arm_results[mode]["coeff"]["B"])
-        gap = float(np.linalg.norm(cA - cB) / a_max)
+        gap = float(np.linalg.norm(cA - cB))
         arm_results[mode]["route_gap"] = gap
         lines.append(f"- **{mode}**: a|A = {np.round(cA,2).tolist()}, a|B = {np.round(cB,2).tolist()} "
                      f"→ gap **{gap:.2f}**")

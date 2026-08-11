@@ -20,7 +20,8 @@ policy:
   arms: [global, linear, mlp]
   rank: 2                     # r directions; global uses a constant coeff (collapses to 1 vector)
   read_layer: 16              # read h(x) = last-token pre-injection state here (= steer_layer)
-  mag_cap_frac: 0.2           # ||injection|| <= mag_cap_frac * ref_norm
+  mag_cap_frac: 0.15          # injection magnitude FIXED at mag_cap_frac * ref_norm (always steer at
+                              # cap now that direction is decoupled); 0.15 sits safely in the fluent band
   l1: 0.01                    # sparsity penalty on the (unit-row) basis V
   orth: 0.1                   # orthogonality penalty ||offdiag(V V^T)||^2
   mlp_hidden: 128
