@@ -1,0 +1,27 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  41%|████▏     | 140/339 [00:00<00:00, 1357.38it/s]Loading weights:  81%|████████▏ | 276/339 [00:00<00:00, 589.23it/s] Loading weights: 100%|██████████| 339/339 [00:00<00:00, 602.05it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[W811 13:22:00.102665295 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 876609536 bytes (free: 664010752, total: 25283526656).
+[W811 13:22:05.103821993 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1145044992 bytes (free: 242483200, total: 25283526656).
+[W811 13:22:09.719797447 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1491075072 bytes (free: 370409472, total: 25283526656).
+[W811 13:22:10.207693769 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1491075072 bytes (free: 951320576, total: 25283526656).
+[W811 13:22:10.257035278 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1491075072 bytes (free: 605290496, total: 25283526656).
+[W811 13:22:10.257340556 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1491075072 bytes (free: 605290496, total: 25283526656).
+pool -> /home/users/btf12/reward-adaptive-steering/results/steer_cond_7b/pool.jsonl
+ref_norm(layer 18) = 352.9; mag cap = 35.3
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_cond.py", line 391, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_cond.py", line 383, in main
+    phase_learn(base_cfg, ccfg, device, model, tok)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_cond.py", line 247, in phase_learn
+    pol = _train_arm(mode, cells, d, cap, ccfg, layer)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_cond.py", line 209, in _train_arm
+    opt.zero_grad(); loss.backward(); opt.step()
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/_tensor.py", line 623, in backward
+    torch.autograd.backward(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/autograd/__init__.py", line 395, in backward
+    _engine_run_backward(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/autograd/graph.py", line 979, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.39 GiB. GPU 0 has a total capacity of 23.55 GiB of which 577.25 MiB is free. Including non-PyTorch memory, this process has 22.97 GiB memory in use. Of the allocated memory 21.96 GiB is allocated by PyTorch, and 768.78 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
