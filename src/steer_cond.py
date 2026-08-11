@@ -84,33 +84,38 @@ class Policy(nn.Module):
     def __init__(self, mode, r, d, cap, mlp_hidden=128):
         super().__init__()
         self.mode, self.cap = mode, cap
-        s = 0.5 * cap / (r ** 0.5)          # init injection at ~0.5·cap so learning has signal
+        self.a_max = cap / (r ** 0.5)       # bound |a_j| so ||a@V|| <= cap and magnitude is identifiable
+        init = 0.3 * self.a_max             # unsaturated tanh at init: real signal AND routing gradient
         V = torch.randn(r, d)
         self.V = nn.Parameter(V / V.norm(dim=1, keepdim=True))
         if mode == "global":
-            self.c = nn.Parameter(torch.randn(r) * s)
-        elif mode == "linear":                # a = W h + b; b carries the initial magnitude
+            self.c = nn.Parameter(torch.randn(r) * init)
+        elif mode == "linear":
             self.W = nn.Parameter(torch.randn(r, d) * 0.01)
-            self.b = nn.Parameter(torch.randn(r) * s)
-        elif mode == "mlp":                   # relu(W1 h) ~ 0 at init, so b2 carries magnitude
+            self.b = nn.Parameter(torch.randn(r) * init)
+        elif mode == "mlp":
             self.W1 = nn.Parameter(torch.randn(mlp_hidden, d) * 0.01)
             self.b1 = nn.Parameter(torch.zeros(mlp_hidden))
             self.W2 = nn.Parameter(torch.randn(r, mlp_hidden) * 0.01)
-            self.b2 = nn.Parameter(torch.randn(r) * s)
+            self.b2 = nn.Parameter(torch.randn(r) * init)
         else:
             raise ValueError(mode)
 
-    def coeff(self, h):
+    def _raw(self, h):
         if self.mode == "global":
             return self.c
         if self.mode == "linear":
             return self.W @ h + self.b
         return self.W2 @ F.relu(self.W1 @ h + self.b1) + self.b2
 
+    def coeff(self, h):
+        # bounded coefficients: |a_j| <= a_max. Removes the free gauge that (in v1) let ||a||
+        # explode to 1e3-1e4 and starved the routing gradient; makes a interpretable.
+        return self.a_max * torch.tanh(self._raw(h) / self.a_max)
+
     def delta(self, h):
-        a = self.coeff(h)
-        d = a @ self.V
-        scale = torch.clamp(self.cap / (d.norm() + 1e-6), max=1.0)
+        d = self.coeff(h) @ self.V
+        scale = torch.clamp(self.cap / (d.norm() + 1e-6), max=1.0)   # safety ceiling only
         return d * scale
 
     def normalize_(self):

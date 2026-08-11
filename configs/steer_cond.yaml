@@ -33,5 +33,5 @@ pool:
 
 optim:
   lr: 0.05
-  epochs: 12
+  epochs: 16          # bumped 12->16: bounded coeffs mean routing weights (W) must grow from small
   seed: 0
