@@ -1,0 +1,37 @@
+# Subproject 1 / S1.2 (real RM) at 7B — learn reward-driven steering against the given RM.
+# Run: --base-config configs/base_7b.yaml --config configs/steer_rm_7b.yaml
+# Core question: does LEARNED steering (global arm) beat the A2 contrastive ~0 headroom at 7B?
+# Conditional arms (linear/mlp) add the routing-dependent conditioning test. tag "7b" routes
+# artifacts to results/steer_rm_7b/ and basis/s1_rm_7b_report.md.
+
+tag: "7b"
+
+reward:
+  beta: 1.0                   # RWR tilt temperature over per-prompt RM scores (within-prompt; no z-score needed)
+
+policy:
+  arms: [global, linear, mlp]
+  rank: 2                     # r directions (n >> r); sweep later for the value-vs-rank curve
+  read_layer: 18              # = 7B steer_layer
+  mag_cap_frac: 0.1           # 7B fluent band (A2: RM craters at |alpha|=0.2)
+  mag_penalty: 0.1
+  l1: 0.01
+  orth: 0.1
+  mlp_hidden: 128
+
+pool:
+  n_prompts_train: 150
+  n_prompts_test: 50
+  n_samples: 8                # base samples per prompt scored by RM1; best-of-8 is the ceiling reference
+  max_new_tokens: 128         # real RM cares about full answers (B0: too-short a cap right-censors elaborate)
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  n_samples: 8                # on-policy samples per held-out prompt per arm (paired vs base)
+
+optim:
+  lr: 0.05
+  epochs: 12
+  weight_decay: 0.001
+  seed: 0
