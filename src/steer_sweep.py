@@ -154,7 +154,7 @@ def _arm_delta_rm(model, tok, gcfg, prompts_state, base1, prompt_of, unit, cap, 
     return np.array(ds), texts, pis
 
 
-def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok):
+def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok):
     layer = base_cfg["steer_layer"]
     read_layer = scfg["policy"]["read_layer"]
     pool_dir = REPO_ROOT / scfg["pool_dir"]
@@ -188,8 +188,11 @@ def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok):
     tr_cells = build_cells("train", P["train"])
     train_cells = [(h, pre, ci, w) for (h, pre, ci, w, _) in tr_cells]
 
-    # ---- held-out prompt states + base RM baselines + best-of-n ceiling ----
-    tstate, base1, base2, prompt_of, bo = {}, {}, {}, {}, []
+    # ---- held-out prompt states + base RM baseline + best-of-n ceiling ----
+    # RM2 is intentionally NOT loaded here: it would sit resident during the autograd-heavy
+    # training and OOM the 24GB card. steer_rm already established RM1/RM2 agreement at 7B; the
+    # sweep's own guard (distinct-2 + base-NLL drift) is the relevant anti-hacking cross-check.
+    tstate, base1, prompt_of, bo = {}, {}, {}, []
     for pi, prompt in enumerate(P["test"]):
         bpool = [x for x in by.get(("test", pi), []) if x["completion"].strip()]
         if not bpool:
@@ -198,7 +201,6 @@ def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok):
         prompt_of[pi] = prompt
         r1 = [x["rm"] for x in bpool]
         base1[pi] = float(np.mean(r1))
-        base2[pi] = float(np.mean([rm_score(rm2, rm2_tok, prompt, x["completion"]) for x in bpool]))
         bo.append(max(r1) - np.mean(r1))
     bo_n = float(np.mean(bo))
     base_d2 = _distinct2([x["completion"] for pi in tstate
@@ -237,9 +239,8 @@ def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok):
             gunit = (gd / (gd.norm() + 1e-9)).detach()   # global dir is prompt-independent
 
         d1, ltexts, _ = _arm_delta_rm(model, tok, gcfg, tstate, base1, prompt_of, gunit, cap, rm, rm_tok, m, device)
-        d2, _, _ = _arm_delta_rm(model, tok, gcfg, tstate, base2, prompt_of, gunit, cap, rm2, rm2_tok, m, device)
         tr1, _, _ = _arm_delta_rm(model, tok, gcfg, tr_state, tr_base1, tr_prompt, gunit, cap, rm, rm_tok, m, device)
-        lo1, hi1 = _boot(d1); lo2, hi2 = _boot(d2)
+        lo1, hi1 = _boot(d1)
         # fluency drift of the learned-global steered text (first sample per prompt)
         nlls = [n for pi in list(tstate)[:scfg["eval"]["guard_prompts"]]
                 for c in [next((c for c in generate_batch(model, tok, [prompt_of[pi]], gcfg,
@@ -251,7 +252,6 @@ def phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok):
                     for n in [_base_nll(model, tok, layer, d, prompt_of[pi], x["completion"], device)]
                     if n is not None]
         row["learned"] = {"tr": float(tr1.mean()), "d1": float(d1.mean()), "lo1": lo1, "hi1": hi1,
-                          "d2": float(d2.mean()), "lo2": lo2, "hi2": hi2,
                           "d2div": _distinct2(ltexts),
                           "nll": float(np.mean(nlls)) if nlls else float("nan"),
                           "nll_base": float(np.mean(base_nll)) if base_nll else float("nan")}
@@ -316,14 +316,15 @@ def _write_report(base_cfg, scfg, layer, read_layer, ref, bo_n, base_d2, grid, s
          f"injected at exactly the cap magnitude** — the favorable case, isolating direction quality "
          f"from magnitude (so learned here ≥ steer_rm's raw-magnitude global by construction).\n",
          f"Reference (A2, 7B): contrastive ~0 (+0.15); prompting +1.08; best-of-n ceiling "
-         f"**{bo_n:+.2f}** (RM1). Base distinct-2 = {base_d2:.3f}.\n",
-         "| frac | cap | learned train ΔRM1 | learned heldout ΔRM1 [95% CI] | ΔRM2 [95% CI] | contrastive ΔRM1 | **oracle ΔRM1** [CI] | distinct-2 L/O (base {:.2f}) | base-NLL steer/base |".format(base_d2),
-         "|---|---|---|---|---|---|---|---|---|"]
+         f"**{bo_n:+.2f}** (RM1). Base distinct-2 = {base_d2:.3f}. RM2 dropped here (would OOM training); "
+         f"RM1/RM2 agreement already established in the steer_rm run.\n",
+         "| frac | cap | learned train ΔRM1 | learned heldout ΔRM1 [95% CI] | contrastive ΔRM1 | **oracle ΔRM1** [CI] | distinct-2 L/O (base {:.2f}) | base-NLL steer/base |".format(base_d2),
+         "|---|---|---|---|---|---|---|---|"]
     for frac in scfg["mag_fracs"]:
         r = grid[frac]; le = r["learned"]; c = r["contrastive"]; o = r["oracle"]
         L.append(
             f"| {frac} | {r['cap']:.0f} | {le['tr']:+.3f} | {le['d1']:+.3f} [{le['lo1']:+.3f}, {le['hi1']:+.3f}] | "
-            f"{le['d2']:+.3f} [{le['lo2']:+.3f}, {le['hi2']:+.3f}] | {c['d1']:+.3f} | "
+            f"{c['d1']:+.3f} | "
             f"**{o['d1']:+.3f}** [{o['lo']:+.3f}, {o['hi']:+.3f}] | {le['d2div']:.2f}/{o['d2div']:.2f} | "
             f"{le['nll']:.2f}/{le['nll_base']:.2f} |")
     L += ["", "## Capacity side-check — linear conditional at frac "
@@ -362,10 +363,8 @@ def main():
     device = resolve_device(base_cfg)
     t0 = time.time()
     model, tok = load_base(base_cfg, device)
-    rm, rm_tok = load_rm(base_cfg, device)
-    alt = {**base_cfg, "reward_model": base_cfg["reward_model_alt"]}
-    rm2, rm2_tok = load_rm(alt, device)
-    phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok)
+    rm, rm_tok = load_rm(base_cfg, device)  # RM1 only; RM2 omitted to keep training within 24GB
+    phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok)
     print(log_cost("S1", "steer_sweep", time.time() - t0, device, notes="steering-ceiling diagnostic sweep"))
 
 
