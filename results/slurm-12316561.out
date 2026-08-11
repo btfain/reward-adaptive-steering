@@ -1,0 +1,55 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 4955.49it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4646.79it/s]
+Loading weights:   0%|          | 0/147 [00:00<?, ?it/s]Loading weights: 100%|██████████| 147/147 [00:00<00:00, 4502.66it/s]
+[W811 16:43:41.842293042 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 1310720, total: 25283526656).
+[W811 16:43:42.359624128 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 15990784, total: 25283526656).
+[W811 16:43:42.364327722 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 15990784, total: 25283526656).
+ref_norm(layer 18) = 396.6
+
+=== magnitude frac 0.05 (cap 19.8) ===
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 373, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 368, in main
+    phase_sweep(base_cfg, scfg, device, model, tok, rm, rm_tok, rm2, rm2_tok)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_sweep.py", line 232, in phase_sweep
+    pol = _train_arm("global", train_cells, d, cap, rvar, layer, model, tok)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_rm.py", line 90, in _train_arm
+    lp = tf_sum_logprob(model, tok, prefix, comp_ids, layer, delta)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_learn.py", line 153, in tf_sum_logprob
+    hidden = model.model(input_ids=ids, attention_mask=attn).last_hidden_state   # (B,T,H)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/utils/generic.py", line 1040, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 399, in forward
+    hidden_states = decoder_layer(
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/modeling_layers.py", line 110, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 307, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 47, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/transformers/activations.py", line 103, in forward
+    return nn.functional.silu(input)
+  File "/home/users/btf12/reward-adaptive-steering/.venv/lib/python3.10/site-packages/torch/nn/functional.py", line 2445, in silu
+    return torch._C._nn.silu(input)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 138.00 MiB. GPU 0 has a total capacity of 23.55 GiB of which 95.25 MiB is free. Including non-PyTorch memory, this process has 23.45 GiB memory in use. Of the allocated memory 23.14 GiB is allocated by PyTorch, and 40.50 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
