@@ -1,0 +1,38 @@
+# Subproject 1 / S1.2 at 7B — conditional controller on Qwen2.5-7B (steer_layer 18, ref norm 321.5).
+# Run with:  --base-config configs/base_7b.yaml --config configs/steer_cond_7b.yaml
+# Moving off SmolLM2-1.7B, where steering is weak (A2: contrastive headroom ~0; S1.1: only hedge
+# reachable; S1.2: type only 73% linearly separable) — consistent with steering emerging at 7-8B.
+# tag "7b" routes artifacts to results/steer_cond_7b/ and basis/s1_cond_7b_report.md.
+
+tag: "7b"
+
+reward:
+  mode: synthetic_typed
+  types:
+    A: [0.0, 1.0, 0.0]        # hedge+
+    B: [0.0, -1.0, 0.0]       # hedge-
+  beta: 1.0
+
+policy:
+  arms: [global, linear, mlp]
+  rank: 2
+  read_layer: 18              # = 7B steer_layer
+  mag_cap_frac: 0.1           # 7B fluent band is narrower (RM craters at |alpha|=0.2; A2)
+  mag_penalty: 0.1
+  l1: 0.01
+  orth: 0.1
+  mlp_hidden: 128
+
+pool:
+  n_prompts_train: 96
+  n_prompts_test: 48
+  n_samples: 8                # smaller than 1.7B's 12: Qwen vocab ~152k makes the TF logits tensor big
+  max_new_tokens: 80
+  temperature: 0.9
+  top_p: 0.95
+
+optim:
+  lr: 0.05
+  epochs: 16
+  weight_decay: 0.001
+  seed: 0

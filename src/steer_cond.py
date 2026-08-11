@@ -33,7 +33,8 @@ from steer_sanity import measure_ref_norm
 OUT = REPO_ROOT / "results" / "steer_cond"
 BASIS = REPO_ROOT / "basis"
 REPORT = "s1_cond_report.md"
-TYPE_CUE = {"A": "Topic tag: ALPHA.\n\n", "B": "Topic tag: BETA.\n\n"}
+TYPE_CUE = {"A": "\n\n(Topic tag: ALPHA.)", "B": "\n\n(Topic tag: BETA.)"}  # END of prompt: last-token
+                                                                            # read state encodes it cleanly
 
 
 def load_cond_config(path=None):
@@ -55,7 +56,7 @@ def _prompts(n_train, n_test, seed):
     out = {}
     for split, lo, hi in (("train", 0, n_train), ("test", n_train, n_train + n_test)):
         types = _assign_types(hi - lo, seed + (0 if split == "train" else 1))
-        out[split] = [(TYPE_CUE[t] + raw[i], t) for i, t in zip(range(lo, hi), types)]
+        out[split] = [(raw[i] + TYPE_CUE[t], t) for i, t in zip(range(lo, hi), types)]
     return out
 
 
@@ -106,8 +107,8 @@ class Policy(nn.Module):
 
     def __init__(self, mode, r, d, cap, mlp_hidden=128):
         super().__init__()
-        self.mode, self.cap = mode, cap
-        init = 0.3                          # raw init small -> tanh unsaturated -> routing gradient flows
+        self.mode = mode
+        init = 0.5 * cap / (r ** 0.5)       # init ||injection|| ~ 0.5*cap
         V = torch.randn(r, d)
         self.V = nn.Parameter(V / V.norm(dim=1, keepdim=True))
         if mode == "global":
@@ -131,13 +132,13 @@ class Policy(nn.Module):
         return self.W2 @ F.relu(self.W1 @ h + self.b1) + self.b2
 
     def coeff(self, h):
-        # mixing weights in [-1,1]. Magnitude is decoupled (fixed at cap in delta), so there is
-        # NO reward pressure to saturate these -> the direction (routing) stays free to vary by type.
-        return torch.tanh(self._raw(h))
+        # UNBOUNDED mixing weights: a<->delta is a bijection on span(V) (no gauge, no tanh
+        # saturation), so the routing gradient always flows. Magnitude is shaped by the
+        # relu(||delta||-cap)^2 penalty in training + weight decay, not by a squashing function.
+        return self._raw(h)
 
     def delta(self, h):
-        d = self.coeff(h) @ self.V
-        return self.cap * d / (d.norm() + 1e-6)   # magnitude FIXED at cap; only DIRECTION is learned
+        return self.coeff(h) @ self.V
 
     def normalize_(self):
         with torch.no_grad():
@@ -191,15 +192,17 @@ def _train_arm(mode, cells, d, cap, ccfg, layer):
     p = ccfg["policy"]
     torch.manual_seed(ccfg["optim"]["seed"])
     pol = Policy(mode, p["rank"], d, cap, p["mlp_hidden"]).to(cells[0][0].device)
-    opt = torch.optim.Adam(pol.parameters(), lr=ccfg["optim"]["lr"])
-    l1, orth = p["l1"], p["orth"]
+    opt = torch.optim.Adam(pol.parameters(), lr=ccfg["optim"]["lr"],
+                           weight_decay=ccfg["optim"].get("weight_decay", 0.0))
+    l1, orth, mag_pen = p["l1"], p["orth"], p.get("mag_penalty", 0.1)
     for epoch in range(ccfg["optim"]["epochs"]):
         tot = 0.0
         for i in torch.randperm(len(cells)).tolist():
             h, prefix, comp_ids, w = cells[i]
             delta = pol.delta(h)
             lp = tf_sum_logprob(_MODEL, _TOK, prefix, comp_ids, layer, delta)
-            loss = -(w * lp).sum() + l1 * pol.V.abs().sum()
+            # soft magnitude cap (relu penalty above cap) shapes ||delta||; no gauge, no saturation
+            loss = -(w * lp).sum() + mag_pen * torch.relu(delta.norm() - cap) ** 2 + l1 * pol.V.abs().sum()
             if orth and p["rank"] > 1:
                 G = pol.V @ pol.V.t()
                 loss = loss + orth * (G - torch.diag(torch.diag(G))).pow(2).sum()
@@ -297,6 +300,9 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
         for pi in tstate:
             with torch.no_grad():
                 delta = pol.delta(tstate[pi])
+                dn = delta.norm()
+                if dn > cap:                       # safety clamp at eval (training holds ||delta||~cap)
+                    delta = delta * (cap / dn)
                 coeff_t[typ_of[pi]].append(pol.coeff(tstate[pi]).cpu().numpy())
             scomp = generate_batch(model, tok, [P["test"][pi][0]] * ccfg["pool"]["n_samples"],
                                    gcfg, vector=delta, alpha=1.0)
@@ -308,17 +314,20 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
         lo, hi = _boot(dR)
         lines.append(f"| {mode} | {dR.mean():+.3f} [{lo:+.3f}, {hi:+.3f}] | "
                      f"{np.mean(dR_t['A']):+.3f} | {np.mean(dR_t['B']):+.3f} |")
-        arm_results[mode] = {"dR": dR.mean(), "coeff": {t: np.mean(coeff_t[t], 0).tolist() for t in "AB"},
+        V_np = pol.V.detach().cpu().numpy()
+        dbar = {t: np.mean(coeff_t[t], 0) @ V_np for t in "AB"}     # mean injection direction per type
+        rc = float(dbar["A"] @ dbar["B"] / (np.linalg.norm(dbar["A"]) * np.linalg.norm(dbar["B"]) + 1e-9))
+        arm_results[mode] = {"dR": dR.mean(), "route_cos": rc,
+                             "coeff": {t: np.mean(coeff_t[t], 0).tolist() for t in "AB"},
                              "sphi": {t: np.mean(sphi_t[t], 0).tolist() for t in "AB"}}
 
     # routing: does the controller send different coefficients to A vs B?
-    lines.append("\n## Routing — mean coefficient a∈[−1,1] per type (gap = ||a|A − a|B||)")
+    lines.append("\n## Routing — cosine between mean injection direction for type A vs B "
+                 "(≈+1 = same direction = no routing; ≤0 = opposite = routing)")
     for mode in ccfg["policy"]["arms"]:
-        cA, cB = np.array(arm_results[mode]["coeff"]["A"]), np.array(arm_results[mode]["coeff"]["B"])
-        gap = float(np.linalg.norm(cA - cB))
-        arm_results[mode]["route_gap"] = gap
-        lines.append(f"- **{mode}**: a|A = {np.round(cA,2).tolist()}, a|B = {np.round(cB,2).tolist()} "
-                     f"→ gap **{gap:.2f}**")
+        cA, cB = np.round(arm_results[mode]["coeff"]["A"], 2), np.round(arm_results[mode]["coeff"]["B"], 2)
+        lines.append(f"- **{mode}**: cos(δ̄A, δ̄B) = **{arm_results[mode]['route_cos']:+.2f}**  "
+                     f"(a|A={cA.tolist()}, a|B={cB.tolist()})")
 
     # recovery: per type, realized phi shift should favor that type's lever
     lines.append("\n## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑")
@@ -332,19 +341,20 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
     g = arm_results["global"]["dR"]
     cond = [m for m in ccfg["policy"]["arms"] if m != "global"]
     best = max(cond, key=lambda m: arm_results[m]["dR"], default="global")
-    ROUTE_MIN = 0.3     # routing gap (fraction of a_max) required to call it real conditioning
-    routed = [m for m in cond if arm_results[m]["route_gap"] >= ROUTE_MIN and arm_results[m]["dR"] > g]
+    ROUTE_MAX = 0.5     # cos(δ̄A,δ̄B) below this = the two types get genuinely different directions
+    routed = [m for m in cond if arm_results[m]["route_cos"] < ROUTE_MAX and arm_results[m]["dR"] > g]
     green = bool(routed) and te_acc > 0.75
     lines += ["\n## Reading",
               f"Conditioning value = best conditional Δ-R ({arm_results[best]['dR']:+.3f}, {best}) − "
               f"global Δ-R ({g:+.3f}) = **{arm_results[best]['dR'] - g:+.3f}**.",
-              f"Routing gaps: " + ", ".join(f"{m} {arm_results[m]['route_gap']:.2f}" for m in cond) +
-              f" (need ≥ {ROUTE_MIN} to count as conditioning, not a stronger global vector).",
-              f"**S1.2 {'GREEN' if green else 'NOT green'}**: requires a conditional arm with routing gap "
-              f"≥ {ROUTE_MIN} AND Δ-R > global AND a legible type signal (probe > 75%). "
+              "Routing cos(δ̄A,δ̄B): " + ", ".join(f"{m} {arm_results[m]['route_cos']:+.2f}" for m in cond) +
+              f" (< {ROUTE_MAX} = genuine per-type routing, not one stronger global vector).",
+              f"**S1.2 {'GREEN' if green else 'NOT green'}**: requires a conditional arm routing to "
+              f"different directions per type (cos < {ROUTE_MAX}) AND Δ-R > global AND a legible type "
+              f"signal (probe > 75%). "
               + (f"Met by: {routed}." if green else
-                 "Not met — arms that beat global without a routing gap are just stronger GLOBAL vectors "
-                 "(prompt-distribution artifact), not conditioning; a low probe would mean the cue is washed out.")]
+                 "Not met — an arm that beats global without directional routing is just one stronger "
+                 "GLOBAL vector (prompt-distribution artifact); a low probe would mean the cue is washed out.")]
     BASIS.mkdir(exist_ok=True)
     (BASIS / REPORT).write_text("\n".join(lines) + "\n")
     print("\n".join(l for l in lines if not l.startswith("|")))
@@ -352,12 +362,18 @@ def phase_eval(base_cfg, ccfg, device, model, tok):
 
 
 def main():
+    global OUT, REPORT
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=["pool", "learn", "eval", "all"], default="all")
     ap.add_argument("--config", default=None)
+    ap.add_argument("--base-config", default=None, help="base model config, e.g. configs/base_7b.yaml")
     args = ap.parse_args()
-    base_cfg = load_config()
+    base_cfg = load_config(args.base_config)
     ccfg = load_cond_config(args.config)
+    tag = ccfg.get("tag", "")
+    if tag:                                   # variant (e.g. 7b) writes separate artifacts
+        OUT = REPO_ROOT / "results" / f"steer_cond_{tag}"
+        REPORT = f"s1_cond_{tag}_report.md"
     device = resolve_device(base_cfg)
     t0 = time.time()
     model, tok = load_base(base_cfg, device)

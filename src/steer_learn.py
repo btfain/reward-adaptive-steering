@@ -151,12 +151,13 @@ def tf_sum_logprob(model, tok, prefix_ids, comp_ids_list, layer, delta):
         logits = model(input_ids=ids, attention_mask=attn).logits.float()
     finally:
         h.remove()
-    logp = F.log_softmax(logits, dim=-1)
+    lse = torch.logsumexp(logits, dim=-1)          # (B,T); avoids a full (B,T,vocab) log_softmax copy
     out = []
     for k in range(B):
         L = lens[k]
         idx = torch.arange(P - 1, P - 1 + L, device=device)
-        out.append(logp[k, idx, ids[k, P:P + L]].sum())
+        tgt = ids[k, P:P + L]
+        out.append((logits[k, idx, tgt] - lse[k, idx]).sum())
     return torch.stack(out)
 
 

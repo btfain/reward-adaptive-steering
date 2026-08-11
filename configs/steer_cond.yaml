@@ -5,8 +5,6 @@
 # from h(x): this is the machinery check (B0's "explicit" cell) before situational/real-RM.
 # Runs three arms in one job: global (baseline) + linear + shallow-MLP controllers.
 
-tag: cond
-
 reward:
   mode: synthetic_typed
   types:                      # per-type target direction over (words, hedge_per100, questions_per100)
@@ -20,8 +18,8 @@ policy:
   arms: [global, linear, mlp]
   rank: 2                     # r directions; global uses a constant coeff (collapses to 1 vector)
   read_layer: 16              # read h(x) = last-token pre-injection state here (= steer_layer)
-  mag_cap_frac: 0.15          # injection magnitude FIXED at mag_cap_frac * ref_norm (always steer at
-                              # cap now that direction is decoupled); 0.15 sits safely in the fluent band
+  mag_cap_frac: 0.15          # soft cap: ||injection|| penalized above mag_cap_frac * ref_norm (fluent band)
+  mag_penalty: 0.1            # weight on relu(||delta|| - cap)^2 (shapes magnitude; no gauge, no saturation)
   l1: 0.01                    # sparsity penalty on the (unit-row) basis V
   orth: 0.1                   # orthogonality penalty ||offdiag(V V^T)||^2
   mlp_hidden: 128
@@ -36,5 +34,6 @@ pool:
 
 optim:
   lr: 0.05
-  epochs: 16          # bumped 12->16: bounded coeffs mean routing weights (W) must grow from small
+  epochs: 16
+  weight_decay: 0.001   # mild: keeps controller weights from drifting in the injection null space
   seed: 0
