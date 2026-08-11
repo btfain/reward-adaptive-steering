@@ -87,7 +87,7 @@ def _completion_act(model, tok, prompt, completion, layer, device):
             model.model(input_ids=ids, attention_mask=torch.ones_like(ids))
     finally:
         hh.remove()
-    return cap["h"][0, pids.shape[1]:, :].mean(0)  # (d,)
+    return cap["h"][0, pids.shape[1]:, :].mean(0).float()  # (d,) — float32 for SVD (no bf16 svd kernel)
 
 
 def _distinct2(texts):
@@ -121,7 +121,7 @@ def _build_dictionary(model, tok, by, P, layer, device, r_sub, k_rand, seed):
             if x["completion"].strip():
                 acts.append(_completion_act(model, tok, prompt, x["completion"], layer, device))
                 rews.append(x["rm"])
-    A = torch.stack(acts)                      # (N, d)
+    A = torch.stack(acts).float()              # (N, d) — float32 (bf16 has no svd/precise-mean kernel)
     R = torch.tensor(rews, device=device)
     hi, lo = R >= R.median(), R < R.median()
     vc = (A[hi].mean(0) - A[lo].mean(0))
