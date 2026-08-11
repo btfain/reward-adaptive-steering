@@ -2,3 +2,56 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  72%|███████▏  | 244/339 [00:00<00:00, 2431.97it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2260.07it/s]
 Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 40/311 [00:00<00:00, 364.96it/s]Loading weights:  26%|██▋       | 82/311 [00:00<00:00, 350.64it/s]Loading weights:  42%|████▏     | 132/311 [00:00<00:00, 410.58it/s]Loading weights:  56%|█████▌    | 174/311 [00:00<00:00, 392.18it/s]Loading weights:  69%|██████▉   | 214/311 [00:00<00:00, 370.66it/s]Loading weights:  85%|████████▌ | 265/311 [00:00<00:00, 402.31it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 411.43it/s]
+pool -> /home/users/btf12/reward-adaptive-steering/results/steer_rm_7b/pool.jsonl
+ref_norm(layer 18) = 396.6; mag cap = 39.7
+  [global] epoch 0: mean loss 99.858
+  [global] epoch 1: mean loss 86.685
+  [global] epoch 2: mean loss 74.586
+  [global] epoch 3: mean loss 73.750
+  [global] epoch 4: mean loss 69.144
+  [global] epoch 5: mean loss 74.337
+  [global] epoch 6: mean loss 71.723
+  [global] epoch 7: mean loss 62.345
+  [global] epoch 8: mean loss 62.149
+  [global] epoch 9: mean loss 61.751
+  [global] epoch 10: mean loss 61.695
+  [global] epoch 11: mean loss 61.585
+  [linear] epoch 0: mean loss 1564.301
+  [linear] epoch 1: mean loss 1085.655
+  [linear] epoch 2: mean loss 1210.724
+  [linear] epoch 3: mean loss 1020.032
+  [linear] epoch 4: mean loss 775.006
+  [linear] epoch 5: mean loss 2001.475
+  [linear] epoch 6: mean loss 1298.810
+  [linear] epoch 7: mean loss 1940.930
+  [linear] epoch 8: mean loss 1405.351
+  [linear] epoch 9: mean loss 2368.336
+  [linear] epoch 10: mean loss 1560.180
+  [linear] epoch 11: mean loss 1698.369
+  [mlp] epoch 0: mean loss 198.577
+  [mlp] epoch 1: mean loss 268.827
+  [mlp] epoch 2: mean loss 112.581
+  [mlp] epoch 3: mean loss 89.375
+  [mlp] epoch 4: mean loss 151.755
+  [mlp] epoch 5: mean loss 74.451
+  [mlp] epoch 6: mean loss 87.471
+  [mlp] epoch 7: mean loss 84.501
+  [mlp] epoch 8: mean loss 67.795
+  [mlp] epoch 9: mean loss 84.155
+  [mlp] epoch 10: mean loss 95.148
+  [mlp] epoch 11: mean loss 111.274
+policies -> /home/users/btf12/reward-adaptive-steering/results/steer_rm_7b/policy_*.pt
+Loading weights:   0%|          | 0/147 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 32/147 [00:00<00:00, 319.06it/s]Loading weights:  44%|████▍     | 65/147 [00:00<00:00, 313.28it/s]Loading weights:  70%|███████   | 103/147 [00:00<00:00, 337.66it/s]Loading weights:  93%|█████████▎| 137/147 [00:00<00:00, 331.19it/s]Loading weights: 100%|██████████| 147/147 [00:00<00:00, 349.80it/s]
+# S1.2 (real RM) — learned reward-driven steering vs the given reward model
+
+Qwen2.5-7B-Instruct, steer L18, read L18, rank 2, soft mag cap 40. RWR (w=softmax(RM/β)) on 150 prompts, n=8 pool. Δ-RM = on-policy steered − base, held-out, paired, m=8 samples. RM1=Skywork-Reward-V2-Qwen3-0.6B, RM2=Skywork-Reward-V2-Llama-3.2-1B.
+
+Reference points (A2, 7B): contrastive-steering headroom **~0** (+0.15 [−0.04,+0.34]); prompting **+1.08**; best-of-8 ceiling here **+1.40** (RM1).
+
+
+## Reading
+Best arm: **global** at ΔRM1 +0.044 [-0.119, …]. The load-bearing result is the **global** arm vs the A2 contrastive ~0: if global's CI excludes 0, LEARNED steering beats contrastive extraction at 7B (the Subproject-1 claim). Conditional arms add value only if they beat global AND actually condition (globalness < 1); their trust depends on the synthetic routing positive control. Judge magnitude against prompting (+1.08) and the best-of-n ceiling above — steering that captures a fraction of best-of-n at 1× inference, interpretably, is the win; a clean null bounds steering's ceiling.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_rm_7b_report.md
+{'ts': '2026-08-11T15:49:15', 'stage': 'S1', 'event': 'steer_rm_all', 'wall_s': 3639.77, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 23.093, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'real RM'}
+DONE — push results/steer_rm_7b/, basis/s1_rm_7b_report.md, results/cost_log.jsonl, slurm log.
