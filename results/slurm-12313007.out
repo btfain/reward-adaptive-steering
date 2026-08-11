@@ -1,0 +1,66 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  64%|██████▍   | 140/218 [00:00<00:00, 1084.71it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 644.18it/s] 
+pool -> /home/users/btf12/reward-adaptive-steering/results/steer_cond/pool.jsonl
+ref_norm(layer 16) = 710.9; mag cap = 142.2
+  [global] epoch 0: mean loss 74.741
+  [global] epoch 1: mean loss 74.060
+  [global] epoch 2: mean loss 73.870
+  [global] epoch 3: mean loss 73.489
+  [global] epoch 4: mean loss 73.415
+  [global] epoch 5: mean loss 73.323
+  [global] epoch 6: mean loss 73.363
+  [global] epoch 7: mean loss 73.344
+  [global] epoch 8: mean loss 73.232
+  [global] epoch 9: mean loss 73.433
+  [global] epoch 10: mean loss 73.245
+  [global] epoch 11: mean loss 73.393
+  [linear] epoch 0: mean loss 84.617
+  [linear] epoch 1: mean loss 82.980
+  [linear] epoch 2: mean loss 83.081
+  [linear] epoch 3: mean loss 82.845
+  [linear] epoch 4: mean loss 82.494
+  [linear] epoch 5: mean loss 82.557
+  [linear] epoch 6: mean loss 82.969
+  [linear] epoch 7: mean loss 82.747
+  [linear] epoch 8: mean loss 82.458
+  [linear] epoch 9: mean loss 82.949
+  [linear] epoch 10: mean loss 82.688
+  [linear] epoch 11: mean loss 82.689
+  [mlp] epoch 0: mean loss 84.228
+  [mlp] epoch 1: mean loss 83.387
+  [mlp] epoch 2: mean loss 83.091
+  [mlp] epoch 3: mean loss 83.134
+  [mlp] epoch 4: mean loss 82.605
+  [mlp] epoch 5: mean loss 82.841
+  [mlp] epoch 6: mean loss 82.594
+  [mlp] epoch 7: mean loss 83.244
+  [mlp] epoch 8: mean loss 83.320
+  [mlp] epoch 9: mean loss 83.256
+  [mlp] epoch 10: mean loss 82.924
+  [mlp] epoch 11: mean loss 82.601
+policies -> /home/users/btf12/reward-adaptive-steering/results/steer_cond/policy_*.pt
+# S1.2 — conditional steering controller (type-dependent positive control)
+
+Types A→hedge+, B→questions+ (z-scored φ). SmolLM2-1.7B, steer L16, read L16, rank 2, mag cap 142. n=12 pool. Explicit type cue (machinery check). Δ-R = on-policy steered − base, held-out.
+
+
+## Routing — mean coefficient a per type (r directions)
+- **global**: a|A = [27.34, -10.153], a|B = [27.34, -10.153]
+- **linear**: a|A = [-2774.436, 1938.228], a|B = [-2689.423, 1956.711]
+- **mlp**: a|A = [48062.246, 71509.562], a|B = [46316.238, 68878.719]
+
+## Recovery — realized φ (steered − base) by type; A wants hedge↑, B wants questions↑
+- **global** type A: Δwords +1.74, Δhedge +0.17, Δquestions -0.02
+- **global** type B: Δwords +1.91, Δhedge +0.15, Δquestions -0.05
+- **linear** type A: Δwords +3.87, Δhedge +0.08, Δquestions -0.10
+- **linear** type B: Δwords +2.72, Δhedge +0.12, Δquestions -0.04
+- **mlp** type A: Δwords +1.36, Δhedge +0.17, Δquestions -0.01
+- **mlp** type B: Δwords -0.68, Δhedge +0.25, Δquestions +0.27
+
+## Reading
+Conditioning value = best conditional Δ-R (+0.248, mlp) − global Δ-R (+0.078) = **+0.170**. GREEN-for-S1.2: a conditional controller beats the global vector AND routes the right direction to each type (a|A ≠ a|B, φ recovers each type's lever). Linear vs MLP = capacity comparison.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_cond_report.md
+{'ts': '2026-08-11T10:21:48', 'stage': 'S1', 'event': 'steer_cond_all', 'wall_s': 1250.38, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 13.29, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'conditional controller, type-dependent positive control'}
+DONE — commit and push results/steer_cond/, basis/s1_cond_report.md, results/cost_log.jsonl, slurm log.
