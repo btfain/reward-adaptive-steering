@@ -1,0 +1,104 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 5384.13it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4729.89it/s]
+ref_norm(layer 18) = 396.6
+
+=== magnitude frac 0.05 (cap 19.8) ===
+  [global] epoch 0: mean loss 66.824
+  [global] epoch 1: mean loss 65.026
+  [global] epoch 2: mean loss 63.840
+  [global] epoch 3: mean loss 62.739
+  [global] epoch 4: mean loss 62.023
+  [global] epoch 5: mean loss 61.592
+  [global] epoch 6: mean loss 61.437
+  [global] epoch 7: mean loss 61.316
+  [global] epoch 8: mean loss 61.251
+  [global] epoch 9: mean loss 61.245
+  [global] epoch 10: mean loss 61.262
+  [global] epoch 11: mean loss 61.204
+
+=== magnitude frac 0.1 (cap 39.7) ===
+  [global] epoch 0: mean loss 87.385
+  [global] epoch 1: mean loss 75.967
+  [global] epoch 2: mean loss 76.084
+  [global] epoch 3: mean loss 74.448
+  [global] epoch 4: mean loss 73.972
+  [global] epoch 5: mean loss 81.163
+  [global] epoch 6: mean loss 71.214
+  [global] epoch 7: mean loss 73.656
+  [global] epoch 8: mean loss 68.419
+  [global] epoch 9: mean loss 67.438
+  [global] epoch 10: mean loss 66.989
+  [global] epoch 11: mean loss 65.164
+
+=== magnitude frac 0.15 (cap 59.5) ===
+  [global] epoch 0: mean loss 107.416
+  [global] epoch 1: mean loss 95.821
+  [global] epoch 2: mean loss 98.504
+  [global] epoch 3: mean loss 86.475
+  [global] epoch 4: mean loss 78.170
+  [global] epoch 5: mean loss 76.271
+  [global] epoch 6: mean loss 73.275
+  [global] epoch 7: mean loss 71.190
+  [global] epoch 8: mean loss 68.425
+  [global] epoch 9: mean loss 66.491
+  [global] epoch 10: mean loss 64.747
+  [global] epoch 11: mean loss 62.955
+
+=== magnitude frac 0.2 (cap 79.3) ===
+  [global] epoch 0: mean loss 123.994
+  [global] epoch 1: mean loss 113.355
+  [global] epoch 2: mean loss 110.337
+  [global] epoch 3: mean loss 90.808
+  [global] epoch 4: mean loss 97.500
+  [global] epoch 5: mean loss 94.582
+  [global] epoch 6: mean loss 89.628
+  [global] epoch 7: mean loss 77.538
+  [global] epoch 8: mean loss 76.647
+  [global] epoch 9: mean loss 76.297
+  [global] epoch 10: mean loss 84.419
+  [global] epoch 11: mean loss 73.497
+  [linear] epoch 0: mean loss 511.182
+  [linear] epoch 1: mean loss 1737.955
+  [linear] epoch 2: mean loss 2035.936
+  [linear] epoch 3: mean loss 1454.103
+  [linear] epoch 4: mean loss 1762.178
+  [linear] epoch 5: mean loss 3213.045
+  [linear] epoch 6: mean loss 2018.734
+  [linear] epoch 7: mean loss 1620.175
+  [linear] epoch 8: mean loss 1174.521
+  [linear] epoch 9: mean loss 1149.680
+  [linear] epoch 10: mean loss 883.652
+  [linear] epoch 11: mean loss 1015.075
+  [linear] epoch 0: mean loss 4347.777
+  [linear] epoch 1: mean loss 5791.605
+  [linear] epoch 2: mean loss 12034.386
+  [linear] epoch 3: mean loss 16838.660
+  [linear] epoch 4: mean loss 20275.336
+  [linear] epoch 5: mean loss 17299.447
+  [linear] epoch 6: mean loss 12450.099
+  [linear] epoch 7: mean loss 8065.906
+  [linear] epoch 8: mean loss 3914.622
+  [linear] epoch 9: mean loss 18932.481
+  [linear] epoch 10: mean loss 10478.921
+  [linear] epoch 11: mean loss 6087.407
+# S1.2 diagnostic sweep — steering ceiling: action-space limit vs learning limit
+
+Qwen2.5-7B-Instruct, steer L18, read L18. Reuses the S1.2 real-RM pool (results/steer_rm_7b). ref_norm=397; caps are frac×ref. Held-out ΔRM1 paired vs base, m=4 samples (oracle m=2). RM1=Skywork-Reward-V2-Qwen3-0.6B. **All fixed directions (learned/contrastive/oracle) injected at exactly the cap magnitude** — the favorable case, isolating direction quality from magnitude (so learned here ≥ steer_rm's raw-magnitude global by construction).
+
+Reference (A2, 7B): contrastive ~0 (+0.15); prompting +1.08; best-of-n ceiling **+1.40** (RM1). Base distinct-2 = 0.576. RM2 dropped here (would OOM training); RM1/RM2 agreement already established in the steer_rm run.
+
+
+## Capacity side-check — linear conditional at frac 0.1 (cap 40)
+
+## Reading key
+- **oracle ≈ 0 across the fluent band** ⇒ ACTION SPACE empty: no fluent reward-increasing direction exists in the reward-relevant subspace; learning is not the bottleneck.
+- **oracle high but learned-heldout low, train≈heldout low** ⇒ good fluent directions EXIST but are not capturable by a fixed/learned policy ⇒ LEARNING/structure limit.
+- **learned-train high but learned-heldout low** ⇒ GENERALIZATION limit specifically.
+- **everything only rises where distinct-2 collapses / base-NLL spikes** ⇒ the fluency vise: reward gains are bought with fluency, not fluent steering (anti-collapse guard, rule 4).
+- Judge every number against best-of-n above and prompting (+1.08).
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_sweep_7b_report.md
+{'ts': '2026-08-11T21:13:12', 'stage': 'S1', 'event': 'steer_sweep', 'wall_s': 15955.12, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 23.09, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'steering-ceiling diagnostic sweep'}
+DONE — push basis/s1_sweep_7b_report.md, results/steer_sweep_7b/, results/cost_log.jsonl, slurm log.
