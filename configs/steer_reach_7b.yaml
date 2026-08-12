@@ -1,0 +1,39 @@
+# S1.2 per-prompt free-δ reachability probe at 7B — does a reward-increasing, fluency-preserving
+# steering direction EXIST for the real RM, once we relax the low-rank/controller assumptions?
+# Reuses the S1.2 real-RM pool (no regeneration). See src/steer_reach.py.
+# Run: --base-config configs/base_7b.yaml --config configs/steer_reach_7b.yaml
+
+tag: "7b"
+pool_dir: "results/steer_rm_7b"
+
+mag_fracs: [0.05, 0.10]        # the fluent band the sweep identified (>=0.15 craters fluency)
+
+reward:
+  beta: 1.0
+
+read_layer: 18                 # = steer_layer at 7B
+
+inner:                         # per-prompt δ optimization (unconstrained, full-rank)
+  steps: 40                    # log surrogate ΔL so 'undertrained' is checkable, not assumed
+  lr: 0.05
+  mag_penalty: 0.1
+
+pool:
+  n_prompts_train: 150
+  n_prompts_test: 50
+  n_samples: 8                 # matches the existing pool
+  max_new_tokens: 128
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  n_samples: 4                 # on-policy samples per prompt for ΔRM
+  guard_prompts: 20            # prompts used for the base-NLL fluency-drift guard
+
+factor:                        # factorization diagnostic (joint-learning question)
+  cap_frac: 0.10               # which cap's per-prompt δ's to factorize
+  n_pca: 40                    # PCA-reduce h before the ridge h->δ probe (150 train prompts)
+  ridge: 1.0
+
+optim:
+  seed: 0
