@@ -1,0 +1,38 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  76%|███████▌  | 257/339 [00:00<00:00, 2564.91it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2374.90it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  21%|██        | 66/311 [00:00<00:00, 570.88it/s]Loading weights:  40%|███▉      | 124/311 [00:00<00:00, 529.46it/s]Loading weights:  57%|█████▋    | 177/311 [00:00<00:00, 435.85it/s]Loading weights:  78%|███████▊  | 243/311 [00:00<00:00, 503.80it/s]Loading weights:  95%|█████████▌| 296/311 [00:00<00:00, 499.38it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 509.54it/s]
+ref_norm(layer 18) = 396.6
+  20/200 prompts
+  40/200 prompts
+  60/200 prompts
+  80/200 prompts
+  100/200 prompts
+  120/200 prompts
+  140/200 prompts
+  160/200 prompts
+  180/200 prompts
+  200/200 prompts
+# S1.2 — per-prompt free-δ reachability probe (rank relaxed)
+
+Qwen2.5-7B-Instruct, steer L18, read L18. Per prompt: unconstrained full-rank δ∈R^d learned by RWR on its own pool (results/steer_rm_7b), 40 steps, evaluated on-policy at exactly the cap. ref_norm=397. RM1=Skywork-Reward-V2-Qwen3-0.6B, m=4 samples.
+
+Denominator: best-of-n ceiling **+1.40** (RM1); prompting ref +1.08; A2 contrastive ~0. Base distinct-2 = 0.576.
+
+
+Fluency guard at frac 0.1: base-NLL steered 0.61 vs base 0.47 (spike ⇒ gains bought with fluency).
+
+## Factorization of the per-prompt optima (conditional on headroom existing)
+- Effective rank of the 200 per-prompt δ's: **77** dirs for 50% variance, **168** for 90% (of d-dim).
+- Predictability from h(x) (ridge, held-out): **R²=-0.21**, mean cosine **+0.03**.
+- Low rank + high R²/cos ⇒ a basis+controller could reconstruct these ⇒ S1.2's joint failure was OPTIMIZATION (staged solve-then-factor is viable). High rank / low R² ⇒ the low-rank+controller design was mis-specified.
+
+## Reading key
+- **on-policy ΔRM ≈ 0 while fluent** ⇒ reachability WALL: even per-prompt full-rank fluent steering can't move the RM ⇒ steering fundamentally bounded here ⇒ pivot with a clean null.
+- **ΔRM a large fraction of best-of-n** ⇒ reachable reward-increasing dirs EXIST ⇒ our global/low-rank/controller failures were LEARNING/design, not reachability ⇒ worth improving.
+- **surrogate ΔL large but ΔRM ≈ 0** ⇒ TF-surrogate optimized but doesn't transfer on-policy ⇒ objective/on-policy GAP (motivates on-policy RL), not a reachability wall.
+- Judge against best-of-n and prompting (+1.08); watch the fluency guard for collapse.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_reach_7b_report.md
+{'ts': '2026-08-12T11:57:23', 'stage': 'S1', 'event': 'steer_reach', 'wall_s': 8300.95, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 23.086, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'per-prompt reachability probe'}
+DONE — push basis/s1_reach_7b_report.md, results/steer_reach_7b/, results/cost_log.jsonl, slurm log.
