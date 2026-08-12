@@ -1,0 +1,33 @@
+# S1 (revised method) — procedural-prompt basis + learned router at 7B.
+# Reward-driven; reuses the S1.2 real-RM pool for base(x). See src/prompt_basis.py.
+# Run: --phase all --base-config configs/base_7b.yaml --config configs/prompt_basis_7b.yaml
+
+tag: "7b"
+pool_dir: "results/steer_rm_7b"                 # reuse base(x) RM baselines (same _prompts(150,50))
+candidates_file: "configs/candidates_seed.txt"  # X (subprocedure 1, abstracted placeholder)
+
+select:
+  K: 8                                          # max basis size; report the value-vs-K curve
+
+router:
+  read_layers: [8, 14, 18, 22, 27]              # 27 = final layer (Qwen 7B has 28, idx 0..27)
+  n_pca: 40                                      # PCA-reduce read state before the head (robust at n_train=150)
+  arms: [linear, mlp]
+  mlp_hidden: 128
+  epochs: 300
+  lr: 0.05
+  weight_decay: 0.001
+
+pool:
+  n_prompts_train: 150
+  n_prompts_test: 50
+  m_swing: 4                                     # samples per (x,candidate) in the swing precompute
+  max_new_tokens: 128
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  m_test: 4                                      # samples per (test x, selected move)
+
+optim:
+  seed: 0

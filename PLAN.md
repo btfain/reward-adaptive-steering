@@ -377,6 +377,18 @@ RM (`steer_rm.py`, `aeS1-rm7b`)** where reward has real variance and the load-be
 arm answers the core claim independent of routing. S1.2 stays **not green**. Full record:
 `specs/subproject1_spec.md` §6a.
 
+**S1 real-RM verdict + pivot (2026-08-12).** Steering triangulated to a wall: `steer_rm`
+(learned global +0.044), the magnitude×rank `steer_sweep`, and the `steer_reach` per-prompt
+probe. `steer_reach` refuted a reachability wall — per-prompt full-rank δ captures +0.49 (35% of
+best-of-n), fluent — but it's an *oracle*, and the reachable directions are high-rank (77/168)
+and not h-predictable (R²−0.21); a direct classification test showed the blocker is **coverage**
+(no small steering basis exists), not routing. So interpretable *low-rank steering* fails on a
+real RM. **Pivot (method, not thesis):** the reward-adaptive controller moves into the
+prompt-move action space A2 validated. New method = **procedural-prompt basis + router**, three
+subprocedures — (1) initialize X, (2) greedy-**submodular** basis selection (value-vs-K), (3)
+learned router (no LLM backprop). Reward-driven headline; must beat the best single unconditional
+move on held-out; cost vs LoRA. Spec §7; `src/prompt_basis.py` + `stageS1_pbasis_7b`.
+
 ### Subproject 2 — The single-turn / multi-turn gap (a setting)
 
 **Claim.** Single-turn reward optimization is myopic; the gap is real and material; and

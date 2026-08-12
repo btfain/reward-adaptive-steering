@@ -1,0 +1,42 @@
+# Candidate procedural moves X (subprocedure 1, ABSTRACTED/placeholder). One instruction per
+# line; blank lines and lines starting with '#' are ignored. Each is applied as a SYSTEM message.
+# Curated for diversity across single-turn answer-quality dimensions (directness, reasoning,
+# concision, completeness, structure, evidence, tone, audience, balance, verification, honesty) —
+# NOT dominated by clarifying-question moves. To be replaced later by the LLM-from-preferences
+# generator (generate from a preference pair -> verify it shifts toward the preferred -> dedup).
+Answer the question directly in the first sentence, then provide supporting detail.
+Work through the problem step by step, showing your reasoning before stating the final answer.
+Be concise and remove any filler, repetition, or throat-clearing.
+Give a thorough, complete answer that addresses every part of the question.
+Organize your response with clear structure, using short paragraphs or bullet points where it aids readability.
+Include a concrete example to illustrate your main point.
+State any important assumptions, caveats, or limitations relevant to your answer.
+If you are uncertain about anything, say so explicitly and explain the source of the uncertainty.
+Provide specific, actionable steps the reader can follow.
+Explain the reasoning behind your answer, not just the conclusion.
+Prioritize factual accuracy and avoid presenting speculation as fact.
+Lead with the most important information, then add detail in order of relevance.
+Briefly define any technical terms you introduce.
+Consider and briefly compare at least one alternative approach or viewpoint.
+Use a warm, encouraging, and supportive tone.
+Use a precise, professional, and formal tone.
+Tailor the explanation to a general, non-expert audience.
+Provide an in-depth, expert-level explanation with appropriate technical depth.
+Support your claims with specific data, numbers, or evidence where possible.
+End with a clear takeaway or recommendation.
+Stay tightly focused on what was asked and avoid tangents.
+Acknowledge the user's underlying goal and address that, not just the literal question.
+Present a balanced, even-handed view when the topic is contested.
+If code is involved, provide complete, runnable code with brief explanatory comments.
+Double-check your answer for errors or inconsistencies before finalizing it.
+Use an analogy to make a complex idea more intuitive.
+Make your explanation as clear and easy to follow as possible, favoring plain language.
+Where the question is ambiguous, state your interpretation explicitly and answer accordingly.
+Emphasize practical guidance over abstract theory.
+Mention relevant edge cases or exceptions the reader should be aware of.
+Be direct and give a helpful answer rather than deflecting or over-hedging.
+Summarize the key point in one sentence up front, then elaborate.
+Break a complex answer into clearly labeled parts or sections.
+Anticipate likely follow-up questions and address them proactively.
+Ground your answer in widely accepted facts or established methods.
+Be honest about what is unknown or unknowable rather than fabricating an answer.

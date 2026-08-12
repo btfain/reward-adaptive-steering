@@ -198,3 +198,32 @@ steering beat contrastive ~0?* — is the `steer_rm.py` **global** arm, answerab
 *independent of routing*. Re-ask the routing/conditioning question on the real RM only if the
 global arm first shows a real gradient exists. `S1.2` stays **not green**; the real-RM run
 (`aeS1-rm7b`) is the gate's live continuation, not an advance past it.
+
+## 7. Real-RM steering verdict + pivot to the procedural-prompt basis (2026-08-12)
+
+**Steering hit a triangulated wall.** `steer_rm` (learned global +0.044, CI covers 0; linear
+blew up −3.29), the `steer_sweep` magnitude×rank diagnostic (learned/contrastive negative even
+in the fluent band; the oracle arm confounded by winner's-curse), and finally the `steer_reach`
+per-prompt free-δ probe converged on one picture. `steer_reach` **refuted the reachability
+wall**: an unconstrained full-rank δ learned per prompt by our own RWR captures **+0.49 (35% of
+best-of-n), fluent** — reward-increasing steering *exists*. But it is an **oracle** (uses that
+prompt's reward labels), and the deployable gap is our controller: the per-prompt optima are
+**high-rank (77/168) and unpredictable from h(x)** (ridge R²=−0.21). A direct classification
+test (offline, on the saved δ's) confirmed it is a **coverage** problem, not a router problem —
+even K=50 prototypes reach only cos 0.55 to the needed directions, and coverage/routability
+trade off with no viable operating point. **Verdict:** interpretable *low-rank* reward-adaptive
+*steering* does not hold on a real RM — the reachable reward isn't in controllable low-rank form.
+
+**Pivot (method, not thesis).** Keep the reward-adaptive-controller idea; move it into the
+action space A2 showed works (prompting +1.08, conditional prompting +1.03 vs conditional
+steering ~noise). New method = a **procedural-prompt basis + learned router**, spec'd as three
+subprocedures: **(1) initialize X** (candidate procedural moves; abstracted now to a curated
+file, later an LLM-from-preferences generator + verify + dedup), **(2) select a small basis**
+by **greedy submodular** maximization of `f(S)=Σ_x max(0, max_{p∈S} swing(x,p))` — monotone
+submodular ⇒ (1−1/e) greedy, with a value-vs-K curve, **(3) learn a router** h(x)→move (read
+layer swept; classifier, no LLM backprop). Reward-driven headline (signal-agnostic build;
+preference-free swing as an ablation). Load-bearing test: router **beats the best single
+unconditional move** on held-out (conditioning is worth it), toward the oracle-over-basis
+ceiling; cost benchmarked vs LoRA (the lean-alignment claim — no backprop through the LLM).
+Files: `src/prompt_basis.py`, `configs/prompt_basis_7b.yaml`, `configs/candidates_seed.txt`,
+`scripts/stageS1_pbasis_7b.sbatch`. First run reuses the `steer_rm_7b` pool for base(x).
