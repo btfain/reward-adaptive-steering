@@ -1,0 +1,14 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  25%|██▍       | 84/339 [00:00<00:00, 815.11it/s]Loading weights:  49%|████▉     | 166/339 [00:00<00:00, 541.63it/s]Loading weights:  67%|██████▋   | 226/339 [00:00<00:00, 467.09it/s]Loading weights:  81%|████████▏ | 276/339 [00:00<00:00, 452.37it/s]Loading weights:  95%|█████████▌| 323/339 [00:00<00:00, 427.46it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 479.89it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 49/311 [00:00<00:00, 418.57it/s]Loading weights:  29%|██▉       | 91/311 [00:00<00:00, 327.14it/s]Loading weights:  40%|████      | 125/311 [00:00<00:00, 324.85it/s]Loading weights:  51%|█████     | 158/311 [00:00<00:00, 320.55it/s]Loading weights:  62%|██████▏   | 193/311 [00:00<00:00, 327.13it/s]Loading weights:  73%|███████▎  | 226/311 [00:00<00:00, 318.44it/s]Loading weights:  84%|████████▍ | 261/311 [00:00<00:00, 324.38it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 353.27it/s]
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_reach.py", line 256, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_reach.py", line 251, in main
+    phase_reach(base_cfg, rcfg, device, model, tok, rm, rm_tok)
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_reach.py", line 121, in phase_reach
+    by = _load_pool(REPO_ROOT / rcfg["pool_dir"])
+  File "/home/users/btf12/reward-adaptive-steering/src/steer_reach.py", line 58, in _load_pool
+    rows = [json.loads(l) for l in open(pool_dir / "pool.jsonl")]
+FileNotFoundError: [Errno 2] No such file or directory: '/home/users/btf12/reward-adaptive-steering/results/prompt_basis_detrunc_7b/pool.jsonl'
