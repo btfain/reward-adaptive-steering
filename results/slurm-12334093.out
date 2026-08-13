@@ -1,0 +1,9 @@
+node:           compsci-cluster-fitz-17
+system python3: /bin/python3 -> Python 3.14.4
+venv python:    3.11.15
+numpy:          2.4.6
+torch:          2.13.0+cu130 | built for CUDA 13.0
+cuda available: True
+gpu:            NVIDIA RTX A5000
+bf16 matmul OK: 478.6
+If any line FAILED or CUDA is unavailable -> bash scripts/cluster_setup.sh (rebuild), then re-run this.
