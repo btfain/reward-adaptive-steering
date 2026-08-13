@@ -1,0 +1,81 @@
+{
+  "order": [
+    19,
+    0,
+    8,
+    5,
+    11,
+    10,
+    12,
+    4
+  ],
+  "curve": [
+    0.85400636461046,
+    1.298175599839952,
+    1.5012612660725912,
+    1.607714038425022,
+    1.671232393052843,
+    1.7177126990424263,
+    1.741319062974718,
+    1.7570152706570097
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 19,
+      "move": "Be direct and give a helpful answer rather than deflecting or over-hedging.",
+      "mean_captured_swing": 0.85400636461046,
+      "marginal": 0.85400636461046
+    },
+    {
+      "rank": 2,
+      "cand_idx": 0,
+      "move": "Be concise and remove any filler, repetition, or throat-clearing.",
+      "mean_captured_swing": 1.298175599839952,
+      "marginal": 0.44416923522949203
+    },
+    {
+      "rank": 3,
+      "cand_idx": 8,
+      "move": "If you are uncertain about anything, say so explicitly and explain the source of the uncertainty.",
+      "mean_captured_swing": 1.5012612660725912,
+      "marginal": 0.20308566623263924
+    },
+    {
+      "rank": 4,
+      "cand_idx": 5,
+      "move": "Organize your response with clear structure, using short paragraphs or bullet points where it aids readability.",
+      "mean_captured_swing": 1.607714038425022,
+      "marginal": 0.10645277235243067
+    },
+    {
+      "rank": 5,
+      "cand_idx": 11,
+      "move": "Prioritize factual accuracy and avoid presenting speculation as fact.",
+      "mean_captured_swing": 1.671232393052843,
+      "marginal": 0.06351835462782107
+    },
+    {
+      "rank": 6,
+      "cand_idx": 10,
+      "move": "Explain the reasoning behind your answer, not just the conclusion.",
+      "mean_captured_swing": 1.7177126990424263,
+      "marginal": 0.046480305989583304
+    },
+    {
+      "rank": 7,
+      "cand_idx": 12,
+      "move": "Briefly define any technical terms you introduce.",
+      "mean_captured_swing": 1.741319062974718,
+      "marginal": 0.023606363932291652
+    },
+    {
+      "rank": 8,
+      "cand_idx": 4,
+      "move": "Work through the problem step by step, showing your reasoning before stating the final answer.",
+      "mean_captured_swing": 1.7570152706570097,
+      "marginal": 0.01569620768229174
+    }
+  ],
+  "unconditional_best_idx": 19
+}

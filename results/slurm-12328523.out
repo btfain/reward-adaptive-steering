@@ -1,0 +1,59 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  74%|███████▎  | 250/339 [00:00<00:00, 2492.03it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2310.15it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  67%|██████▋   | 208/311 [00:00<00:00, 2056.33it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2038.72it/s]
+detrunc base pool -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_detrunc_7b/pool.jsonl  (truncation 65% at max_new_tokens=256; was 72% at 128)
+  swing: 10/120 prompts
+  swing: 20/120 prompts
+  swing: 30/120 prompts
+  swing: 40/120 prompts
+  swing: 50/120 prompts
+  swing: 60/120 prompts
+  swing: 70/120 prompts
+  swing: 80/120 prompts
+  swing: 90/120 prompts
+  swing: 100/120 prompts
+  swing: 110/120 prompts
+  swing: 120/120 prompts
+swing matrix -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_detrunc_7b/swing_train.npz  (mean swing -0.389, best-move mean +1.823)
+Greedy submodular basis (value-vs-K):
+  K=1: +0.854 -> +0.854  | Be direct and give a helpful answer rather than deflecting or over-hed
+  K=2: +0.444 -> +1.298  | Be concise and remove any filler, repetition, or throat-clearing.
+  K=3: +0.203 -> +1.501  | If you are uncertain about anything, say so explicitly and explain the
+  K=4: +0.106 -> +1.608  | Organize your response with clear structure, using short paragraphs or
+  K=5: +0.064 -> +1.671  | Prioritize factual accuracy and avoid presenting speculation as fact.
+  K=6: +0.046 -> +1.718  | Explain the reasoning behind your answer, not just the conclusion.
+  K=7: +0.024 -> +1.741  | Briefly define any technical terms you introduce.
+  K=8: +0.016 -> +1.757  | Work through the problem step by step, showing your reasoning before s
+  route/test-swing: 10/50
+  route/test-swing: 20/50
+  route/test-swing: 30/50
+  route/test-swing: 40/50
+  route/test-swing: 50/50
+# S1 (revised) — procedural-prompt basis + router (DETRUNCATED, de-biased)
+
+Qwen2.5-7B-Instruct. X = 20 curated moves. Swing(x,p)=RM(sys=p)−RM(base), base regenerated at max_new_tokens=256 (truncation now 57% on move gens; was 72% at 128). Greedy submodular basis K=8; router read-layer swept [8, 14, 18, 22, 27], PCA-40. n_train=120, n_test=50, m_swing=4, m_test=12 (val/test split). RM1=Skywork-Reward-V2-Qwen3-0.6B.
+
+References (A2/7B, TRUNCATED — now suspect): prompting +1.08, best-of-n +1.40, steering ~0. Base distinct-2 0.653.
+
+## Subprocedure 2 — greedy submodular basis (value-vs-K; does 'concise' still dominate post-detrunc?)
+
+## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM, test half)
+
+## Held-out result (best router: layer 8, mlp; all scored on the test half)
+- **Learned router ΔRM1: +1.185 [+0.652, +1.712]**.
+- Best SINGLE unconditional move (k=1): +0.719 [+0.333, +1.108]  — the load-bearing baseline; router must beat this for conditioning to pay.
+- **De-biased oracle-over-basis (pick on val, score on test): +1.904 [+1.485, +2.360]** — the TRUE routing ceiling; its gap over the single move is the real conditioning headroom.
+- Naive (biased) oracle for reference: +2.006 [+1.601, +2.446] — inflation vs de-biased = the winner's-curse we removed.
+- Routed generations distinct-2 0.330 (base 0.653).
+
+## Reading
+- **truncation now low** confirms the fix; compare the surviving swings to the 128-token run to see how much single-turn 'headroom' was truncation-avoidance.
+- **de-biased oracle ≫ best-single-move** ⇒ real single-turn conditioning headroom exists (then judge whether the router captures it: router vs single). **de-biased ≈ single** ⇒ conditioning is mostly illusory here ⇒ carry routing to multi-turn (Subproject 2).
+- **router > single (CIs)** ⇒ conditioning pays and is learnable now; **router ≈ single** with a large de-biased gap ⇒ signal exists but router is data-limited (scale prompts).
+- Judge magnitudes against the detruncated single move; the old +1.08/+1.40 refs are truncation-suspect.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_pbasis_detrunc_7b_report.md
+{'ts': '2026-08-13T04:01:28', 'stage': 'S1', 'event': 'prompt_basis_all', 'wall_s': 17729.77, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.849, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE (Job A) — push basis/s1_pbasis_detrunc_7b_report.md, results/prompt_basis_detrunc_7b/, 
+results/cost_log.jsonl, slurm log. Then run Job B (stageS1_reach_detrunc_7b) which reuses the pool.
