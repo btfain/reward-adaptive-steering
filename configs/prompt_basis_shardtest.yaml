@@ -1,0 +1,35 @@
+# SHARDING MECHANICS TEST — tiny + fast (6 train / 3 test prompts, 2 candidates, 3 shards).
+# Verifies: parallel shard jobs write pool_shard_i.jsonl + swing_shard_i.npz, then --phase postshard
+# assembles them into the full pool.jsonl + swing_train.npz and runs select + route end-to-end.
+# NOT a scientific run. Sharded flow: 3x (--phase shard --shard i/3), then 1x (--phase postshard).
+
+tag: "shardtest"
+pool_dir: "results/prompt_basis_shardtest"
+candidates_file: "configs/candidates_shardtest.txt"
+
+select:
+  K: 2
+
+router:
+  read_layers: [8, 18]
+  n_pca: 4
+  arms: [linear, mlp]
+  mlp_hidden: 16
+  epochs: 200
+  lr: 0.05
+  weight_decay: 0.001
+
+pool:
+  n_prompts_train: 6
+  n_prompts_test: 3
+  m_base: 2
+  m_swing: 2
+  max_new_tokens: 64
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  m_test: 2
+
+optim:
+  seed: 0

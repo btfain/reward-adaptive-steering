@@ -65,15 +65,20 @@ def _gcfg(steer_layer, pcfg):
 
 
 def _base_by_prompt(pool_dir):
-    """Mean base RM per (split, pi) from the reused pool; also the base completions for the guard."""
-    rows = [json.loads(l) for l in open(pool_dir / "pool.jsonl")]
+    """Mean base RM per (split, pi) + base completions (guard), from pool_dir/pool.jsonl."""
+    return _base_by_prompt_file(pool_dir / "pool.jsonl", with_texts=True)
+
+
+def _base_by_prompt_file(pool_file, with_texts=False):
+    """Mean base RM per (split, pi) from a specific pool jsonl (shard-local or full)."""
+    rows = [json.loads(l) for l in open(pool_file)]
     r, texts = {}, {}
     for x in rows:
         if x["completion"].strip():
             r.setdefault((x["split"], x["pi"]), []).append(x["rm"])
             texts.setdefault((x["split"], x["pi"]), []).append(x["completion"])
     base = {k: float(np.mean(v)) for k, v in r.items()}
-    return base, texts
+    return (base, texts) if with_texts else base
 
 
 def _truncated(t):
@@ -83,27 +88,37 @@ def _truncated(t):
 
 
 # ----------------------------------------------------------------- phase: pool ----
-def phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok):
+def _shard_keep(idx, shard):
+    """Strided prompt assignment: keep prompt index idx if it belongs to shard (i, N). None => all."""
+    return shard is None or (idx % shard[1] == shard[0])
+
+
+def phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
     """Generate a base pool at THIS run's max_new_tokens (detruncated) + RM-score it; logs the
-    truncation rate so we can confirm the fix. Shared by the router (base(x)) and by Job B (steering)."""
+    truncation rate. Shared by the router (base(x)) and by Job B (steering). With shard=(i,N) it
+    processes only that prompt slice and writes pool_shard_{i}.jsonl for later assembly."""
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
     P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
     mb = pb["pool"]["m_base"]
-    torch.manual_seed(pb["optim"]["seed"])
+    torch.manual_seed(pb["optim"]["seed"] + (0 if shard is None else 1))
     OUT.mkdir(parents=True, exist_ok=True)
+    out = OUT / (f"pool_shard_{shard[0]}.jsonl" if shard else "pool.jsonl")
     trunc = []
-    with open(OUT / "pool.jsonl", "w") as f:
+    with open(out, "w") as f:
         for split in ("train", "test"):
             for pi, prompt in enumerate(P[split]):
+                if not _shard_keep(pi, shard):
+                    continue
                 for c in generate_batch(model, tok, [prompt] * mb, gcfg):
                     if c.strip():
                         trunc.append(_truncated(c))
                         f.write(json.dumps({"split": split, "pi": pi, "prompt": prompt,
                                             "completion": c, "rm": rm_score(rm, rm_tok, prompt, c)}) + "\n")
                 f.flush()
-    print(f"detrunc base pool -> {OUT / 'pool.jsonl'}  (truncation {np.mean(trunc):.0%} at "
-          f"max_new_tokens={pb['pool']['max_new_tokens']}; was 72% at 128)")
+    tag = f" (shard {shard[0]}/{shard[1]})" if shard else ""
+    print(f"base pool{tag} -> {out}  (truncation {np.mean(trunc) if trunc else float('nan'):.0%} at "
+          f"max_new_tokens={pb['pool']['max_new_tokens']})")
 
 
 @torch.no_grad()
@@ -124,30 +139,66 @@ def _read_states_multi(model, tok, prompt, layers):
 
 
 # ---------------------------------------------------------------- phase: swing ----
-def phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok):
+def phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
+    """Swing(x,p) for the TRAIN prompts (this shard's slice if shard=(i,N)) x all candidates. Reads
+    base(x) from this run's own pool (the shard's pool_shard_i.jsonl when sharded, else pool.jsonl),
+    so each shard is self-contained. Writes swing_shard_{i}.npz (rows + global indices) or the full
+    swing_train.npz."""
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
     cand = _read_candidates(pb["candidates_file"])
     P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
-    base, _ = _base_by_prompt(REPO_ROOT / pb["pool_dir"])
+    pool_file = OUT / (f"pool_shard_{shard[0]}.jsonl" if shard else "pool.jsonl")
+    base = _base_by_prompt_file(pool_file)
     m = pb["pool"]["m_swing"]
-    torch.manual_seed(pb["optim"]["seed"])
+    torch.manual_seed(pb["optim"]["seed"] + (0 if shard is None else 1))
     OUT.mkdir(parents=True, exist_ok=True)
 
-    M = np.full((len(P["train"]), len(cand)), np.nan)
-    for pi, prompt in enumerate(P["train"]):
+    items = [(pi, prompt) for pi, prompt in enumerate(P["train"]) if _shard_keep(pi, shard)]
+    M = np.full((len(items), len(cand)), np.nan); idx = []
+    for row, (pi, prompt) in enumerate(items):
+        idx.append(pi)
         b = base.get(("train", pi))
         if b is None:
             continue
         for j, instr in enumerate(cand):
             sc = [c for c in generate_batch(model, tok, [prompt] * m, gcfg, system=instr) if c.strip()]
             if sc:
-                M[pi, j] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
-        if (pi + 1) % 10 == 0:
-            print(f"  swing: {pi + 1}/{len(P['train'])} prompts")
+                M[row, j] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
+        if (row + 1) % 10 == 0:
+            print(f"  swing{'' if shard is None else f' shard {shard[0]}'}: {row + 1}/{len(items)} prompts")
+    if shard:
+        np.savez(OUT / f"swing_shard_{shard[0]}.npz", M=M, idx=np.array(idx),
+                 candidates=np.array(cand, dtype=object))
+        print(f"swing shard {shard[0]}/{shard[1]} -> {OUT / f'swing_shard_{shard[0]}.npz'}  ({M.shape[0]} rows)")
+    else:
+        np.savez(OUT / "swing_train.npz", M=M, candidates=np.array(cand, dtype=object))
+        print(f"swing matrix -> {OUT / 'swing_train.npz'}  (mean {np.nanmean(M):+.3f}, "
+              f"best-move mean {np.nanmax(M, axis=1).mean():+.3f})")
+
+
+# -------------------------------------------------------------- phase: assemble ----
+def phase_assemble(pb):
+    """Merge all pool_shard_*.jsonl -> pool.jsonl and all swing_shard_*.npz -> swing_train.npz
+    (placing each shard's rows at their global prompt index). No model needed — pure I/O."""
+    pool_shards = sorted(OUT.glob("pool_shard_*.jsonl"))
+    with open(OUT / "pool.jsonl", "w") as f:
+        for sh in pool_shards:
+            for line in open(sh):
+                f.write(line)
+    sw_shards = sorted(OUT.glob("swing_shard_*.npz"))
+    n_train = pb["pool"]["n_prompts_train"]
+    M, cand = None, None
+    for s in sw_shards:
+        d = np.load(s, allow_pickle=True)
+        if cand is None:
+            cand = list(d["candidates"]); M = np.full((n_train, len(cand)), np.nan)
+        for row, pi in enumerate(d["idx"]):
+            M[int(pi)] = d["M"][row]
     np.savez(OUT / "swing_train.npz", M=M, candidates=np.array(cand, dtype=object))
-    print(f"swing matrix -> {OUT / 'swing_train.npz'}  (mean swing {np.nanmean(M):+.3f}, "
-          f"best-move mean {np.nanmax(M, axis=1).mean():+.3f})")
+    missing = int(np.isnan(M).all(1).sum())
+    print(f"assembled {len(sw_shards)} swing + {len(pool_shards)} pool shards -> "
+          f"swing_train.npz ({M.shape[0]}x{M.shape[1]}, {missing} train prompts missing), pool.jsonl")
 
 
 # --------------------------------------------------------------- phase: select ----
@@ -350,7 +401,10 @@ def _write_report(base_cfg, pb, cand, sel, S, Mtr, Mv, Mt, sweep, best, base_tex
 def main():
     global OUT, REPORT
     ap = argparse.ArgumentParser()
-    ap.add_argument("--phase", choices=["pool", "swing", "select", "route", "all"], default="all")
+    ap.add_argument("--phase", choices=["pool", "swing", "select", "route", "all",
+                                        "shard", "assemble", "postshard"], default="all")
+    ap.add_argument("--shard", default=None, help="i/N — process only prompt slice i of N "
+                    "(parallel generation; run one job per shard, then --phase postshard)")
     ap.add_argument("--config", default=None)
     ap.add_argument("--base-config", default=None)
     args = ap.parse_args()
@@ -360,20 +414,35 @@ def main():
     if tag:
         OUT = REPO_ROOT / "results" / f"prompt_basis_{tag}"
         REPORT = f"s1_pbasis_{tag}_report.md"
+    shard = None
+    if args.shard:
+        i, N = args.shard.split("/"); shard = (int(i), int(N))
     device = resolve_device(base_cfg)
     t0 = time.time()
-    model, tok = load_base(base_cfg, device)
-    rm = rm_tok = None
-    if args.phase in ("pool", "swing", "route", "all"):
+    needs_model = args.phase in ("pool", "swing", "route", "all", "shard", "postshard")
+    model = tok = rm = rm_tok = None
+    if needs_model:
+        model, tok = load_base(base_cfg, device)
         rm, rm_tok = load_rm(base_cfg, device)
-    if args.phase in ("pool", "all"):
-        phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok)
-    if args.phase in ("swing", "all"):
-        phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok)
-    if args.phase in ("select", "all"):
+
+    if args.phase == "shard":                       # one parallel job per prompt slice
+        phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
+        phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
+    elif args.phase == "assemble":                  # pure I/O — no model
+        phase_assemble(pb)
+    elif args.phase == "postshard":                 # assemble shards, then select + route
+        phase_assemble(pb)
         phase_select(base_cfg, pb, device, model, tok)
-    if args.phase in ("route", "all"):
         phase_route(base_cfg, pb, device, model, tok, rm, rm_tok)
+    else:
+        if args.phase in ("pool", "all"):
+            phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok)
+        if args.phase in ("swing", "all"):
+            phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok)
+        if args.phase in ("select", "all"):
+            phase_select(base_cfg, pb, device, model, tok)
+        if args.phase in ("route", "all"):
+            phase_route(base_cfg, pb, device, model, tok, rm, rm_tok)
     print(log_cost("S1", f"prompt_basis_{args.phase}", time.time() - t0, device,
                    notes="procedural-prompt basis + router (no LLM backprop)"))
 
