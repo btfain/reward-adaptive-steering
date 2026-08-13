@@ -14,21 +14,23 @@ set -euo pipefail
 if [ -z "${SCRATCH_DIR:-}" ]; then
     if mkdir -p "/usr/xtmp/$USER" 2>/dev/null; then SCRATCH_DIR="/usr/xtmp/$USER"; else SCRATCH_DIR="$HOME/scratch"; fi
 fi
-CONDA_DIR="$SCRATCH_DIR/miniconda3"
+CONDA_DIR="$SCRATCH_DIR/miniforge3"
 PYENV_DIR="$SCRATCH_DIR/ras_py"          # pinned-python conda env
 VENV_DIR="$SCRATCH_DIR/ras_venv"         # the actual venv (off home quota)
 PYVER="${PYVER:-3.11}"
 echo "scratch: $SCRATCH_DIR   python: $PYVER"
 
-# --- pinned, OS-independent python via Miniconda on scratch ---
+# --- pinned, OS-independent python via Miniforge on scratch ---
+# Miniforge defaults to conda-forge, so we avoid Anaconda's ToS-gated pkgs/main + pkgs/r channels
+# (which otherwise fail with CondaToSNonInteractiveError on a non-interactive `conda create`).
 if [ ! -x "$CONDA_DIR/bin/conda" ]; then
-    echo "installing Miniconda -> $CONDA_DIR"
-    curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/mc.sh
-    bash /tmp/mc.sh -b -p "$CONDA_DIR"
-    rm -f /tmp/mc.sh
+    echo "installing Miniforge -> $CONDA_DIR"
+    curl -sL "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh" -o /tmp/mf.sh
+    bash /tmp/mf.sh -b -p "$CONDA_DIR"
+    rm -f /tmp/mf.sh
 fi
 if [ ! -x "$PYENV_DIR/bin/python" ]; then
-    "$CONDA_DIR/bin/conda" create -y -p "$PYENV_DIR" "python=$PYVER"
+    "$CONDA_DIR/bin/conda" create -y -p "$PYENV_DIR" --override-channels -c conda-forge "python=$PYVER"
 fi
 PYTHON="$PYENV_DIR/bin/python"
 echo "python: $("$PYTHON" --version)"
