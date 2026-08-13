@@ -99,7 +99,7 @@ def phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
     processes only that prompt slice and writes pool_shard_{i}.jsonl for later assembly."""
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
-    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
+    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"], pb.get("prompts_split", "train"))
     mb = pb["pool"]["m_base"]
     torch.manual_seed(pb["optim"]["seed"] + (0 if shard is None else 1))
     OUT.mkdir(parents=True, exist_ok=True)
@@ -147,7 +147,7 @@ def phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
     cand = _read_candidates(pb["candidates_file"])
-    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
+    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"], pb.get("prompts_split", "train"))
     pool_file = OUT / (f"pool_shard_{shard[0]}.jsonl" if shard else "pool.jsonl")
     base = _base_by_prompt_file(pool_file)
     m = pb["pool"]["m_swing"]
@@ -277,7 +277,7 @@ def _targets(M, idxs):
 def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
-    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
+    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"], pb.get("prompts_split", "train"))
     base, base_texts = _base_by_prompt(REPO_ROOT / pb["pool_dir"])
     dtr = np.load(OUT / "swing_train.npz", allow_pickle=True)
     Mtr, cand = dtr["M"], list(dtr["candidates"])

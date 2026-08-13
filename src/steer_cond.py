@@ -41,10 +41,10 @@ def load_cond_config(path=None):
         return yaml.safe_load(f)
 
 
-def _prompts(n_train, n_test):
-    raw = json.loads(open(REPO_ROOT / "data" / "prompts.json").read())["train"]
+def _prompts(n_train, n_test, split="train"):
+    raw = json.loads(open(REPO_ROOT / "data" / "prompts.json").read())[split]
     if len(raw) < n_train + n_test:
-        raise RuntimeError(f"need {n_train + n_test} prompts, have {len(raw)}")
+        raise RuntimeError(f"need {n_train + n_test} prompts, have {len(raw)} in split '{split}'")
     return {"train": raw[:n_train], "test": raw[n_train:n_train + n_test]}
 
 

@@ -1,0 +1,37 @@
+# S1 (revised) — SCALED prompt-basis run: 600 prompts (450 train / 150 test) from the new
+# train_large split, max_new_tokens 768, sharded across 4 jobs. Tightens the router-vs-single CI
+# and pushes the router toward the +0.78 de-biased oracle. Reads the train_large split (leaves the
+# original 200-prompt train/heldout untouched). Run sharded: 4x (--phase shard --shard i/4), then
+# (next day, deadline-free) --phase postshard.
+
+tag: "large_7b"
+pool_dir: "results/prompt_basis_large_7b"
+candidates_file: "configs/candidates_seed_v2.txt"
+prompts_split: "train_large"                     # the expanded 600-prompt split (expand_prompts.py)
+
+select:
+  K: 8
+
+router:
+  read_layers: [8, 14, 18, 22, 27]
+  n_pca: 40
+  arms: [linear, mlp]
+  mlp_hidden: 128
+  epochs: 300
+  lr: 0.05
+  weight_decay: 0.001
+
+pool:
+  n_prompts_train: 450
+  n_prompts_test: 150
+  m_base: 6
+  m_swing: 4
+  max_new_tokens: 768                            # was 512 (32% trunc); 768 should drop it to ~15-20%
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  m_test: 12
+
+optim:
+  seed: 0
