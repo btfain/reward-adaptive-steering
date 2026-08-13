@@ -1,0 +1,24 @@
+# Candidate procedural moves X (v2, curated to 20 for the detruncated de-biased run). One per line;
+# '#'/blank ignored. Applied as a SYSTEM message. Deliberately keeps BOTH length poles (concise vs
+# thorough vs in-depth) so we can see whether "concise" still dominates once truncation is removed,
+# plus diverse quality/conditioning-relevant moves. Placeholder for the LLM-from-preferences generator.
+Be concise and remove any filler, repetition, or throat-clearing.
+Give a thorough, complete answer that addresses every part of the question.
+Provide an in-depth, expert-level explanation with appropriate technical depth.
+Answer the question directly in the first sentence, then provide supporting detail.
+Work through the problem step by step, showing your reasoning before stating the final answer.
+Organize your response with clear structure, using short paragraphs or bullet points where it aids readability.
+Include a concrete example to illustrate your main point.
+State any important assumptions, caveats, or limitations relevant to your answer.
+If you are uncertain about anything, say so explicitly and explain the source of the uncertainty.
+Provide specific, actionable steps the reader can follow.
+Explain the reasoning behind your answer, not just the conclusion.
+Prioritize factual accuracy and avoid presenting speculation as fact.
+Briefly define any technical terms you introduce.
+Consider and briefly compare at least one alternative approach or viewpoint.
+Tailor the explanation to a general, non-expert audience.
+Support your claims with specific data, numbers, or evidence where possible.
+Present a balanced, even-handed view when the topic is contested.
+If code is involved, provide complete, runnable code with brief explanatory comments.
+Where the question is ambiguous, state your interpretation explicitly and answer accordingly.
+Be direct and give a helpful answer rather than deflecting or over-hedging.

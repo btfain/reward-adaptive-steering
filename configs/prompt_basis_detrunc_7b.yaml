@@ -1,0 +1,35 @@
+# S1 (revised) — DETRUNCATED, de-biased procedural-prompt basis + router at 7B.
+# Regenerates its OWN base pool at max_new_tokens=256 (the 128-cap truncated 72% of base responses,
+# a −1.6 RM penalty that dominated the reward signal). The pool it writes is ALSO reused by Job B
+# (steer_reach detrunc). Run: --phase all --base-config configs/base_7b.yaml --config configs/prompt_basis_detrunc_7b.yaml
+
+tag: "detrunc_7b"
+pool_dir: "results/prompt_basis_detrunc_7b"     # == this run's OUT; phase_pool writes pool.jsonl here
+candidates_file: "configs/candidates_seed_v2.txt"
+
+select:
+  K: 8
+
+router:
+  read_layers: [8, 14, 18, 22, 27]              # 27 = final layer
+  n_pca: 40
+  arms: [linear, mlp]
+  mlp_hidden: 128
+  epochs: 300
+  lr: 0.05
+  weight_decay: 0.001
+
+pool:
+  n_prompts_train: 120
+  n_prompts_test: 50
+  m_base: 6                                       # base samples per prompt (pool.jsonl, reused by Job B)
+  m_swing: 4                                      # samples per (train x, candidate) for the swing matrix
+  max_new_tokens: 256                             # detruncate (median base ~93w truncated at 128; 256 clears most)
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  m_test: 12                                      # per (test x, selected move); split 6 val / 6 test to de-bias
+
+optim:
+  seed: 0

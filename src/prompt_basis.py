@@ -76,6 +76,36 @@ def _base_by_prompt(pool_dir):
     return base, texts
 
 
+def _truncated(t):
+    """Proxy for hitting max_new_tokens: completion ends without terminal punctuation."""
+    t = t.rstrip()
+    return not t.endswith((".", "!", "?", '"', ")", "]", "}", "`", ":"))
+
+
+# ----------------------------------------------------------------- phase: pool ----
+def phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok):
+    """Generate a base pool at THIS run's max_new_tokens (detruncated) + RM-score it; logs the
+    truncation rate so we can confirm the fix. Shared by the router (base(x)) and by Job B (steering)."""
+    steer_layer = base_cfg["steer_layer"]
+    gcfg = _gcfg(steer_layer, pb["pool"])
+    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"])
+    mb = pb["pool"]["m_base"]
+    torch.manual_seed(pb["optim"]["seed"])
+    OUT.mkdir(parents=True, exist_ok=True)
+    trunc = []
+    with open(OUT / "pool.jsonl", "w") as f:
+        for split in ("train", "test"):
+            for pi, prompt in enumerate(P[split]):
+                for c in generate_batch(model, tok, [prompt] * mb, gcfg):
+                    if c.strip():
+                        trunc.append(_truncated(c))
+                        f.write(json.dumps({"split": split, "pi": pi, "prompt": prompt,
+                                            "completion": c, "rm": rm_score(rm, rm_tok, prompt, c)}) + "\n")
+                f.flush()
+    print(f"detrunc base pool -> {OUT / 'pool.jsonl'}  (truncation {np.mean(trunc):.0%} at "
+          f"max_new_tokens={pb['pool']['max_new_tokens']}; was 72% at 128)")
+
+
 @torch.no_grad()
 def _read_states_multi(model, tok, prompt, layers):
     """Last-token residual state at several layers in ONE forward pass (fp32, cpu)."""
@@ -180,6 +210,19 @@ def _predict(net, Z, device):
         return net(torch.tensor(Z, dtype=torch.float32, device=device)).argmax(1).cpu().numpy()
 
 
+def _targets(M, idxs):
+    """Router class per prompt over columns idxs: 0 = none (best <= 0), else best+1."""
+    y, ok = [], []
+    for pi in range(M.shape[0]):
+        row = M[pi, idxs]
+        if np.all(np.isnan(row)):
+            ok.append(False); y.append(0); continue
+        best = int(np.nanargmax(row))
+        y.append(0 if np.nan_to_num(row[best], nan=-1e9) <= 0 else best + 1)
+        ok.append(True)
+    return np.array(y), np.array(ok)
+
+
 def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
     steer_layer = base_cfg["steer_layer"]
     gcfg = _gcfg(steer_layer, pb["pool"])
@@ -188,41 +231,30 @@ def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
     dtr = np.load(OUT / "swing_train.npz", allow_pickle=True)
     Mtr, cand = dtr["M"], list(dtr["candidates"])
     sel = json.load(open(OUT / "selection.json"))
-    S = sel["order"]                                  # selected candidate indices, greedy order
+    S = sel["order"]
     layers = pb["router"]["read_layers"]
-    m = pb["eval"]["m_test"]
+    mt = pb["eval"]["m_test"]
     torch.manual_seed(pb["optim"]["seed"] + 3)
+    ytr, oktr = _targets(Mtr, S)                       # router targets (train, full m_swing)
 
-    # ---- router targets on train: best selected move per prompt, class 0 = none (all <=0) ----
-    def targets(M, idxs):
-        y, ok = [], []
-        for pi in range(M.shape[0]):
-            row = M[pi, idxs]
-            if np.all(np.isnan(row)):
-                ok.append(False); y.append(0); continue
-            best = np.nanargmax(row)
-            y.append(0 if np.nan_to_num(row[best], nan=-1e9) <= 0 else best + 1)
-            ok.append(True)
-        return np.array(y), np.array(ok)
-    ytr, oktr = targets(Mtr, S)
-
-    # ---- test swing over SELECTED moves only (cheap): M_test + generations for the guard ----
-    Mte = np.full((len(P["test"]), len(S)), np.nan)
-    te_texts = {}
+    # ---- test swings over selected moves, SPLIT val/test halves to de-bias the oracle ----
+    Mv = np.full((len(P["test"]), len(S)), np.nan); Mt = np.full_like(Mv, np.nan)
+    te_texts, trunc = {}, []
     for pi, prompt in enumerate(P["test"]):
         b = base.get(("test", pi))
         if b is None:
             continue
         for jj, cidx in enumerate(S):
-            sc = [c for c in generate_batch(model, tok, [prompt] * m, gcfg, system=cand[cidx]) if c.strip()]
-            if sc:
-                Mte[pi, jj] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
-                te_texts[(pi, jj)] = sc
+            sc = [c for c in generate_batch(model, tok, [prompt] * mt, gcfg, system=cand[cidx]) if c.strip()]
+            if len(sc) >= 2:
+                r = [rm_score(rm, rm_tok, prompt, c) for c in sc]
+                k = max(1, min(mt // 2, len(r) - 1))
+                Mv[pi, jj] = float(np.mean(r[:k])) - b; Mt[pi, jj] = float(np.mean(r[k:])) - b
+                te_texts[(pi, jj)] = sc; trunc += [_truncated(c) for c in sc]
         if (pi + 1) % 10 == 0:
             print(f"  route/test-swing: {pi + 1}/{len(P['test'])}")
-    yte, okte = targets(Mte, list(range(len(S))))
+    yte, _ = _targets(Mv, list(range(len(S))))          # test targets from the VAL half
 
-    # ---- read states at all sweep layers (train + test) ----
     Htr = {L: [] for L in layers}; Hte = {L: [] for L in layers}
     for prompt in P["train"]:
         rs = _read_states_multi(model, tok, prompt, layers)
@@ -234,11 +266,9 @@ def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
             Hte[L].append(rs[L])
     n_class = len(S) + 1
 
-    # ---- layer sweep x {linear, mlp}: pick by held-out routing accuracy ----
-    def realized(pred):
-        vals = [0.0 if pred[pi] == 0 else np.nan_to_num(Mte[pi, pred[pi] - 1], nan=0.0)
-                for pi in range(len(P["test"]))]
-        return np.array(vals)
+    def realized(pred):                                 # score the router's pick on the TEST half
+        return np.array([0.0 if pred[pi] == 0 else np.nan_to_num(Mt[pi, pred[pi] - 1], nan=0.0)
+                         for pi in range(len(P["test"]))])
     sweep, best = [], None
     for L in layers:
         Xtr = np.stack(Htr[L])[oktr]; Xte = np.stack(Hte[L])
@@ -248,64 +278,69 @@ def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
             net = _train_head(Ztr, ytr[oktr], n_class, mode, pb, device)
             acc_tr = float((_predict(net, Ztr, device) == ytr[oktr]).mean())
             pred_te = _predict(net, Zte, device)
-            acc_te = float((pred_te == yte).mean())
-            drm = realized(pred_te)
-            rec = {"layer": L, "arm": mode, "acc_tr": acc_tr, "acc_te": acc_te,
-                   "drm": float(drm.mean()), "pred": pred_te}
+            rec = {"layer": L, "arm": mode, "acc_tr": acc_tr,
+                   "acc_te": float((pred_te == yte).mean()),
+                   "drm": float(realized(pred_te).mean()), "pred": pred_te}
             sweep.append(rec)
             if best is None or rec["acc_te"] > best["acc_te"]:
                 best = rec
+    tr_rate = float(np.mean(trunc)) if trunc else float("nan")
+    _write_report(base_cfg, pb, cand, sel, S, Mtr, Mv, Mt, sweep, best, base_texts, te_texts, P, tr_rate)
 
-    _write_report(base_cfg, pb, cand, sel, S, Mtr, Mte, yte, sweep, best, base_texts, te_texts, P)
 
-
-def _write_report(base_cfg, pb, cand, sel, S, Mtr, Mte, yte, sweep, best, base_texts, te_texts, P):
+def _write_report(base_cfg, pb, cand, sel, S, Mtr, Mv, Mt, sweep, best, base_texts, te_texts, P, tr_rate):
     mname = base_cfg["base_model"].split("/")[-1]
-    # baselines on test
-    single = np.nan_to_num(Mte[:, 0], nan=0.0)                       # k=1 greedy move, unconditional
-    oracle = np.array([max(0.0, np.nan_to_num(Mte[pi], nan=-1e9).max()) for pi in range(Mte.shape[0])])
-    slo, shi = _boot(single); olo, ohi = _boot(oracle)
+    n = Mt.shape[0]
+    single = np.nan_to_num(Mt[:, 0], nan=0.0)                          # greedy k=1 move, scored on test half
+    naive = np.array([max(0.0, np.nan_to_num(Mt[pi], nan=-1e9).max()) for pi in range(n)])  # biased (same-data max)
+    db = []                                                            # DE-BIASED: pick on val, score on test
+    for pi in range(n):
+        rv = Mv[pi]
+        if np.all(np.isnan(rv)):
+            continue
+        j = int(np.nanargmax(rv)); db.append(max(0.0, np.nan_to_num(Mt[pi, j], nan=0.0)))
+    db = np.array(db)
     bpred = best["pred"]
-    drm = np.array([0.0 if bpred[pi] == 0 else np.nan_to_num(Mte[pi, bpred[pi] - 1], nan=0.0)
-                    for pi in range(Mte.shape[0])])
-    rlo, rhi = _boot(drm)
-    frac_none = float((bpred == 0).mean())
+    router = np.array([0.0 if bpred[pi] == 0 else np.nan_to_num(Mt[pi, bpred[pi] - 1], nan=0.0) for pi in range(n)])
+    slo, shi = _boot(single); dlo, dhi = _boot(db); rlo, rhi = _boot(router); nlo, nhi = _boot(naive)
     guard = _distinct2([c for v in te_texts.values() for c in v])
     base_d2 = _distinct2([c for pi in range(len(P["test"])) for c in base_texts.get(("test", pi), [])])
 
-    L = [f"# S1 (revised) — procedural-prompt basis + learned router\n",
-         f"{mname}. X = {len(cand)} curated candidate moves (subproc.1 abstracted). Swing(x,p)=RM(sys=p)−RM(base), "
-         f"base reused from {pb['pool_dir']}. Greedy submodular basis (subproc.2), K={pb['select']['K']}; "
-         f"router read-layer swept {pb['router']['read_layers']}, PCA-{pb['router']['n_pca']} (subproc.3). "
-         f"n_train={Mtr.shape[0]}, n_test={Mte.shape[0]}, m={pb['pool']['m_swing']}. RM1="
-         f"{base_cfg['reward_model'].split('/')[-1]}.\n",
-         f"References (A2/7B): prompting +1.08, best-of-n +1.40, contrastive-steering ~0. "
+    L = ["# S1 (revised) — procedural-prompt basis + router (DETRUNCATED, de-biased)\n",
+         f"{mname}. X = {len(cand)} curated moves. Swing(x,p)=RM(sys=p)−RM(base), base regenerated at "
+         f"max_new_tokens={pb['pool']['max_new_tokens']} (truncation now {tr_rate:.0%} on move gens; was 72% at 128). "
+         f"Greedy submodular basis K={pb['select']['K']}; router read-layer swept {pb['router']['read_layers']}, "
+         f"PCA-{pb['router']['n_pca']}. n_train={Mtr.shape[0]}, n_test={n}, m_swing={pb['pool']['m_swing']}, "
+         f"m_test={pb['eval']['m_test']} (val/test split). RM1={base_cfg['reward_model'].split('/')[-1]}.\n",
+         f"References (A2/7B, TRUNCATED — now suspect): prompting +1.08, best-of-n +1.40, steering ~0. "
          f"Base distinct-2 {base_d2:.3f}.\n",
-         "## Subprocedure 2 — greedy submodular basis (value-vs-K, oracle per-prompt captured swing)",
+         "## Subprocedure 2 — greedy submodular basis (value-vs-K; does 'concise' still dominate post-detrunc?)",
          "| K | marginal | mean captured swing | move |", "|---|---|---|---|"]
     for s in sel["selected"]:
         L.append(f"| {s['rank']} | +{s['marginal']:.3f} | {s['mean_captured_swing']:+.3f} | {s['move'][:80]} |")
-    L += ["", "## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM)",
-          "| layer | arm | acc train | acc test | ΔRM1 (realized) |", "|---|---|---|---|---|"]
+    L += ["", "## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM, test half)",
+          "| layer | arm | acc train | acc test | ΔRM1 |", "|---|---|---|---|---|"]
     for r in sweep:
         star = "  ⟵ best" if r is best else ""
         L.append(f"| {r['layer']} | {r['arm']} | {r['acc_tr']:.2f} | {r['acc_te']:.2f} | {r['drm']:+.3f}{star} |")
-    L += ["", "## Held-out result (best router: "
-          f"layer {best['layer']}, {best['arm']})",
-          f"- **Learned router ΔRM1: {drm.mean():+.3f} [{rlo:+.3f}, {rhi:+.3f}]** (routes to 'none' on "
-          f"{frac_none:.0%} of prompts).",
+    L += ["", f"## Held-out result (best router: layer {best['layer']}, {best['arm']}; all scored on the test half)",
+          f"- **Learned router ΔRM1: {router.mean():+.3f} [{rlo:+.3f}, {rhi:+.3f}]**.",
           f"- Best SINGLE unconditional move (k=1): {single.mean():+.3f} [{slo:+.3f}, {shi:+.3f}]  "
-          f"— the load-bearing baseline; router must beat this for conditioning to be worth it.",
-          f"- Oracle-over-basis ceiling: {oracle.mean():+.3f} [{olo:+.3f}, {ohi:+.3f}].",
-          f"- Router-routed generations distinct-2 {guard:.3f} (base {base_d2:.3f}); guard for collapse.",
+          f"— the load-bearing baseline; router must beat this for conditioning to pay.",
+          f"- **De-biased oracle-over-basis (pick on val, score on test): {db.mean():+.3f} [{dlo:+.3f}, {dhi:+.3f}]** "
+          f"— the TRUE routing ceiling; its gap over the single move is the real conditioning headroom.",
+          f"- Naive (biased) oracle for reference: {naive.mean():+.3f} [{nlo:+.3f}, {nhi:+.3f}] "
+          f"— inflation vs de-biased = the winner's-curse we removed.",
+          f"- Routed generations distinct-2 {guard:.3f} (base {base_d2:.3f}).",
           "", "## Reading",
-          "- **router > best-single-move (CIs)** ⇒ conditioning pays — the prompt-basis method works "
-          "where steering's did not. Compare the gap to the oracle-over-basis ceiling (routing quality).",
-          "- **router ≈ best-single-move** ⇒ no conditioning value yet: either the routing signal is weak "
-          "or X lacks type-specific moves (⇒ build the LLM-from-preferences generator for a stronger X).",
-          "- **large train→test accuracy gap** ⇒ router is data-limited at n_train — scale prompts (only "
-          "grows the parallel swing precompute, no redesign).",
-          "- Judge magnitudes against prompting (+1.08) and best-of-n (+1.40)."]
+          "- **truncation now low** confirms the fix; compare the surviving swings to the 128-token run to see "
+          "how much single-turn 'headroom' was truncation-avoidance.",
+          "- **de-biased oracle ≫ best-single-move** ⇒ real single-turn conditioning headroom exists (then judge "
+          "whether the router captures it: router vs single). **de-biased ≈ single** ⇒ conditioning is mostly "
+          "illusory here ⇒ carry routing to multi-turn (Subproject 2).",
+          "- **router > single (CIs)** ⇒ conditioning pays and is learnable now; **router ≈ single** with a large "
+          "de-biased gap ⇒ signal exists but router is data-limited (scale prompts).",
+          "- Judge magnitudes against the detruncated single move; the old +1.08/+1.40 refs are truncation-suspect."]
     BASIS.mkdir(exist_ok=True)
     (BASIS / REPORT).write_text("\n".join(L) + "\n")
     print("\n".join(x for x in L if not x.startswith("|")))
@@ -315,7 +350,7 @@ def _write_report(base_cfg, pb, cand, sel, S, Mtr, Mte, yte, sweep, best, base_t
 def main():
     global OUT, REPORT
     ap = argparse.ArgumentParser()
-    ap.add_argument("--phase", choices=["swing", "select", "route", "all"], default="all")
+    ap.add_argument("--phase", choices=["pool", "swing", "select", "route", "all"], default="all")
     ap.add_argument("--config", default=None)
     ap.add_argument("--base-config", default=None)
     args = ap.parse_args()
@@ -329,8 +364,10 @@ def main():
     t0 = time.time()
     model, tok = load_base(base_cfg, device)
     rm = rm_tok = None
-    if args.phase in ("swing", "route", "all"):
+    if args.phase in ("pool", "swing", "route", "all"):
         rm, rm_tok = load_rm(base_cfg, device)
+    if args.phase in ("pool", "all"):
+        phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok)
     if args.phase in ("swing", "all"):
         phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok)
     if args.phase in ("select", "all"):
