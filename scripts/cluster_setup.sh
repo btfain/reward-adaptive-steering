@@ -1,37 +1,52 @@
 #!/bin/bash
-# One-time environment setup on the Duke CS cluster. Run from the repo root on
-# a login node. No module system needed per the cluster docs; falls back to
-# Miniconda if the system python3 is too old for torch (needs >= 3.10).
+# Environment setup on the Duke CS cluster. Builds an OS-INDEPENDENT env that also lives OFF the
+# home quota:
+#   * a pinned Miniconda python (default 3.11) on xtmp scratch  -> immune to system-python/OS upgrades
+#     (e.g. Ubuntu 26.04) that break a venv riding /bin/python3;
+#   * a venv created from that python, placed ON xtmp and symlinked as ./.venv, so every sbatch
+#     `source .venv/bin/activate` keeps working while the multi-GB env stays off the home quota;
+#   * the HF model cache on xtmp too.
+# Idempotent — RE-RUN this any time the env breaks (e.g. after the nodes are upgraded). Override the
+# python version with PYVER=3.12, or the scratch dir with SCRATCH_DIR=/path.
 set -euo pipefail
 
-# Prefer /usr/xtmp scratch if it exists (keeps ~5GB HF cache off home quota);
-# otherwise fall back to home. Override by exporting SCRATCH_DIR beforehand.
+# --- scratch (expanded xtmp preferred; keeps env + HF cache off the home quota) ---
 if [ -z "${SCRATCH_DIR:-}" ]; then
-    if [ -d "/usr/xtmp/$USER" ] || mkdir -p "/usr/xtmp/$USER" 2>/dev/null; then
-        SCRATCH_DIR="/usr/xtmp/$USER"
-    else
-        SCRATCH_DIR="$HOME/scratch"
-    fi
+    if mkdir -p "/usr/xtmp/$USER" 2>/dev/null; then SCRATCH_DIR="/usr/xtmp/$USER"; else SCRATCH_DIR="$HOME/scratch"; fi
 fi
-echo "using scratch: $SCRATCH_DIR"
+CONDA_DIR="$SCRATCH_DIR/miniconda3"
+PYENV_DIR="$SCRATCH_DIR/ras_py"          # pinned-python conda env
+VENV_DIR="$SCRATCH_DIR/ras_venv"         # the actual venv (off home quota)
+PYVER="${PYVER:-3.11}"
+echo "scratch: $SCRATCH_DIR   python: $PYVER"
 
-PYV=$(python3 -c 'import sys; print(sys.version_info[0]*100+sys.version_info[1])' || echo 0)
-if [ "$PYV" -lt 310 ]; then
-    echo "system python3 too old ($PYV) — installing Miniconda into $SCRATCH_DIR/miniconda3"
+# --- pinned, OS-independent python via Miniconda on scratch ---
+if [ ! -x "$CONDA_DIR/bin/conda" ]; then
+    echo "installing Miniconda -> $CONDA_DIR"
     curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/mc.sh
-    bash /tmp/mc.sh -b -p "$SCRATCH_DIR/miniconda3"
-    PYTHON="$SCRATCH_DIR/miniconda3/bin/python3"
-else
-    PYTHON=python3
+    bash /tmp/mc.sh -b -p "$CONDA_DIR"
+    rm -f /tmp/mc.sh
 fi
+if [ ! -x "$PYENV_DIR/bin/python" ]; then
+    "$CONDA_DIR/bin/conda" create -y -p "$PYENV_DIR" "python=$PYVER"
+fi
+PYTHON="$PYENV_DIR/bin/python"
+echo "python: $("$PYTHON" --version)"
 
-"$PYTHON" -m venv .venv
+# --- venv on scratch, symlinked into the repo so `source .venv/bin/activate` still works ---
+rm -rf "$VENV_DIR"
+"$PYTHON" -m venv "$VENV_DIR"
+rm -rf .venv && ln -s "$VENV_DIR" .venv          # repo-local symlink -> scratch venv (gitignored)
+# shellcheck disable=SC1091
 source .venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements.txt || {
+    echo "pip install failed (often: no torch wheel for python $PYVER). Retry with e.g. PYVER=3.12,"
+    echo "or relax the torch pin in requirements.txt, then re-run this script."; exit 1; }
 
-# Keep the ~5GB HF model cache off the home quota (cluster is not backed up;
-# everything in the cache is re-downloadable anyway).
+# --- HF cache on scratch (off home quota; re-downloadable) ---
 mkdir -p "$SCRATCH_DIR/hf_cache"
-echo "export HF_HOME=$SCRATCH_DIR/hf_cache" >> .venv/bin/activate
-echo "setup done — submit scripts/stageA_compliance.sbatch first"
+grep -q "HF_HOME=" "$VENV_DIR/bin/activate" || echo "export HF_HOME=$SCRATCH_DIR/hf_cache" >> "$VENV_DIR/bin/activate"
+
+echo "setup done. env lives on scratch ($VENV_DIR), symlinked as ./.venv (off home quota)."
+echo "verify on a compute node:  sbatch scripts/env_check.sbatch"
