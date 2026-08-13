@@ -1,0 +1,81 @@
+{
+  "order": [
+    10,
+    11,
+    18,
+    15,
+    0,
+    17,
+    19,
+    8
+  ],
+  "curve": [
+    0.5201297336154515,
+    0.7722483317057292,
+    0.9115837944878471,
+    1.0265631781684026,
+    1.0989359537760417,
+    1.1629706488715277,
+    1.2205390082465277,
+    1.2590607537163625
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 10,
+      "move": "Explain the reasoning behind your answer, not just the conclusion.",
+      "mean_captured_swing": 0.5201297336154515,
+      "marginal": 0.5201297336154515
+    },
+    {
+      "rank": 2,
+      "cand_idx": 11,
+      "move": "Prioritize factual accuracy and avoid presenting speculation as fact.",
+      "mean_captured_swing": 0.7722483317057292,
+      "marginal": 0.2521185980902777
+    },
+    {
+      "rank": 3,
+      "cand_idx": 18,
+      "move": "Where the question is ambiguous, state your interpretation explicitly and answer accordingly.",
+      "mean_captured_swing": 0.9115837944878471,
+      "marginal": 0.13933546278211795
+    },
+    {
+      "rank": 4,
+      "cand_idx": 15,
+      "move": "Support your claims with specific data, numbers, or evidence where possible.",
+      "mean_captured_swing": 1.0265631781684026,
+      "marginal": 0.11497938368055549
+    },
+    {
+      "rank": 5,
+      "cand_idx": 0,
+      "move": "Be concise and remove any filler, repetition, or throat-clearing.",
+      "mean_captured_swing": 1.0989359537760417,
+      "marginal": 0.0723727756076391
+    },
+    {
+      "rank": 6,
+      "cand_idx": 17,
+      "move": "If code is involved, provide complete, runnable code with brief explanatory comments.",
+      "mean_captured_swing": 1.1629706488715277,
+      "marginal": 0.06403469509548598
+    },
+    {
+      "rank": 7,
+      "cand_idx": 19,
+      "move": "Be direct and give a helpful answer rather than deflecting or over-hedging.",
+      "mean_captured_swing": 1.2205390082465277,
+      "marginal": 0.057568359375000044
+    },
+    {
+      "rank": 8,
+      "cand_idx": 8,
+      "move": "If you are uncertain about anything, say so explicitly and explain the source of the uncertainty.",
+      "mean_captured_swing": 1.2590607537163625,
+      "marginal": 0.03852174546983478
+    }
+  ],
+  "unconditional_best_idx": 10
+}
