@@ -1,0 +1,35 @@
+# S1 (revised) — VALIDITY run: same as prompt_basis_detrunc_7b but max_new_tokens 256 -> 512, holding
+# prompts fixed (120/50) so it's a clean one-variable comparison: does the +1.18 conditioning gap
+# survive when truncation is further reduced? Regenerates its own 512-token base pool (reused by the
+# matching larger B). Run: --phase all --base-config configs/base_7b.yaml --config configs/prompt_basis_detrunc512_7b.yaml
+
+tag: "detrunc512_7b"
+pool_dir: "results/prompt_basis_detrunc512_7b"     # == this run's OUT; phase_pool writes pool.jsonl here
+candidates_file: "configs/candidates_seed_v2.txt"
+
+select:
+  K: 8
+
+router:
+  read_layers: [8, 14, 18, 22, 27]
+  n_pca: 40
+  arms: [linear, mlp]
+  mlp_hidden: 128
+  epochs: 300
+  lr: 0.05
+  weight_decay: 0.001
+
+pool:
+  n_prompts_train: 120                             # held fixed vs the 256 run (one-variable comparison)
+  n_prompts_test: 50
+  m_base: 6
+  m_swing: 4
+  max_new_tokens: 512                              # the change: further detruncate (was 256 -> 57%)
+  temperature: 0.9
+  top_p: 0.95
+
+eval:
+  m_test: 12
+
+optim:
+  seed: 0
