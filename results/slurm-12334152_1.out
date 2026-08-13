@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 90/339 [00:00<00:00, 844.84it/s]Loading weights:  52%|█████▏    | 175/339 [00:00<00:00, 605.48it/s]Loading weights:  71%|███████   | 240/339 [00:00<00:00, 517.64it/s]Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 504.27it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 558.43it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 39/311 [00:00<00:00, 331.39it/s]Loading weights:  31%|███       | 95/311 [00:00<00:00, 437.13it/s]Loading weights:  46%|████▌     | 143/311 [00:00<00:00, 445.35it/s]Loading weights:  64%|██████▍   | 199/311 [00:00<00:00, 476.03it/s]Loading weights:  80%|████████  | 250/311 [00:00<00:00, 467.76it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 484.36it/s]
+In file included from /usr/xtmp/btf12/ras_py/include/python3.11/Python.h:12,
+                 from /tmp/tmpevsukqld/cuda_utils.c:9:
+/usr/xtmp/btf12/ras_py/include/python3.11/pyconfig.h:1793:9: warning: ‘_POSIX_C_SOURCE’ redefined
+ 1793 | #define _POSIX_C_SOURCE 200809L
+      |         ^~~~~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33,
+                 from /usr/include/stdlib.h:26,
+                 from /usr/project/xtmp/btf12/ras_venv/lib/python3.11/site-packages/triton/backends/nvidia/include/cuda.h:56,
+                 from /tmp/tmpevsukqld/cuda_utils.c:1:
+/usr/include/features.h:319:10: note: this is the location of the previous definition
+  319 | # define _POSIX_C_SOURCE        202405L
+      |          ^~~~~~~~~~~~~~~
+base pool (shard 1/3) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/pool_shard_1.jsonl  (truncation 83% at max_new_tokens=64)
+swing shard 1/3 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/swing_shard_1.npz  (2 rows)
+{'ts': '2026-08-13T12:18:37', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 52.77, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.468, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 1/3 — after all 3, run: sbatch scripts/stageS1_shardtest_post.sbatch

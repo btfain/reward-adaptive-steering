@@ -1,0 +1,8 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  56%|█████▋    | 191/339 [00:00<00:00, 1875.83it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1578.51it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 106/311 [00:00<00:00, 1041.84it/s]Loading weights:  81%|████████  | 252/311 [00:00<00:00, 1285.47it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1286.47it/s]
+base pool (shard 2/3) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/pool_shard_2.jsonl  (truncation 100% at max_new_tokens=64)
+swing shard 2/3 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/swing_shard_2.npz  (2 rows)
+{'ts': '2026-08-13T12:19:03', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 50.36, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.464, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 2/3 — after all 3, run: sbatch scripts/stageS1_shardtest_post.sbatch

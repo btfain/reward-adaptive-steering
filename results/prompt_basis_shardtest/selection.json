@@ -1,0 +1,27 @@
+{
+  "order": [
+    0,
+    1
+  ],
+  "curve": [
+    1.9340922037760417,
+    1.9340922037760417
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 0,
+      "move": "Be concise and remove any filler, repetition, or throat-clearing.",
+      "mean_captured_swing": 1.9340922037760417,
+      "marginal": 1.9340922037760417
+    },
+    {
+      "rank": 2,
+      "cand_idx": 1,
+      "move": "Give a thorough, complete answer that addresses every part of the question.",
+      "mean_captured_swing": 1.9340922037760417,
+      "marginal": 0.0
+    }
+  ],
+  "unconditional_best_idx": 0
+}

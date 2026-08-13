@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  20%|█▉        | 67/339 [00:00<00:00, 646.63it/s]Loading weights:  45%|████▍     | 151/339 [00:00<00:00, 758.38it/s]Loading weights:  67%|██████▋   | 228/339 [00:00<00:00, 640.43it/s]Loading weights:  87%|████████▋ | 294/339 [00:00<00:00, 570.57it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 605.24it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  36%|███▌      | 111/311 [00:00<00:00, 1088.88it/s]Loading weights:  71%|███████   | 220/311 [00:00<00:00, 681.75it/s] Loading weights:  95%|█████████▌| 297/311 [00:00<00:00, 618.69it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 689.00it/s]
+In file included from /usr/xtmp/btf12/ras_py/include/python3.11/Python.h:12,
+                 from /tmp/tmpmusxem6z/cuda_utils.c:9:
+/usr/xtmp/btf12/ras_py/include/python3.11/pyconfig.h:1793:9: warning: ‘_POSIX_C_SOURCE’ redefined
+ 1793 | #define _POSIX_C_SOURCE 200809L
+      |         ^~~~~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33,
+                 from /usr/include/stdlib.h:26,
+                 from /usr/project/xtmp/btf12/ras_venv/lib/python3.11/site-packages/triton/backends/nvidia/include/cuda.h:56,
+                 from /tmp/tmpmusxem6z/cuda_utils.c:1:
+/usr/include/features.h:319:10: note: this is the location of the previous definition
+  319 | # define _POSIX_C_SOURCE        202405L
+      |          ^~~~~~~~~~~~~~~
+base pool (shard 0/3) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/pool_shard_0.jsonl  (truncation 83% at max_new_tokens=64)
+swing shard 0/3 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_shardtest/swing_shard_0.npz  (2 rows)
+{'ts': '2026-08-13T12:18:38', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 53.83, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.467, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 0/3 — after all 3, run: sbatch scripts/stageS1_shardtest_post.sbatch

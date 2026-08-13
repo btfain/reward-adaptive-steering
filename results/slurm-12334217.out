@@ -1,0 +1,34 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 146/339 [00:00<00:00, 1438.52it/s]Loading weights:  86%|████████▌ | 290/339 [00:00<00:00, 1333.88it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1366.63it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  23%|██▎       | 70/311 [00:00<00:00, 672.55it/s]Loading weights:  65%|██████▌   | 203/311 [00:00<00:00, 984.79it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1088.63it/s]
+assembled 3 swing + 3 pool shards -> swing_train.npz (6x2, 0 train prompts missing), pool.jsonl
+Greedy submodular basis (value-vs-K):
+  K=1: +1.934 -> +1.934  | Be concise and remove any filler, repetition, or throat-clearing.
+  K=2: +0.000 -> +1.934  | Give a thorough, complete answer that addresses every part of the ques
+# S1 (revised) — procedural-prompt basis + router (DETRUNCATED, de-biased)
+
+Qwen2.5-7B-Instruct. X = 2 curated moves. Swing(x,p)=RM(sys=p)−RM(base), base regenerated at max_new_tokens=64 (truncation now 75% on move gens; was 72% at 128). Greedy submodular basis K=2; router read-layer swept [8, 18], PCA-4. n_train=6, n_test=3, m_swing=2, m_test=2 (val/test split). RM1=Skywork-Reward-V2-Qwen3-0.6B.
+
+References (A2/7B, TRUNCATED — now suspect): prompting +1.08, best-of-n +1.40, steering ~0. Base distinct-2 0.869.
+
+## Subprocedure 2 — greedy submodular basis (value-vs-K; does 'concise' still dominate post-detrunc?)
+
+## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM, test half)
+
+## Held-out result (best router: layer 8, linear; all scored on the test half)
+- **Learned router ΔRM1: +0.475 [-1.426, +1.984]**.
+- Best SINGLE unconditional move (k=1): +0.475 [-1.426, +1.984]  — the load-bearing baseline; router must beat this for conditioning to pay.
+- **De-biased oracle-over-basis (pick on val, score on test): +0.438 [+0.000, +0.867]** — the TRUE routing ceiling; its gap over the single move is the real conditioning headroom.
+- Naive (biased) oracle for reference: +0.951 [+0.000, +1.984] — inflation vs de-biased = the winner's-curse we removed.
+- Routed generations distinct-2 0.726 (base 0.869).
+
+## Reading
+- **truncation now low** confirms the fix; compare the surviving swings to the 128-token run to see how much single-turn 'headroom' was truncation-avoidance.
+- **de-biased oracle ≫ best-single-move** ⇒ real single-turn conditioning headroom exists (then judge whether the router captures it: router vs single). **de-biased ≈ single** ⇒ conditioning is mostly illusory here ⇒ carry routing to multi-turn (Subproject 2).
+- **router > single (CIs)** ⇒ conditioning pays and is learnable now; **router ≈ single** with a large de-biased gap ⇒ signal exists but router is data-limited (scale prompts).
+- Judge magnitudes against the detruncated single move; the old +1.08/+1.40 refs are truncation-suspect.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_pbasis_shardtest_report.md
+{'ts': '2026-08-13T12:25:16', 'stage': 'S1', 'event': 'prompt_basis_postshard', 'wall_s': 58.9, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.468, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE — push basis/s1_pbasis_shardtest_report.md + results/prompt_basis_shardtest/ to inspect.
