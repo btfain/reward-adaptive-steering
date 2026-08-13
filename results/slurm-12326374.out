@@ -1,0 +1,59 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  25%|██▌       | 85/339 [00:00<00:00, 849.67it/s]Loading weights:  50%|█████     | 170/339 [00:00<00:00, 731.09it/s]Loading weights:  72%|███████▏  | 245/339 [00:00<00:00, 559.92it/s]Loading weights:  96%|█████████▌| 324/339 [00:00<00:00, 628.94it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 658.95it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   8%|▊         | 24/311 [00:00<00:01, 223.77it/s]Loading weights:  31%|███       | 95/311 [00:00<00:00, 493.76it/s]Loading weights:  47%|████▋     | 145/311 [00:00<00:00, 467.07it/s]Loading weights:  66%|██████▌   | 206/311 [00:00<00:00, 519.71it/s]Loading weights:  85%|████████▌ | 265/311 [00:00<00:00, 534.73it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 517.04it/s]
+  swing: 10/150 prompts
+  swing: 20/150 prompts
+  swing: 30/150 prompts
+  swing: 40/150 prompts
+  swing: 50/150 prompts
+  swing: 60/150 prompts
+  swing: 70/150 prompts
+  swing: 80/150 prompts
+  swing: 90/150 prompts
+  swing: 100/150 prompts
+  swing: 110/150 prompts
+  swing: 120/150 prompts
+  swing: 130/150 prompts
+  swing: 140/150 prompts
+  swing: 150/150 prompts
+swing matrix -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_7b/swing_train.npz  (mean swing -0.296, best-move mean +2.242)
+Greedy submodular basis (value-vs-K):
+  K=1: +1.258 -> +1.258  | Be concise and remove any filler, repetition, or throat-clearing.
+  K=2: +0.432 -> +1.691  | Be direct and give a helpful answer rather than deflecting or over-hed
+  K=3: +0.121 -> +1.812  | Be honest about what is unknown or unknowable rather than fabricating 
+  K=4: +0.087 -> +1.899  | Answer the question directly in the first sentence, then provide suppo
+  K=5: +0.058 -> +1.958  | Prioritize factual accuracy and avoid presenting speculation as fact.
+  K=6: +0.051 -> +2.009  | Organize your response with clear structure, using short paragraphs or
+  K=7: +0.042 -> +2.051  | If you are uncertain about anything, say so explicitly and explain the
+  K=8: +0.027 -> +2.078  | Acknowledge the user's underlying goal and address that, not just the 
+  route/test-swing: 10/50
+  route/test-swing: 20/50
+  route/test-swing: 30/50
+  route/test-swing: 40/50
+  route/test-swing: 50/50
+# S1 (revised) — procedural-prompt basis + learned router
+
+Qwen2.5-7B-Instruct. X = 36 curated candidate moves (subproc.1 abstracted). Swing(x,p)=RM(sys=p)−RM(base), base reused from results/steer_rm_7b. Greedy submodular basis (subproc.2), K=8; router read-layer swept [8, 14, 18, 22, 27], PCA-40 (subproc.3). n_train=150, n_test=50, m=4. RM1=Skywork-Reward-V2-Qwen3-0.6B.
+
+References (A2/7B): prompting +1.08, best-of-n +1.40, contrastive-steering ~0. Base distinct-2 0.576.
+
+## Subprocedure 2 — greedy submodular basis (value-vs-K, oracle per-prompt captured swing)
+
+## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM)
+
+## Held-out result (best router: layer 8, linear)
+- **Learned router ΔRM1: +0.860 [+0.431, +1.309]** (routes to 'none' on 2% of prompts).
+- Best SINGLE unconditional move (k=1): +0.905 [+0.372, +1.423]  — the load-bearing baseline; router must beat this for conditioning to be worth it.
+- Oracle-over-basis ceiling: +1.986 [+1.618, +2.362].
+- Router-routed generations distinct-2 0.443 (base 0.576); guard for collapse.
+
+## Reading
+- **router > best-single-move (CIs)** ⇒ conditioning pays — the prompt-basis method works where steering's did not. Compare the gap to the oracle-over-basis ceiling (routing quality).
+- **router ≈ best-single-move** ⇒ no conditioning value yet: either the routing signal is weak or X lacks type-specific moves (⇒ build the LLM-from-preferences generator for a stronger X).
+- **large train→test accuracy gap** ⇒ router is data-limited at n_train — scale prompts (only grows the parallel swing precompute, no redesign).
+- Judge magnitudes against prompting (+1.08) and best-of-n (+1.40).
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_pbasis_7b_report.md
+{'ts': '2026-08-12T21:10:10', 'stage': 'S1', 'event': 'prompt_basis_all', 'wall_s': 18645.1, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.712, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE — push basis/s1_pbasis_7b_report.md, results/prompt_basis_7b/, results/cost_log.jsonl, slurm log.

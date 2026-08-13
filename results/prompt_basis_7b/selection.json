@@ -1,0 +1,81 @@
+{
+  "order": [
+    2,
+    30,
+    35,
+    0,
+    10,
+    4,
+    7,
+    21
+  ],
+  "curve": [
+    1.2584114837646485,
+    1.6907621002197266,
+    1.8122385406494141,
+    1.8994313049316407,
+    1.9576930236816406,
+    2.0089957173665365,
+    2.050686798095703,
+    2.0775359598795573
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 2,
+      "move": "Be concise and remove any filler, repetition, or throat-clearing.",
+      "mean_captured_swing": 1.2584114837646485,
+      "marginal": 1.2584114837646485
+    },
+    {
+      "rank": 2,
+      "cand_idx": 30,
+      "move": "Be direct and give a helpful answer rather than deflecting or over-hedging.",
+      "mean_captured_swing": 1.6907621002197266,
+      "marginal": 0.4323506164550781
+    },
+    {
+      "rank": 3,
+      "cand_idx": 35,
+      "move": "Be honest about what is unknown or unknowable rather than fabricating an answer.",
+      "mean_captured_swing": 1.8122385406494141,
+      "marginal": 0.12147644042968753
+    },
+    {
+      "rank": 4,
+      "cand_idx": 0,
+      "move": "Answer the question directly in the first sentence, then provide supporting detail.",
+      "mean_captured_swing": 1.8994313049316407,
+      "marginal": 0.08719276428222655
+    },
+    {
+      "rank": 5,
+      "cand_idx": 10,
+      "move": "Prioritize factual accuracy and avoid presenting speculation as fact.",
+      "mean_captured_swing": 1.9576930236816406,
+      "marginal": 0.05826171874999986
+    },
+    {
+      "rank": 6,
+      "cand_idx": 4,
+      "move": "Organize your response with clear structure, using short paragraphs or bullet points where it aids readability.",
+      "mean_captured_swing": 2.0089957173665365,
+      "marginal": 0.05130269368489593
+    },
+    {
+      "rank": 7,
+      "cand_idx": 7,
+      "move": "If you are uncertain about anything, say so explicitly and explain the source of the uncertainty.",
+      "mean_captured_swing": 2.050686798095703,
+      "marginal": 0.04169108072916661
+    },
+    {
+      "rank": 8,
+      "cand_idx": 21,
+      "move": "Acknowledge the user's underlying goal and address that, not just the literal question.",
+      "mean_captured_swing": 2.0775359598795573,
+      "marginal": 0.026849161783854214
+    }
+  ],
+  "unconditional_best_idx": 30
+}
