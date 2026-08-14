@@ -233,25 +233,49 @@ def phase_select(base_cfg, pb, device, model, tok):
         print(f"  K={s['rank']}: +{s['marginal']:.3f} -> {s['mean_captured_swing']:+.3f}  | {s['move'][:70]}")
 
 
+@torch.no_grad()
+def _read_reps(model, tok, prompt, layers):
+    """Both the LAST-token and the MEAN-pooled (over all prompt tokens) residual state at each layer,
+    in one forward pass (fp32, cpu). {(L,'last'): vec, (L,'mean'): vec}."""
+    enc = tok.apply_chat_template([{"role": "user", "content": prompt}], add_generation_prompt=True,
+                                  return_tensors="pt", return_dict=True).to(model.device)
+    cap, handles = {}, []
+    for L in layers:
+        handles.append(model.model.layers[L].register_forward_hook(
+            lambda _m, _i, o, L=L: cap.__setitem__(L, (o[0] if isinstance(o, tuple) else o).detach())))
+    try:
+        model(enc["input_ids"])
+    finally:
+        for h in handles:
+            h.remove()
+    out = {}
+    for L in layers:
+        h = cap[L][0].float()                     # (T, d)
+        out[(L, "last")] = h[-1].cpu().numpy()
+        out[(L, "mean")] = h.mean(0).cpu().numpy()
+    return out
+
+
 # --------------------------------------------------------------- phase: states ----
 def phase_states(base_cfg, pb, device, model, tok):
-    """Cache read states for ALL prompts at the sweep layers (no generation, ~minutes). Lets the
-    router (src/router_explore.py) iterate architectures offline against the saved swing matrix."""
+    """Cache read states for ALL prompts at the sweep layers, BOTH last-token and mean-pooled (no
+    generation, ~minutes). Lets src/router_explore.py iterate architectures/representations offline."""
     layers = pb["router"]["read_layers"]
     P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"], pb.get("prompts_split", "train"))
     model.requires_grad_(False)
     OUT.mkdir(parents=True, exist_ok=True)
-    H = {f"H{sp}_{L}": [] for sp in ("tr", "te") for L in layers}
+    H = {f"H{sp}_{L}_{rep}": [] for sp in ("tr", "te") for L in layers for rep in ("last", "mean")}
     for sp, key in (("train", "tr"), ("test", "te")):
         for i, prompt in enumerate(P[sp]):
-            rs = _read_states_multi(model, tok, prompt, layers)
+            rs = _read_reps(model, tok, prompt, layers)
             for L in layers:
-                H[f"H{key}_{L}"].append(rs[L])
+                for rep in ("last", "mean"):
+                    H[f"H{key}_{L}_{rep}"].append(rs[(L, rep)])
             if (i + 1) % 50 == 0:
                 print(f"  states {sp}: {i + 1}/{len(P[sp])}")
     np.savez(OUT / "states.npz", layers=np.array(layers),
              **{k: np.stack(v) for k, v in H.items()})
-    print(f"states cache -> {OUT / 'states.npz'}")
+    print(f"states cache (last + mean pooled) -> {OUT / 'states.npz'}")
 
 
 # ---------------------------------------------------------------- phase: route ----

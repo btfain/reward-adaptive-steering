@@ -111,6 +111,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="large_7b")
     ap.add_argument("--n_pca", type=int, default=40)
+    ap.add_argument("--rep", default="last", choices=["last", "mean"], help="last-token vs mean-pooled LLM state")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -138,7 +139,7 @@ def main():
 
     rows, best = [], None
     for L in layers:
-        Htr = st[f"Htr_{L}"]
+        Htr = st[f"Htr_{L}_{args.rep}"]
         Ztr_all, Zva_all, Zev_all = _pca(Htr[tr_i], [Htr[tr_i], Htr[va_i], Htr[ev_i]], args.n_pca)
         for vname, reg in (("cls", False), ("reg", True)):
             for cname, mlp in (("linear", False), ("mlp", True)):
