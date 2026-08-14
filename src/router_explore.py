@@ -111,13 +111,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="large_7b")
     ap.add_argument("--n_pca", type=int, default=40)
-    ap.add_argument("--rep", default="last", choices=["last", "mean"], help="last-token vs mean-pooled LLM state")
+    ap.add_argument("--rep", default="last", choices=["last", "mean", "enc"],
+                    help="last-token / mean-pooled LLM state, or 'enc' = frozen text-encoder embeddings (embed_prompts.py)")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     OUT = REPO_ROOT / "results" / f"prompt_basis_{args.tag}"
-    st = np.load(OUT / "states.npz", allow_pickle=True)
-    layers = [int(L) for L in st["layers"]]
+    if args.rep == "enc":                                       # frozen text-encoder embeddings
+        ec = np.load(OUT / "enc_embed.npz", allow_pickle=True)
+        layers = ["enc"]
+        def get_Htr(_L):
+            return ec["Htr"]
+    else:                                                       # LLM last-token / mean-pooled states
+        st = np.load(OUT / "states.npz", allow_pickle=True)
+        layers = [int(L) for L in st["layers"]]
+        def get_Htr(L):
+            return st[f"Htr_{L}_{args.rep}"]
     sw = np.load(OUT / "swing_train.npz", allow_pickle=True)
     S = json.load(open(OUT / "selection.json"))["order"]
     Msel = sw["M"][:, S]                                        # (n_train, K) train swings over selected moves
@@ -139,7 +148,7 @@ def main():
 
     rows, best = [], None
     for L in layers:
-        Htr = st[f"Htr_{L}_{args.rep}"]
+        Htr = get_Htr(L)
         Ztr_all, Zva_all, Zev_all = _pca(Htr[tr_i], [Htr[tr_i], Htr[va_i], Htr[ev_i]], args.n_pca)
         for vname, reg in (("cls", False), ("reg", True)):
             for cname, mlp in (("linear", False), ("mlp", True)):
