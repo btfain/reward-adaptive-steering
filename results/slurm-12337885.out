@@ -1,0 +1,55 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  21%|██        | 70/339 [00:00<00:00, 652.82it/s]Loading weights:  40%|████      | 136/339 [00:00<00:00, 411.47it/s]Loading weights:  54%|█████▎    | 182/339 [00:00<00:00, 361.26it/s]Loading weights:  65%|██████▌   | 221/339 [00:00<00:00, 325.94it/s]Loading weights:  75%|███████▌  | 255/339 [00:00<00:00, 314.52it/s]Loading weights:  85%|████████▍ | 288/339 [00:00<00:00, 313.47it/s]Loading weights:  94%|█████████▍| 320/339 [00:00<00:00, 292.86it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 342.01it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   9%|▉         | 28/311 [00:00<00:01, 270.76it/s]Loading weights:  20%|█▉        | 61/311 [00:00<00:00, 296.63it/s]Loading weights:  29%|██▉       | 91/311 [00:00<00:00, 290.78it/s]Loading weights:  39%|███▉      | 121/311 [00:00<00:00, 268.27it/s]Loading weights:  48%|████▊     | 150/311 [00:00<00:00, 264.60it/s]Loading weights:  59%|█████▉    | 184/311 [00:00<00:00, 283.61it/s]Loading weights:  68%|██████▊   | 213/311 [00:00<00:00, 281.11it/s]Loading weights:  78%|███████▊  | 242/311 [00:00<00:00, 280.88it/s]Loading weights:  87%|████████▋ | 271/311 [00:00<00:00, 257.66it/s]Loading weights:  97%|█████████▋| 302/311 [00:01<00:00, 266.98it/s]Loading weights: 100%|██████████| 311/311 [00:01<00:00, 280.68it/s]
+assembled 4 swing + 4 pool shards -> swing_train.npz (450x20, 0 train prompts missing), pool.jsonl
+Greedy submodular basis (value-vs-K):
+  K=1: +0.585 -> +0.585  | Give a thorough, complete answer that addresses every part of the ques
+  K=2: +0.220 -> +0.805  | Work through the problem step by step, showing your reasoning before s
+  K=3: +0.130 -> +0.935  | Explain the reasoning behind your answer, not just the conclusion.
+  K=4: +0.083 -> +1.018  | Support your claims with specific data, numbers, or evidence where pos
+  K=5: +0.062 -> +1.080  | If code is involved, provide complete, runnable code with brief explan
+  K=6: +0.036 -> +1.116  | Provide an in-depth, expert-level explanation with appropriate technic
+  K=7: +0.033 -> +1.149  | Be direct and give a helpful answer rather than deflecting or over-hed
+  K=8: +0.027 -> +1.176  | Include a concrete example to illustrate your main point.
+  route/test-swing: 10/150
+  route/test-swing: 20/150
+  route/test-swing: 30/150
+  route/test-swing: 40/150
+  route/test-swing: 50/150
+  route/test-swing: 60/150
+  route/test-swing: 70/150
+  route/test-swing: 80/150
+  route/test-swing: 90/150
+  route/test-swing: 100/150
+  route/test-swing: 110/150
+  route/test-swing: 120/150
+  route/test-swing: 130/150
+  route/test-swing: 140/150
+  route/test-swing: 150/150
+# S1 (revised) — procedural-prompt basis + router (DETRUNCATED, de-biased)
+
+Qwen2.5-7B-Instruct. X = 20 curated moves. Swing(x,p)=RM(sys=p)−RM(base), base regenerated at max_new_tokens=768 (truncation now 19% on move gens; was 72% at 128). Greedy submodular basis K=8; router read-layer swept [8, 14, 18, 22, 27], PCA-40. n_train=450, n_test=150, m_swing=4, m_test=12 (val/test split). RM1=Skywork-Reward-V2-Qwen3-0.6B.
+
+References (A2/7B, TRUNCATED — now suspect): prompting +1.08, best-of-n +1.40, steering ~0. Base distinct-2 0.540.
+
+## Subprocedure 2 — greedy submodular basis (value-vs-K; does 'concise' still dominate post-detrunc?)
+
+## Subprocedure 3 — router layer sweep (held-out routing accuracy & realized ΔRM, test half)
+
+## Held-out result (best router: layer 18, linear; all scored on the test half)
+- **Learned router ΔRM1: +0.360 [+0.154, +0.568]**.
+- Best SINGLE unconditional move (k=1): +0.355 [+0.164, +0.545]  — the load-bearing baseline; router must beat this for conditioning to pay.
+- **De-biased oracle-over-basis (pick on val, score on test): +0.813 [+0.661, +0.974]** — the TRUE routing ceiling; its gap over the single move is the real conditioning headroom.
+- Naive (biased) oracle for reference: +1.108 [+0.943, +1.277] — inflation vs de-biased = the winner's-curse we removed.
+- Routed generations distinct-2 0.261 (base 0.540).
+
+## Reading
+- **truncation now low** confirms the fix; compare the surviving swings to the 128-token run to see how much single-turn 'headroom' was truncation-avoidance.
+- **de-biased oracle ≫ best-single-move** ⇒ real single-turn conditioning headroom exists (then judge whether the router captures it: router vs single). **de-biased ≈ single** ⇒ conditioning is mostly illusory here ⇒ carry routing to multi-turn (Subproject 2).
+- **router > single (CIs)** ⇒ conditioning pays and is learnable now; **router ≈ single** with a large de-biased gap ⇒ signal exists but router is data-limited (scale prompts).
+- Judge magnitudes against the detruncated single move; the old +1.08/+1.40 refs are truncation-suspect.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_pbasis_large_7b_report.md
+{'ts': '2026-08-14T14:51:26', 'stage': 'S1', 'event': 'prompt_basis_postshard', 'wall_s': 19744.85, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 17.177, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE (scaled post) — push basis/s1_pbasis_large_7b_report.md, results/prompt_basis_large_7b/, results/cost_log.jsonl, slurm log.

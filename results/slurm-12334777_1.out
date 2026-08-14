@@ -1,0 +1,19 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  20%|██        | 68/339 [00:00<00:00, 659.64it/s]Loading weights:  40%|███▉      | 134/339 [00:00<00:00, 391.67it/s]Loading weights:  53%|█████▎    | 179/339 [00:00<00:00, 343.45it/s]Loading weights:  64%|██████▍   | 217/339 [00:00<00:00, 336.96it/s]Loading weights:  75%|███████▍  | 253/339 [00:00<00:00, 337.09it/s]Loading weights:  85%|████████▍ | 288/339 [00:00<00:00, 316.40it/s]Loading weights:  95%|█████████▍| 321/339 [00:00<00:00, 316.82it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 344.80it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  28%|██▊       | 86/311 [00:00<00:00, 720.49it/s]Loading weights:  51%|█████     | 159/311 [00:00<00:00, 430.76it/s]Loading weights:  67%|██████▋   | 208/311 [00:00<00:00, 352.38it/s]Loading weights:  79%|███████▉  | 247/311 [00:00<00:00, 336.92it/s]Loading weights:  91%|█████████ | 283/311 [00:00<00:00, 321.86it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 359.22it/s]
+base pool (shard 1/4) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/pool_shard_1.jsonl  (truncation 19% at max_new_tokens=768)
+  swing shard 1: 10/113 prompts
+  swing shard 1: 20/113 prompts
+  swing shard 1: 30/113 prompts
+  swing shard 1: 40/113 prompts
+  swing shard 1: 50/113 prompts
+  swing shard 1: 60/113 prompts
+  swing shard 1: 70/113 prompts
+  swing shard 1: 80/113 prompts
+  swing shard 1: 90/113 prompts
+  swing shard 1: 100/113 prompts
+  swing shard 1: 110/113 prompts
+swing shard 1/4 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/swing_shard_1.npz  (113 rows)
+{'ts': '2026-08-14T06:07:07', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 28058.56, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.79, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 1/4 — after all 4, run: sbatch scripts/stageS1_pbasis_large_post.sbatch

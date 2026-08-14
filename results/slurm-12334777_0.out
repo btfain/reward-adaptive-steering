@@ -1,0 +1,19 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 141/339 [00:00<00:00, 1236.65it/s]Loading weights:  78%|███████▊  | 265/339 [00:00<00:00, 585.99it/s] Loading weights: 100%|██████████| 339/339 [00:00<00:00, 600.98it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  15%|█▌        | 48/311 [00:00<00:00, 457.07it/s]Loading weights:  30%|███       | 94/311 [00:00<00:00, 406.31it/s]Loading weights:  44%|████▎     | 136/311 [00:00<00:00, 409.60it/s]Loading weights:  57%|█████▋    | 178/311 [00:00<00:00, 410.15it/s]Loading weights:  71%|███████   | 220/311 [00:00<00:00, 393.77it/s]Loading weights:  86%|████████▌ | 266/311 [00:00<00:00, 385.10it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 422.10it/s]
+base pool (shard 0/4) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/pool_shard_0.jsonl  (truncation 19% at max_new_tokens=768)
+  swing shard 0: 10/113 prompts
+  swing shard 0: 20/113 prompts
+  swing shard 0: 30/113 prompts
+  swing shard 0: 40/113 prompts
+  swing shard 0: 50/113 prompts
+  swing shard 0: 60/113 prompts
+  swing shard 0: 70/113 prompts
+  swing shard 0: 80/113 prompts
+  swing shard 0: 90/113 prompts
+  swing shard 0: 100/113 prompts
+  swing shard 0: 110/113 prompts
+swing shard 0/4 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/swing_shard_0.npz  (113 rows)
+{'ts': '2026-08-14T01:06:47', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 28150.16, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.789, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 0/4 — after all 4, run: sbatch scripts/stageS1_pbasis_large_post.sbatch

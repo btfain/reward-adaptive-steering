@@ -1,0 +1,19 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  56%|█████▌    | 190/339 [00:00<00:00, 1642.70it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1720.97it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  53%|█████▎    | 164/311 [00:00<00:00, 1412.86it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1501.52it/s]
+base pool (shard 3/4) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/pool_shard_3.jsonl  (truncation 20% at max_new_tokens=768)
+  swing shard 3: 10/112 prompts
+  swing shard 3: 20/112 prompts
+  swing shard 3: 30/112 prompts
+  swing shard 3: 40/112 prompts
+  swing shard 3: 50/112 prompts
+  swing shard 3: 60/112 prompts
+  swing shard 3: 70/112 prompts
+  swing shard 3: 80/112 prompts
+  swing shard 3: 90/112 prompts
+  swing shard 3: 100/112 prompts
+  swing shard 3: 110/112 prompts
+swing shard 3/4 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_large_7b/swing_shard_3.npz  (112 rows)
+{'ts': '2026-08-14T01:22:38', 'stage': 'S1', 'event': 'prompt_basis_shard', 'wall_s': 29031.48, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.789, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+DONE shard 3/4 — after all 4, run: sbatch scripts/stageS1_pbasis_large_post.sbatch

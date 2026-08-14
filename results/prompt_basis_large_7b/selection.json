@@ -1,0 +1,81 @@
+{
+  "order": [
+    1,
+    4,
+    10,
+    15,
+    17,
+    2,
+    19,
+    6
+  ],
+  "curve": [
+    0.5846402090567131,
+    0.8045319507740161,
+    0.9345714766890916,
+    1.0177403654875579,
+    1.0800560958297165,
+    1.1163291535554107,
+    1.1493341629593463,
+    1.1761305858470774
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 1,
+      "move": "Give a thorough, complete answer that addresses every part of the question.",
+      "mean_captured_swing": 0.5846402090567131,
+      "marginal": 0.5846402090567131
+    },
+    {
+      "rank": 2,
+      "cand_idx": 4,
+      "move": "Work through the problem step by step, showing your reasoning before stating the final answer.",
+      "mean_captured_swing": 0.8045319507740161,
+      "marginal": 0.21989174171730297
+    },
+    {
+      "rank": 3,
+      "cand_idx": 10,
+      "move": "Explain the reasoning behind your answer, not just the conclusion.",
+      "mean_captured_swing": 0.9345714766890916,
+      "marginal": 0.1300395259150755
+    },
+    {
+      "rank": 4,
+      "cand_idx": 15,
+      "move": "Support your claims with specific data, numbers, or evidence where possible.",
+      "mean_captured_swing": 1.0177403654875579,
+      "marginal": 0.08316888879846629
+    },
+    {
+      "rank": 5,
+      "cand_idx": 17,
+      "move": "If code is involved, provide complete, runnable code with brief explanatory comments.",
+      "mean_captured_swing": 1.0800560958297165,
+      "marginal": 0.06231573034215865
+    },
+    {
+      "rank": 6,
+      "cand_idx": 2,
+      "move": "Provide an in-depth, expert-level explanation with appropriate technical depth.",
+      "mean_captured_swing": 1.1163291535554107,
+      "marginal": 0.036273057725694224
+    },
+    {
+      "rank": 7,
+      "cand_idx": 19,
+      "move": "Be direct and give a helpful answer rather than deflecting or over-hedging.",
+      "mean_captured_swing": 1.1493341629593463,
+      "marginal": 0.03300500940393558
+    },
+    {
+      "rank": 8,
+      "cand_idx": 6,
+      "move": "Include a concrete example to illustrate your main point.",
+      "mean_captured_swing": 1.1761305858470774,
+      "marginal": 0.026796422887731097
+    }
+  ],
+  "unconditional_best_idx": 1
+}
