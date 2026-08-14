@@ -233,6 +233,27 @@ def phase_select(base_cfg, pb, device, model, tok):
         print(f"  K={s['rank']}: +{s['marginal']:.3f} -> {s['mean_captured_swing']:+.3f}  | {s['move'][:70]}")
 
 
+# --------------------------------------------------------------- phase: states ----
+def phase_states(base_cfg, pb, device, model, tok):
+    """Cache read states for ALL prompts at the sweep layers (no generation, ~minutes). Lets the
+    router (src/router_explore.py) iterate architectures offline against the saved swing matrix."""
+    layers = pb["router"]["read_layers"]
+    P = _prompts(pb["pool"]["n_prompts_train"], pb["pool"]["n_prompts_test"], pb.get("prompts_split", "train"))
+    model.requires_grad_(False)
+    OUT.mkdir(parents=True, exist_ok=True)
+    H = {f"H{sp}_{L}": [] for sp in ("tr", "te") for L in layers}
+    for sp, key in (("train", "tr"), ("test", "te")):
+        for i, prompt in enumerate(P[sp]):
+            rs = _read_states_multi(model, tok, prompt, layers)
+            for L in layers:
+                H[f"H{key}_{L}"].append(rs[L])
+            if (i + 1) % 50 == 0:
+                print(f"  states {sp}: {i + 1}/{len(P[sp])}")
+    np.savez(OUT / "states.npz", layers=np.array(layers),
+             **{k: np.stack(v) for k, v in H.items()})
+    print(f"states cache -> {OUT / 'states.npz'}")
+
+
 # ---------------------------------------------------------------- phase: route ----
 def _pca_fit(H, k):
     mu = H.mean(0)
@@ -316,6 +337,15 @@ def phase_route(base_cfg, pb, device, model, tok, rm, rm_tok):
         for L in layers:
             Hte[L].append(rs[L])
     n_class = len(S) + 1
+
+    # cache everything the router needs so architectures can be iterated OFFLINE (no generation):
+    # read states per layer (train+test), the de-biased test swings (Mv/Mt), and the full train
+    # swings over the selected moves (regression targets). See src/router_explore.py.
+    np.savez(OUT / "router_cache.npz",
+             layers=np.array(layers), Mv=Mv, Mt=Mt, Mtr_sel=Mtr[:, S], oktr=oktr, S=np.array(S),
+             **{f"Htr_{L}": np.stack(Htr[L]) for L in layers},
+             **{f"Hte_{L}": np.stack(Hte[L]) for L in layers})
+    print(f"router cache -> {OUT / 'router_cache.npz'}")
 
     def realized(pred):                                 # score the router's pick on the TEST half
         return np.array([0.0 if pred[pi] == 0 else np.nan_to_num(Mt[pi, pred[pi] - 1], nan=0.0)
@@ -402,7 +432,7 @@ def main():
     global OUT, REPORT
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=["pool", "swing", "select", "route", "all",
-                                        "shard", "assemble", "postshard"], default="all")
+                                        "shard", "assemble", "postshard", "states"], default="all")
     ap.add_argument("--shard", default=None, help="i/N — process only prompt slice i of N "
                     "(parallel generation; run one job per shard, then --phase postshard)")
     ap.add_argument("--config", default=None)
@@ -419,13 +449,17 @@ def main():
         i, N = args.shard.split("/"); shard = (int(i), int(N))
     device = resolve_device(base_cfg)
     t0 = time.time()
-    needs_model = args.phase in ("pool", "swing", "route", "all", "shard", "postshard")
+    needs_model = args.phase in ("pool", "swing", "route", "all", "shard", "postshard", "states")
+    needs_rm = args.phase in ("pool", "swing", "route", "all", "shard", "postshard")
     model = tok = rm = rm_tok = None
     if needs_model:
         model, tok = load_base(base_cfg, device)
+    if needs_rm:
         rm, rm_tok = load_rm(base_cfg, device)
 
-    if args.phase == "shard":                       # one parallel job per prompt slice
+    if args.phase == "states":                      # cache read states for offline router iteration
+        phase_states(base_cfg, pb, device, model, tok)
+    elif args.phase == "shard":                     # one parallel job per prompt slice
         phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
         phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
     elif args.phase == "assemble":                  # pure I/O — no model
