@@ -183,9 +183,10 @@ def main():
           "- **all variants ≈ single** ⇒ h→move is genuinely hard here ⇒ clean Subproject-1 negative on "
           "extraction; carry routing to multi-turn (where the 'which move' signal should be far stronger)."]
     BASIS.mkdir(exist_ok=True)
-    (BASIS / f"s1_router_{args.tag}_report.md").write_text("\n".join(L) + "\n")
+    rpt = BASIS / f"s1_router_{args.tag}_{args.rep}_report.md"
+    rpt.write_text("\n".join(L) + "\n")
     print("\n".join(x for x in L if not x.startswith("|")))
-    print(f"\nreport -> {BASIS / f's1_router_{args.tag}_report.md'}")
+    print(f"\nreport -> {rpt}")
 
 
 if __name__ == "__main__":
