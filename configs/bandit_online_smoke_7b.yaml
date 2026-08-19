@@ -1,0 +1,35 @@
+# B1 SMOKE — tiny end-to-end mechanics test on a GPU before the full 1500 run (repo discipline:
+# small inspectable step first). Same code path; trivially small so it finishes in minutes and only
+# checks that pool/prep/train(both arms)/report wire together, generation+RM+encoder update run, and
+# the report assembles. Numbers are meaningless at this scale.
+
+tag: "b1_smoke"
+prompts_split: "b1"
+basis_selection: "results/prompt_basis_large_7b/selection.json"
+
+n_train: 8
+n_router_eval: 6
+n_ceiling: 4
+
+pool:
+  m_base: 1
+  max_new_tokens: 128
+  temperature: 0.9
+  top_p: 0.95
+
+bandit:
+  encoder: "roberta-base"
+  epochs: 1
+  batch: 4
+  lr_head: 1.0e-3
+  lr_enc: 2.0e-5
+  weight_decay: 0.01
+  entropy_beta: 0.02
+  value_coef: 0.5
+  max_prompt_tokens: 160
+
+eval:
+  m_test: 2
+
+optim:
+  seed: 0

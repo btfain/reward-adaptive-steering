@@ -1,0 +1,37 @@
+# B1 — definitive single-turn test: online contextual-bandit router at scale, FROZEN-head vs
+# FINE-TUNED-encoder (controlled comparison, same encoder). Reuses the fixed 8-move basis from the
+# large_7b run (NO new selection). Hardened online REINFORCE validated offline in B0 (bandit_sim.py:
+# norm-adv + value baseline + entropy recovers the exact-policy ceiling; measured E~9 gens/prompt).
+# Question: does fine-tuning at 1500 prompts break the ~+0.38 frozen single-turn ceiling? If yes,
+# single-turn conditioning is alive; if no, the bound is confirmed by the one untested lever -> pivot.
+
+tag: "b1_1500"
+prompts_split: "b1"                                  # fresh UltraFeedback split (expand_prompts.py --n 2200 --split-name b1)
+basis_selection: "results/prompt_basis_large_7b/selection.json"   # the 8 procedural moves (order)
+
+n_train: 1500
+n_router_eval: 600                                   # large eval set: router vs single, ~1 gen/prompt (no K, no m_test)
+n_ceiling: 100                                       # small ceiling set: de-biased oracle (K x m_test)
+
+pool:
+  m_base: 2                                          # base samples per prompt (reward = RM(move) - mean base RM)
+  max_new_tokens: 768                                # detruncated budget (large_7b: ~19% truncation)
+  temperature: 0.9
+  top_p: 0.95
+
+bandit:
+  encoder: "roberta-base"                            # controlled: frozen-head vs fine-tuned, same encoder
+  epochs: 8                                           # E; per-epoch eval curve logged, early-stoppable
+  batch: 128                                          # prompts per online step (grouped by sampled arm for generation)
+  lr_head: 1.0e-3
+  lr_enc: 2.0e-5                                      # fine-tune arm only
+  weight_decay: 0.01
+  entropy_beta: 0.02                                  # anti-collapse guard (rule 4) + exploration
+  value_coef: 0.5
+  max_prompt_tokens: 160
+
+eval:
+  m_test: 12                                          # de-biased oracle (val/test split of the samples)
+
+optim:
+  seed: 0

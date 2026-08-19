@@ -25,7 +25,9 @@ def main():
     d = load_config(args.base_config)["data"]
     path = REPO_ROOT / "data" / "prompts.json"
     data = json.load(open(path))
-    existing = set(data.get("train", [])) | set(data.get("heldout", []))
+    existing = set()                                   # dedup against ALL existing splits (keep every one fresh)
+    for v in data.values():
+        existing |= set(v)
 
     stream = load_dataset(d["prompt_dataset"], split=d["prompt_split"], streaming=True)
     stream = stream.shuffle(seed=args.seed, buffer_size=4000)
