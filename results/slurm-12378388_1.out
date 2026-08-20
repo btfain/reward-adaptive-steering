@@ -1,0 +1,7 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 75/339 [00:00<00:00, 721.36it/s]Loading weights:  44%|████▎     | 148/339 [00:00<00:00, 541.73it/s]Loading weights:  63%|██████▎   | 212/339 [00:00<00:00, 557.71it/s]Loading weights:  80%|███████▉  | 270/339 [00:00<00:00, 547.23it/s]Loading weights:  96%|█████████▌| 326/339 [00:00<00:00, 525.13it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 563.39it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  23%|██▎       | 71/311 [00:00<00:00, 568.26it/s]Loading weights:  41%|████      | 128/311 [00:00<00:00, 533.26it/s]Loading weights:  59%|█████▉    | 185/311 [00:00<00:00, 547.30it/s]Loading weights:  77%|███████▋  | 240/311 [00:00<00:00, 532.10it/s]Loading weights:  95%|█████████▍| 294/311 [00:00<00:00, 530.92it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 546.49it/s]
+prep shard 1: 25 ceiling, 150 single-eval
+{'ts': '2026-08-19T22:25:08', 'stage': 'B1', 'event': 'bandit_online_prep', 'wall_s': 5617.23, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 17.138, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+prep shard 1 done

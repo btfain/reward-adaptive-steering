@@ -1,0 +1,93 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 115/339 [00:00<00:00, 983.60it/s]Loading weights:  63%|██████▎   | 214/339 [00:00<00:00, 708.68it/s]Loading weights:  85%|████████▌ | 289/339 [00:00<00:00, 668.51it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 676.64it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 69/311 [00:00<00:00, 689.82it/s]Loading weights:  44%|████▍     | 138/311 [00:00<00:00, 553.73it/s]Loading weights:  63%|██████▎   | 196/311 [00:00<00:00, 536.16it/s]Loading weights:  81%|████████  | 251/311 [00:00<00:00, 522.94it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 566.53it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 84/197 [00:00<00:00, 822.12it/s]Loading weights:  85%|████████▍ | 167/197 [00:00<00:00, 796.00it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 849.45it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[W819 20:52:20.984346994 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 5505024, total: 25285623808).
+[W819 20:52:21.109449008 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 5505024, total: 25285623808).
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/bandit_online.py", line 389, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/bandit_online.py", line 380, in main
+    phase_train(base_cfg, pb, model, tok, rm, rm_tok, args.arm, device)
+  File "/home/users/btf12/reward-adaptive-steering/src/bandit_online.py", line 247, in phase_train
+    pooled = net.pooled(ids, mask)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/users/btf12/reward-adaptive-steering/src/bandit_online.py", line 201, in pooled
+    h = self.enc(input_ids=ids, attention_mask=mask).last_hidden_state
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/utils/generic.py", line 1040, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/roberta/modeling_roberta.py", line 630, in forward
+    encoder_outputs = self.encoder(
+                      ^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/roberta/modeling_roberta.py", line 513, in forward
+    hidden_states = layer_module(
+                    ^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/modeling_layers.py", line 110, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/roberta/modeling_roberta.py", line 459, in forward
+    layer_output = apply_chunking_to_forward(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/pytorch_utils.py", line 201, in apply_chunking_to_forward
+    return forward_fn(*input_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/roberta/modeling_roberta.py", line 465, in feed_forward_chunk
+    intermediate_output = self.intermediate(attention_output)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/roberta/modeling_roberta.py", line 386, in forward
+    hidden_states = self.dense(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 240.00 MiB. GPU 0 has a total capacity of 23.55 GiB of which 125.25 MiB is free. Including non-PyTorch memory, this process has 23.42 GiB memory in use. Of the allocated memory 23.14 GiB is allocated by PyTorch, and 32.07 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

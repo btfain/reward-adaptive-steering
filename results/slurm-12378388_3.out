@@ -1,0 +1,7 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  89%|████████▉ | 303/339 [00:00<00:00, 3027.46it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2858.07it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  91%|█████████ | 283/311 [00:00<00:00, 2826.91it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2779.35it/s]
+prep shard 3: 25 ceiling, 150 single-eval
+{'ts': '2026-08-19T22:15:34', 'stage': 'B1', 'event': 'bandit_online_prep', 'wall_s': 5052.66, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 17.211, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+prep shard 3 done
