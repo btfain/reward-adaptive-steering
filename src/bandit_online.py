@@ -191,6 +191,9 @@ class Router(nn.Module):
         if freeze:
             for p in self.enc.parameters():
                 p.requires_grad_(False)
+        else:
+            self.enc.gradient_checkpointing_enable()               # bound activation memory when fine-tuning
+            self.enc.config.use_cache = False
         d = self.enc.config.hidden_size
         self.policy = nn.Linear(d, K + 1)                          # arm 0 = decline
         self.value = nn.Linear(d, 1)
@@ -225,13 +228,18 @@ def phase_train(base_cfg, pb, model, tok, rm, rm_tok, arm, device):
                  return_tensors="pt").to(device)
         return e["input_ids"], e["attention_mask"]
 
+    gen_micro = bc.get("gen_micro", 8)                            # cap 7B generation group -> bound KV cache
     def gen_rewards(gis, arms):                                    # only arms>0 generate; decline=0
         r = np.zeros(len(gis))
         for a in sorted(set(int(x) for x in arms if x > 0)):
             idx = [k for k, aa in enumerate(arms) if int(aa) == a]
-            comps = generate_batch(model, tok, [P[gis[k]] for k in idx], gcfg, system=moves[a - 1])
-            for k, c in zip(idx, comps):
-                r[k] = (rm_score(rm, rm_tok, P[gis[k]], c) - base_ref[gis[k]]) if c.strip() else 0.0
+            for s in range(0, len(idx), gen_micro):
+                sub = idx[s:s + gen_micro]
+                comps = generate_batch(model, tok, [P[gis[k]] for k in sub], gcfg, system=moves[a - 1])
+                for k, c in zip(sub, comps):
+                    r[k] = (rm_score(rm, rm_tok, P[gis[k]], c) - base_ref[gis[k]]) if c.strip() else 0.0
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()                              # release generation KV before roberta backward
         return r
 
     tr_gis = [gi for gi in range(n_tr) if base_ref.get(gi) is not None]
