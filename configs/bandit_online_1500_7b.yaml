@@ -21,9 +21,9 @@ pool:
 
 bandit:
   encoder: "roberta-base"                            # controlled: frozen-head vs fine-tuned, same encoder
-  epochs: 8                                           # E; per-epoch eval curve logged, early-stoppable
-  batch: 32                                           # prompts per online step (was 128 -> OOM w/ 7B resident + roberta backward)
-  gen_micro: 8                                        # cap the 7B generation group size to bound KV-cache memory
+  epochs: 8                                           # E; per-epoch checkpoint+resume, so resubmit continues past a wall-kill
+  batch: 32                                           # prompts per roberta update step (128 -> OOM w/ 7B resident + roberta backward)
+  gen_micro: 16                                       # 7B generation group (no_grad); raised 8->16 to recover throughput (backward now checkpointed)
   lr_head: 1.0e-3
   lr_enc: 2.0e-5                                      # fine-tune arm only
   weight_decay: 0.01

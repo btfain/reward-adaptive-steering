@@ -228,7 +228,7 @@ def phase_train(base_cfg, pb, model, tok, rm, rm_tok, arm, device):
                  return_tensors="pt").to(device)
         return e["input_ids"], e["attention_mask"]
 
-    gen_micro = bc.get("gen_micro", 8)                            # cap 7B generation group -> bound KV cache
+    gen_micro = bc.get("gen_micro", 16)                           # 7B generation group (no_grad); OOM was roberta backward, now checkpointed
     def gen_rewards(gis, arms):                                    # only arms>0 generate; decline=0
         r = np.zeros(len(gis))
         for a in sorted(set(int(x) for x in arms if x > 0)):
@@ -244,8 +244,16 @@ def phase_train(base_cfg, pb, model, tok, rm, rm_tok, arm, device):
 
     tr_gis = [gi for gi in range(n_tr) if base_ref.get(gi) is not None]
     rng = np.random.default_rng(pb["optim"]["seed"])
-    curve, t0 = [], time.time()
-    for ep in range(bc["epochs"]):
+    # --- resume: per-epoch checkpoint so a wall-kill never loses the run (just resubmit to continue) ---
+    ckpt_path = O / f"ckpt_{arm}.pt"
+    start_ep, curve = 0, []
+    if ckpt_path.exists():
+        ck = torch.load(ckpt_path, map_location=device)
+        net.load_state_dict(ck["net"]); opt.load_state_dict(ck["opt"])
+        rng.bit_generator.state = ck["rng"]; start_ep = ck["epoch"]; curve = ck["curve"]
+        print(f"[{arm}] RESUME from epoch {start_ep}/{bc['epochs']} (checkpoint found)", flush=True)
+    t0 = time.time()
+    for ep in range(start_ep, bc["epochs"]):
         net.train() if finetune else net.eval()
         order = np.array(tr_gis); rng.shuffle(order)
         ep_r, ep_ent, usage = [], [], np.zeros(K + 1)
@@ -263,15 +271,17 @@ def phase_train(base_cfg, pb, model, tok, rm, rm_tok, arm, device):
             loss = (-(adv * dist.log_prob(a)).mean() - bc["entropy_beta"] * dist.entropy().mean()
                     + bc["value_coef"] * F.mse_loss(v, rewards))
             opt.zero_grad(); loss.backward(); opt.step()
-            ep_r += rewards.tolist(); ep_ent.append(float(dist.entropy().mean()))
+            ep_r += rewards.tolist(); ep_ent.append(float(dist.entropy().mean().detach()))
             for aa in a.tolist():
                 usage[int(aa)] += 1
         curve.append({"epoch": ep + 1, "train_reward": float(np.mean(ep_r)),
                       "policy_entropy": float(np.mean(ep_ent)),
                       "move_usage": (usage / usage.sum()).round(3).tolist(),
                       "wall_s": round(time.time() - t0, 1)})
+        torch.save({"net": net.state_dict(), "opt": opt.state_dict(),
+                    "rng": rng.bit_generator.state, "epoch": ep + 1, "curve": curve}, ckpt_path)
         print(f"[{arm}] epoch {ep+1}/{bc['epochs']}  train_reward {np.mean(ep_r):+.3f}  "
-              f"entropy {np.mean(ep_ent):.3f}  usage {(usage/usage.sum()).round(2).tolist()}")
+              f"entropy {np.mean(ep_ent):.3f}  usage {(usage/usage.sum()).round(2).tolist()}", flush=True)
 
     # router-eval on the 600 held-out eval prompts (argmax policy, 1 generation each)
     net.eval()
@@ -290,7 +300,9 @@ def phase_train(base_cfg, pb, model, tok, rm, rm_tok, arm, device):
            "eval_ci": _boot(list(eval_by_gi.values())), "curve": curve,
            "trainable_params": int(sum(p.numel() for p in net.parameters() if p.requires_grad))}
     json.dump(res, open(O / f"train_{arm}.json", "w"))
-    print(f"[{arm}] router-eval ΔRM {res['eval_mean']:+.3f}  -> {O/f'train_{arm}.json'}")
+    if ckpt_path.exists():
+        ckpt_path.unlink()                                        # training+eval complete; drop the resume checkpoint
+    print(f"[{arm}] router-eval ΔRM {res['eval_mean']:+.3f}  -> {O/f'train_{arm}.json'}", flush=True)
 
 
 # -------------------------------------------------------------------- report ----
