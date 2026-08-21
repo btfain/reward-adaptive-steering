@@ -24,10 +24,11 @@ bandit:
   epochs: 8                                           # E; per-epoch checkpoint+resume, so resubmit continues past a wall-kill
   batch: 32                                           # prompts per roberta update step (128 -> OOM w/ 7B resident + roberta backward)
   gen_micro: 16                                       # 7B generation group (no_grad); raised 8->16 to recover throughput (backward now checkpointed)
-  lr_head: 1.0e-3
-  lr_enc: 2.0e-5                                      # fine-tune arm only
+  lr_head: 5.0e-4                                     # 1e-3 -> 5e-4: slower head so it can't peak before exploring
+  lr_enc: 1.0e-5                                      # fine-tune arm only; 2e-5 -> 1e-5 so the encoder can't drive collapse
   weight_decay: 0.01
-  entropy_beta: 0.02                                  # anti-collapse guard (rule 4) + exploration
+  entropy_beta: 0.1                                   # 0.02 -> 0.1: offline sweep (explore_sweep.py) — recovers the +0.36
+                                                      # ceiling at max-usage 0.42 (no collapse); 0.02 collapsed to 98% one move
   value_coef: 0.5
   max_prompt_tokens: 160
 
