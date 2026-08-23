@@ -1,0 +1,86 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  28%|██▊       | 94/339 [00:00<00:00, 828.67it/s]Loading weights:  52%|█████▏    | 177/339 [00:00<00:00, 569.14it/s]Loading weights:  70%|███████   | 238/339 [00:00<00:00, 510.13it/s]Loading weights:  86%|████████▌ | 291/339 [00:00<00:00, 471.43it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 508.27it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 55/311 [00:00<00:00, 464.00it/s]Loading weights:  33%|███▎      | 102/311 [00:00<00:00, 431.83it/s]Loading weights:  47%|████▋     | 146/311 [00:00<00:00, 399.90it/s]Loading weights:  60%|██████    | 188/311 [00:00<00:00, 397.54it/s]Loading weights:  74%|███████▎  | 229/311 [00:00<00:00, 401.61it/s]Loading weights:  87%|████████▋ | 270/311 [00:00<00:00, 390.40it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 412.39it/s]
+base pool  -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_smoke/base_pool.jsonl
+{'ts': '2026-08-19T17:46:46', 'stage': 'B1', 'event': 'bandit_online_pool', 'wall_s': 103.54, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.47, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+assembled base_ref for 18 prompts -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_smoke/base_ref.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  66%|██████▌   | 224/339 [00:00<00:00, 2223.33it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2120.70it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  74%|███████▍  | 231/311 [00:00<00:00, 2296.08it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2233.40it/s]
+prep : 4 ceiling, 6 single-eval
+{'ts': '2026-08-19T17:49:25', 'stage': 'B1', 'event': 'bandit_online_prep', 'wall_s': 136.18, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.492, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+oracle (de-biased) +1.434  single +0.288  (4 ceiling / 6 eval) -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_smoke/oracle.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  61%|██████    | 206/339 [00:00<00:00, 2034.48it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2026.96it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  82%|████████▏ | 255/311 [00:00<00:00, 2502.75it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2482.11it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 2184.00it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+/home/users/btf12/reward-adaptive-steering/src/bandit_online.py:258: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  ep_r += rewards.tolist(); ep_ent.append(float(dist.entropy().mean()))
+[frozen] epoch 1/1  train_reward -2.295  entropy 2.165  usage [0.0, 0.12, 0.12, 0.0, 0.5, 0.12, 0.0, 0.12, 0.0]
+[frozen] router-eval ΔRM -0.468  -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_smoke/train_frozen.json
+{'ts': '2026-08-19T17:50:27', 'stage': 'B1', 'event': 'bandit_online_train_frozen', 'wall_s': 42.89, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 17.024, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  91%|█████████ | 309/339 [00:00<00:00, 3070.58it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2921.04it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 232/311 [00:00<00:00, 2318.50it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2196.25it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4379.37it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+/home/users/btf12/reward-adaptive-steering/src/bandit_online.py:258: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  ep_r += rewards.tolist(); ep_ent.append(float(dist.entropy().mean()))
+[finetune] epoch 1/1  train_reward -2.241  entropy 2.162  usage [0.12, 0.12, 0.0, 0.0, 0.0, 0.0, 0.25, 0.12, 0.38]
+[finetune] router-eval ΔRM -0.329  -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_smoke/train_finetune.json
+{'ts': '2026-08-19T17:51:09', 'stage': 'B1', 'event': 'bandit_online_train_finetune', 'wall_s': 35.22, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 18.924, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+# B1 online bandit router — b1_smoke: FROZEN-head vs FINE-TUNED-encoder (roberta-base)
+
+Controlled single-turn test at n_train=8 on the fixed 8-move basis. Online hardened REINFORCE, reward = RM(move) - base_ref, decline arm = 0. Router-eval on 6 held-out prompts (1 gen each). single +0.288 (-0.651, 1.319); de-biased oracle +1.434 (0.85, 2.18) (n=4).
+
+
+## Headline — fine-tune vs frozen (paired, same eval prompts)
+- fine-tune − frozen = +0.138 [-0.407, +0.646]; fine-tune eval -0.329.
+- clears the ~+0.40 single-turn ceiling: no.
+
+## Anti-collapse guard (rule 4)
+- frozen: final move-usage [0.0, 0.125, 0.125, 0.0, 0.5, 0.125, 0.0, 0.125, 0.0] (arm0=decline); entropy 2.165 ⇒ OK (spread).
+- finetune: final move-usage [0.125, 0.125, 0.0, 0.0, 0.0, 0.0, 0.25, 0.125, 0.375] (arm0=decline); entropy 2.162 ⇒ OK (spread).
+
+## Verdict
+- fine-tune ≈/below frozen (paired CI includes 0) ⇒ the one untested lever does NOT exceed the frozen ceiling ⇒ single-turn conditioning BOUND confirmed ⇒ pivot to Study 2 (bandit carries over).
+
+## Cost
+- frozen: 0.01 GPU-h train, 7,690 trainable params
+- finetune: 0.00 GPU-h train, 124,653,322 trainable params
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_bandit_online_b1_smoke_report.md
+SMOKE DONE — inspect basis/s1_bandit_online_b1_smoke_report.md; if clean, launch the 1500 run.

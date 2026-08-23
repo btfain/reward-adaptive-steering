@@ -1,0 +1,23 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 115/339 [00:00<00:00, 1068.04it/s]Loading weights:  65%|██████▌   | 222/339 [00:00<00:00, 640.35it/s] Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 623.98it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 667.28it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 55/311 [00:00<00:00, 542.20it/s]Loading weights:  35%|███▌      | 110/311 [00:00<00:00, 494.52it/s]Loading weights:  52%|█████▏    | 163/311 [00:00<00:00, 488.76it/s]Loading weights:  68%|██████▊   | 213/311 [00:00<00:00, 460.22it/s]Loading weights:  85%|████████▍ | 263/311 [00:00<00:00, 454.69it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 495.37it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  30%|██▉       | 59/197 [00:00<00:00, 577.16it/s]Loading weights:  62%|██████▏   | 122/197 [00:00<00:00, 594.53it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 738.51it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+/home/users/btf12/reward-adaptive-steering/src/bandit_online.py:266: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  ep_r += rewards.tolist(); ep_ent.append(float(dist.entropy().mean()))
+[2026-08-21T07:01:39.015] error: *** JOB 12380339 ON compsci-cluster-fitz-20 CANCELLED AT 2026-08-21T07:01:39 DUE TO TIME LIMIT ***

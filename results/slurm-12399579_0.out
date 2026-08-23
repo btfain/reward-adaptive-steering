@@ -1,0 +1,12 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  87%|████████▋ | 296/339 [00:00<00:00, 2958.65it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2858.72it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 3499.21it/s]
+  gen shard 0: 10/150 prompts
+  gen shard 0: 40/150 prompts
+  gen shard 0: 70/150 prompts
+  gen shard 0: 100/150 prompts
+  gen shard 0: 130/150 prompts
+gen -> /home/users/btf12/reward-adaptive-steering/results/bakeoff_7b/gen_shard_0.jsonl
+{'ts': '2026-08-23T13:51:26', 'stage': 'S1', 'event': 'bakeoff_gen', 'wall_s': 6453.85, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.906, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'selection bake-off generation'}
+bakeoff gen shard 0 done

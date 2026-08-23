@@ -1,0 +1,26 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 73/339 [00:00<00:00, 696.18it/s]Loading weights:  42%|████▏     | 143/339 [00:00<00:00, 248.68it/s]Loading weights:  55%|█████▌    | 188/339 [00:00<00:00, 288.89it/s]Loading weights:  67%|██████▋   | 228/339 [00:00<00:00, 201.31it/s]Loading weights:  81%|████████▏ | 276/339 [00:01<00:00, 249.03it/s]Loading weights:  92%|█████████▏| 311/339 [00:01<00:00, 184.98it/s]Loading weights: 100%|██████████| 339/339 [00:01<00:00, 238.29it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 44/311 [00:00<00:00, 416.46it/s]Loading weights:  28%|██▊       | 86/311 [00:00<00:00, 403.47it/s]Loading weights:  41%|████      | 127/311 [00:00<00:00, 383.02it/s]Loading weights:  57%|█████▋    | 176/311 [00:00<00:00, 415.03it/s]Loading weights:  70%|███████   | 218/311 [00:00<00:00, 397.82it/s]Loading weights:  84%|████████▍ | 262/311 [00:00<00:00, 408.77it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 418.66it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  11%|█         | 22/197 [00:00<00:02, 83.06it/s]Loading weights:  40%|████      | 79/197 [00:00<00:00, 241.82it/s]Loading weights:  76%|███████▌  | 149/197 [00:00<00:00, 388.09it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 381.43it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[frozen] epoch 1/8  train_reward -0.220  entropy 2.147  usage [0.14, 0.15, 0.09, 0.1, 0.17, 0.06, 0.1, 0.09, 0.09]
+[frozen] epoch 2/8  train_reward -0.105  entropy 2.062  usage [0.17, 0.2, 0.08, 0.11, 0.2, 0.03, 0.09, 0.05, 0.06]
+[frozen] epoch 3/8  train_reward +0.004  entropy 1.974  usage [0.18, 0.22, 0.1, 0.11, 0.19, 0.02, 0.1, 0.04, 0.04]
+[frozen] epoch 4/8  train_reward -0.016  entropy 1.903  usage [0.14, 0.29, 0.1, 0.12, 0.2, 0.02, 0.08, 0.02, 0.03]
+[frozen] epoch 5/8  train_reward +0.050  entropy 1.787  usage [0.13, 0.35, 0.08, 0.1, 0.21, 0.01, 0.05, 0.02, 0.03]
+[frozen] epoch 6/8  train_reward +0.104  entropy 1.721  usage [0.11, 0.4, 0.1, 0.11, 0.18, 0.01, 0.04, 0.01, 0.03]
+[2026-08-22T05:15:13.014] error: *** JOB 12383525 ON linux45 CANCELLED AT 2026-08-22T05:15:13 DUE TO TIME LIMIT ***

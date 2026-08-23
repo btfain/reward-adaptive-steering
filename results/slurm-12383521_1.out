@@ -1,0 +1,30 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 109/339 [00:00<00:00, 1018.01it/s]Loading weights:  65%|██████▌   | 222/339 [00:00<00:00, 1067.66it/s]Loading weights:  97%|█████████▋| 329/339 [00:00<00:00, 693.80it/s] Loading weights: 100%|██████████| 339/339 [00:00<00:00, 777.32it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  15%|█▌        | 47/311 [00:00<00:00, 448.46it/s]Loading weights:  31%|███       | 95/311 [00:00<00:00, 443.44it/s]Loading weights:  46%|████▋     | 144/311 [00:00<00:00, 455.56it/s]Loading weights:  61%|██████▏   | 191/311 [00:00<00:00, 442.84it/s]Loading weights:  77%|███████▋  | 239/311 [00:00<00:00, 450.78it/s]Loading weights:  92%|█████████▏| 285/311 [00:00<00:00, 450.17it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 458.08it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 83/197 [00:00<00:00, 786.78it/s]Loading weights:  89%|████████▉ | 175/197 [00:00<00:00, 863.04it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 881.98it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[finetune] epoch 1/8  train_reward -0.158  entropy 2.066  usage [0.14, 0.21, 0.09, 0.09, 0.17, 0.04, 0.07, 0.09, 0.11]
+[finetune] epoch 2/8  train_reward +0.118  entropy 1.663  usage [0.12, 0.34, 0.09, 0.12, 0.26, 0.0, 0.02, 0.01, 0.03]
+[finetune] epoch 3/8  train_reward +0.178  entropy 1.638  usage [0.08, 0.29, 0.17, 0.13, 0.27, 0.01, 0.03, 0.0, 0.03]
+[finetune] epoch 4/8  train_reward +0.210  entropy 1.566  usage [0.08, 0.44, 0.12, 0.13, 0.18, 0.01, 0.02, 0.01, 0.02]
+[finetune] epoch 5/8  train_reward +0.195  entropy 1.551  usage [0.08, 0.4, 0.15, 0.13, 0.19, 0.01, 0.02, 0.0, 0.02]
+[finetune] epoch 6/8  train_reward +0.269  entropy 1.193  usage [0.09, 0.57, 0.15, 0.11, 0.08, 0.0, 0.01, 0.0, 0.0]
+[finetune] epoch 7/8  train_reward +0.284  entropy 1.445  usage [0.19, 0.34, 0.21, 0.14, 0.1, 0.0, 0.01, 0.0, 0.01]
+[finetune] epoch 8/8  train_reward +0.254  entropy 1.439  usage [0.25, 0.32, 0.17, 0.16, 0.08, 0.01, 0.01, 0.0, 0.01]
+[finetune] router-eval ΔRM +0.351  -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_1500/train_finetune.json
+{'ts': '2026-08-22T03:32:19', 'stage': 'B1', 'event': 'bandit_online_train_finetune', 'wall_s': 44204.95, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 21.539, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+train arm finetune done

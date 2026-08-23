@@ -1,0 +1,25 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  24%|██▍       | 83/339 [00:00<00:00, 803.28it/s]Loading weights:  48%|████▊     | 164/339 [00:00<00:00, 538.91it/s]Loading weights:  66%|██████▌   | 223/339 [00:00<00:00, 474.39it/s]Loading weights:  81%|████████  | 273/339 [00:00<00:00, 474.95it/s]Loading weights:  95%|█████████▌| 323/339 [00:00<00:00, 442.54it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 501.64it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 43/311 [00:00<00:00, 394.93it/s]Loading weights:  30%|██▉       | 92/311 [00:00<00:00, 421.81it/s]Loading weights:  44%|████▎     | 136/311 [00:00<00:00, 400.22it/s]Loading weights:  58%|█████▊    | 181/311 [00:00<00:00, 413.65it/s]Loading weights:  72%|███████▏  | 223/311 [00:00<00:00, 413.12it/s]Loading weights:  85%|████████▌ | 265/311 [00:00<00:00, 382.08it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 419.04it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 82/197 [00:00<00:00, 738.90it/s]Loading weights:  79%|███████▉  | 156/197 [00:00<00:00, 704.67it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 791.12it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[frozen] RESUME from epoch 6/8 (checkpoint found)
+[frozen] epoch 7/8  train_reward +0.169  entropy 1.621  usage [0.11, 0.47, 0.08, 0.11, 0.16, 0.01, 0.03, 0.01, 0.02]
+[frozen] epoch 8/8  train_reward +0.152  entropy 1.592  usage [0.09, 0.47, 0.08, 0.12, 0.17, 0.01, 0.02, 0.01, 0.02]
+[frozen] router-eval ΔRM +0.349  -> /home/users/btf12/reward-adaptive-steering/results/bandit_online_b1_1500/train_frozen.json
+{'ts': '2026-08-23T14:38:17', 'stage': 'B1', 'event': 'bandit_online_train_frozen', 'wall_s': 12601.52, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 18.705, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'online contextual-bandit router (no 7B backprop)'}
+train arm frozen done

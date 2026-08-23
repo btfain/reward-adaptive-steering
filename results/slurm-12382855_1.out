@@ -1,0 +1,23 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 4898.64it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  12%|█▏        | 38/311 [00:00<00:00, 366.76it/s]Loading weights:  26%|██▌       | 81/311 [00:00<00:00, 403.02it/s]Loading weights:  39%|███▉      | 122/311 [00:00<00:00, 381.63it/s]Loading weights:  52%|█████▏    | 162/311 [00:00<00:00, 368.84it/s]Loading weights:  66%|██████▌   | 204/311 [00:00<00:00, 377.97it/s]Loading weights:  78%|███████▊  | 242/311 [00:00<00:00, 348.81it/s]Loading weights:  95%|█████████▍| 294/311 [00:00<00:00, 389.45it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 391.58it/s]
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  23%|██▎       | 46/197 [00:00<00:00, 448.36it/s]Loading weights:  61%|██████    | 120/197 [00:00<00:00, 597.33it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 676.69it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[finetune] epoch 1/8  train_reward -0.000  entropy 1.740  usage [0.12, 0.38, 0.05, 0.15, 0.1, 0.05, 0.03, 0.05, 0.07]
+[finetune] epoch 2/8  train_reward +0.291  entropy 0.701  usage [0.02, 0.8, 0.04, 0.09, 0.03, 0.0, 0.0, 0.0, 0.01]
+[finetune] epoch 3/8  train_reward +0.294  entropy 0.102  usage [0.0, 0.98, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0]
+[2026-08-21T15:14:32.599] error: *** JOB 12382855 ON compsci-cluster-fitz-03 CANCELLED AT 2026-08-21T15:14:32 DUE to SIGNAL Terminated ***
