@@ -1,0 +1,27 @@
+# Selection bake-off — the make-or-break cost comparison. On ONE held-out set, generate per-sample BASE
+# gens and per-sample MOVE gens (under each of the discovered 8 moves), record every RM, then compute
+# REAL best-of-k (max over k actual generations, RM-best) for both at EQUAL compute:
+#   naive best-of-k  = k base regenerations (no basis, no router; the strong baseline)
+#   router-move best-of-k = 1 sample under each of the router's top-k moves
+# Headline: does router-move-best-of-2 beat naive-best-of-2? where does naive catch up? Symmetric (both
+# are max over k real gens), so no winner's-curse asymmetry. Moves + router reused from large_7b.
+
+tag: "bakeoff_7b"
+prompts_split: "b1"
+prompt_start: 2050            # held-out slice of the b1 split (fresh vs large_7b router training)
+n_prompts: 150
+
+basis_selection: "results/prompt_basis_large_7b/selection.json"   # the 8 procedural moves
+router_enc_embed: "results/prompt_basis_large_7b/enc_embed.npz"    # distilroberta features to fit the ridge router
+router_swing: "results/prompt_basis_large_7b/swing_train.npz"      # ridge target (encoder -> swing)
+router_encoder: "distilroberta-base"
+
+n_base: 8                     # base samples/prompt -> naive best-of-k up to k=8
+n_move: 4                     # samples per move -> real best-of-k over moves (1/move, averaged over draws)
+
+gen:                          # MATCH large_7b/b1 (detruncated): 768 tok, temp 0.9
+  max_new_tokens: 768
+  temperature: 0.9
+  top_p: 0.95
+
+seed: 0
