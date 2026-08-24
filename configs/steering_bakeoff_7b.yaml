@@ -1,0 +1,25 @@
+# Steering-by-selection bake-off — the fair test of the steering pushback, parallel to the move bake-off.
+# Same held-out prompts as bakeoff_7b (so moves vs steering directions are directly comparable), same
+# REAL best-of-k analysis. Directions = a reward-driven basis (k-means centroids of the steer_reach
+# per-prompt optimal deltas), applied as activation steering at the base steer_layer. Decisive question:
+# does a small basis of steering DIRECTIONS have coverage (best-of-k over directions > naive best-of-k),
+# or does the high-rank wall (8 dirs ~ 8% of reachable-delta variance) kill selection too?
+
+tag: "steering_bakeoff_7b"
+prompts_split: "b1"
+prompt_start: 2050
+n_prompts: 150
+
+deltas: "results/steer_reach_detrunc_7b/deltas.npz"   # reward-driven per-prompt optima -> direction basis
+K_dirs: 8                                             # match the 8 procedural moves
+alpha: 1.0                                            # directions pre-scaled to the reach cap magnitude
+
+n_base: 8
+n_move: 4                                             # samples per direction
+
+gen:
+  max_new_tokens: 768
+  temperature: 0.9
+  top_p: 0.95
+
+seed: 0
