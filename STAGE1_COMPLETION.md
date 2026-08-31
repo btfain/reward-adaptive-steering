@@ -35,19 +35,35 @@ algorithmic contribution is unbuilt*
   cost-aware reaches ≥(1−1/e−ε) of oracle basis value at a large measured generation saving.
 
 ### (iii) Ranking model + top-k — *have a working router; finalize + ablate*
-- **Decision:** for *selection* the offline ranker (train on swing/preference matrix → rank) is simpler and
-  sufficient; keep the online bandit as the method-consistency bridge to Study 2, but the banner uses the
-  offline ranker. Ablate ranker architecture/features (ridge / MLP / encoder) and **top-k**.
+- **Decision (revised for scale):** the offline ranker needs the full `N×K×resamples` swing matrix up
+  front — prohibitive at scale. Instead **(iii) = the online BANDIT used as a ranker**: it trains
+  sample-efficiently (only the *sampled* arm generated, ~N×E, adaptive), and its softmax policy IS a
+  ranking → rank by π, generate top-k, keep reward-best. The full swing matrix is an OFFLINE VALIDATION
+  artifact only, never part of the deployed/scaled pipeline. This makes the whole pipeline never
+  materialize a full matrix ((ii) sampled marginals avoids N×C, (iii) bandit avoids N×K) — the coherent
+  cost story — and keeps (iii) identical to the Study-2 bridge. Validate (cheap, offline on cached swings
+  via bandit_sim) that policy-ranking gives top-k as good as the offline ranker did. Ablate ranker/policy
+  and **top-k**.
 - **Evaluate (iii):** fraction of random→oracle ranking headroom captured; reward-vs-k frontier vs BoN;
   the win-condition per prompt (mode vs tail). GREEN: router top-2 > naive best-of-2 (have: +0.35), and a
   characterized k where routed selection Pareto-dominates BoN.
 
-## Reward-model vs reward-free (preference-only) — run the WHOLE pipeline both ways
-- **RM mode:** swing = RM(move) − RM(base); ranker on RM targets. (current)
-- **Reward-free mode:** only preference pairs. (i) generator reads preference pairs; (ii) move "value" =
-  win-rate of move-output vs base-output under pairwise comparison (a preference/BT model or held-out
-  judge); (iii) ranker trained with pairwise/ranking loss. GREEN: reward-free pipeline matches RM pipeline
-  on the banner frontier (within CI) — establishes RM-free applicability (DPO-adjacent).
+## Reward-driven vs reward-free — a SWAP-AXIS, not a doubling (revised)
+Treat reward-driven vs reward-free like the other robustness axes: work primarily in ONE mode, do ONE
+controlled swap study in the other (holding model/prompt fixed), + the theory result.
+- **PRIMARY = reward-driven** (Skywork RM + GSM8K verifier). Rationale (methods/theory/ease all favor it):
+  scalar swing → clean submodular/bandit/ranker; `π* ∝ π₀exp(r/β)` is the direct target and T1's
+  concentration is cleanest with bounded scalar rewards; cheap 0.6B RM / free verifier. Verifiable = binary
+  special case (pass@k).
+- **SWAP = reward-free** (one study): move-value = pairwise **win-rate** of move-output vs base-output under a
+  GENUINE preference source (human pairs / LLM-judge / BT model — NOT the same scalar RM via BT, which is a
+  trivial monotone equivalence); (iii) ranker with pairwise loss. Home of **T4** (preference↔reward
+  consistency under BT). GREEN: reward-free swap matches reward-driven on the banner frontier (within CI).
+- **Exploratory pre-study (picks/【confirms】the primary):** small scale, core setting — do reward-driven
+  swing and reward-free win-rate RANK the moves the same? Needs a SMALL regeneration with completion TEXT
+  saved (we cached only RM scalars), then score both ways and correlate rankings. Doubles as the first
+  genuine-preference harness (reused by the swap study). Desk analysis already favors reward-driven; this
+  confirms + surfaces any divergence (itself a finding).
 
 ## Robustness / generality matrix (prioritized — NOT the full cross-product)
 Axes: **generative model** × **prompt distribution** × **reward/preference source**. Core = current
@@ -79,8 +95,12 @@ GREEN: banner (routed selection > BoN) holds in every run attempted.
    (iii) ablations first (cheapest, mostly offline) → (ii) cost-aware algorithm (offline on cached swings +
    cost oracle; where T1 lives) → (i) candidate generator (generation + rerun select/rank).
    *Deliver: per-step evals + end-to-end banner on the core setting.*
-2. **P2 — reward-free variant** on the core setting. *Deliver: RM-free matches RM.*
-3. **P3 — robustness** across the prioritized model/data/RM cells (+ specialized preference set).
+   P1 also includes the **reward-driven-vs-free exploratory pre-study** (small regen w/ text + dual scoring
+   + ranking correlation) to confirm reward-driven primary.
+2. **P2 — reward-free SWAP study** (one controlled study, genuine preference source) + T4.
+3. **P3 — robustness** across the prioritized cells: model axis (+Llama-3.1-8B), prompt axis (+HH-RLHF,
+   +GSM8K), reward-source axis (+harmlessness preference, +GSM8K verifier). Diagonal + one-axis-at-a-time
+   (~7 runs), NOT the full cross-product. Skip a generic 2nd RM (verifier + safety cover reward-source).
 4. **P4 — dependency/transfer matrix.**
 5. **Theory T1–T4** in parallel throughout (T1 with P1-ii, T2 with P1-iii, T3 with the banner, T4 with P2).
 
