@@ -46,20 +46,48 @@ def _parse(text):
     return out
 
 
-def _dedup_semantic(cands, thresh=0.88):
+def _embed_st(cands, model="sentence-transformers/all-MiniLM-L6-v2"):
+    """Sentence-transformer embeddings (NOT a plain LM — distilroberta gives cosine≈0.98 for everything,
+    which collapsed the pool). MiniLM: distinct sentences ~0.0-0.5, true duplicates ~0.9+."""
     from transformers import AutoModel, AutoTokenizer
-    tok = AutoTokenizer.from_pretrained("distilroberta-base")
-    mdl = AutoModel.from_pretrained("distilroberta-base").eval()
+    tok = AutoTokenizer.from_pretrained(model); mdl = AutoModel.from_pretrained(model).eval()
     with torch.no_grad():
         e = tok(cands, padding=True, truncation=True, max_length=64, return_tensors="pt")
         h = mdl(**e).last_hidden_state; m = e["attention_mask"].unsqueeze(-1).float()
         E = ((h * m).sum(1) / m.sum(1).clamp(min=1)).numpy()
-    E = E / (np.linalg.norm(E, axis=1, keepdims=True) + 1e-9)
-    kept, kept_i = [], []
-    for i in range(len(cands)):
-        if not kept_i or (E[i] @ E[kept_i].T).max() < thresh:
-            kept.append(cands[i]); kept_i.append(i)
-    return kept
+    return E / (np.linalg.norm(E, axis=1, keepdims=True) + 1e-9)
+
+
+def _kmeans(X, K, iters=100, seed=0):
+    rng = np.random.default_rng(seed); C = X[rng.choice(len(X), K, replace=False)].copy()
+    for _ in range(iters):
+        a = np.argmax(X @ C.T, axis=1)
+        newC = np.array([X[a == j].mean(0) if (a == j).any() else C[j] for j in range(K)])
+        newC /= (np.linalg.norm(newC, axis=1, keepdims=True) + 1e-9)
+        if np.allclose(newC, C, atol=1e-5):
+            C = newC; break
+        C = newC
+    return C
+
+
+def _cluster_down(cands, target, near_dup=0.9):
+    """Generate-many-then-cluster-down: drop true near-duplicates, then k-means to `target` and keep the
+    medoid (closest to centroid) per cluster — diverse by construction."""
+    E = _embed_st(cands)
+    keep, ki = [], []
+    for i in range(len(cands)):                                  # remove true near-duplicates first
+        if not ki or (E[i] @ E[ki].T).max() < near_dup:
+            keep.append(cands[i]); ki.append(i)
+    if len(keep) <= target:
+        return keep
+    Ek = E[ki]; C = _kmeans(Ek, target)
+    assign = np.argmax(Ek @ C.T, axis=1)
+    reps = []
+    for j in range(target):
+        mem = np.where(assign == j)[0]
+        if len(mem):
+            reps.append(keep[mem[int(np.argmax(Ek[mem] @ C[j]))]])
+    return reps
 
 
 def main():
@@ -67,10 +95,10 @@ def main():
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
     ap.add_argument("--generator", default=None, help="override base_model for generation")
     ap.add_argument("--pool", default="results/prompt_basis_large_7b/pool.jsonl")
-    ap.add_argument("--n_calls", type=int, default=12)
+    ap.add_argument("--n_calls", type=int, default=60)          # generation is cheap -> generate many, cluster down
     ap.add_argument("--examples_per", type=int, default=3)
-    ap.add_argument("--ask_per", type=int, default=8)
-    ap.add_argument("--target", type=int, default=40)
+    ap.add_argument("--ask_per", type=int, default=10)
+    ap.add_argument("--target", type=int, default=100)
     ap.add_argument("--out", default="configs/candidates_auto_7b.txt")
     ap.add_argument("--curated", default="configs/candidates_seed_v2.txt", help="curated file to union for the combined pool")
     ap.add_argument("--combined_out", default="configs/candidates_combined_7b.txt")
@@ -113,11 +141,11 @@ def main():
         key = c.lower().rstrip(".")
         if key not in seen:
             seen.add(key); uniq.append(c)
-    kept = _dedup_semantic(uniq)[:args.target]
+    kept = _cluster_down(uniq, args.target)
     outp = REPO_ROOT / args.out
     outp.write_text("# auto-generated candidate moves (gen_candidates.py, reward-driven contrastive signal)\n"
                     + "\n".join(kept) + "\n")
-    print(f"\n{len(raw)} raw -> {len(uniq)} exact-unique -> {len(kept)} after semantic dedup -> {outp}")
+    print(f"\n{len(raw)} raw -> {len(uniq)} exact-unique -> {len(kept)} after cluster-down (MiniLM) -> {outp}")
     print("\nsample:\n" + "\n".join(f"  - {c}" for c in kept[:8]))
 
     # union with the curated pool -> combined candidate file (labels which is which via a marker line)

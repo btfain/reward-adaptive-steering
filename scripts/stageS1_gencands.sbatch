@@ -16,6 +16,6 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export PYTHONUNBUFFERED=1
 python src/gen_candidates.py --base-config configs/base_7b.yaml \
     --pool results/prompt_basis_large_7b/pool.jsonl \
-    --n_calls 30 --target 100 \
+    --n_calls 60 --target 100 \
     --out configs/candidates_auto_7b.txt --combined_out configs/candidates_combined_7b.txt
 echo "gencands done — inspect configs/candidates_auto_7b.txt + candidates_combined_7b.txt"
