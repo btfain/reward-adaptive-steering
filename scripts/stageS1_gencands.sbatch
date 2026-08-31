@@ -6,16 +6,14 @@
 #SBATCH --mem=48G
 #SBATCH --time=01:00:00
 #SBATCH --output=results/slurm-%j.out
-# P1(i) step 1/2 — generate a LARGE auto candidate pool (~100) from contrastive reward signal, then union
-# with the curated pool -> configs/candidates_combined_7b.txt (auto rows first). ~30 gen calls, ~20-30 min.
-# Large pool is deliberate: top-k + router + cost-aware selection let (i)/(ii) exploit many candidates.
-# AFTER it finishes, commit the candidate files + launch the swing-matrix job (stageS1_candpool_shard).
+# P1(i) step 1/3 — generate a VERY LARGE raw candidate pool (~2k) + provenance (candidate->source prompts).
+# Clustering happens AFTER the smoke test now. ~250 gen calls, ~25-40 min. AFTER: commit the raw files,
+# then launch the sharded smoke test (stageS1_smoke).
 set -euo pipefail
 source .venv/bin/activate
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export PYTHONUNBUFFERED=1
 python src/gen_candidates.py --base-config configs/base_7b.yaml \
-    --pool results/prompt_basis_large_7b/pool.jsonl \
-    --n_calls 60 --target 100 \
-    --out configs/candidates_auto_7b.txt --combined_out configs/candidates_combined_7b.txt
-echo "gencands done — inspect configs/candidates_auto_7b.txt + candidates_combined_7b.txt"
+    --pool results/prompt_basis_large_7b/pool.jsonl --n_calls 250 \
+    --out configs/candidates_raw_7b.txt --provenance configs/candidates_raw_7b.provenance.json
+echo "gencands done — inspect configs/candidates_raw_7b.txt; commit raw + provenance."

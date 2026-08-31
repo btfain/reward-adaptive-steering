@@ -100,14 +100,11 @@ def main():
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
     ap.add_argument("--generator", default=None, help="override base_model for generation")
     ap.add_argument("--pool", default="results/prompt_basis_large_7b/pool.jsonl")
-    ap.add_argument("--n_calls", type=int, default=60)          # generation is cheap -> generate many, cluster down
+    ap.add_argument("--n_calls", type=int, default=250)         # ~2k raw candidates; cluster AFTER smoke
     ap.add_argument("--examples_per", type=int, default=3)
     ap.add_argument("--ask_per", type=int, default=10)
-    ap.add_argument("--target", type=int, default=100)
-    ap.add_argument("--out", default="configs/candidates_auto_7b.txt")
-    ap.add_argument("--curated", default="configs/candidates_seed_v2.txt", help="curated file to union for the combined pool")
-    ap.add_argument("--combined_out", default="configs/candidates_combined_7b.txt")
-    ap.add_argument("--provenance", default="configs/candidates_auto_7b.provenance.json",
+    ap.add_argument("--out", default="configs/candidates_raw_7b.txt")
+    ap.add_argument("--provenance", default="configs/candidates_raw_7b.provenance.json",
                     help="candidate -> source prompts it was derived from (for the smoke test)")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
@@ -143,34 +140,19 @@ def main():
         got = _parse(txt); raw += got; raw_src += [src] * len(got)
         print(f"  call {i+1}/{args.n_calls}: +{len(got)} (total {len(raw)})", flush=True)
 
-    # dedup: exact (keep first's provenance) then cluster-down (medoid inherits provenance)
+    # exact-dedup only — clustering now happens AFTER the smoke test (on survivors). Keep provenance.
     seen, uniq, uniq_src = set(), [], []
     for c, s in zip(raw, raw_src):
         key = c.lower().rstrip(".")
         if key not in seen:
             seen.add(key); uniq.append(c); uniq_src.append(s)
-    kept, kidx = _cluster_down(uniq, args.target)
-    kept_src = [uniq_src[i] for i in kidx]
     outp = REPO_ROOT / args.out
-    outp.write_text("# auto-generated candidate moves (gen_candidates.py, reward-driven contrastive signal)\n"
-                    + "\n".join(kept) + "\n")
-    json.dump({c: s for c, s in zip(kept, kept_src)}, open(REPO_ROOT / args.provenance, "w"))
-    print(f"\n{len(raw)} raw -> {len(uniq)} exact-unique -> {len(kept)} after cluster-down (MiniLM) -> {outp}")
+    outp.write_text("# RAW auto candidate moves (large pool; smoke-filter then cluster). gen_candidates.py\n"
+                    + "\n".join(uniq) + "\n")
+    json.dump({c: s for c, s in zip(uniq, uniq_src)}, open(REPO_ROOT / args.provenance, "w"))
+    print(f"\n{len(raw)} raw -> {len(uniq)} exact-unique -> {outp}")
     print(f"provenance (candidate -> {args.examples_per} source prompts) -> {args.provenance}")
-    print("\nsample:\n" + "\n".join(f"  - {c}" for c in kept[:8]))
-
-    # union with the curated pool -> combined candidate file (labels which is which via a marker line)
-    if args.curated and args.combined_out:
-        cur = [l.strip() for l in open(REPO_ROOT / args.curated)
-               if l.strip() and not l.startswith("#")]
-        seen2 = {c.lower().rstrip(".") for c in kept}
-        cur_new = [c for c in cur if c.lower().rstrip(".") not in seen2]
-        combo = kept + cur_new
-        cp = REPO_ROOT / args.combined_out
-        cp.write_text(f"# combined pool: {len(kept)} auto (first) + {len(cur_new)} curated. n_auto={len(kept)}\n"
-                      + "\n".join(combo) + "\n")
-        print(f"combined pool: {len(kept)} auto + {len(cur_new)} curated = {len(combo)} -> {cp} "
-              f"(auto are the first {len(kept)} rows)")
+    print("\nsample:\n" + "\n".join(f"  - {c}" for c in uniq[:8]))
 
 
 if __name__ == "__main__":
