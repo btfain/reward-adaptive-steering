@@ -34,14 +34,18 @@ def _meta_user(examples, n_ask):
             + "\n\n".join(blocks)
             + f"\n\nInfer WHAT the higher-scoring answers do differently, then propose {n_ask} DISTINCT, "
             "general, reusable one-sentence instructions that would push an assistant toward the "
-            "higher-scoring style on ANY question. Output ONLY the instructions, one per line, no numbering.")
+            "higher-scoring style on ANY question. CRITICAL: each instruction must be DOMAIN-AGNOSTIC — do "
+            "NOT mention any specific topic, task type (e.g. translation), brand, name, or detail from the "
+            "examples above; it must apply to any question. Write in English. Output ONLY the instructions, "
+            "one per line, no numbering.")
 
 
 def _parse(text):
     out = []
     for line in text.splitlines():
         s = re.sub(r"^\s*(\d+[.)]|[-*•])\s*", "", line).strip().strip('"')
-        if 15 <= len(s) <= 300 and s[0].isalpha():
+        ascii_frac = sum(c.isascii() for c in s) / max(len(s), 1)
+        if 15 <= len(s) <= 300 and s[0].isalpha() and ascii_frac > 0.95:   # verify: English-only, no CJK
             out.append(s)
     return out
 
