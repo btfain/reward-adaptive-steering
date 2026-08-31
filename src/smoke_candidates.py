@@ -1,13 +1,13 @@
-"""P1(i) verify step — smoke-test each auto-generated candidate: does it actually push the base model
-toward higher reward? Generate a few completions under the candidate on a small DISJOINT check set,
-RM-score, and cull candidates whose mean swing vs base is clearly ≤ 0 (junk / leaked / degenerate — e.g.
-the 'from Vitable' leak, task-specific moves that hurt off-domain).
+"""P1(i) verify step — smoke-test each auto candidate: was the model's zero-shot GUESS correct? Each
+candidate is the generator's hypothesis, from a specific prompt's high-vs-low contrast, that this move
+would help. We test it ON THOSE SOURCE PROMPTS (where it was believed helpful — NOT random prompts,
+which would be an average-value screen that wrongly culls complementary moves). Generate a few
+completions under the candidate on its source prompts, RM-score, compare to the CACHED base reward from
+the pool (no base regeneration), and cull candidates whose in-context swing is clearly ≤ 0 (the wrong
+guesses: junk / leaked / degenerate).
 
-IMPORTANT: this is a FLOOR filter (cull clearly-non-helpful), NOT a top-K screen. A candidate with modest
-AVERAGE swing can still be highly COMPLEMENTARY (helps a subset nothing else covers); average-ranking is
-valid only for move #1 in submodular selection. So we keep everything non-negative for (ii) to judge on
-marginal gain, and only drop the confidently-negative. Check prompts are disjoint from the eval/reference
-set (no selection bias). Cheap: n_check × (1 + C) × m_check gens.
+FLOOR filter (cull confidently-non-helpful), NOT top-K — complementary moves that help their niche pass
+and go to (ii) for marginal-gain judgement. Cheap: Σ_candidate |source| × m_check gens.
 
     python src/smoke_candidates.py --base-config configs/base_7b.yaml --candidates configs/candidates_auto_7b.txt
 """
@@ -15,6 +15,7 @@ set (no selection bias). Cheap: n_check × (1 + C) × m_check gens.
 import argparse
 import json
 import time
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -33,12 +34,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
     ap.add_argument("--candidates", default="configs/candidates_auto_7b.txt")
+    ap.add_argument("--provenance", default="configs/candidates_auto_7b.provenance.json")
+    ap.add_argument("--pool", default="results/prompt_basis_large_7b/pool.jsonl", help="cached base rewards")
     ap.add_argument("--curated", default="configs/candidates_seed_v2.txt")
-    ap.add_argument("--split", default="train_large")
-    ap.add_argument("--prompt_start", type=int, default=96, help="DISJOINT from the reference set [0:96]")
-    ap.add_argument("--n_check", type=int, default=8)
-    ap.add_argument("--m_check", type=int, default=2)
-    ap.add_argument("--threshold", type=float, default=0.0, help="cull if mean swing <= this (floor, not top-K)")
+    ap.add_argument("--m_check", type=int, default=3)
+    ap.add_argument("--threshold", type=float, default=0.0, help="cull if in-context swing <= this (floor)")
     ap.add_argument("--out", default="configs/candidates_auto_smoke_7b.txt")
     ap.add_argument("--combined_out", default="configs/candidates_combined_7b.txt")
     args = ap.parse_args()
@@ -46,52 +46,61 @@ def main():
     t0 = time.time()
 
     cands = _read(args.candidates); curated = _read(args.curated)
-    prompts = json.load(open(REPO_ROOT / "data" / "prompts.json"))[args.split][
-        args.prompt_start:args.prompt_start + args.n_check]
+    prov = json.load(open(REPO_ROOT / args.provenance))                # candidate -> [source prompt texts]
+    # cached base reward per source prompt (mean over base completions in the pool)
+    bagg = defaultdict(list)
+    for l in open(REPO_ROOT / args.pool):
+        r = json.loads(l)
+        if r["completion"].strip():
+            bagg[r["prompt"]].append(r["rm"])
+    base_ref = {p: float(np.mean(v)) for p, v in bagg.items()}
+
     model, tok = load_base(base_cfg, device); rm, rm_tok = load_rm(base_cfg, device)
     gcfg = {"steer_layer": base_cfg["steer_layer"], "generation": {
         "max_new_tokens": 768, "do_sample": True, "temperature": 0.9, "top_p": 0.95}}
 
-    def score(system):                                              # mean RM over n_check×m_check gens
-        flat = [p for p in prompts for _ in range(args.m_check)]
-        comps = generate_batch(model, tok, flat, gcfg, system=system)
-        r = {}
-        for pi, (p, c) in enumerate(zip(flat, comps)):
-            if c.strip():
-                r.setdefault(p, []).append(rm_score(rm, rm_tok, p, c))
-        return {p: float(np.mean(v)) for p, v in r.items()}
-
-    base_r = score(None)
-    swings, kept, culled = {}, [], []
+    swings, kept, culled, untested = {}, [], [], []
     for i, cand in enumerate(cands):
-        sr = score(cand)
-        sw = float(np.mean([sr[p] - base_r[p] for p in sr if p in base_r]))
+        srcs = [p for p in prov.get(cand, []) if p in base_ref]        # source prompts w/ cached base reward
+        if not srcs:
+            kept.append(cand); untested.append(cand); swings[cand] = float("nan")   # can't test -> keep (lenient)
+            print(f"  [{i+1}/{len(cands)}] no source/base -> KEEP (untested): {cand[:60]}", flush=True); continue
+        flat = [p for p in srcs for _ in range(args.m_check)]
+        comps = generate_batch(model, tok, flat, gcfg, system=cand)
+        by = defaultdict(list)
+        for p, c in zip(flat, comps):
+            if c.strip():
+                by[p].append(rm_score(rm, rm_tok, p, c))
+        sw = float(np.mean([np.mean(by[p]) - base_ref[p] for p in by]))   # in-context swing vs cached base
         swings[cand] = sw
         (kept if sw > args.threshold else culled).append(cand)
-        print(f"  [{i+1}/{len(cands)}] swing {sw:+.3f}  {'KEEP' if sw > args.threshold else 'cull'}: {cand[:60]}", flush=True)
+        print(f"  [{i+1}/{len(cands)}] in-context swing {sw:+.3f}  "
+              f"{'KEEP' if sw > args.threshold else 'cull'}: {cand[:55]}", flush=True)
 
-    outp = REPO_ROOT / args.out
-    outp.write_text("# auto candidates that PASSED the smoke test (swing>0 on disjoint check set)\n" + "\n".join(kept) + "\n")
+    (REPO_ROOT / args.out).write_text(
+        "# auto candidates whose zero-shot guess VERIFIED (in-context swing>0 on source prompts)\n"
+        + "\n".join(kept) + "\n")
     seen = {c.lower().rstrip(".") for c in kept}
     cur_new = [c for c in curated if c.lower().rstrip(".") not in seen]
     combo = kept + cur_new
     (REPO_ROOT / args.combined_out).write_text(
         f"# combined pool (smoke-verified auto + curated). n_auto={len(kept)}\n" + "\n".join(combo) + "\n")
 
-    order = sorted(swings.items(), key=lambda x: x[1])
-    rows = [f"# P1(i) smoke test — candidate reward-improvement floor filter\n",
-            f"{len(cands)} auto candidates, {args.n_check} disjoint check prompts × {args.m_check} samples. "
-            f"FLOOR filter (cull swing ≤ {args.threshold}), NOT top-K. Kept {len(kept)}, culled {len(culled)}.\n",
+    order = sorted(((c, s) for c, s in swings.items() if not np.isnan(s)), key=lambda x: x[1])
+    rows = [f"# P1(i) smoke test — was the zero-shot guess correct? (in-context floor filter)\n",
+            f"{len(cands)} auto candidates tested on THEIR SOURCE prompts (× {args.m_check}) vs cached base "
+            f"reward. FLOOR filter (cull in-context swing ≤ {args.threshold}), NOT top-K. "
+            f"Kept {len(kept)} ({len(untested)} untested-kept), culled {len(culled)}.\n",
             f"Combined pool: {len(kept)} verified auto + {len(cur_new)} curated = {len(combo)}.\n",
-            "## Culled (lowest swing — should be junk/leaked/degenerate):"]
-    rows += [f"- {sw:+.3f}  {c}" for c, sw in order if c in culled][:20]
-    rows += ["", "## Top-swing kept (sanity — should be sensible general moves):"]
-    rows += [f"- {sw:+.3f}  {c}" for c, sw in reversed(order) if c in kept][:10]
-    (BASIS).mkdir(exist_ok=True)
+            "## Culled (wrong guesses — should be junk/leaked/degenerate):"]
+    rows += [f"- {s:+.3f}  {c}" for c, s in order if c in culled][:20]
+    rows += ["", "## Top verified (sanity — sensible general moves that helped in-context):"]
+    rows += [f"- {s:+.3f}  {c}" for c, s in reversed(order) if c in kept][:10]
+    BASIS.mkdir(exist_ok=True)
     (BASIS / "s1_smoke_candidates_report.md").write_text("\n".join(rows) + "\n")
     print("\n".join(rows))
-    print(f"\nkept {len(kept)}/{len(cands)} -> {outp}  (combined -> {args.combined_out})")
-    print(log_cost("S1", "smoke_candidates", time.time() - t0, device, notes="candidate reward-improvement floor filter"))
+    print(f"\nkept {len(kept)}/{len(cands)} -> {args.out}  (combined -> {args.combined_out})")
+    print(log_cost("S1", "smoke_candidates", time.time() - t0, device, notes="in-context zero-shot-guess verify"))
 
 
 if __name__ == "__main__":

@@ -76,22 +76,23 @@ def _kmeans(X, K, iters=100, seed=0):
 
 def _cluster_down(cands, target, near_dup=0.9):
     """Generate-many-then-cluster-down: drop true near-duplicates, then k-means to `target` and keep the
-    medoid (closest to centroid) per cluster — diverse by construction."""
+    medoid (closest to centroid) per cluster — diverse by construction. Returns (reps, global indices)."""
     E = _embed_st(cands)
-    keep, ki = [], []
+    ki = []
     for i in range(len(cands)):                                  # remove true near-duplicates first
         if not ki or (E[i] @ E[ki].T).max() < near_dup:
-            keep.append(cands[i]); ki.append(i)
-    if len(keep) <= target:
-        return keep
+            ki.append(i)
+    if len(ki) <= target:
+        return [cands[i] for i in ki], ki
     Ek = E[ki]; C = _kmeans(Ek, target)
     assign = np.argmax(Ek @ C.T, axis=1)
-    reps = []
+    reps, idx = [], []
     for j in range(target):
         mem = np.where(assign == j)[0]
         if len(mem):
-            reps.append(keep[mem[int(np.argmax(Ek[mem] @ C[j]))]])
-    return reps
+            gi = ki[int(mem[int(np.argmax(Ek[mem] @ C[j]))])]
+            reps.append(cands[gi]); idx.append(gi)
+    return reps, idx
 
 
 def main():
@@ -106,6 +107,8 @@ def main():
     ap.add_argument("--out", default="configs/candidates_auto_7b.txt")
     ap.add_argument("--curated", default="configs/candidates_seed_v2.txt", help="curated file to union for the combined pool")
     ap.add_argument("--combined_out", default="configs/candidates_combined_7b.txt")
+    ap.add_argument("--provenance", default="configs/candidates_auto_7b.provenance.json",
+                    help="candidate -> source prompts it was derived from (for the smoke test)")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     base_cfg = load_config(args.base_config)
@@ -130,26 +133,30 @@ def main():
     model, tok = load_base(base_cfg, device)
     gcfg = {"steer_layer": base_cfg["steer_layer"], "generation": {
         "max_new_tokens": 400, "do_sample": True, "temperature": 0.9, "top_p": 0.95}}
-    raw = []
+    raw, raw_src = [], []                                       # track SOURCE prompts per candidate (provenance)
     for i in range(args.n_calls):
         ex = contrasts[(i * args.examples_per) % len(contrasts):][:args.examples_per]
         if len(ex) < args.examples_per:
             ex = contrasts[:args.examples_per]
+        src = [e[0] for e in ex]                                # the source questions for this call
         txt = generate(model, tok, _meta_user(ex, args.ask_per), gcfg, system=META_SYS)
-        got = _parse(txt); raw += got
+        got = _parse(txt); raw += got; raw_src += [src] * len(got)
         print(f"  call {i+1}/{args.n_calls}: +{len(got)} (total {len(raw)})", flush=True)
 
-    # dedup: exact then semantic, cap at target
-    seen, uniq = set(), []
-    for c in raw:
+    # dedup: exact (keep first's provenance) then cluster-down (medoid inherits provenance)
+    seen, uniq, uniq_src = set(), [], []
+    for c, s in zip(raw, raw_src):
         key = c.lower().rstrip(".")
         if key not in seen:
-            seen.add(key); uniq.append(c)
-    kept = _cluster_down(uniq, args.target)
+            seen.add(key); uniq.append(c); uniq_src.append(s)
+    kept, kidx = _cluster_down(uniq, args.target)
+    kept_src = [uniq_src[i] for i in kidx]
     outp = REPO_ROOT / args.out
     outp.write_text("# auto-generated candidate moves (gen_candidates.py, reward-driven contrastive signal)\n"
                     + "\n".join(kept) + "\n")
+    json.dump({c: s for c, s in zip(kept, kept_src)}, open(REPO_ROOT / args.provenance, "w"))
     print(f"\n{len(raw)} raw -> {len(uniq)} exact-unique -> {len(kept)} after cluster-down (MiniLM) -> {outp}")
+    print(f"provenance (candidate -> {args.examples_per} source prompts) -> {args.provenance}")
     print("\nsample:\n" + "\n".join(f"  - {c}" for c in kept[:8]))
 
     # union with the curated pool -> combined candidate file (labels which is which via a marker line)
