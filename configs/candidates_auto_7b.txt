@@ -1,0 +1,2 @@
+# auto-generated candidate moves (gen_candidates.py, reward-driven contrastive signal)
+Provide context and historical accuracy when relevant.
