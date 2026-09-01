@@ -45,3 +45,25 @@ parallel frozen-base training cost and pay `k×` at test. Rough total-compute cr
 `Q ≈ (C_ppo−C_ours)/(k−1) ≈ few-million queries`. Beyond that PPO amortizes better on pure compute; below
 it we are cheaper — and we always keep the frozen/interpretable base, no training infra, and instant reuse
 across any RM/verifier.
+
+
+## Memory & communication (single-GPU vs multi-GPU) — the democratization point
+PPO on a 7B policy: weights 14GB + grads 14GB + Adam(fp32 m,v) ~56GB + activations ≈ **~85GB for the
+trainable policy alone**, plus reference (~14GB) + reward (7B RM ~14GB) + value/critic (~85GB if trained)
+≈ **~150–200GB** ⇒ REQUIRES a multi-GPU A100/H100 cluster with ZeRO / model-parallel sharding, whose
+per-step **gradient all-reduce / optimizer-state sync is communication-bound**.
+Ours: base LM **frozen, inference-only** (14GB bf16, ~4GB 4-bit; NO grads/optimizer for the 7B) + RM 0.6B
+(~1.2GB) + router (~100M, <1GB) ⇒ **fits on ONE 24GB A5000 — the hardware this whole project ran on.**
+Parallel path is communication-FREE: (i)/(ii) are independent generations; (iii)'s only trained object is
+a tiny UNSHARDED router ⇒ no 7B gradient-sync. So vs PPO it is not "less communication" but ~none on the
+expensive path, on commodity single-GPU hardware PPO-on-7B fundamentally cannot use.
+
+## Router sample complexity (measured) — revises (iii) down
+Held-out top-k value vs training-set size on the cached large_7b matrix (8 seeds, K=8):
+`N_tr = 30/60/120/200/300 → top-2 = +0.66/+0.67/+0.62/+0.57/+0.59` — **plateaus by ~60 prompts; more data
+does not help** (top-1 even drifts down: info-limited ceiling, extra data fits noise). So the router needs
+`N_tr ≈ 60–100` (vs PPO ~1e5–1e6, 3–4 orders fewer) ⇒ **(iii) ≈ N_tr·E ≈ 100·9 ≈ 1k generations, the
+CHEAPEST stage**, not the bottleneck. Whole-pipeline total tightens to ~30k gens, dominated by (i)+(ii).
+Reason (hypothesis, OOD half untested → P3): we fit a K-way ranking via a small encoder, not a 7B policy —
+tiny hypothesis class, semantically coarse map ("which kind of prompt wants which move") ⇒ generalizes
+held-out (bake-off: trained on large_7b, beat naive on held-out b1). T2 = the formal generalization bound.
