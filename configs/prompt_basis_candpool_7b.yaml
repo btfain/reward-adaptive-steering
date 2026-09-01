@@ -6,7 +6,7 @@
 
 tag: "candpool_7b"
 pool_dir: "results/prompt_basis_candpool_7b"
-candidates_file: "configs/candidates_combined_7b.txt"     # auto (first n_auto rows) + curated
+candidates_file: "configs/candidates_medoid_combined_7b.txt"   # 200 medoid auto (first) + curated; n_auto=200
 prompts_split: "train_large"
 
 select:
@@ -22,8 +22,8 @@ router:
   weight_decay: 0.001
 
 pool:
-  n_prompts_train: 64                                     # SMALL prompt subsample — this matrix is eval-only
-  n_prompts_test: 32                                       # held-out for downstream basis evaluation
+  n_prompts_train: 96                                     # bumped 64->96 (saved 3x by dropping to 1 rep) for tighter marginals
+  n_prompts_test: 48                                       # held-out for downstream basis / banner evaluation
   m_base: 2
   m_swing: 2
   max_new_tokens: 768

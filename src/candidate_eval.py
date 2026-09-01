@@ -30,7 +30,7 @@ def _value(M, order):                                       # f(S)=Σ_x max(0, m
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="candpool_7b")
-    ap.add_argument("--combined", default="configs/candidates_combined_7b.txt")
+    ap.add_argument("--combined", default="configs/candidates_medoid_combined_7b.txt")
     ap.add_argument("--K", type=int, default=16)
     args = ap.parse_args()
     OUT = REPO_ROOT / "results" / f"prompt_basis_{args.tag}"

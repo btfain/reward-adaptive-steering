@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:a5000:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=48G
-#SBATCH --time=05:00:00
+#SBATCH --time=11:00:00
 #SBATCH --array=0-3
 #SBATCH --output=results/slurm-%A_%a.out
 # P1(i)/(ii) REFERENCE matrix — SMALL prompt subsample (64) x LARGE pool (~120 candidates) x m_swing=2
