@@ -50,8 +50,11 @@ across any RM/verifier.
 ## Memory & communication (single-GPU vs multi-GPU) — the democratization point
 PPO on a 7B policy: weights 14GB + grads 14GB + Adam(fp32 m,v) ~56GB + activations ≈ **~85GB for the
 trainable policy alone**, plus reference (~14GB) + reward (7B RM ~14GB) + value/critic (~85GB if trained)
-≈ **~150–200GB** ⇒ REQUIRES a multi-GPU A100/H100 cluster with ZeRO / model-parallel sharding, whose
-per-step **gradient all-reduce / optimizer-state sync is communication-bound**.
+≈ **~150–200GB** ⇒ *full-parameter* PPO REQUIRES a multi-GPU A100/H100 cluster (ZeRO / model-parallel,
+communication-bound). **LoRA/QLoRA-PPO DOES fit on one 24GB GPU** (frozen 4-bit base + LoRA + value head +
+0.6B RM ≈ 6–8GB w/ grad-checkpointing) — but it still **backprops through the full 7B forward graph**
+(stores 7B activations, 7B-wide backward), which we avoid ENTIRELY (forward-only generation). So the honest
+claim is 'no LM backprop + ~1000× fewer samples', not 'PPO cannot run here'.
 Ours: base LM **frozen, inference-only** (14GB bf16, ~4GB 4-bit; NO grads/optimizer for the 7B) + RM 0.6B
 (~1.2GB) + router (~100M, <1GB) ⇒ **fits on ONE 24GB A5000 — the hardware this whole project ran on.**
 Parallel path is communication-FREE: (i)/(ii) are independent generations; (iii)'s only trained object is

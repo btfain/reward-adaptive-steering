@@ -112,3 +112,26 @@ GREEN: banner (routed selection > BoN) holds in every run attempted.
 - **Theory weight:** co-equal thrust (aim for T1 as a real theorem) vs supporting (assumptions-heavy
   sketches alongside experiments)?
 - **Banner baselines:** naive BoN only, or also soft-BoN + rejection sampling (cheap to add)?
+
+## Comparison arm — trained alignment (RLHF), added 2026-09-XX
+Positioning: place the method on the reward-vs-(train+test)-compute frontier, not just vs best-of-n.
+- **PRIMARY = PPO against the SAME RM** (methodologically correct for the reward setting — same objective,
+  weight-training vs inference-time selection). Feasible on the A5000 via **LoRA/QLoRA-PPO** (frozen 4-bit
+  base + LoRA + value head + 0.6B RM; TRL PPOTrainer). Report at its fair KL-vs-reward frontier point with
+  the anti-hack checks (both-RM agreement, held-out) — watch RM OVEROPTIMIZATION (small 0.6B RM is hackable;
+  if PPO hacks it while our bounded/auditable moves don't, that's a robustness win for us).
+- **SECONDARY = DPO (QLoRA)** — preference-family, tied to the reward-free swap track (uses pairs, not the
+  RM), NOT the primary reward-setting baseline.
+- **Frontier / composability:** `{base, base+BoN, PPO, PPO+BoN, ours, PPO+ours}`. PPO/DPO and self-
+  instruction are STACKABLE (align then self-instruct) ⇒ frame as cheap+interpretable+stackable, not a
+  replacement. Metric: reward vs total (train+test) compute; secondary reward-vs-KL.
+- HONEST: whether best-of-k self-instruction reaches PPO-level reward is to be MEASURED, not assumed; the
+  claim is "a large, quantified fraction of the reward at a fraction of the cost + interpretability".
+
+## Rename (pending final title)
+Project is being renamed from "reward-adaptive steering" (steering is dead) to **Reward-Driven / Inference-
+Time Self-Instruction: Interpretable Alignment at a Fraction of the Cost** — the system self-generates
+candidate procedural instructions from reward signal and self-selects one per prompt (base model frozen &
+unchanged ⇒ auditable, controllable, safety-preserving). Distinguish from Self-Instruct (Wang 2022, which
+generates data to FINE-TUNE) — ours is inference-time SELECTION, no fine-tuning. Hold file-wide rename until
+title locked.
