@@ -13,5 +13,5 @@ set -euo pipefail
 source .venv/bin/activate
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export PYTHONUNBUFFERED=1
-python src/cluster_candidates.py --base-config configs/base_7b.yaml --factor 6
+python src/cluster_candidates.py --base-config configs/base_7b.yaml --k 200
 echo "cluster done — full clusters + medoid/random/summary pools written; commit them."
