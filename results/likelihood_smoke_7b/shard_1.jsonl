@@ -1,0 +1,590 @@
+{"candidate": "Avoid assuming details not explicitly stated in the question.", "shift": -0.026090820630391438}
+{"candidate": "Offer practical examples where relevant to illustrate your point.", "shift": -0.05667674541473389}
+{"candidate": "Maintain a neutral tone to avoid bias.", "shift": -0.04823351899782816}
+{"candidate": "End sentences with a positive note or action.", "shift": -0.0013566215833028157}
+{"candidate": "Use bullet points for clarity and readability.", "shift": -0.014145731925964355}
+{"candidate": "Link the answer directly to the question asked.", "shift": 0.002929036815961202}
+{"candidate": "Explain the relevance or benefit of suggested features.", "shift": 0.09836458166440327}
+{"candidate": "Offer a structured and organized response.", "shift": 0.061554272969563804}
+{"candidate": "Focus on providing a clear and structured response.", "shift": -0.00037737687428792316}
+{"candidate": "Maintain coherence and flow throughout the answer.", "shift": 0.025226086378097534}
+{"candidate": "Ensure the answer is engaging and easy to understand.", "shift": 0.032986332972844444}
+{"candidate": "Break down the problem into manageable parts.", "shift": 0.5096557289361954}
+{"candidate": "Address potential edge cases and exceptions.", "shift": 0.3277878661950429}
+{"candidate": "Ensure clarity and precision in your response.", "shift": 0.10541399319966634}
+{"candidate": "Offer context when explaining complex topics.", "shift": 0.15618530909220377}
+{"candidate": "Be concise while providing sufficient information.", "shift": 0.11819952726364136}
+{"candidate": "Discuss the historical context and evolution.", "shift": -0.010281980037689209}
+{"candidate": "Incorporate insights from multiple sources.", "shift": 0.009036044279734293}
+{"candidate": "Organize information into a coherent structure before providing details.", "shift": 0.011188824971516928}
+{"candidate": "Include relevant examples to illustrate key points clearly.", "shift": 0.008363445599873861}
+{"candidate": "Summarize key takeaways at the end for easy reference.", "shift": 0.0254954198996226}
+{"candidate": "Include necessary details.", "shift": 0.16114838421344757}
+{"candidate": "Avoid redundant information.", "shift": 0.009024307131767273}
+{"candidate": "Highlight the interconnections and impacts between different elements.", "shift": 0.026389290889104206}
+{"candidate": "Provide actionable steps with practical advice.", "shift": 0.005711863438288371}
+{"candidate": "Ensure the response is engaging and reader-friendly.", "shift": -0.006988902886708577}
+{"candidate": "Present information in a structured format.", "shift": -0.0934280554453532}
+{"candidate": "Mention alternative perspectives or interpretations.", "shift": -0.05111902952194214}
+{"candidate": "Include scientific or technical context when relevant.", "shift": -0.005458305279413859}
+{"candidate": "Use examples to illustrate key points.", "shift": -0.0021575987339019775}
+{"candidate": "Ensure the answer is comprehensive and thorough.", "shift": -0.008628259102503458}
+{"candidate": "Conclude with the correct answer or solution.", "shift": 0.12490171442429225}
+{"candidate": "Present your answer in a straightforward manner.", "shift": 0.21921918044487634}
+{"candidate": "Present your response in a clear, structured manner.", "shift": 0.011888454357782999}
+{"candidate": "Start your response with a clear statement defining the task or question.", "shift": -0.014559358358383179}
+{"candidate": "Maintain a balanced and objective tone throughout your answer.", "shift": 0.020616799592971802}
+{"candidate": "Structure your response with logical steps or arguments.", "shift": 4.707221964995067}
+{"candidate": "Ensure your language is formal and concise.", "shift": -0.1839915911356608}
+{"candidate": "Provide a comprehensive overview of the subject, including key aspects and relevant details.", "shift": 0.014851401249567667}
+{"candidate": "Integrate statistics, studies, or expert opinions to support your explanation.", "shift": 0.024317830801010132}
+{"candidate": "Summarize main points at the beginning and end for clarity.", "shift": 0.01756983995437622}
+{"candidate": "Offer multiple, detailed steps or strategies.", "shift": 0.05248146255811056}
+{"candidate": "Detail the benefits or outcomes of the suggested approach.", "shift": 0.038115849097569786}
+{"candidate": "Provide context and background information relevant to the question to better understand the core issue.", "shift": -0.012309163808822632}
+{"candidate": "Include examples or analogies to illustrate complex concepts or solutions.", "shift": -0.028783023357391357}
+{"candidate": "Highlight the most important aspects of the answer to ensure clarity.", "shift": -0.02049236496289571}
+{"candidate": "Use specific and technical terms relevant to the domain when appropriate.", "shift": 0.032140910625457764}
+{"candidate": "Conclude with a summary or highlight the importance of the solution.", "shift": 0.040970822175343834}
+{"candidate": "Provide a comprehensive overview.", "shift": -0.0022653440634409585}
+{"candidate": "Use active voice for stronger sentences.", "shift": -0.008547663688659668}
+{"candidate": "Ensure the answer is well-rounded and balanced.", "shift": -0.000697175661722819}
+{"candidate": "Avoid translating individual words literally; consider the context.", "shift": -0.0006470630566279093}
+{"candidate": "Use culturally appropriate expressions and idioms when necessary.", "shift": 0.02175457278887431}
+{"candidate": "Provide clear definitions and explanations for technical terms.", "shift": -0.05180321137110392}
+{"candidate": "Include relevant examples or analogies to enhance understanding.", "shift": -0.051429917414983116}
+{"candidate": "Cite sources or references when appropriate to support claims.", "shift": -0.008575717608133951}
+{"candidate": "Draw clear connections between given information and conclusions.", "shift": 0.06497674187024434}
+{"candidate": "Highlight contradictions between provided information and conclusions.", "shift": 0.08781062563260396}
+{"candidate": "Provide a clear and concise explanation.", "shift": 0.015832771857579548}
+{"candidate": "Highlight key points with bullet points if necessary.", "shift": -0.03731412688891093}
+{"candidate": "Proofread for clarity and coherence.", "shift": 0.013269662857055664}
+{"candidate": "Use transition phrases to connect ideas smoothly.", "shift": 0.003552258014678955}
+{"candidate": "Ensure the response is engaging and informative.", "shift": 0.3292481501897176}
+{"candidate": "Clarify any assumptions before providing an answer.", "shift": 0.004865412910779317}
+{"candidate": "Provide structured, step-by-step reasoning.", "shift": 0.06510889281829198}
+{"candidate": "Compare different aspects to aid understanding.", "shift": 0.014958935479323069}
+{"candidate": "Maintain grammatical correctness and coherence.", "shift": 0.024551744262377422}
+{"candidate": "Be precise in the language used to convey the message.", "shift": 0.044612487157185875}
+{"candidate": "Define key terms and concepts at the beginning of your answer.", "shift": 0.0014981627464294434}
+{"candidate": "Summarize main points before concluding the explanation.", "shift": 0.00677420695622762}
+{"candidate": "Outline potential applications or implications of the topic discussed.", "shift": 0.02044371763865153}
+{"candidate": "Offer a clear and concise overview before delving into details.", "shift": -0.02185201644897461}
+{"candidate": "Encourage questions or interaction to foster engagement.", "shift": -0.006189227104187012}
+{"candidate": "Be concise yet comprehensive in your explanations.", "shift": 0.024751730263233185}
+{"candidate": "Structure your response in a logical and organized manner.", "shift": -0.007917356987794241}
+{"candidate": "End your response with a positive note or conclusion.", "shift": 0.00909146418174108}
+{"candidate": "Use general language that applies broadly to various situations.", "shift": 0.046779473622639976}
+{"candidate": "Encourage critical thinking by posing questions or suggesting further exploration.", "shift": 0.019327739874521892}
+{"candidate": "Avoid adding unnecessary details.", "shift": 0.04849738720804453}
+{"candidate": "Accurately represent the given information.", "shift": -0.023483071165780228}
+{"candidate": "Provide context and background information relevant to the main idea.", "shift": -0.04614453514417013}
+{"candidate": "Conclude with a summary that reinforces the main points.", "shift": -0.0075072745482126875}
+{"candidate": "Include specific examples to support the explanation.", "shift": -0.05253570278485616}
+{"candidate": "Use precise and specialized terminology relevant to the field.", "shift": 0.0687955915927887}
+{"candidate": "Structure responses into clear, distinct sections for easier readability.", "shift": 0.04190930724143982}
+{"candidate": "Maintain a neutral and objective tone throughout the response.", "shift": 0.014961262543996176}
+{"candidate": "Acknowledge the challenge while highlighting the possibility of finding a solution.", "shift": 0.022358352939287823}
+{"candidate": "Encourage collaboration and mutual problem-solving.", "shift": 0.03709051509698232}
+{"candidate": "Avoid vague language and strive for specificity.", "shift": 0.23529506226380667}
+{"candidate": "Highlight key information to guide understanding.", "shift": 0.06810209155082703}
+{"candidate": "Maintain precision and avoid unnecessary elaboration.", "shift": -0.19376722971598306}
+{"candidate": "Conclude with a summary or key point.", "shift": 0.01769086718559265}
+{"candidate": "Address the core requirements of the question directly.", "shift": 0.01647508144378662}
+{"candidate": "Avoid repetition and maintain brevity.", "shift": 0.013679100821415583}
+{"candidate": "Ensure your response aligns with the quality criteria.", "shift": -0.0003494781752427419}
+{"candidate": "Offer a clear and direct solution.", "shift": -0.0003578377266724904}
+{"candidate": "Structure your response logically to enhance comprehension.", "shift": -0.007942944765090942}
+{"candidate": "Conclude with a summary or a forward-looking statement.", "shift": -0.0279424786567688}
+{"candidate": "Use personal pronouns to enhance readability and engagement.", "shift": -0.010273218154907227}
+{"candidate": "End sentences with a positive or conclusive note.", "shift": 0.005173146724700928}
+{"candidate": "Use active voice for more engaging writing.", "shift": -0.0011251767476399739}
+{"candidate": "Highlight benefits and unique features of the subject matter.", "shift": -0.004069919387499492}
+{"candidate": "Mention relevant case studies or successful implementations.", "shift": -0.0022887736558914185}
+{"candidate": "Break down complex information into simple, logical steps.", "shift": 0.09310262401898702}
+{"candidate": "Detail the process or method to be explained.", "shift": 0.10850965480009715}
+{"candidate": "Ensure your answer directly addresses the question.", "shift": -0.0113848348458608}
+{"candidate": "Maintain a logical flow throughout your response.", "shift": -0.0013687113920847576}
+{"candidate": "End your answer with a final, confident conclusion.", "shift": -0.005539000034332275}
+{"candidate": "Conclude with a summary of the main arguments.", "shift": -0.01830020546913147}
+{"candidate": "Ensure the answer is factually accurate and up-to-date.", "shift": 0.008571147918701172}
+{"candidate": "Include practical examples or code snippets where applicable.", "shift": -0.0033213396867116294}
+{"candidate": "Present multiple solutions or approaches when appropriate.", "shift": 2.868970235188802e-05}
+{"candidate": "Provide clear and specific examples to illustrate your points.", "shift": 0.011465867360432943}
+{"candidate": "End with a summary or conclusion reinforcing key points.", "shift": -0.02163141965866089}
+{"candidate": "Provide clear definitions for terms and concepts.", "shift": -0.019097944100697834}
+{"candidate": "Be concise but comprehensive in your explanations.", "shift": -0.03517037630081177}
+{"candidate": "End with actionable recommendations or next steps.", "shift": -0.09150094787279765}
+{"candidate": "Use precise terminology and avoid ambiguity.", "shift": -0.005924736460049947}
+{"candidate": "Avoid generic or vague language.", "shift": 0.02593955397605896}
+{"candidate": "Incorporate specific details to enhance clarity.", "shift": -0.038824573159217834}
+{"candidate": "End with recommendations or next steps.", "shift": -0.008818010489145914}
+{"candidate": "Avoid overly technical jargon unless necessary.", "shift": -0.029558897018432617}
+{"candidate": "Ensure all key terms are defined and explained.", "shift": 0.02858080466588338}
+{"candidate": "Structure the answer in a logical, step-by-step manner.", "shift": 0.02523575226465861}
+{"candidate": "Provide context for cultural or historical differences.", "shift": -0.009133030970891317}
+{"candidate": "Structure responses with clear, logical steps.", "shift": 0.01531068483988444}
+{"candidate": "Integrate relevant background information effectively.", "shift": 0.003611986835797628}
+{"candidate": "Discuss potential implications or considerations related to the topic.", "shift": 0.07942592104276021}
+{"candidate": "Use clear and concise language to convey complex ideas.", "shift": 0.027005642652511597}
+{"candidate": "Provide a detailed explanation.", "shift": 0.06483179827531178}
+{"candidate": "Address multiple aspects of the question comprehensively.", "shift": 0.06353958944479625}
+{"candidate": "Conclude with a summary or key takeaways.", "shift": 0.06378229955832164}
+{"candidate": "Offer context-specific information when relevant.", "shift": 0.04641124606132507}
+{"candidate": "Address potential ambiguities directly.", "shift": 0.03596739967664083}
+{"candidate": "Use descriptive and evocative language to engage the senses.", "shift": 0.0026766955852508545}
+{"candidate": "Detail the emotions and atmosphere to evoke feeling.", "shift": -4.04516855875651e-05}
+{"candidate": "Reflect on the implications and deeper meanings where applicable.", "shift": -0.003881166378657023}
+{"candidate": "Structure your answer logically with proper paragraphs.", "shift": 0.09006919463475545}
+{"candidate": "Cite facts or established knowledge where applicable.", "shift": 0.025639434655507404}
+{"candidate": "Highlight the relationships between different elements in your explanation.", "shift": -0.0335686057806015}
+{"candidate": "Explain the reasoning behind your choice in a detailed manner.", "shift": 0.018454646070798237}
+{"candidate": "Offer a concise yet comprehensive summary of the key points involved.", "shift": -0.12218530476093292}
+{"candidate": "Connect abstract concepts to real-world scenarios.", "shift": 0.0002974669138590495}
+{"candidate": "Encourage critical thinking by discussing potential implications.", "shift": 0.0032818218072255454}
+{"candidate": "Use precise language to convey information clearly.", "shift": -0.01048208773136139}
+{"candidate": "Categorize information into distinct headings or types.", "shift": -0.0013667394717534382}
+{"candidate": "End with a memorable or impactful conclusion.", "shift": 0.0011739258964856465}
+{"candidate": "Ensure accuracy and factual correctness.", "shift": -0.019664486249287922}
+{"candidate": "Differentiate between similar concepts or terms.", "shift": 0.012109120686848959}
+{"candidate": "Include relevant examples or practical applications when possible.", "shift": 2.5625339398781457}
+{"candidate": "Avoid unnecessary repetition and maintain a crisp tone.", "shift": 0.4063009023666382}
+{"candidate": "Conclude with a clear and definitive statement if conclusive.", "shift": 3.6334420889616013}
+{"candidate": "Use accurate terminology relevant to the context provided.", "shift": 0.013736963272094727}
+{"candidate": "Avoid redundancy and keep your answer focused on the core of the question.", "shift": -0.018659512201944988}
+{"candidate": "Emphasize the relationship between concepts or variables.", "shift": 0.0268591046333313}
+{"candidate": "Avoid unnecessary details and focus on relevance.", "shift": -0.0025238792101542154}
+{"candidate": "Conclude with a strong summary statement.", "shift": -0.07836105426152547}
+{"candidate": "Explain the reasoning behind the described phenomena.", "shift": -0.4600105059022705}
+{"candidate": "Summarize main ideas at the beginning and end.", "shift": -6.269673126128812}
+{"candidate": "Incorporate relevant statistics or facts to support claims.", "shift": 0.003765945633252462}
+{"candidate": "Highlight the significance or impact of the topic.", "shift": 0.0054428478082021075}
+{"candidate": "Describe the subject comprehensively, providing context and details.", "shift": 0.013507614533106485}
+{"candidate": "Highlight the main ideas and exclude minor details.", "shift": 0.03835344314575195}
+{"candidate": "Connect each part of the explanation to the overall understanding of the topic.", "shift": -0.0008759597937266032}
+{"candidate": "Maintain consistency in character attributes throughout the story.", "shift": 0.018765191237131756}
+{"candidate": "Translate names and specific terms accurately while preserving meaning.", "shift": 0.025141855080922444}
+{"candidate": "Provide a clear and structured response.", "shift": -0.03546052177747091}
+{"candidate": "Keep your language simple and direct.", "shift": -0.030881712834040325}
+{"candidate": "Maintain a neutral and objective tone.", "shift": -0.048355807860692344}
+{"candidate": "Use a natural, conversational tone to make the response engaging.", "shift": 0.017382254203160603}
+{"candidate": "Conclude your answer with a summary or key takeaway point.", "shift": -0.036098857720692955}
+{"candidate": "Ensure your response provides a clear, concise overview of the approach or next steps.", "shift": 0.07086654379963875}
+{"candidate": "Clearly define any technical terms or jargon used in your explanation.", "shift": 0.18868969256679216}
+{"candidate": "Offer a balanced perspective by considering multiple viewpoints.", "shift": 0.25553587699929875}
+{"candidate": "Include practical examples to illustrate key points.", "shift": -0.0023972739775975547}
+{"candidate": "Highlight the significance or impact of the information provided.", "shift": -0.02428816258907318}
+{"candidate": "Maintain a professional and informative tone throughout.", "shift": -0.05968840420246124}
+{"candidate": "Include relevant context and explanations for complex steps.", "shift": 0.013232901692390442}
+{"candidate": "Address potential issues or conflicts proactively.", "shift": 0.011260817448298136}
+{"candidate": "Start with an engaging opening that captures the essence of the topic.", "shift": 0.0038515528043111167}
+{"candidate": "Use clear and precise language.", "shift": 0.02398081620534261}
+{"candidate": "Ensure your response is clear and concise.", "shift": 0.07129526138305664}
+{"candidate": "Include examples or analogies where appropriate to clarify.", "shift": 0.0454745888710022}
+{"candidate": "Conclude with a summary or final statement for clarity.", "shift": 0.14026241501172385}
+{"candidate": "Use credible sources for factual responses.", "shift": -0.01004806657632192}
+{"candidate": "Adopt a formal and concise writing style.", "shift": -0.018892258405685425}
+{"candidate": "Use specific and relevant examples to illustrate key points.", "shift": -0.012553254763285318}
+{"candidate": "Provide a logical flow between different parts of the explanation.", "shift": -0.001117249329884847}
+{"candidate": "Focus on the unique value propositions of the solution.", "shift": 0.005484739939371745}
+{"candidate": "Structure the response with a clear introduction.", "shift": 0.010892709096272787}
+{"candidate": "Present information in a logical and coherent manner.", "shift": 0.008952071269353231}
+{"candidate": "Offer specific details to support your answer.", "shift": 0.0644884705543518}
+{"candidate": "Address potential counterarguments or exceptions thoughtfully.", "shift": 0.014837602774302164}
+{"candidate": "Provide clear, concise definitions for key terms.", "shift": -0.030825823545455933}
+{"candidate": "Incorporate relevant examples to enhance understanding where appropriate.", "shift": -0.09846597909927368}
+{"candidate": "Conclude with a summary that reinforces the main points made.", "shift": -0.07879802584648132}
+{"candidate": "Use straightforward language to explain complex concepts.", "shift": -0.02571178476015727}
+{"candidate": "Avoid jargon unless it is universally understood.", "shift": -0.021551271279652912}
+{"candidate": "Use specific and commonly recognized terms.", "shift": -0.08752357214689255}
+{"candidate": "Ensure the word fits the context naturally.", "shift": -0.06369481980800629}
+{"candidate": "Select terms that are more culturally pervasive.", "shift": -0.043375263611475624}
+{"candidate": "Include the motivation behind the action in the description.", "shift": 0.16507757703463236}
+{"candidate": "Highlight the beneficial outcome of the described action.", "shift": 0.054923286040623985}
+{"candidate": "Ensure your response provides a clear, structured expansion or explanation.", "shift": 0.009190132220586142}
+{"candidate": "Identify and address potential counterarguments.", "shift": 0.0075761377811431885}
+{"candidate": "Include data or statistics when relevant and available.", "shift": 0.008389929930369059}
+{"candidate": "Offer multiple approaches or solutions to demonstrate flexibility.", "shift": 0.004522562026977539}
+{"candidate": "Encourage critical thinking by asking the reader to consider implications.", "shift": -0.016260852416356403}
+{"candidate": "Provide a clear structure or format for the response.", "shift": -0.003789961338043213}
+{"candidate": "Present information in an organized table or list format.", "shift": -0.006030182043711345}
+{"candidate": "Incorporate examples or case studies to illustrate points.", "shift": -0.0018903712431589763}
+{"candidate": "Organize information logically and coherently.", "shift": 0.029814645648002625}
+{"candidate": "Avoid redundant information and unnecessary complexity.", "shift": 0.05893364051977793}
+{"candidate": "Provide clear and specific examples to support your points.", "shift": -0.003183037042617798}
+{"candidate": "Ensure your answer addresses all parts of the question comprehensively.", "shift": -0.0019054114818572998}
+{"candidate": "Use concise and direct language to enhance clarity.", "shift": -0.03915132085482279}
+{"candidate": "Include context and reasoning behind your steps.", "shift": 0.041229198376337685}
+{"candidate": "Use precise language and avoid ambiguity.", "shift": 0.02415575583775838}
+{"candidate": "Provide a clear, concise breakdown of the problem into manageable steps.", "shift": 0.009178340435028076}
+{"candidate": "Ensure each part of the explanation flows logically from one step to the next.", "shift": 0.0031839956839879355}
+{"candidate": "Conclude with a summary of the final solution or answer.", "shift": 0.004177699486414592}
+{"candidate": "Focus on providing a clear and concise overview of the subject.", "shift": -0.010345021883646647}
+{"candidate": "Avoid redundant information and repetitions.", "shift": 0.01608709494272868}
+{"candidate": "Maintain a positive and encouraging tone throughout.", "shift": 0.03894348939259847}
+{"candidate": "Incorporate meaningful details to deepen the narrative.", "shift": 0.07969939708709717}
+{"candidate": "Integrate dialogue or internal thoughts to add depth.", "shift": 0.046049257119496666}
+{"candidate": "Provide a clear and structured overview of the steps required to solve the problem.", "shift": -0.03305297096570333}
+{"candidate": "Ensure the response addresses all aspects of the requirements.", "shift": -0.0010337879260381062}
+{"candidate": "Highlight potential pitfalls or common mistakes to avoid.", "shift": -0.018480817476908367}
+{"candidate": "Use simpler vocabulary when possible to enhance clarity.", "shift": 0.1637553721666336}
+{"candidate": "Reflect the style and tone of the original text in the translation.", "shift": -0.002420276403427124}
+{"candidate": "Focus on providing context and depth rather than just listing information.", "shift": 0.014369507630666098}
+{"candidate": "Incorporate vivid and descriptive language to enrich the answer.", "shift": 0.06754455963770549}
+{"candidate": "Engage the reader by asking rhetorical questions or using active voice.", "shift": -0.02699414889017741}
+{"candidate": "Use relevant examples or evidence to support your points when appropriate.", "shift": 0.006982333958148956}
+{"candidate": "Include a conclusion that restates the key points and provides final thoughts.", "shift": 0.02231081078449885}
+{"candidate": "Focus on providing clear, concise, and relevant examples.", "shift": 0.17854956785837808}
+{"candidate": "Conclude with a compelling summary or call-to-action.", "shift": 0.09742188453674316}
+{"candidate": "Provide a clear and concise overview of the main concepts involved.", "shift": -0.04660529146591822}
+{"candidate": "Start with a broad introduction before diving into specifics.", "shift": -0.015645059446493786}
+{"candidate": "Present information in a way that enhances understanding.", "shift": -0.03132652988036474}
+{"candidate": "Use varied sentence structures for engagement.", "shift": -0.012275551756223043}
+{"candidate": "Provide context or background information when necessary.", "shift": 0.019220590591430664}
+{"candidate": "Use inclusive language and avoid assumptions.", "shift": 0.007071743408838908}
+{"candidate": "Mention specific tools or resources for further help.", "shift": 0.023456871509552002}
+{"candidate": "Specify measurable goals or outcomes to guide the solution.", "shift": 0.013924131790796915}
+{"candidate": "Offer practical and actionable steps or solutions.", "shift": 0.003737911581993103}
+{"candidate": "Focus on the core message without unnecessary words.", "shift": -0.09752166271209717}
+{"candidate": "Provide a clear and straightforward solution.", "shift": -0.059914072354634605}
+{"candidate": "Ensure the response is easy to understand.", "shift": -0.07181024551391602}
+{"candidate": "Clearly define any abbreviations or terms used in the response.", "shift": 0.048780848582585655}
+{"candidate": "Specify the scope and limitations of the information provided.", "shift": 0.07633379101753235}
+{"candidate": "Provide a detailed step-by-step process for solving the problem.", "shift": 0.08626279731591542}
+{"candidate": "Break down complex tasks into simpler, more manageable steps.", "shift": 0.00801156461238861}
+{"candidate": "Explain the reasoning behind each component of the solution.", "shift": 0.05113285779953003}
+{"candidate": "Provide complete and accurate translations.", "shift": 0.014676560958226522}
+{"candidate": "Structure your response logically and clearly.", "shift": 0.020334392786026}
+{"candidate": "Include practical examples and relevant formulas.", "shift": 0.0033752769231796265}
+{"candidate": "Incorporate step-by-step instructions where applicable.", "shift": -0.005845606327056885}
+{"candidate": "Structure the answer in a reader-friendly format.", "shift": 0.004873042305310567}
+{"candidate": "Present your response in the form of a question when seeking additional information.", "shift": 0.03234398365020752}
+{"candidate": "Use clear and straightforward language to ensure understanding.", "shift": 0.021657228469848633}
+{"candidate": "Highlight key points clearly and concisely.", "shift": -0.01523059606552124}
+{"candidate": "Emphasize the value proposition or benefits to the reader.", "shift": -0.02306884527206421}
+{"candidate": "Mention unique aspects or advantages that set the topic apart.", "shift": 0.010878463586171469}
+{"candidate": "Ensure your answer aligns with the task requirements.", "shift": 0.00788836677869161}
+{"candidate": "Maintain a professional and courteous tone throughout.", "shift": 0.020427174866199493}
+{"candidate": "Tailor your answer to match the specific interests or needs mentioned.", "shift": 0.01616849998633067}
+{"candidate": "Avoid vague terms and specify the exact process or components involved.", "shift": 0.0017972290515899658}
+{"candidate": "Highlight key points with bullet lists or numbered lists.", "shift": -0.022322456041971844}
+{"candidate": "Use precise terminology related to the subject matter.", "shift": -0.0035702685515085855}
+{"candidate": "Avoid repeating generic phrases and focus on specific details.", "shift": -0.005776842435201009}
+{"candidate": "Discuss potential variations or scenarios to offer a comprehensive view.", "shift": -0.009422481060028076}
+{"candidate": "Provide specific examples to illustrate complex concepts.", "shift": 0.17449298997720084}
+{"candidate": "Conclude with a summary or key takeaway.", "shift": 0.2257834573586782}
+{"candidate": "Ensure the answer flows logically and coherently.", "shift": 0.09892185032367706}
+{"candidate": "Provide context where necessary to enhance comprehension.", "shift": 0.0008721550305684408}
+{"candidate": "Avoid technical jargon unless necessary.", "shift": -0.009207834800084433}
+{"candidate": "Start with an engaging opening statement.", "shift": -0.005914847056070964}
+{"candidate": "Encourage critical thinking by asking relevant questions.", "shift": -0.007833321889241537}
+{"candidate": "Use precise language to define key terms and concepts.", "shift": 0.0060607194900512695}
+{"candidate": "Tailor the difficulty level of the questions to match the respondent's experience.", "shift": 0.021282687783241272}
+{"candidate": "Integrate relevant references or citations to support claims.", "shift": -0.013398334383964539}
+{"candidate": "Use active voice for more direct communication.", "shift": 0.01398251454035441}
+{"candidate": "Define any technical terms or jargon used.", "shift": 0.008010804653167725}
+{"candidate": "Offer specific, concrete examples where appropriate.", "shift": -0.020893683036168415}
+{"candidate": "Include a call to action at the end of your response.", "shift": 0.0018100837866465251}
+{"candidate": "Avoid unnecessary repetitions and clarifications.", "shift": 0.05299737056096395}
+{"candidate": "Start with a concise overview of the subject.", "shift": 0.058837294578552246}
+{"candidate": "Be mindful of the context and avoid irrelevant information.", "shift": 0.027089277903238933}
+{"candidate": "Break down the explanation into clear, manageable steps.", "shift": -0.012711435556411743}
+{"candidate": "Structure the answer logically to enhance clarity and understanding.", "shift": 0.00923106074333191}
+{"candidate": "Provide clear and relevant details in your response.", "shift": -0.0546931525071462}
+{"candidate": "Address the question fully without omitting important information.", "shift": -0.050920059283574425}
+{"candidate": "Highlight the importance and context of the subject matter.", "shift": 0.0006899436314900717}
+{"candidate": "Provide a balanced view, including pros and cons where relevant.", "shift": -0.004602094491322835}
+{"candidate": "Conclude with a strong summary that reinforces the main points.", "shift": 0.029895583788553875}
+{"candidate": "Include examples or case studies to illustrate the concept or phenomenon.", "shift": 0.0025634169578552246}
+{"candidate": "Use connecting phrases to link ideas smoothly and coherently.", "shift": -0.009042685230573019}
+{"candidate": "Discuss potential impacts and consequences for a wide range of scenarios.", "shift": 0.026357074578603108}
+{"candidate": "Highlight contradictions or conflicting viewpoints to show complexity.", "shift": 0.05290039380391439}
+{"candidate": "Provide clear and detailed steps when giving instructions.", "shift": 0.011990065375963846}
+{"candidate": "Organize information logically to facilitate comprehension.", "shift": 0.010386854410171509}
+{"candidate": "Ensure all information is relevant and pertinent.", "shift": 0.016950334111849468}
+{"candidate": "Use clear and concise language to convey information accurately.", "shift": 0.002514610687891642}
+{"candidate": "Vary sentence structure to improve readability and interest.", "shift": -0.012892777721087137}
+{"candidate": "Highlight key points explicitly.", "shift": 0.022535661856333416}
+{"candidate": "Avoid unnecessary repetitions and complexities.", "shift": 0.0269580880800883}
+{"candidate": "Clarify any potential ambiguities directly.", "shift": 0.016501744588216145}
+{"candidate": "Summarize key points at the end for clarity.", "shift": 0.002670884132385254}
+{"candidate": "Offer balanced perspectives when discussing issues.", "shift": 0.0061378280321757}
+{"candidate": "Offer a clear example or analogy to illustrate your point.", "shift": -0.00776153306166331}
+{"candidate": "Tailor your tone to match the expected formality or informality.", "shift": 0.09696592390537262}
+{"candidate": "Explain potential solutions or concepts without assuming full understanding.", "shift": 0.025199095408121746}
+{"candidate": "Highlight key points or aspects to focus on when addressing the question.", "shift": 0.08487376570701599}
+{"candidate": "Ensure logical consistency between parts.", "shift": -0.010137319564819336}
+{"candidate": "Avoid ambiguity and vague terms.", "shift": 0.0010884006818135579}
+{"candidate": "Include specific examples when appropriate to illustrate points.", "shift": 0.0977609356244405}
+{"candidate": "Avoid generic statements; provide substantive information instead.", "shift": 0.041560630003611244}
+{"candidate": "Provide clear and structured guidance.", "shift": 0.036264742414156594}
+{"candidate": "Offer context for the reader.", "shift": 0.012712409098943075}
+{"candidate": "Use concise language to enhance clarity.", "shift": 0.0326017290353775}
+{"candidate": "Avoid listing items when a narrative explanation is more effective.", "shift": 0.008511702219645182}
+{"candidate": "Structure your response logically, moving from general to specific.", "shift": -0.033278842767079674}
+{"candidate": "Focus on providing context and background information relevant to the question.", "shift": -0.031223336855570476}
+{"candidate": "Discuss potential variations or considerations related to the topic.", "shift": -0.027070005734761555}
+{"candidate": "Provide a clear, structured approach to solving the problem.", "shift": 0.11096435288588206}
+{"candidate": "Detail the step-by-step process for clarity.", "shift": 0.09531784057617188}
+{"candidate": "Present information in a logical and organized manner.", "shift": 0.031246811151504517}
+{"candidate": "Provide specific examples or illustrative cases when necessary.", "shift": 0.009845718741416931}
+{"candidate": "Use specific terminology appropriate to the context of the question.", "shift": -0.005645001928011577}
+{"candidate": "Provide clear, step-by-step procedures.", "shift": -0.021722733974456787}
+{"candidate": "Include practical examples when appropriate.", "shift": -0.011249303817749023}
+{"candidate": "Be concise but thorough in your explanation.", "shift": -0.009313682715098063}
+{"candidate": "Maintain consistency in terminology throughout explanations.", "shift": 0.00048103928565979004}
+{"candidate": "Structure the answer with clear headings if necessary.", "shift": 0.04129388928413391}
+{"candidate": "Include relevant context and examples.", "shift": -0.0036910027265548706}
+{"candidate": "Ensure the answer is comprehensive and covers all aspects.", "shift": -0.005999758839607239}
+{"candidate": "Strive for a natural, conversational tone in the response.", "shift": -0.021359970172246296}
+{"candidate": "Include a compelling call to action or invitation.", "shift": 0.02251828710238139}
+{"candidate": "Incorporate interactive elements or experiences.", "shift": 0.015302886565526327}
+{"candidate": "Provide answers directly related to the question.", "shift": -0.1163463294506073}
+{"candidate": "Avoid overly complex language or jargon.", "shift": -0.05105173587799072}
+{"candidate": "Provide specific, actionable steps or strategies.", "shift": 0.07917428016662598}
+{"candidate": "Offer context-aware and relatable examples.", "shift": 0.07321914037068684}
+{"candidate": "Suggest the breakdown of complex ideas into simpler parts.", "shift": 0.0065581103165944414}
+{"candidate": "Include examples or studies to support your response.", "shift": 0.027848710616429646}
+{"candidate": "Draw on real-world applications for relevance.", "shift": 0.019206196069717407}
+{"candidate": "Incorporate additional context to enrich the answer without deviating from the main point.", "shift": 0.011123895645141602}
+{"candidate": "Tailor the language to match the intended audience or purpose of the question.", "shift": -0.0012685855229695637}
+{"candidate": "End the response with a conclusion or summary that reinforces the main ideas.", "shift": -0.013890405495961508}
+{"candidate": "Ensure all required elements are included directly.", "shift": 0.05784452458222707}
+{"candidate": "Keep sentences concise and to the point.", "shift": 0.23048536976178488}
+{"candidate": "Emphasize the value or benefit to the reader.", "shift": -0.004394059379895528}
+{"candidate": "Connect complex ideas to everyday experiences.", "shift": 0.02494417627652486}
+{"candidate": "Start with the essential context or introduction.", "shift": -0.010756174723307291}
+{"candidate": "Avoid vague terms and provide precise information.", "shift": -0.0039362311363220215}
+{"candidate": "Identify key stakeholders or subjects relevant to the topic.", "shift": -0.006072719891866048}
+{"candidate": "Highlight challenges or limitations associated with the topic.", "shift": 0.003090361754099528}
+{"candidate": "Provide a detailed explanation for why the given option is the most logical continuation.", "shift": -0.029458413521448772}
+{"candidate": "Highlight key elements of the scenario to justify the proposed solution or continuation.", "shift": -0.008501648902893066}
+{"candidate": "Outline a logical sequence of events or steps based on the provided information.", "shift": -0.022149513165156048}
+{"candidate": "Use vivid and descriptive language to enhance understanding.", "shift": -0.002786487340927124}
+{"candidate": "Offer context or background information to deepen understanding.", "shift": -0.00885656476020813}
+{"candidate": "Describe the subject matter in a way that engages the reader.", "shift": -0.0025803744792938232}
+{"candidate": "Structure responses into coherent paragraphs for better readability.", "shift": -0.00315128763516744}
+{"candidate": "Use transitional phrases to link ideas smoothly within paragraphs.", "shift": -0.003954678773880005}
+{"candidate": "Link new information back to the original question.", "shift": 0.033146907885869346}
+{"candidate": "Draw explicit connections between different ideas.", "shift": 0.02040650447209676}
+{"candidate": "Avoid redundant information and unnecessary details.", "shift": 0.09039152661959331}
+{"candidate": "Cite sources when necessary.", "shift": 0.030786255995432537}
+{"candidate": "Ensure the answer flows logically from one point to another.", "shift": -0.0008371671040852865}
+{"candidate": "Offer concrete examples to illustrate points.", "shift": -0.04488208889961243}
+{"candidate": "Present information in a logical sequence.", "shift": -0.013363132874170939}
+{"candidate": "Focus on engaging opening lines to grab attention.", "shift": -0.08039870858192444}
+{"candidate": "Provide context to help understand the significance.", "shift": -0.042061060667037964}
+{"candidate": "Maintain a consistent tone throughout the response.", "shift": -0.02104686697324117}
+{"candidate": "Highlight the most important aspects of the question.", "shift": 0.02773459752400716}
+{"candidate": "Provide actionable advice or recommendations when possible.", "shift": 0.010874410470326742}
+{"candidate": "Explain the impact or emotions experienced in a relatable way.", "shift": 0.0004729429880777995}
+{"candidate": "Discuss the broader implications or significance of the topic.", "shift": -0.0039485494295756025}
+{"candidate": "Provide a detailed explanation rather than a brief overview.", "shift": 0.035249690214792885}
+{"candidate": "Highlight key findings or conclusions clearly.", "shift": -0.018757959206899006}
+{"candidate": "Address counterarguments and provide balanced viewpoints.", "shift": 0.0001897414525349935}
+{"candidate": "Start with a hook or attention-grabbing element.", "shift": 0.0038431286811828613}
+{"candidate": "Keep technical terms to a minimum or explain them clearly.", "shift": 0.03649323185284933}
+{"candidate": "Use formal language throughout the explanation.", "shift": 0.004306122660636902}
+{"candidate": "Structure the answer logically to flow smoothly.", "shift": 0.0029132316509882608}
+{"candidate": "Provide a clear, detailed, and structured response.", "shift": -0.005330801010131836}
+{"candidate": "Include a variety of relevant details to enhance the answer.", "shift": -0.0036564270655314126}
+{"candidate": "Outline steps logically and concisely.", "shift": -0.0026036699612935386}
+{"candidate": "Ensure clarity and coherence in writing style.", "shift": 0.001546233892440796}
+{"candidate": "Encourage the sharing of detailed personal experiences.", "shift": 0.1728239208459854}
+{"candidate": "Engage the reader with narrative techniques.", "shift": 0.30144641796747845}
+{"candidate": "Instruct on practical steps and solutions clearly and concisely.", "shift": 0.19845502575238547}
+{"candidate": "Avoid oversimplification and offer comprehensive insights.", "shift": 0.29724400738875073}
+{"candidate": "Highlight key points using bullet points or bold text.", "shift": 0.23595166206359863}
+{"candidate": "Organize the information into logical categories or steps.", "shift": 0.15277034044265747}
+{"candidate": "Include specific examples or scenarios when appropriate.", "shift": 0.09248615304629008}
+{"candidate": "Offer actionable advice or recommendations where possible.", "shift": 0.08148278792699178}
+{"candidate": "Avoid overly simplified explanations.", "shift": 0.007523780067761739}
+{"candidate": "Encourage the reader to understand the underlying mechanisms.", "shift": 0.002076039711634318}
+{"candidate": "Use concise, engaging language to capture interest.", "shift": -0.012820204099019369}
+{"candidate": "Incorporate transitions to enhance flow and coherence.", "shift": -0.005545775095621745}
+{"candidate": "Begin with an engaging opening to capture interest.", "shift": -0.09973780810832977}
+{"candidate": "Use dialogue sparingly but impactful to reveal personality.", "shift": -0.006526450316111247}
+{"candidate": "Focus on clarity and precision.", "shift": -0.00813223421573639}
+{"candidate": "Include relevant details without excess.", "shift": -0.013976012667020163}
+{"candidate": "Consider the audience and tailor the language accordingly.", "shift": -0.039367313186327614}
+{"candidate": "Use examples to illustrate key points and enhance understanding.", "shift": -0.004642123977343242}
+{"candidate": "Balance positive and negative aspects to give a comprehensive view.", "shift": -0.011778324842453003}
+{"candidate": "Start with a strong opening statement to grab attention.", "shift": 0.0054221053918202715}
+{"candidate": "Define any technical terms to ensure comprehension.", "shift": 0.008143415053685507}
+{"candidate": "Provide context and background information when relevant.", "shift": -0.005338519811630249}
+{"candidate": "Include specific examples or case studies when applicable.", "shift": -0.011464804410934448}
+{"candidate": "Use a clear and concise writing style.", "shift": -0.008185356855392456}
+{"candidate": "Structure explanations to flow logically from one idea to the next.", "shift": -0.003730138142903646}
+{"candidate": "Highlight the most important information first in your explanation.", "shift": -0.0061158786217371626}
+{"candidate": "Include practical examples or analogies to enhance comprehension.", "shift": 0.046681841214497886}
+{"candidate": "Present a balanced view, considering various perspectives or scenarios.", "shift": 0.009813050429026285}
+{"candidate": "Introduce concepts from foundational to advanced levels.", "shift": 0.016703441739082336}
+{"candidate": "Compare and contrast different aspects when appropriate.", "shift": 0.013947019974390665}
+{"candidate": "Include visual aids or diagrams if they enhance understanding.", "shift": 0.04009899993737539}
+{"candidate": "Provide detailed explanations rather than brief summaries.", "shift": -0.010645632942517599}
+{"candidate": "Maintain a formal and professional tone throughout.", "shift": 0.07497930030028026}
+{"candidate": "Include relevant historical context or progression where applicable.", "shift": -0.012199898560841879}
+{"candidate": "Address potential challenges or limitations when appropriate.", "shift": 0.0020416577657063804}
+{"candidate": "Provide concrete, actionable steps for the solution.", "shift": 0.017672419548034668}
+{"candidate": "Mention relevant examples to illustrate points.", "shift": -0.004853787521521251}
+{"candidate": "Include relevant context and references where appropriate.", "shift": 0.007402569055557251}
+{"candidate": "Ensure the answer is detailed but not overly verbose.", "shift": 0.009057561556498209}
+{"candidate": "Provide context when introducing new concepts or terms.", "shift": 0.0074360718329747515}
+{"candidate": "Check for grammatical accuracy and proper punctuation.", "shift": -0.1989568422238032}
+{"candidate": "Provide clear and structured reasoning for each option.", "shift": -0.03532065451145172}
+{"candidate": "Use a consistent and professional tone throughout.", "shift": -0.017520591616630554}
+{"candidate": "Include concrete examples to support your explanation.", "shift": -0.024634554982185364}
+{"candidate": "Offer justification or reasoning behind your suggestions.", "shift": 0.03968162337938944}
+{"candidate": "Suggest ways to enhance user understanding or engagement.", "shift": 0.05587636927763621}
+{"candidate": "Maintain a clear and concise structure in your responses.", "shift": -0.0003686646620432536}
+{"candidate": "Structure your answer to reflect hierarchical levels of detail.", "shift": 0.0019138803084691365}
+{"candidate": "Structure your response logically with clear organization.", "shift": 0.12073773145675659}
+{"candidate": "Define terms or concepts if they might be unclear to the reader.", "shift": 0.19805987675984701}
+{"candidate": "Incorporate sensory details to bring the narrative to life.", "shift": 0.04064204295476278}
+{"candidate": "Maintain a consistent and engaging narrative tone.", "shift": 0.010957891742388407}
+{"candidate": "Be creative while staying true to the core information.", "shift": 0.0029332836469014487}
+{"candidate": "Give examples to support your answer.", "shift": 0.021705078581968944}
+{"candidate": "Use simple language to ensure clarity.", "shift": -0.07861513582368691}
+{"candidate": "Avoid redundancy and unnecessary repetition.", "shift": -0.15148314833641052}
+{"candidate": "Offer context when necessary to aid comprehension.", "shift": 0.018339042862256367}
+{"candidate": "Provide contextually relevant and detailed responses.", "shift": 0.02136056621869405}
+{"candidate": "Use a friendly and engaging tone.", "shift": -0.07872097690900166}
+{"candidate": "Emphasize accuracy and factual correctness.", "shift": -0.016736159722010296}
+{"candidate": "Incorporate relevant visuals when possible.", "shift": 0.009205691516399384}
+{"candidate": "Connect ideas logically.", "shift": -0.008348109821478525}
+{"candidate": "Begin your answer with an engaging opening question or statement.", "shift": 0.09573059280713399}
+{"candidate": "Break down complex topics into simpler, more digestible parts.", "shift": 0.07446546852588654}
+{"candidate": "Incorporate user feedback or concerns to refine your response.", "shift": 0.08945850034554799}
+{"candidate": "Maintain a neutral and factual tone", "shift": 0.05372092003623644}
+{"candidate": "Be respectful and avoid inflammatory statements", "shift": 0.050666727125644684}
+{"candidate": "Offer practical advice or solutions.", "shift": -0.033005605141321816}
+{"candidate": "Structure your response into clear, numbered steps.", "shift": 0.001869956652323405}
+{"candidate": "Address potential counterarguments or alternative perspectives.", "shift": 0.002518455187479655}
+{"candidate": "Avoid using jargon or technical terms without explanation.", "shift": -0.10259444018205006}
+{"candidate": "Incorporate a personal touch or analogy if appropriate.", "shift": 0.015687425931294758}
+{"candidate": "Define any specialized terms or acronyms for clarity.", "shift": 0.008198380470275879}
+{"candidate": "Discuss potential challenges or limitations associated with the topic.", "shift": 0.020313918590545654}
+{"candidate": "Cite credible sources or references to support your claims.", "shift": 0.018800119558970135}
+{"candidate": "Elaborate on the steps involved in solving the problem or explaining the concept.", "shift": 0.10620617866516113}
+{"candidate": "Include relevant background information to support the main points.", "shift": 0.11479745308558147}
+{"candidate": "Include explanations or clarifications when necessary for better understanding.", "shift": 0.28914138674736023}
+{"candidate": "Incorporate relevant details to enrich the response without verbosity.", "shift": -0.02264926830927531}
+{"candidate": "Encourage engagement by asking follow-up questions if needed.", "shift": 0.07815356055895488}
+{"candidate": "Maintain a logical flow and structure in your explanation.", "shift": -0.00395713746547699}
+{"candidate": "Ensure the overall explanation is coherent and easy to follow.", "shift": 0.004035731156667073}
+{"candidate": "Begin with a concise introduction that sets the context.", "shift": 0.18296492099761963}
+{"candidate": "End with a relevant conclusion or summary.", "shift": 0.14338658253351846}
+{"candidate": "Be mindful of cultural and ethical implications.", "shift": 0.1480651299158732}
+{"candidate": "Summarize key points at the beginning and end of the answer.", "shift": 0.034548282623291016}
+{"candidate": "Encourage engagement by asking rhetorical questions.", "shift": 0.0008525153001149496}
+{"candidate": "Offer examples to illustrate your point when appropriate.", "shift": -0.012083128094673157}
+{"candidate": "Seek additional information if needed to produce a comprehensive answer.", "shift": -0.02369973560174306}
+{"candidate": "Verify the accuracy and completeness of your provided information.", "shift": 0.01366188625494639}
+{"candidate": "Use clear, concise language to convey your points.", "shift": 0.17562183737754822}
+{"candidate": "Avoid redundant phrases and repetition.", "shift": 0.2587461471557617}
+{"candidate": "Ensure your answer is comprehensive and covers all necessary aspects.", "shift": -0.019424110651016235}
+{"candidate": "Conclude with a summary or key takeaways to reinforce the main points.", "shift": -0.016736348470052082}
+{"candidate": "Provide context and background information relevant to the query.", "shift": 0.009357839822769165}
+{"candidate": "Include factual information to support claims or explanations.", "shift": 0.007980863253275553}
+{"candidate": "Offer a balanced perspective by acknowledging limitations or uncertainties.", "shift": 0.014251947402954102}
+{"candidate": "Start with a broad overview before delving into details.", "shift": -0.002150277296702067}
+{"candidate": "Engage the reader by asking questions or making connections.", "shift": 0.0019249916076660156}
+{"candidate": "Start with a concise statement of the correct answer.", "shift": 0.20022979627052942}
+{"candidate": "Begin with the core information to avoid confusion.", "shift": -0.003471242884794871}
+{"candidate": "Highlight the most critical aspects of the explanation.", "shift": 0.3625895207126935}
+{"candidate": "Incorporate ethical, legal, and practical considerations into your response.", "shift": 1.4267441034317017}
+{"candidate": "Organize your response into distinct sections for clarity.", "shift": 2.7263280153274536}
+{"candidate": "Focus on the significance or impact of the subject.", "shift": 0.003996709982554118}
+{"candidate": "Break complex ideas into simpler, digestible parts.", "shift": 0.00458604097366333}
+{"candidate": "Avoid redundancy and provide specific examples to support your points.", "shift": 0.05258822441101074}
+{"candidate": "Emphasize practical applications or real-world relevance.", "shift": -0.014433254798253378}
+{"candidate": "Ensure your response flows naturally and smoothly.", "shift": 0.006945470968882243}
+{"candidate": "Incorporate sensory details to make the response more immersive.", "shift": -0.04219089945157369}
+{"candidate": "End with a call to action or next step if appropriate.", "shift": 0.0038556655248006186}
+{"candidate": "Develop the plot with meaningful conflicts and resolutions.", "shift": 0.010606616735458374}
+{"candidate": "Use dialogue and actions to bring characters to life.", "shift": 0.012612928946812948}
+{"candidate": "Discuss both positive and negative aspects when applicable.", "shift": 0.01460870107014974}
+{"candidate": "Engage the reader with a narrative or descriptive approach when possible.", "shift": 0.012819429238637289}
+{"candidate": "Ensure your response is structured and clearly formatted.", "shift": 0.00704421599706014}
+{"candidate": "Use appropriate salutations and closings.", "shift": 0.009789874156316122}
+{"candidate": "Format multi-line responses consistently.", "shift": -0.008310630917549133}
+{"candidate": "Adhere strictly to the grammatical rules of the target language.", "shift": 0.01728665828704834}
+{"candidate": "Incorporate any cultural or contextual references present in the original input.", "shift": -0.041865130265553795}
+{"candidate": "Ensure your response clearly addresses the core query without unnecessary complexity.", "shift": 0.020943552255630493}
+{"candidate": "Use clear and straightforward language to avoid confusion.", "shift": -0.009927848974863688}
+{"candidate": "Address potential misunderstandings directly in your response.", "shift": 0.014700432618459066}
+{"candidate": "Use technical details relevant to the context.", "shift": -0.00657808780670166}
+{"candidate": "Incorporate real-world applications or analogies for better understanding.", "shift": 0.004857808351516724}
+{"candidate": "Provide a clear, concise, and structured overview of the steps.", "shift": 0.19386068979899088}
+{"candidate": "Conclude with a summary or recap of the main points.", "shift": 0.056108047564824425}
+{"candidate": "Offer practical tips or best practices at the end.", "shift": 0.25361043214797974}
+{"candidate": "Provide step-by-step reasoning for derived equations.", "shift": 0.025247784952322643}
+{"candidate": "Present each piece of the solution clearly and coherently.", "shift": 0.010646889607111612}
+{"candidate": "Focus on providing context and background information relevant to the topic.", "shift": 0.05349664390087128}
+{"candidate": "Avoid oversimplification and provide nuanced explanations when appropriate.", "shift": 0.038905213276545204}
+{"candidate": "Maintain a formal and professional tone throughout the response.", "shift": 0.0071653227011362714}
+{"candidate": "Highlight important steps or methodologies.", "shift": -0.008465091387430826}
+{"candidate": "Connect the information to broader themes or fields.", "shift": 0.009665677944819132}
+{"candidate": "Start with an attention-grabbing introduction.", "shift": 0.0018294652303059895}
+{"candidate": "Structure your answer logically with clear sections.", "shift": -0.008477906386057535}
+{"candidate": "Use a polite and friendly tone.", "shift": 0.005572189887364705}
+{"candidate": "End with a positive note or a closing phrase.", "shift": 0.024613022804260254}
+{"candidate": "Provide a clear and detailed explanation for each step.", "shift": 0.10540974885225296}
+{"candidate": "Avoid making assumptions not supported by the question.", "shift": -0.007432200014591217}
+{"candidate": "Highlight key steps or results using bold or italics if applicable.", "shift": 0.07835650692383449}
+{"candidate": "Break down the problem into smaller, manageable parts.", "shift": 0.006979356209437053}
+{"candidate": "Maintain clarity and precision in your language.", "shift": -0.02280762791633606}
+{"candidate": "Anticipate potential counterarguments or alternative perspectives.", "shift": 0.007404208183288574}
+{"candidate": "Ensure the response is concise and accurate.", "shift": 0.0055010030046105385}
+{"candidate": "Use a formal and informative tone.", "shift": -0.021462710884710152}
+{"candidate": "Conclude with additional relevant facts if space permits.", "shift": -0.05071659820775191}
+{"candidate": "Conclude each point with a definitive statement.", "shift": -0.03710655371348063}
+{"candidate": "Ensure smooth transitions between ideas and paragraphs.", "shift": -0.009895354509353638}
+{"candidate": "Emphasize the collaborative aspect by inviting further input or clarification.", "shift": 0.13358301917711893}
+{"candidate": "Mention real-world applications to increase relevance.", "shift": 0.06688126921653748}
+{"candidate": "Provide specific actions or steps to clarify the task.", "shift": 0.28934858242670697}
+{"candidate": "Identify key elements or components mentioned in the question.", "shift": 0.2855155865351359}
+{"candidate": "Clarify any assumptions made while answering the question.", "shift": 0.14458776513735452}
+{"candidate": "Offer a structured step-by-step response.", "shift": 0.042550623416900635}
+{"candidate": "Avoid vague language and be precise.", "shift": 0.003166268269220988}
+{"candidate": "Use specific examples or excerpts to illustrate key points.", "shift": 0.006088563551505406}
+{"candidate": "Organize information logically to enhance readability.", "shift": 0.005212221294641495}
+{"candidate": "Highlight potential impacts or consequences of the topic.", "shift": 0.010072439908981323}
+{"candidate": "Acknowledge potential benefits alongside risks or drawbacks.", "shift": 0.01967922846476237}
+{"candidate": "Use descriptive and emotive language to convey feelings and connections.", "shift": 0.010637442270914713}
+{"candidate": "Maintain a balanced tone between emotional and professional aspects.", "shift": 0.0020672579606374106}
+{"candidate": "Keep sentences concise but detailed where necessary.", "shift": 0.006504545609156291}
+{"candidate": "Highlight any differences or comparisons between related concepts.", "shift": -0.010842646161715189}
+{"candidate": "Include actionable steps or recommendations if applicable.", "shift": -0.006628955403963725}
+{"candidate": "Start with a coherent introduction to your response.", "shift": 0.013731390237808228}
+{"candidate": "Cite sources or examples to enhance credibility.", "shift": 0.007201279203097026}
+{"candidate": "Break down complex concepts into simpler terms.", "shift": 0.039394378662109375}
+{"candidate": "Address common misconceptions and counterarguments.", "shift": 0.02047493060429891}
+{"candidate": "Emphasize the core of the question.", "shift": -0.01936449607213338}
+{"candidate": "Summarize main arguments at the end.", "shift": -0.025756001472473145}
+{"candidate": "Highlight potential challenges and their mitigation strategies.", "shift": -0.00026981035868326825}
+{"candidate": "Detail the materials or methods needed for implementation clearly.", "shift": 0.0038793981075286865}
+{"candidate": "Focus on providing a clear and concise overview of the solution.", "shift": -0.001890103022257487}
+{"candidate": "Provide relevant examples to illustrate the points.", "shift": 0.007799059152603149}
+{"candidate": "Emphasize the practical application of the solution.", "shift": -0.034712781508763633}
+{"candidate": "Explain the context and implications of the answer.", "shift": -0.10597015917301178}
+{"candidate": "Avoid generic statements; be as precise as possible.", "shift": -0.08759661515553792}
+{"candidate": "Provide clear, step-by-step actions.", "shift": 0.01084566613038381}
+{"candidate": "Ensure transparency in explanations.", "shift": -0.005911012490590413}
+{"candidate": "Provide a clear, concise summary.", "shift": 0.159815122683843}
+{"candidate": "Include relevant comparisons or rankings.", "shift": 0.03609322508176168}
+{"candidate": "Use concise language to convey the core message clearly.", "shift": -0.019388049840927124}
+{"candidate": "End with a strong conclusion that reiterates the main point.", "shift": -0.027288953463236492}
+{"candidate": "Summarize information succinctly without losing essential details.", "shift": -0.0720737377802531}
+{"candidate": "Address potential pitfalls and common misunderstandings.", "shift": 0.03464548786481222}
+{"candidate": "Use technical terms and jargon appropriately for the audience.", "shift": 0.021947065989176433}
+{"candidate": "Focus on providing a comprehensive overview.", "shift": 0.030409703652064007}
+{"candidate": "Consider the context and background information.", "shift": 0.026212135950724285}
+{"candidate": "Emphasize the significance of the points made.", "shift": 0.042580217123031616}
+{"candidate": "Highlight the significance or importance of the information provided.", "shift": 0.009942149122556051}
+{"candidate": "Suggest practical applications or use cases for the information.", "shift": -0.0025256723165512085}
+{"candidate": "Offer multiple perspectives or examples to illustrate your points.", "shift": 0.14280586441357931}
+{"candidate": "Organize your response into clear, logical sections.", "shift": 0.06621544559796651}
+{"candidate": "Encourage further discussion or exploration of the topic.", "shift": 0.09072781602541606}
+{"candidate": "Emphasize the emotional or atmospheric impact.", "shift": -0.0046499669551849365}
+{"candidate": "Engage the reader's imagination with vivid imagery.", "shift": -0.008196622133255005}

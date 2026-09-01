@@ -1,0 +1,1360 @@
+# candidates whose move increases the model's PREFERENCE for the high-reward completion (shift>0)
+Highlight key points to guide the reader effectively.
+Use precise and relevant terminology.
+Highlight key benefits or improvements clearly.
+Avoid ambiguity and ensure clarity in explanations.
+Use specific examples to illustrate key points.
+End with a summarizing statement or a conclusion.
+Offer clear examples where appropriate.
+Include relevant details for different scenarios.
+Encourage thoughtful consideration of user experience.
+Use language accessible to the average reader.
+Avoid jargon unless the audience is familiar with it.
+Offer a balanced perspective on the topic.
+Clarify and expand on the core concepts rather than just restating them.
+Offer clear explanations.
+Focus on providing a detailed and structured explanation.
+Encourage a holistic view by connecting diverse aspects.
+Avoid oversimplification of complex topics.
+Maintain a neutral and unbiased tone.
+Highlight key information directly in the answer.
+Focus on the most relevant aspects of the question.
+Analyze the components and context of the question thoroughly before responding.
+Be thorough in explaining your thought process.
+Be clear and precise in your definitions.
+Elaborate on the implications or significance of the subject.
+Address potential counterarguments or alternative viewpoints.
+Structure the response into clear, numbered points for easier readability.
+Use analogies or metaphors to explain complex ideas more clearly.
+Highlight potential challenges and how to overcome them.
+Include relevant anecdotes or humor to enhance interest.
+Start with a clear and concise statement of the task or problem.
+Include real-world examples or analogies to enhance understanding.
+End with a strong, memorable closing statement.
+Maintain the tone and style of the original text in the translation.
+Preserve the original meaning without adding extraneous information.
+Summarize complex information succinctly without losing key points.
+Provide a detailed breakdown of the components involved.
+Use logical steps to explain your reasoning process.
+Be explicit about the methodology used in your analysis.
+Structure the answer logically.
+Use transitions and phrases to improve flow.
+Include specific examples to illustrate your points.
+Structure your answer in a logical sequence of points.
+Encourage further exploration or discussion on the topic.
+State the problem or question explicitly.
+Highlight key constraints or conditions given.
+Use specific and accurate terminology.
+Focus on the core meaning and avoid extraneous information.
+End with a strong, definitive conclusion if appropriate.
+Include examples or analogies to make complex ideas more accessible.
+Be specific about methodologies, techniques, or processes involved.
+Use clear and polite language when addressing others.
+Proofread your response to avoid errors.
+Present multiple perspectives or scenarios to illustrate complexity.
+Structure your response to logically flow from one point to another.
+Ensure the answer flows naturally.
+Develop ideas logically with clear transitions between sentences.
+Begin with a clear statement of the main issue or challenge.
+Conclude with a summary or recommendation to reinforce the main message.
+Cite credible sources or data to support claims and arguments.
+Guide the user through the process step-by-step.
+Start your answer with a strong, relevant opening statement.
+Avoid vague or ambiguous language.
+Include examples where relevant and helpful.
+Consider the context and audience of the question.
+Focus on providing clear, concise, and relevant information.
+Start responses with a strong, context-setting statement.
+Organize information logically to improve comprehension.
+Focus on clarity and structure in your response.
+Provide context relevant to the question.
+Incorporate a stream-of-consciousness approach to engage the reader.
+Conclude with a strong summary sentence.
+Address all parts of the question comprehensively.
+Offer a balanced view by considering different perspectives.
+Avoid oversimplification and provide depth.
+Convey the main idea concisely and clearly.
+Ensure the answer addresses all aspects of the question comprehensively.
+Structure your response into distinct sections.
+Offer concise summaries or overviews.
+Structure the answer logically and coherently.
+Use a narrative structure to keep the response engaging.
+Use subheadings to organize information logically.
+Conclude with a comprehensive summary or conclusion.
+Include specific examples or details when appropriate.
+Use proper grammar and spelling throughout the response.
+Expand on the key points with additional relevant details.
+Include factual information to support your explanation.
+Encourage further exploration or questions if necessary.
+Structure the response with clear, logical sections.
+Engage the reader with interesting facts or anecdotes.
+Break down complex tasks into manageable parts.
+Be concise but comprehensive in your response.
+Structure your answer to facilitate understanding.
+Use metaphors and similes to enhance comparisons.
+Avoid repetitive language; vary your wording.
+Introduce practical examples or applications.
+Provide specific examples to illustrate each point.
+Mention relevant contexts or environments.
+Ensure your response provides clear and detailed explanations.
+Structure your answer in a logical and organized manner.
+Encourage further discussion or questions if relevant.
+Provide context and background information when appropriate.
+Cite sources or references for factual information.
+Ensure the response is well-researched and comprehensive.
+Provide a thorough analysis rather than just listing facts.
+Offer concrete evidence or data to support your points.
+Provide background information to enrich the narrative.
+Ensure proper syntax and grammar in all responses.
+Be precise when defining technical or complex topics.
+Offer logical reasoning to support your conclusions.
+Focus on including specific details and examples to support your answer.
+Avoid redundancy and unnecessary repetition in your response.
+Make your answer informative and educational without sounding too academic.
+Avoid repetitive or unnecessary information; focus on essential details.
+Maintain a consistent and logical flow of information.
+Identify the main components or steps needed to solve the issue.
+Provide examples or analogies to clarify difficult concepts.
+Provide a comprehensive overview of the subject.
+Strategically address customer pain points directly.
+Maintain a customer-centric perspective throughout.
+Conclude with a summary or forward-looking statement.
+Ensure the answer is logically structured and easy to follow.
+Ensure the response directly addresses the core of the question.
+Explain how the action resolves or helps with the stated problem.
+Discuss potential impacts or consequences of the topic.
+Include relevant examples to illustrate key points.
+Highlight critical aspects and prioritize them appropriately.
+End with recommendations or next steps when applicable.
+Describe real-world applications or scenarios to illustrate your point.
+Focus on the problem-solving process rather than just listing steps.
+Highlight potential challenges and solutions.
+Ensure your answer adds unique insights.
+Avoid unnecessary details that do not contribute to understanding the solution.
+Offer context-specific guidance to narrow down options.
+Offer a personal perspective or anecdote to add depth.
+Use descriptive language to enhance the reader's experience.
+Highlight character development or transformation over time.
+Use transitions to smoothly connect ideas and thoughts.
+Summarize the key points at the beginning and end of the response.
+Maintain the core meaning and intent of the original statement.
+Craft your response keeping the target audience's language proficiency in mind.
+Emphasize the emotional or personal impact of the topic.
+Ensure the answer addresses all parts of the question comprehensively.
+Start with a concise summary of the main findings or conclusions.
+Present a balanced view by considering multiple perspectives if applicable.
+Incorporate specific, relatable details to enhance credibility.
+Use transition phrases to improve flow and coherence.
+Offer balanced and constructive feedback.
+Highlight the positive aspect of the situation.
+Offer reassurance and support when appropriate.
+Clarify the context and requirements before proceeding.
+Use a clear and concise subject line or question header.
+Be specific when detailing actions or processes.
+Include the source or context of information for credibility.
+Offer examples to illustrate points and enhance understanding.
+Conclude the answer by summarizing the key points mentioned.
+Outline the result or final output format upfront.
+Detail how to verify the correctness of the solution provided.
+Avoid introducing new information or errors.
+Proofread for typos and coherence.
+Ensure the explanation is comprehensive yet accessible.
+Offer real-world applications or scenarios when appropriate.
+Avoid assuming specific details unless supported by evidence.
+Address the core of the query directly while setting appropriate expectations.
+Focus on providing unique and specific details rather than general statements.
+Avoid redundancy and unnecessary detail.
+Tailor your response to the specific question format.
+Proofread your text for grammar and spelling errors.
+Offer actionable next steps or recommendations.
+Incorporate relevant details without being verbose.
+Offer practical tips or advice when applicable.
+Provide a clear and concise summary of the main ideas.
+Avoid general statements; be as specific as possible.
+Connect ideas smoothly using transitional phrases.
+End with suggesting additional resources or next steps.
+Maintain a logical flow in your explanation.
+Conclude with a summary of main points discussed.
+Ensure the response includes relevant examples or scenarios.
+Offer a comprehensive overview without missing important details.
+Focus on providing a clear and structured approach to the task.
+Incorporate personal anecdotes or observations to add authenticity.
+Use transitional phrases to enhance flow and coherence.
+Integrate multiple relevant examples to illustrate key points.
+Include quantitative data or statistics where applicable.
+End with a conclusive summary or forward-looking statement.
+Use descriptive language to enhance understanding.
+Highlight key points using bold or numbered lists.
+Provide clear, concise explanations.
+Maintain a consistent tone throughout.
+Offer examples to illustrate your points.
+Avoid unnecessary details to maintain brevity.
+Ensure your opening sentence is engaging and relevant.
+Guide the user on how to check or gather additional information related to their query.
+Ensure your response provides context and details relevant to the question.
+Highlight key aspects while summarizing broader implications.
+Encourage critical thinking by addressing potential counterarguments.
+Encourage detailed and concise responses.
+Incorporate feedback mechanisms or improvements.
+Use specific examples when appropriate to illustrate points.
+Avoid generic statements and instead offer detailed insights.
+Acknowledge limitations and potential alternative approaches.
+Ensure your answer addresses the core requirements of the question comprehensively.
+Provide context and background information when useful.
+Break down the response into clear, logical steps.
+Include caveats or limitations when necessary.
+Use vivid imagery and analogies.
+Highlight unique aspects and features of the subject.
+Focus on enhancing understanding and engagement.
+Promote the use of evidence-based information.
+Avoid generic statements; be precise and detailed.
+Offer a step-by-step process when applicable.
+Provide practical examples or scenarios to illustrate your points.
+Structure the answer logically to flow naturally from one idea to the next.
+Use familiar language and analogies.
+Avoid overly complex or technical jargon.
+Focus on analogies and relatable examples.
+Incorporate storytelling to make concepts memorable.
+Provide clear, detailed steps without unnecessary information.
+Provide detailed and specific examples.
+Include relevant data, statistics, or facts to support claims.
+Engage multiple senses or aspects when describing experiences.
+Highlight key points or steps in a logical sequence.
+Use active voice to make the content more engaging.
+Begin with an introductory sentence that sets the context.
+Provide specific examples when explaining abstract concepts.
+Explain the relevance of each part of your answer.
+Start with defining key terms.
+Ensure the answer is concise and focused.
+Structure the answer with subheadings or bullet points.
+Highlight key distinctions or comparisons where relevant.
+Encourage critical thinking about the topic.
+Provide specific examples and details to illustrate your points.
+Mention concrete actions taken by people or systems.
+Describe feelings and thoughts in a nuanced manner.
+Discuss potential alternatives and their implications.
+Include relevant data or statistics to support claims.
+Ensure the answer flows naturally without abrupt transitions.
+Offer a variety of relevant examples if applicable.
+Provide context and empathy when describing situations.
+Include actionable advice and strategies in responses.
+Focus on the impact and emotional aspects of the situation.
+Structure your response with logical steps or sections.
+Incorporate relevant examples or analogies when appropriate.
+Provide a clear and concise overview of the context and terms provided.
+Use structured sentences to enhance clarity and readability.
+Conclude with a summary or next steps if applicable.
+Highlight key concepts and principles.
+Offer actionable solutions or strategies for addressing the issue.
+Encourage engagement or action from the reader where appropriate.
+Provide context and background before diving into details.
+Maintain a formal and objective tone throughout the response.
+Structure the response to flow logically, addressing each aspect of the question thoroughly.
+Start with an overview before delving into details.
+Ensure the explanation is tailored to the audience's level.
+Incorporate prior context to enhance the coherence of your answer.
+Consider the broader implications or applications of the information.
+Structure responses into logical sections for better readability.
+Provide a comprehensive explanation when possible.
+Incorporate examples or explanations to enhance understanding.
+Specify steps in a logical sequence.
+Include checks or validations to ensure accuracy.
+Highlight the main ideas before providing supporting details.
+Use transitional phrases to enhance readability and coherence.
+Avoid vague statements and instead offer specific details.
+Address potential follow-up questions proactively.
+Clarify assumptions if your response depends on them.
+Engage the reader with a relatable character.
+End with a memorable conclusion or resolution.
+Organize your answer in a logical sequence.
+Provide a clear definition or explanation using simple language.
+Include realistic and appropriate examples where applicable.
+Use examples where appropriate.
+Explain concepts in simple terms.
+Ensure your response is structured and clearly organized.
+Ask follow-up questions to clarify and probe deeper into the topic.
+End your answer with a conclusion that reinforces the main points discussed.
+Provide context when necessary but keep explanations brief
+Structure responses with a logical flow
+Highlight key points in a structured manner.
+Use a variety of verbs to add dynamism to your sentences.
+Encourage reader engagement by asking rhetorical questions.
+Include specific examples to illustrate key points.
+Highlight the importance or significance of the topic being discussed.
+Outline a structured approach or plan to address the query thoroughly.
+Provide a clear objective or goal at the beginning of the answer.
+Consider the audience and tailor the language appropriately.
+Address potential ambiguities or alternative interpretations clearly.
+Offer concrete examples or analogies to illustrate complex ideas.
+Provide a clear, factual, and well-structured response.
+Avoid repetition and ensure a smooth flow of information.
+Use a professional and respectful tone.
+Use accessible language suitable for a wide audience.
+Address potential variations or exceptions to the rule.
+Provide relevant background information to enhance understanding.
+Provide concrete, specific details rather than vague descriptions.
+Start with a comprehensive overview before delving into specifics.
+Encourage engagement by inviting further discussion or questions if applicable.
+Highlight practical examples or recommendations.
+Use clear and concise language appropriate for the audience.
+Provide clear, step-by-step reasoning when explaining your answer.
+Conclude with a comprehensive summary of the key points.
+Ensure the answer flows logically from one point to the next.
+Offer balanced arguments supported by relevant examples and counterexamples.
+Provide a clear introduction to the main point.
+Avoid overly technical jargon.
+Structure your response logically with clear sections or headings.
+Introduce relatable characters and their backgrounds.
+Focus on creating a cohesive and engaging story arc.
+Include concrete examples to illustrate points where appropriate.
+Use precise and relevant terminology to enhance clarity.
+Address the audience directly to enhance engagement and relevance.
+Avoid repetition and keep responses concise.
+Include dates or times if relevant to the context.
+Keep technical terms and jargon consistent with the original if applicable.
+Ensure the translation or response aligns with any specific instructions provided.
+Compare given options methodically when multiple choices are presented.
+Integrate relevant facts to support your conclusion logically.
+Focus on actionable steps rather than general statements.
+Ensure the response is concise without omitting critical information.
+Clearly differentiate between facts and opinions where applicable.
+Highlight key benefits or outcomes of the process.
+Encourage the reader to consider broader implications.
+Formulate equations based on given relationships directly.
+Define and use consistent notation throughout the explanation.
+Clearly differentiate between common misconceptions and accurate information.
+Provide examples and analogies to aid understanding.
+Explain potential challenges or limitations.
+Include specific details and examples where appropriate.
+Offer an alternative or express understanding if possible.
+Present additional information systematically and logically.
+Ensure the answer flows naturally from one point to the next.
+Identify the key elements or components of the question or statement.
+Relate the answer back to real-world applications or analogies when appropriate.
+Start with a clear statement of the main subject.
+Start with a reassuring statement to build rapport.
+Encourage the user to visualize success with your guidance.
+End with a motivational or affirming statement.
+Highlight the goal or main point of the question.
+Break down complex tasks into simpler, manageable steps.
+Break down the question into smaller components.
+Link the answer directly to the question asked.
+Explain the relevance or benefit of suggested features.
+Offer a structured and organized response.
+Maintain coherence and flow throughout the answer.
+Ensure the answer is engaging and easy to understand.
+Break down the problem into manageable parts.
+Address potential edge cases and exceptions.
+Ensure clarity and precision in your response.
+Offer context when explaining complex topics.
+Be concise while providing sufficient information.
+Incorporate insights from multiple sources.
+Organize information into a coherent structure before providing details.
+Include relevant examples to illustrate key points clearly.
+Summarize key takeaways at the end for easy reference.
+Include necessary details.
+Avoid redundant information.
+Highlight the interconnections and impacts between different elements.
+Provide actionable steps with practical advice.
+Conclude with the correct answer or solution.
+Present your answer in a straightforward manner.
+Present your response in a clear, structured manner.
+Maintain a balanced and objective tone throughout your answer.
+Structure your response with logical steps or arguments.
+Provide a comprehensive overview of the subject, including key aspects and relevant details.
+Integrate statistics, studies, or expert opinions to support your explanation.
+Summarize main points at the beginning and end for clarity.
+Offer multiple, detailed steps or strategies.
+Detail the benefits or outcomes of the suggested approach.
+Use specific and technical terms relevant to the domain when appropriate.
+Conclude with a summary or highlight the importance of the solution.
+Use culturally appropriate expressions and idioms when necessary.
+Draw clear connections between given information and conclusions.
+Highlight contradictions between provided information and conclusions.
+Provide a clear and concise explanation.
+Proofread for clarity and coherence.
+Use transition phrases to connect ideas smoothly.
+Ensure the response is engaging and informative.
+Clarify any assumptions before providing an answer.
+Provide structured, step-by-step reasoning.
+Compare different aspects to aid understanding.
+Maintain grammatical correctness and coherence.
+Be precise in the language used to convey the message.
+Define key terms and concepts at the beginning of your answer.
+Summarize main points before concluding the explanation.
+Outline potential applications or implications of the topic discussed.
+Be concise yet comprehensive in your explanations.
+End your response with a positive note or conclusion.
+Use general language that applies broadly to various situations.
+Encourage critical thinking by posing questions or suggesting further exploration.
+Avoid adding unnecessary details.
+Use precise and specialized terminology relevant to the field.
+Structure responses into clear, distinct sections for easier readability.
+Maintain a neutral and objective tone throughout the response.
+Acknowledge the challenge while highlighting the possibility of finding a solution.
+Encourage collaboration and mutual problem-solving.
+Avoid vague language and strive for specificity.
+Highlight key information to guide understanding.
+Conclude with a summary or key point.
+Address the core requirements of the question directly.
+Avoid repetition and maintain brevity.
+End sentences with a positive or conclusive note.
+Break down complex information into simple, logical steps.
+Detail the process or method to be explained.
+Ensure the answer is factually accurate and up-to-date.
+Present multiple solutions or approaches when appropriate.
+Provide clear and specific examples to illustrate your points.
+Avoid generic or vague language.
+Ensure all key terms are defined and explained.
+Structure the answer in a logical, step-by-step manner.
+Structure responses with clear, logical steps.
+Integrate relevant background information effectively.
+Discuss potential implications or considerations related to the topic.
+Use clear and concise language to convey complex ideas.
+Provide a detailed explanation.
+Address multiple aspects of the question comprehensively.
+Conclude with a summary or key takeaways.
+Offer context-specific information when relevant.
+Address potential ambiguities directly.
+Use descriptive and evocative language to engage the senses.
+Structure your answer logically with proper paragraphs.
+Cite facts or established knowledge where applicable.
+Explain the reasoning behind your choice in a detailed manner.
+Connect abstract concepts to real-world scenarios.
+Encourage critical thinking by discussing potential implications.
+End with a memorable or impactful conclusion.
+Differentiate between similar concepts or terms.
+Include relevant examples or practical applications when possible.
+Avoid unnecessary repetition and maintain a crisp tone.
+Conclude with a clear and definitive statement if conclusive.
+Use accurate terminology relevant to the context provided.
+Emphasize the relationship between concepts or variables.
+Incorporate relevant statistics or facts to support claims.
+Highlight the significance or impact of the topic.
+Describe the subject comprehensively, providing context and details.
+Highlight the main ideas and exclude minor details.
+Maintain consistency in character attributes throughout the story.
+Translate names and specific terms accurately while preserving meaning.
+Use a natural, conversational tone to make the response engaging.
+Ensure your response provides a clear, concise overview of the approach or next steps.
+Clearly define any technical terms or jargon used in your explanation.
+Offer a balanced perspective by considering multiple viewpoints.
+Include relevant context and explanations for complex steps.
+Address potential issues or conflicts proactively.
+Start with an engaging opening that captures the essence of the topic.
+Use clear and precise language.
+Ensure your response is clear and concise.
+Include examples or analogies where appropriate to clarify.
+Conclude with a summary or final statement for clarity.
+Focus on the unique value propositions of the solution.
+Structure the response with a clear introduction.
+Present information in a logical and coherent manner.
+Offer specific details to support your answer.
+Address potential counterarguments or exceptions thoughtfully.
+Include the motivation behind the action in the description.
+Highlight the beneficial outcome of the described action.
+Ensure your response provides a clear, structured expansion or explanation.
+Identify and address potential counterarguments.
+Include data or statistics when relevant and available.
+Offer multiple approaches or solutions to demonstrate flexibility.
+Organize information logically and coherently.
+Avoid redundant information and unnecessary complexity.
+Include context and reasoning behind your steps.
+Use precise language and avoid ambiguity.
+Provide a clear, concise breakdown of the problem into manageable steps.
+Ensure each part of the explanation flows logically from one step to the next.
+Conclude with a summary of the final solution or answer.
+Avoid redundant information and repetitions.
+Maintain a positive and encouraging tone throughout.
+Incorporate meaningful details to deepen the narrative.
+Integrate dialogue or internal thoughts to add depth.
+Use simpler vocabulary when possible to enhance clarity.
+Focus on providing context and depth rather than just listing information.
+Incorporate vivid and descriptive language to enrich the answer.
+Use relevant examples or evidence to support your points when appropriate.
+Include a conclusion that restates the key points and provides final thoughts.
+Focus on providing clear, concise, and relevant examples.
+Conclude with a compelling summary or call-to-action.
+Provide context or background information when necessary.
+Use inclusive language and avoid assumptions.
+Mention specific tools or resources for further help.
+Specify measurable goals or outcomes to guide the solution.
+Offer practical and actionable steps or solutions.
+Clearly define any abbreviations or terms used in the response.
+Specify the scope and limitations of the information provided.
+Provide a detailed step-by-step process for solving the problem.
+Break down complex tasks into simpler, more manageable steps.
+Explain the reasoning behind each component of the solution.
+Provide complete and accurate translations.
+Structure your response logically and clearly.
+Include practical examples and relevant formulas.
+Structure the answer in a reader-friendly format.
+Present your response in the form of a question when seeking additional information.
+Use clear and straightforward language to ensure understanding.
+Mention unique aspects or advantages that set the topic apart.
+Ensure your answer aligns with the task requirements.
+Maintain a professional and courteous tone throughout.
+Tailor your answer to match the specific interests or needs mentioned.
+Avoid vague terms and specify the exact process or components involved.
+Provide specific examples to illustrate complex concepts.
+Conclude with a summary or key takeaway.
+Ensure the answer flows logically and coherently.
+Provide context where necessary to enhance comprehension.
+Use precise language to define key terms and concepts.
+Tailor the difficulty level of the questions to match the respondent's experience.
+Use active voice for more direct communication.
+Define any technical terms or jargon used.
+Include a call to action at the end of your response.
+Avoid unnecessary repetitions and clarifications.
+Start with a concise overview of the subject.
+Be mindful of the context and avoid irrelevant information.
+Structure the answer logically to enhance clarity and understanding.
+Highlight the importance and context of the subject matter.
+Conclude with a strong summary that reinforces the main points.
+Include examples or case studies to illustrate the concept or phenomenon.
+Discuss potential impacts and consequences for a wide range of scenarios.
+Highlight contradictions or conflicting viewpoints to show complexity.
+Provide clear and detailed steps when giving instructions.
+Organize information logically to facilitate comprehension.
+Ensure all information is relevant and pertinent.
+Use clear and concise language to convey information accurately.
+Highlight key points explicitly.
+Avoid unnecessary repetitions and complexities.
+Clarify any potential ambiguities directly.
+Summarize key points at the end for clarity.
+Offer balanced perspectives when discussing issues.
+Tailor your tone to match the expected formality or informality.
+Explain potential solutions or concepts without assuming full understanding.
+Highlight key points or aspects to focus on when addressing the question.
+Avoid ambiguity and vague terms.
+Include specific examples when appropriate to illustrate points.
+Avoid generic statements; provide substantive information instead.
+Provide clear and structured guidance.
+Offer context for the reader.
+Use concise language to enhance clarity.
+Avoid listing items when a narrative explanation is more effective.
+Provide a clear, structured approach to solving the problem.
+Detail the step-by-step process for clarity.
+Present information in a logical and organized manner.
+Provide specific examples or illustrative cases when necessary.
+Maintain consistency in terminology throughout explanations.
+Structure the answer with clear headings if necessary.
+Include a compelling call to action or invitation.
+Incorporate interactive elements or experiences.
+Provide specific, actionable steps or strategies.
+Offer context-aware and relatable examples.
+Suggest the breakdown of complex ideas into simpler parts.
+Include examples or studies to support your response.
+Draw on real-world applications for relevance.
+Incorporate additional context to enrich the answer without deviating from the main point.
+Ensure all required elements are included directly.
+Keep sentences concise and to the point.
+Connect complex ideas to everyday experiences.
+Highlight challenges or limitations associated with the topic.
+Link new information back to the original question.
+Draw explicit connections between different ideas.
+Avoid redundant information and unnecessary details.
+Cite sources when necessary.
+Highlight the most important aspects of the question.
+Provide actionable advice or recommendations when possible.
+Explain the impact or emotions experienced in a relatable way.
+Provide a detailed explanation rather than a brief overview.
+Address counterarguments and provide balanced viewpoints.
+Start with a hook or attention-grabbing element.
+Keep technical terms to a minimum or explain them clearly.
+Use formal language throughout the explanation.
+Structure the answer logically to flow smoothly.
+Ensure clarity and coherence in writing style.
+Encourage the sharing of detailed personal experiences.
+Engage the reader with narrative techniques.
+Instruct on practical steps and solutions clearly and concisely.
+Avoid oversimplification and offer comprehensive insights.
+Highlight key points using bullet points or bold text.
+Organize the information into logical categories or steps.
+Include specific examples or scenarios when appropriate.
+Offer actionable advice or recommendations where possible.
+Avoid overly simplified explanations.
+Encourage the reader to understand the underlying mechanisms.
+Start with a strong opening statement to grab attention.
+Define any technical terms to ensure comprehension.
+Include practical examples or analogies to enhance comprehension.
+Present a balanced view, considering various perspectives or scenarios.
+Introduce concepts from foundational to advanced levels.
+Compare and contrast different aspects when appropriate.
+Include visual aids or diagrams if they enhance understanding.
+Maintain a formal and professional tone throughout.
+Address potential challenges or limitations when appropriate.
+Provide concrete, actionable steps for the solution.
+Include relevant context and references where appropriate.
+Ensure the answer is detailed but not overly verbose.
+Provide context when introducing new concepts or terms.
+Offer justification or reasoning behind your suggestions.
+Suggest ways to enhance user understanding or engagement.
+Structure your answer to reflect hierarchical levels of detail.
+Structure your response logically with clear organization.
+Define terms or concepts if they might be unclear to the reader.
+Incorporate sensory details to bring the narrative to life.
+Maintain a consistent and engaging narrative tone.
+Be creative while staying true to the core information.
+Give examples to support your answer.
+Offer context when necessary to aid comprehension.
+Provide contextually relevant and detailed responses.
+Incorporate relevant visuals when possible.
+Begin your answer with an engaging opening question or statement.
+Break down complex topics into simpler, more digestible parts.
+Incorporate user feedback or concerns to refine your response.
+Maintain a neutral and factual tone
+Be respectful and avoid inflammatory statements
+Structure your response into clear, numbered steps.
+Address potential counterarguments or alternative perspectives.
+Incorporate a personal touch or analogy if appropriate.
+Define any specialized terms or acronyms for clarity.
+Discuss potential challenges or limitations associated with the topic.
+Cite credible sources or references to support your claims.
+Elaborate on the steps involved in solving the problem or explaining the concept.
+Include relevant background information to support the main points.
+Include explanations or clarifications when necessary for better understanding.
+Encourage engagement by asking follow-up questions if needed.
+Ensure the overall explanation is coherent and easy to follow.
+Begin with a concise introduction that sets the context.
+End with a relevant conclusion or summary.
+Be mindful of cultural and ethical implications.
+Summarize key points at the beginning and end of the answer.
+Encourage engagement by asking rhetorical questions.
+Verify the accuracy and completeness of your provided information.
+Use clear, concise language to convey your points.
+Avoid redundant phrases and repetition.
+Provide context and background information relevant to the query.
+Include factual information to support claims or explanations.
+Offer a balanced perspective by acknowledging limitations or uncertainties.
+Engage the reader by asking questions or making connections.
+Start with a concise statement of the correct answer.
+Highlight the most critical aspects of the explanation.
+Incorporate ethical, legal, and practical considerations into your response.
+Organize your response into distinct sections for clarity.
+Focus on the significance or impact of the subject.
+Break complex ideas into simpler, digestible parts.
+Avoid redundancy and provide specific examples to support your points.
+Ensure your response flows naturally and smoothly.
+End with a call to action or next step if appropriate.
+Develop the plot with meaningful conflicts and resolutions.
+Use dialogue and actions to bring characters to life.
+Discuss both positive and negative aspects when applicable.
+Engage the reader with a narrative or descriptive approach when possible.
+Ensure your response is structured and clearly formatted.
+Use appropriate salutations and closings.
+Adhere strictly to the grammatical rules of the target language.
+Ensure your response clearly addresses the core query without unnecessary complexity.
+Address potential misunderstandings directly in your response.
+Incorporate real-world applications or analogies for better understanding.
+Provide a clear, concise, and structured overview of the steps.
+Conclude with a summary or recap of the main points.
+Offer practical tips or best practices at the end.
+Provide step-by-step reasoning for derived equations.
+Present each piece of the solution clearly and coherently.
+Focus on providing context and background information relevant to the topic.
+Avoid oversimplification and provide nuanced explanations when appropriate.
+Maintain a formal and professional tone throughout the response.
+Connect the information to broader themes or fields.
+Start with an attention-grabbing introduction.
+Use a polite and friendly tone.
+End with a positive note or a closing phrase.
+Provide a clear and detailed explanation for each step.
+Highlight key steps or results using bold or italics if applicable.
+Break down the problem into smaller, manageable parts.
+Anticipate potential counterarguments or alternative perspectives.
+Ensure the response is concise and accurate.
+Emphasize the collaborative aspect by inviting further input or clarification.
+Mention real-world applications to increase relevance.
+Provide specific actions or steps to clarify the task.
+Identify key elements or components mentioned in the question.
+Clarify any assumptions made while answering the question.
+Offer a structured step-by-step response.
+Avoid vague language and be precise.
+Use specific examples or excerpts to illustrate key points.
+Encourage critical thinking by posing questions rather than stating facts.
+Use conversational and friendly language.
+Incorporate personal pronouns to engage the reader.
+Relate the answer back to the specific question asked.
+Start with an introductory statement to set the context.
+Highlight the significance or importance of the subject matter.
+Integrate practical applications or real-world scenarios where applicable.
+Guide the reader through the thought process.
+Maintain the integrity of the original meaning.
+Include examples where appropriate to clarify.
+Proofread to correct any grammatical errors.
+Highlight key challenges and solutions.
+Explain the implications or significance.
+Provide context and explanations for technical terms or jargon.
+Maintain consistency in formatting and presentation throughout.
+Provide context when relevant.
+Be concise yet informative.
+Use a friendly tone.
+Include real-world examples or scenarios to illustrate concepts.
+Mention potential challenges and solutions.
+Explain the underlying principles involved.
+Provide clear and concise explanations.
+Explain the reasoning behind your answer clearly.
+Use comparative language to clarify differences.
+Provide evidence or reasoning to support your conclusion or opinion.
+Avoid jumping to conclusions without sufficient evidence.
+Use relevant, high-quality sources to support your claims.
+Maintain coherence and flow in your explanation.
+Include examples or applications to illustrate broader implications or usage.
+Highlight potential challenges or limitations associated with the topic.
+Engage the reader with a narrative that connects different pieces of information.
+Use specific, relatable examples to illustrate points.
+Maintain accuracy and precision in technical details and terminology.
+Break down complex tasks into simpler steps.
+Encourage the reader to consider the broader implications or applications.
+Include concrete examples to illustrate points.
+Be precise and concise while conveying the full intended meaning.
+Maintain the original meaning and context accurately.
+Avoid assumptions not supported by the given data.
+Offer multiple perspectives or interpretations when relevant.
+Avoid unnecessary technical jargon.
+Maintain a professional and informative tone.
+Offer actionable steps or practical applications when possible.
+Tailor the language to the audience’s level of understanding.
+Define variables or terms clearly at the beginning.
+Integrate relevant scientific or factual information.
+Ensure the response flows logically and coherently.
+Structure the answer to cover all key points succinctly.
+Structure your response with clear sections and headings where appropriate.
+Cite sources or references to provide credibility and depth.
+Maintain a formal tone unless the context permits informal language.
+Consider the audience's perspective when formulating your answer.
+Provide clear definitions and context when explaining concepts.
+Include examples or analogies to enhance understanding.
+Maintain a structured step-by-step approach.
+Avoid repetition of the same points.
+Offer a personal perspective or emotional connection to make the answer more relatable.
+Organize information logically, moving from general to specific details.
+Use active voice to enhance clarity and engagement.
+Provide a clear and structured approach to solving the problem.
+Encourage the reader to consider each option systematically.
+Use quantifiable details where applicable to enhance accuracy.
+Provide a clear, concise explanation for your answer.
+Use structured examples where appropriate to illustrate your points.
+Be mindful of the context and implications of your response.
+Use specific and appropriate language.
+Provide concrete, verifiable details to support your answer.
+Include relevant statistics or data to strengthen credibility.
+Focus on providing a detailed and engaging introduction.
+Structure the response with headings and sections for organization.
+Encourage the reader to take action or consider further steps.
+Start with an overview of the main points to be covered.
+Ensure your explanation is easy to follow.
+Start your response with a definitive statement.
+Be precise and avoid unnecessary details.
+Include relevant statistics or data to support claims.
+Adopt a formal and professional tone throughout.
+Ensure the response addresses all aspects of the problem comprehensively.
+Start with a strong, informative opening sentence.
+Use transition phrases to connect different ideas smoothly.
+Provide specific, quantifiable details.
+Incorporate relevant examples or case studies.
+Mention sources or references when applicable.
+Include relevant examples to illustrate important concepts.
+Ensure the answer is free of jargon and technical terms unless necessary.
+Ensure clarity and precision in language usage.
+Offer a comparative analysis when comparing items or options.
+Highlight the importance or relevance of the information provided.
+Use concrete examples to illustrate points.
+Cite authoritative sources to support claims.
+Maintain a professional and objective tone.
+Use examples to illustrate your points where appropriate.
+Highlight key points to aid comprehension.
+Structure your response with clear, logical flow.
+Ensure your answer directly addresses all parts of the question.
+Use a formal and respectful tone.
+Incorporate relevant data or studies to support claims.
+Offer multiple perspectives or angles on the topic.
+Provide a clear and concise definition.
+Specify key features or characteristics.
+Use precise terminology and jargon.
+Address any necessary context or background information explicitly.
+Provide actionable steps or solutions when applicable.
+Differentiate between similar concepts for clarity.
+Engage the reader with interesting or unique perspectives.
+Elaborate on each step or point with clear, concise explanations.
+Summarize the main findings and their implications at the end.
+Introduce conflict or internal struggle to make the character more dynamic.
+Include context-specific details to enhance understanding.
+Start with an immediate and direct action the assistant should take.
+Conclude with open-ended questions or further actions if needed.
+Encourage the user to provide additional details or context if needed.
+Ensure the answer does not omit or add extraneous information.
+Address potential counterarguments or limitations in the information.
+Focus on providing a clear, structured plan for the solution.
+Break down the process into actionable, discrete steps.
+Ensure the response addresses all key aspects of the question.
+Provide context and explanations to enhance understanding.
+Avoid redundancy and unnecessary information.
+Include examples when explaining complex concepts.
+Incorporate advanced terminology and concepts accurately.
+Highlight specific customer benefits clearly.
+Use concrete examples to illustrate key points.
+Offer a strategic summary at the end of the response.
+Include relevant examples or anecdotes to illustrate key points.
+Maintain a neutral and informative tone throughout.
+Opt for widely known stereotypes when appropriate.
+Ensure the stereotype is not outdated or offensive.
+Provide a clear and concise question format.
+Describe the process or steps involved in the action.
+Offer specific examples or cases when relevant.
+Integrate real-world applications or scenarios.
+Start with essential elements before adding details.
+Structure responses to include background, steps, and outcomes.
+Incorporate relevant metrics or evidence where applicable.
+Offer recommendations based on well-supported analysis.
+Emphasize the importance of thorough research.
+Cite relevant examples or data when applicable.
+Provide context to help understand the significance of the topic.
+Structure the response logically, with clear transitions between ideas.
+Craft responses with a clear structure and flow.
+Include sensory details to make the scene more real.
+Include specific details about the tools and libraries needed.
+Use clear and precise language throughout the explanation.
+Provide a smooth and natural-sounding equivalent in the target language.
+Do not include explanations or clarifications that are not strictly necessary.
+Use storytelling techniques to engage the reader.
+Encourage critical thinking by discussing the implications of the topic.
+Organize the content logically with headings if necessary.
+Use transitional phrases to improve the flow of the response.
+Start with a strong, assertive statement that captures the essence.
+Provide clear and welcoming opening remarks.
+Mention personal qualities or experiences relevantly.
+Provide clear and empathetic responses.
+Encourage further communication and collaboration.
+Structure your response to flow logically and coherently.
+Provide concrete examples to illustrate your points.
+Include relevant data or references to support your claims.
+Structure the answer to directly address the question asked.
+Ensure the answer flows logically and is easy to follow.
+Clearly explain the logic behind your solution.
+Describe potential variations or exceptions to the main procedure.
+Summarize the key elements of the solution at the end.
+Use appropriate grammar and syntax.
+Reflect the tone and style of the original text.
+Start with a brief introduction to set the context.
+Provide context and clarify the scope of the information needed before giving an answer.
+Offer caveats or limitations when providing information based on assumptions or partial data.
+Acknowledge the possibility of exceptions or variations when discussing general trends.
+Include relevant data or statistics to support your claims.
+Focus on providing clear and concise explanations.
+Use concise language while retaining all essential details.
+Avoid repetition and provide unique insights.
+Provide concrete examples when relevant and appropriate.
+Start with an engaging opening to capture interest.
+Address potential counterarguments or objections.
+Ensure your answer provides clear and structured steps.
+Highlight potential pitfalls or common mistakes.
+Clarify the exact context and expectations before providing an answer.
+Present information in a structured, logical manner.
+Consider multiple perspectives or interpretations when relevant.
+Start with the significance or importance of the subject.
+Incorporate relevant statistics or data to support claims.
+Provide balanced information without bias.
+Use precise language to describe concepts.
+Address potential misconceptions directly and clearly.
+Provide detailed and contextually accurate translations or explanations.
+Use precise language to convey the exact meaning or process.
+Include practical applications or real-world uses of the concept.
+Use specific and concrete examples to illustrate key points.
+Incorporate a variety of perspectives to present a balanced view.
+Address common misconceptions or biases related to the topic.
+Include specific examples or scenarios to illustrate points.
+Encourage creativity while maintaining accuracy.
+Conclude with a summary or actionable next step.
+Provide a logical flow in your explanation or narrative.
+Maintain a consistent tone and voice throughout the response.
+Connect ideas logically with transitions.
+Link concepts to broader contexts if relevant.
+Include specific examples when relevant.
+Address potential counterarguments or exceptions.
+Provide context to engage the user immediately.
+End with a summary or transition to the next part of the explanation.
+Offer precise definitions or explanations to clarify terminology.
+Offer a clear structure with logical flow and organization.
+Maintain objectivity and avoid bias.
+Include relevant examples or frameworks.
+Maintain a formal tone and use precise language.
+Address potential challenges and solutions comprehensively.
+Highlight key considerations and their importance.
+Encourage critical thinking by discussing implications.
+Break down complex tasks into manageable, sequential steps.
+Include a check or validation step to ensure accuracy.
+Directly address potential issues or limitations.
+Use logical steps to explain reasoning processes.
+Use specific terminology appropriate to the field.
+Provide a clear and concise introduction.
+Offer a comprehensive overview before delving into details.
+Emphasize the benefits or importance of the topic.
+Encourage detailed and structured explanations.
+Suggest tailored solutions based on user input.
+Highlight the importance of relevance to the user's needs.
+Explain potential outcomes or consequences clearly.
+Cite credible sources to validate information.
+Use a descriptive and engaging tone to make the response more interesting and informative.
+Incorporate safety and ethical considerations where relevant.
+Focus on simplicity and clarity.
+Start with clear introductions or overviews.
+Keep the tone engaging and friendly.
+Highlight unique aspects to capture interest.
+Include relevant materials or tools needed.
+Encourage understanding through practical application.
+Evaluate the data structure and expected outcomes to explain the error or proposed continuation.
+Encourage engagement by connecting with emotions or reactions.
+End with a concluding sentence that summarizes key points.
+Avoid overly technical jargon unless the audience is specialized.
+Maintain a clear and logical flow in your response.
+Offer a balanced view without omitting important perspectives.
+Conclude with a summary or conclusion.
+Start with a brief overview of the topic.
+Cite credible sources or references for claims made.
+Use specific and technical language where appropriate.
+Organize information clearly and logically.
+Offer context and background information where relevant.
+Focus on providing a clear and concise summary of key points.
+Convey information logically and coherently.
+End with a concluding statement that ties everything together.
+Include specific details to support the core message.
+End with a call to action or further resources if applicable.
+Address multiple aspects comprehensively.
+Offer clear, structured steps for overcoming challenges.
+Ensure the response is comprehensive and thorough.
+Provide a clear, detailed explanation.
+Address the core question thoroughly without distractions.
+Conclude with a summary or recapitulation.
+Ensure the response includes relevant background or explanation.
+Highlight key points or important aspects of the question.
+Ensure your response provides a clear, structured breakdown of the topic.
+Include diverse perspectives or examples to support your points.
+Avoid generic phrasing; use specific and vivid language.
+Provide specific examples to illustrate your arguments.
+End with a compelling conclusion or call to action.
+Discuss theoretical concepts and practical implementation together.
+Provide context and relevant background information to establish a comprehensive understanding.
+Adopt a formal tone appropriate for professional or academic contexts.
+Include relevant examples to illustrate points clearly.
+Conclude with the main takeaway or application.
+Structure your answer in a way that flows naturally.
+Include specific details such as tools, materials, or techniques.
+Summarize important information at the end for clarity.
+Consider the overall flow and readability of your response.
+Address all key points mentioned in the question comprehensively.
+Outline a structured approach to problem-solving.
+Conclude with a summary of the main takeaways.
+Include relevant background information when necessary.
+Offer examples or case studies to illustrate points.
+Include dialogues to add realism and depth.
+Explain potential implications or consequences of your answer.
+Use appropriate examples or analogies to enhance understanding.
+Ensure the answer is logically consistent with the given scenario.
+Outline steps methodically.
+Include specific details and relevant examples to support your points.
+Use clear and direct language to convey your message.
+Avoid providing information that is unrelated to the question
+Acknowledge limitations if appropriate
+Outline practical applications or implications of the concept discussed.
+Provide a detailed breakdown of the requested information, including relevant context and examples where applicable.
+Incorporate real-world examples or analogies to enhance understanding.
+Summarize key points and provide a concluding statement.
+Highlight the relevance and importance of each component.
+Offer balanced information, considering pros and cons.
+Address potential questions or concerns proactively.
+Provide a clear, concise overview before delving into details.
+Break complex information into manageable segments.
+Emphasize practical applications or benefits of the information.
+Offer comparisons or contrasts to deepen comprehension.
+Focus on the core elements without unnecessary elaboration.
+Ensure your answer aligns with the context and requirements of the question.
+Define key terms or concepts that may be unclear to the reader.
+Structure the response to flow logically and coherently.
+Provide a structured breakdown of components or categories.
+Use specific terminology relevant to the question's context.
+Include examples where appropriate to clarify complex points.
+Provide a comprehensive overview of the topic, incorporating multiple facets of the question.
+Detail the steps or criteria involved in arriving at your conclusion.
+Cite authoritative sources or well-established principles to support your points.
+Include specific examples or anecdotes.
+Use active voice for clarity and impact.
+Include relevant data or statistics to strengthen your arguments.
+Maintain a formal tone unless the question specifies otherwise.
+Incorporate a clear and compelling narrative structure.
+Incorporate reflective moments to convey deeper insights.
+Ensure the lesson learned is clearly highlighted and impactful.
+Structure your response into clear, organized sections or categories.
+Cite authoritative sources to strengthen credibility when necessary.
+Proofread for grammar and spelling errors.
+Provide a direct and clear translation when translating between languages.
+Use appropriate terminology and avoid vague or ambiguous phrasing.
+Provide a structured breakdown of the reasoning process.
+Conclude with a definitive answer or statement if applicable.
+Maintain focus on the main point while providing necessary details.
+Structure explanations with clear, hierarchical logic.
+Include specific actions or code snippets where appropriate.
+Introduce the topic with a relevant context or background.
+Ensure the response is well-organized and easy to follow.
+Ensure logical flow from problem statement to solution.
+Break down complex problems into manageable parts.
+Emphasize safety, regulation, and potential risks associated with the subject.
+Highlight the importance of regulatory bodies and compliance.
+Address potential concerns or objections from different perspectives.
+Use precise and technical language when appropriate.
+Incorporate a personal touch where appropriate.
+Maintain a professional yet approachable demeanor.
+Include relevant formulas and calculations when necessary.
+Relate new information back to the original context.
+Provide context for the task or question to clarify the approach.
+Use examples to illustrate complex points or concepts.
+Highlight the specific problem and suggest a clear path forward.
+Frame the response in a way that builds user confidence.
+Explain how to address any potential ambiguities in the question.
+Emphasize benefits and value for the reader.
+Make the tone approachable and relatable.
+Focus on providing actionable, concrete examples.
+Provide context or background for complex concepts.
+Include metrics or evaluation criteria when applicable.
+Include relevant terminology and concepts associated with the topic.
+Provide a comprehensive overview of the topic.
+Provide context and justification for your choices.
+Use natural language for better readability.
+Highlight the importance of each component or step.
+Provide relevant and detailed information.
+Structure your answer logically and coherently.
+Include specific examples or case studies.
+Summarize the main findings or conclusions.
+Ensure the response flows logically from one point to the next.
+Use precise language.
+Suggest actions or next steps when appropriate.
+Emphasize the significance and relevance of each point made.
+Organize information into logical categories or steps.
+Address potential misconceptions or counterarguments.
+Use specific examples to illustrate points.
+Avoid unnecessary complexity or jargon.
+Ensure the answer is easy to understand and follow.
+Consider multiple perspectives or aspects before forming an answer.
+Ensure your answer addresses all key elements of the question.
+Provide specific examples to illustrate your points.
+Offer context to deepen understanding of the topic.
+Incorporate real-world applications or case studies.
+Discuss the subject's importance or relevance to highlight its significance.
+Compare the subject with similar concepts to provide context.
+Provide context and background information relevant to the topic.
+Incorporate insights from diverse perspectives or experiences.
+Structure the answer logically with clear transitions.
+Provide context to set up the explanation.
+Avoid overly technical jargon or acronyms unless commonly understood.
+Highlight both positive and negative aspects when relevant.
+Encourage engagement and feedback.
+Keep sentence structures simple and clear for clarity.
+Consider the target audience when choosing vocabulary and phrases.
+Focus on clarity and specificity in your explanation.
+Clearly state the limitations or uncertainties in your response.
+Present information in a structured and organized manner.
+Include relevant examples or analogies.
+Ensure the answer is comprehensive without being verbose.
+End with a strong concluding statement that reinforces the main point.
+Integrate relevant evidence or statistics to support claims.
+Break down complex problems into simpler parts.
+Provide clear and concise descriptions.
+Include relevant details without unnecessary complexity.
+Avoid repetition and provide varied expressions.
+Explain the purpose or significance of the subject matter.
+Use active voice to make the answer more engaging and direct.
+Avoid redundant information and focus on essential points.
+Maintain a neutral and objective tone in your explanation.
+Offer a balanced view by acknowledging alternative viewpoints if applicable.
+Use logical transitions between ideas.
+Introduce the topic with a compelling opening line.
+Incorporate analogies and metaphors to clarify complex concepts.
+Provide a comprehensive overview of the topic, covering multiple aspects.
+Include examples or case studies to illustrate key points.
+Address potential counterarguments or opposing viewpoints constructively.
+Highlight the importance of thoroughness in the solution.
+Identify and define any assumptions made in the problem.
+Break down complex information into manageable parts.
+Avoid redundant or unnecessary information.
+Ensure your answer flows logically from one point to another.
+Offer balanced perspectives when discussing complex topics.
+Provide structured and organized information.
+Use precise language to convey accurate information.
+Engage the reader by starting with a clear, attention-grabbing statement.
+Avoid unnecessary jargon or overly technical language.
+Encourage the reader with motivating or affirming language.
+Use a storytelling approach to make the content more relatable.
+Use specific examples to illustrate key concepts.
+Conclude with a summary of the main points discussed.
+Use specific evidence from the given context.
+Offer clear examples to support your points.
+Use transitions to logically connect ideas.
+Use technical terms and jargon appropriately for the domain.
+Maintain a formal and informative tone throughout.
+Compare or contrast elements where appropriate.
+Conclude with a clear final statement.
+Begin with an engaging opening statement.
+Begin with an introductory paragraph that sets the context.
+Summarize each section before moving on to the next.
+Highlight any critical aspects or caveats at the beginning or end.
+Avoid colloquialisms and maintain formal tone.
+Compare and contrast systematically for better understanding.
+Provide context and reasoning for your answer.
+Structure your response to address multiple aspects of the question.
+Conclude with a summary or recommendation based on the discussion.
+Include relevant code snippets where applicable.
+Offer a balanced view, considering various perspectives.
+Provide clear, step-by-step guidance.
+Ensure accuracy by cross-referencing information.
+Incorporate user feedback or additional clarifications.
+Vary sentence length and structure for rhythm and emphasis.
+Use relevant terminology from the context.
+Encourage engagement by posing questions or suggesting further reading.
+Include a variety of formats or structures in your response.
+Incorporate humor or playfulness where appropriate.
+Include specific examples or use cases.
+Highlight important benefits or applications.
+Offer a concise summary to wrap up your answer.
+Cite sources or references for claims made where appropriate.
+Include examples or anecdotes to illustrate points.
+Maintain a formal and professional tone.
+Include real-world examples to illustrate key concepts.
+Use concrete examples to illustrate characters or concepts.
+Keep technical descriptions clear and concise.
+Maintain a coherent narrative flow.
+Use specific examples to illustrate your points.
+Use a confident and informative tone throughout the response.
+Provide context where necessary to avoid confusion.
+Structure the response in a logical, step-by-step manner.
+Start by defining the problem or goal clearly.
+Emphasize the importance of clarity and readability in explanations.
+Encourage the reader to think through the solution step-by-step.
+Use specific terminology relevant to the topic.
+Ensure your response provides a clear and concise overview.
+Provide actionable steps for implementation.
+Encourage engagement by asking relevant follow-up questions.
+Provide a clear, concise, and comprehensive overview of the subject.
+Clarify the exact action taken to address the situation.
+Infer the underlying intent of the given answer.
+Use specific language to convey assistance provided.
+Use concise, direct language.
+Break down complex topics into understandable parts.
+Highlight key points or summaries at the end of your response.
+List specific steps or actions in a logical sequence.
+Provide clear, concise, and structured responses.
+Use specific, actionable language for step-by-step instructions.
+Present information in a balanced and comprehensive manner.
+Explain potential counterarguments and address them thoughtfully.
+Provide detailed explanations for each step.
+Offer clear, actionable recommendations.
+Structure your response in a logical sequence.
+Establish relationships between variables through equations or logical statements.
+Focus on the core logic or reasoning required to solve the problem.
+Provide clear, structured prompts to elicit specific details.
+Use simple and direct language.
+Explain the purpose or intent behind the concept or phrase.
+Focus on evoking emotion and painting a vivid picture.
+Mention specific consequences or impacts of actions described.
+End with a poignant or thought-provoking statement.
+Offer context and background information relevant to the task.
+Include code snippets or examples where appropriate.
+Connect abstract concepts to personal experiences or examples.
+Mention specific examples to illustrate key points.
+Provide a clear and structured introduction for the response.
+Avoid repeating information and focus on concise, precise language.
+Cite credible sources when necessary to enhance the credibility of the answer.
+Structure the response with logical sections for clarity.
+Provide balanced perspectives where appropriate.
+Encourage detailed and specific information sharing.
+Include an engaging call to action or invitation.
+Offer actionable advice or suggestions.
+Incorporate personal anecdotes to connect with the user.
+Focus on providing a well-structured and organized answer.
+Provide specific details and exact locations when possible.
+Give numerical values and dates precisely when relevant.
+Include specific examples or cases to illustrate key points.
+Maintain the original meaning and context.
+Be concise yet comprehensive in your answer.
+Match the complexity and formality of the input.
+Organize information logically and systematically.
+End with a summary or conclusion to reinforce key points.
+Include relevant trends or general observations when providing broad, data-driven responses.
+Be explicit about the reliability of the sources used for your information.
+Encourage follow-up questions for clarification on unclear or complex topics.
+Use concrete examples to illustrate your points.
+Be concise while covering all necessary aspects.
+Incorporate relevant examples to support your points.
+End your response with a strong closing statement.
+Maintain a balanced tone, avoiding extremes.
+Adopt a constructive and positive approach.
+Include step-by-step guidance or processes.
+Organize information logically to build a clear narrative.
+Structure the response into clear, distinct paragraphs.
+Highlight key characteristics without over-explaining.
+Use examples to illustrate complex points.
+Avoid oversimplifying complex concepts or information.
+Incorporate key terms and terminology from the given context.
+Highlight any potential challenges or limitations in the process.
+Emphasize the value or benefit to the reader or listener.
+Maintain a consistent and engaging tone throughout the response.
+Describe step-by-step processes or sequences of events clearly.
+Synthesize information from different sources to build a coherent narrative.
+Offer customization options to allow for personalization.
+Mention potential variations or alternatives.
+Ensure your response provides context and background details relevant to the topic.
+Integrate relevant data or facts to support your points.
+Use appropriate citations when necessary.
+End with a strong concluding statement.
+Start with a broad overview before delving into specifics.
+Provide clear, structured guidance on what information is needed to address the question effectively.
+Use technical terms appropriately and define them if they may be unfamiliar.
+Suggest methods for verifying the correctness of the provided solution or information.
+Use descriptive language to enhance clarity and engagement.
+Provide evidence or sources where relevant to support claims.
+Cite sources or studies to support key claims if applicable.
+Conclude with a summary or forward-looking statement to reinforce key points.
+Use specific examples to illustrate general points.
+Include a rationale for the chosen methodology.
+Focus on providing a clear and detailed explanation of the steps involved.
+Start your response with a comprehensive overview of the approach.
+Provide context analysis before giving an answer.
+Offer practical guidance or solutions where applicable.
+Start with engaging and descriptive language.
+Begin with a strong, attention-grabbing statement.
+Conclude with a memorable closing remark or summary.
+Encourage the inclusion of diverse perspectives.
+Use domain-specific knowledge to enhance accuracy.
+Consider multiple perspectives before concluding.
+Relate the answer back to the core question.
+Ensure the answer is comprehensive by addressing multiple aspects of the question.
+Include a title or heading that summarizes the main topic of the response.
+Provide a straightforward definition or explanation.
+Maintain a conversational tone.
+Summarize key points succinctly.
+End with a punchline or memorable closing.
+Offer a step-by-step procedure if applicable.
+Cite credible sources to enhance credibility and accuracy.
+Break complex topics into manageable parts for clarity.
+Include personal anecdotes or analogies when appropriate to enhance understanding.
+Focus on clarifying the context before elaborating.
+Incorporate relevant details to support your points.
+End with a summary or conclusion to tie the answer together.
+Structure the response logically with sections.
+Explain the limitations or complexities of the topic.
+Address potential counterarguments or opposing views.
+Focus on providing a clear and concise explanation.
+Structure your answer logically with clear steps or considerations.
+Encourage the reader to verify information from multiple sources.
+Include relevant context to enhance understanding.
+Categorize information into clear, understandable groups.
+Use specific examples when explaining concepts.
+Use engaging language and maintain a consistent tone.
+Maintain a professional yet approachable writing style.
+Provide context where necessary to enhance understanding.
+Avoid overly simplistic explanations whenever possible.
+Avoid generalizations; provide concrete evidence when possible.
+Highlight key factors and considerations thoroughly.
+Conclude with a summary or key takeaway points.
+Use hypothetical scenarios to illustrate points effectively.
+Draw on common human experiences to relate to the user.
+Start with an overview before diving into specifics.
+Use precise and concise language.
+Encourage further inquiry or discussion if applicable.
+Maintain a coherent narrative throughout the answer.
+Encourage further discussion or clarification if needed.
+Focus on highlighting key points and challenges.
+Avoid clichés and overused phrases for uniqueness.
+Structure your response into logical paragraphs for clarity.
+Ensure your answer aligns with the quality criteria for the task.
+Use precise language to describe relationships between elements.
+Ensure the answer is detailed yet not overly verbose.
+Avoid technical jargon unless necessary for clarity.
+Use simple and concise language.
+Use examples or analogies to clarify complex points.
+Focus on providing a structured and organized response.
+Encourage deeper understanding through logical connections.
+Highlight key benefits or improvements of the proposed method.
+Offer tips or variations to enhance the solution.
+Revise and refine your answer for clarity and precision.
+Include relevant examples to illustrate your point.
+Provide clear, concise, and contextually relevant information.
+Use precise language to convey meaning accurately.
+Be factual and avoid speculation unless explicitly asked.
+Start with a vivid setting or scene.
+Use transitions smoothly to guide the reader through the story.
+Detail any necessary background information for understanding.
+Clarify any technical terms or jargon used.
+Offer clear and concise explanations.
+Provide clear, structured explanations.
+Provide a concise summary or overview of key information.
+Tailor your response to address the specific needs or interests of the user.
+End sentences with a confident conclusion or directive
+Encourage further education or clarification if needed
+Conclude with a summary of the key points discussed.
+Compare the subject matter to related areas or previous work.
+Summarize the main ideas at the end of the explanation.
+Clarify any ambiguities in the question by asking follow-up questions.
+Ensure the response is logically organized and easy to follow.
+Offer additional resources or further reading for more information.
+Ensure the response flows smoothly and reads naturally.
+Offer a balanced and comprehensive answer where applicable.
+Summarize key points at the beginning and end of your response.
+Use specific examples or data to support your points.
+Incorporate credible sources to enhance credibility.
+Offer examples or analogies to illustrate concepts.
+Summarize main ideas at the beginning and end of your response.
+Explain relationships and connections between concepts.
+Discuss potential subjective aspects of the answer.
+Address common misconceptions or alternative viewpoints.
+Offer examples or case studies to illustrate key points.
+Organize information into logical, categorized sections.
+End with a concise summary or concluding statement.
+Avoid making assumptions not supported by the given information.
+Address the complexity of the issue by considering various perspectives and implications.
+Highlight potential trade-offs and compromises in your answer.
+Encourage critical thinking by posing questions or suggesting areas for further exploration.
+Engage the reader with an interesting opening.
+Connect the information to real-world applications or impacts.
+Provide actionable steps or recommendations for implementation.
+Begin with a vivid and attention-grabbing opening.
+Focus on providing a comprehensive overview rather than just touching on surface details.
+Provide context to help readers understand the significance of the information.
+Encourage critical thinking by discussing potential implications or controversies.
+Reflect the tone and style of the original text in your response.
+Start your response by restating key elements from the question.
+Avoid circular reasoning or repetition in your explanation.
+Provide specific examples or methods to enhance clarity.
+Integrate multiple concepts cohesively into a single explanation.
+Encourage further inquiry or exploration by providing resources.
+Use examples or analogies to enhance understanding.
+Use transitional phrases like "and therefore" for logical flow.
+Use clear and precise language to define variables and equations.
+Clearly identify and separate different parts of a multi-part question.
+Use appropriate mathematical or logical symbols where needed.
+Use authoritative and reliable sources to support claims and facts.
+Explain technical concepts using simple, accessible language.
+Focus on providing a clear and structured overview of the topic.
+Detail the benefits or implications of the topic.
+Specify the reason for the request clearly.
+Provide relevant information without being overly verbose.
+Clearly define any acronyms or technical terms used.
+Start your response with an engaging introduction or hook.
+Ensure your explanation aligns with relevant background information.
+Conclude with a summary or final statement addressing the core of the question.
+Encourage critical thinking and analysis in your response.
+Include quantifiable information if available.
+Use natural and varied metaphors where appropriate.
+Incorporate specific examples to illustrate complex points.
+Focus on providing actionable solutions rather than just acknowledging issues.
+Use positive language to frame challenges as opportunities for improvement.
+Provide specific examples or steps to illustrate your points.
+Avoid vague language; be precise and clear.
+Suggest how to verify the accuracy of the information provided.
+Provide a clear analysis of the question.
+Examine each option thoroughly and logically.
+Connect all parts of the response coherently.
+Conclude with a summary or final statement to reinforce the main ideas.
+Encourage engagement by asking relevant questions.
+Structure your response in a clear, organized manner.
+Support your points with credible sources or references.
