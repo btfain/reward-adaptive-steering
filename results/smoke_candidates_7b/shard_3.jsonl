@@ -1,0 +1,554 @@
+{"candidate": "Provide context to enhance understanding.", "swing": 1.0468749999999998}
+{"candidate": "Structure your response logically to improve readability.", "swing": -0.5989583333333336}
+{"candidate": "Emphasize benefits and value for the reader.", "swing": -1.2329644097222219}
+{"candidate": "Include a clear call-to-action.", "swing": -1.1987847222222219}
+{"candidate": "Make the tone approachable and relatable.", "swing": -3.7690972222222214}
+{"candidate": "Focus on providing actionable, concrete examples.", "swing": 0.052354600694444496}
+{"candidate": "Provide context or background for complex concepts.", "swing": 0.7828233506944445}
+{"candidate": "Include metrics or evaluation criteria when applicable.", "swing": 0.2359483506944445}
+{"candidate": "Include relevant terminology and concepts associated with the topic.", "swing": -0.2764756944444445}
+{"candidate": "Provide a comprehensive overview of the topic.", "swing": 1.1844618055555556}
+{"candidate": "Provide context and justification for your choices.", "swing": 0.7100694444444446}
+{"candidate": "Use natural language for better readability.", "swing": 0.7960069444444446}
+{"candidate": "Highlight the importance of each component or step.", "swing": -0.8029513888888887}
+{"candidate": "Provide relevant and detailed information.", "swing": 1.2117784288194444}
+{"candidate": "Structure your answer logically and coherently.", "swing": 1.8432888454861114}
+{"candidate": "Include specific examples or case studies.", "swing": -0.9487847222222223}
+{"candidate": "Summarize the main findings or conclusions.", "swing": -1.029513888888889}
+{"candidate": "Use clear and concise language.", "swing": -2.336805555555556}
+{"candidate": "Use precise and descriptive language to enhance understanding.", "swing": -0.785915798611111}
+{"candidate": "Ensure the response flows logically from one point to the next.", "swing": -0.922634548611111}
+{"candidate": "Use precise language.", "swing": -0.012152777777777679}
+{"candidate": "Ask for specifics if needed.", "swing": 0.056857638888888985}
+{"candidate": "Suggest actions or next steps when appropriate.", "swing": -0.036892361111111015}
+{"candidate": "Emphasize the significance and relevance of each point made.", "swing": -0.36805555555555597}
+{"candidate": "Include relevant statistics or studies to support claims.", "swing": -0.6493055555555559}
+{"candidate": "Explain why the subject might not fit the query.", "swing": -5.890896267361112}
+{"candidate": "Highlight potential impacts or consequences related to the topic.", "swing": -2.772894965277778}
+{"candidate": "Engage the reader by posing relevant questions.", "swing": -7.1006944444444455}
+{"candidate": "Organize information into logical categories or steps.", "swing": -0.048611111111111015}
+{"candidate": "Address potential misconceptions or counterarguments.", "swing": -0.9131944444444443}
+{"candidate": "Use specific examples to illustrate points.", "swing": 0.3411458333333332}
+{"candidate": "Avoid unnecessary complexity or jargon.", "swing": -1.7890625000000002}
+{"candidate": "Ensure the answer is easy to understand and follow.", "swing": -0.4322916666666668}
+{"candidate": "Consider multiple perspectives or aspects before forming an answer.", "swing": 1.3776041666666667}
+{"candidate": "Ensure your answer addresses all key elements of the question.", "swing": 1.0286458333333333}
+{"candidate": "Provide specific examples to illustrate your points.", "swing": -0.0438368055555558}
+{"candidate": "Offer context to deepen understanding of the topic.", "swing": 0.8441840277777776}
+{"candidate": "Incorporate real-world applications or case studies.", "swing": 0.5798611111111108}
+{"candidate": "Discuss the subject's importance or relevance to highlight its significance.", "swing": -0.8281249999999997}
+{"candidate": "Compare the subject with similar concepts to provide context.", "swing": 0.41145833333333365}
+{"candidate": "Provide context and background information relevant to the topic.", "swing": 0.8232421874999999}
+{"candidate": "Incorporate insights from diverse perspectives or experiences.", "swing": -0.12304687500000015}
+{"candidate": "Structure the answer logically with clear transitions.", "swing": 1.869140625}
+{"candidate": "Start with a concise introduction that summarizes the main points or solution approach.", "swing": -0.5295138888888888}
+{"candidate": "Conclude with a summary of key takeaways or steps to consider.", "swing": 0.09027777777777783}
+{"candidate": "Provide context to set up the explanation.", "swing": 0.09201388888888899}
+{"candidate": "Engage the reader with descriptive language and storytelling techniques.", "swing": -1.833767361111111}
+{"candidate": "Avoid overly technical jargon or acronyms unless commonly understood.", "swing": -0.22569444444444434}
+{"candidate": "Highlight both positive and negative aspects when relevant.", "swing": -2.3268500434027772}
+{"candidate": "Encourage engagement and feedback.", "swing": -1.0651312934027775}
+{"candidate": "Ensure the translated text flows naturally in the target language.", "swing": -0.48544650607638906}
+{"candidate": "Keep sentence structures simple and clear for clarity.", "swing": -2.1316460503472223}
+{"candidate": "Consider the target audience when choosing vocabulary and phrases.", "swing": 0.1710883246527777}
+{"candidate": "Use precise language to avoid ambiguity.", "swing": -1.368923611111111}
+{"candidate": "Proofread your response for grammatical correctness and clarity.", "swing": -1.8637152777777777}
+{"candidate": "Focus on clarity and specificity in your explanation.", "swing": 0.5004340277777776}
+{"candidate": "Clearly state the limitations or uncertainties in your response.", "swing": 0.23480902777777754}
+{"candidate": "Present information in a structured and organized manner.", "swing": -0.9045138888888892}
+{"candidate": "Include relevant examples or analogies.", "swing": 0.3069661458333333}
+{"candidate": "Ensure the answer is comprehensive without being verbose.", "swing": -0.9811197916666666}
+{"candidate": "Provide a clear and concise opening statement for the response.", "swing": -3.0236545138888893}
+{"candidate": "End with a strong concluding statement that reinforces the main point.", "swing": -0.9465060763888888}
+{"candidate": "Integrate relevant evidence or statistics to support claims.", "swing": -0.11707899305555551}
+{"candidate": "Break down complex problems into simpler parts.", "swing": 0.01822916666666637}
+{"candidate": "Use proper terminology and avoid colloquialisms.", "swing": -1.154947916666667}
+{"candidate": "Provide clear and concise descriptions.", "swing": 0.5520833333333335}
+{"candidate": "Include relevant details without unnecessary complexity.", "swing": 1.0885416666666667}
+{"candidate": "Avoid repetition and provide varied expressions.", "swing": 0.39843750000000017}
+{"candidate": "Explain the purpose or significance of the subject matter.", "swing": -1.1684027777777777}
+{"candidate": "Use active voice to make the answer more engaging and direct.", "swing": -5.508490668402778}
+{"candidate": "Engage the reader with an introductory sentence that captures their interest.", "swing": -7.002604166666667}
+{"candidate": "Include examples or practical applications to illustrate key points.", "swing": -0.6588541666666666}
+{"candidate": "Refer to the audience directly using inclusive language.", "swing": -0.23697916666666666}
+{"candidate": "Provide relevant examples to enhance understanding.", "swing": 0.4704861111111107}
+{"candidate": "Show respect and empathy towards the recipient.", "swing": 0.5069444444444441}
+{"candidate": "Avoid redundant information and focus on essential points.", "swing": -2.0120442708333335}
+{"candidate": "Maintain a neutral and objective tone in your explanation.", "swing": -0.15755208333333334}
+{"candidate": "Offer a balanced view by acknowledging alternative viewpoints if applicable.", "swing": 0.12040201822916667}
+{"candidate": "Use logical transitions between ideas.", "swing": -0.14822048611111102}
+{"candidate": "Conclude with a summary of key findings.", "swing": -0.986111111111111}
+{"candidate": "Introduce the topic with a compelling opening line.", "swing": -0.7454427083333334}
+{"candidate": "Incorporate analogies and metaphors to clarify complex concepts.", "swing": -2.17578125}
+{"candidate": "Provide a comprehensive overview of the topic, covering multiple aspects.", "swing": -0.14366319444444434}
+{"candidate": "Include examples or case studies to illustrate key points.", "swing": -0.462673611111111}
+{"candidate": "Address potential counterarguments or opposing viewpoints constructively.", "swing": -0.597439236111111}
+{"candidate": "Encourage the user to provide more details if the information given is insufficient.", "swing": 0.05833604600694442}
+{"candidate": "Highlight the importance of thoroughness in the solution.", "swing": -0.4742160373263889}
+{"candidate": "Recommend breaking down complex problems into simpler steps.", "swing": -0.2642550998263889}
+{"candidate": "Identify and define any assumptions made in the problem.", "swing": -0.011881510416666888}
+{"candidate": "Break down complex information into manageable parts.", "swing": -0.12613932291666688}
+{"candidate": "Avoid redundant or unnecessary information.", "swing": -1.852213541666667}
+{"candidate": "Ensure your answer flows logically from one point to another.", "swing": -0.18229166666666696}
+{"candidate": "Offer balanced perspectives when discussing complex topics.", "swing": 0.009114583333333037}
+{"candidate": "Provide structured and organized information.", "swing": -0.33680555555555564}
+{"candidate": "Highlight key points for emphasis.", "swing": -1.670138888888889}
+{"candidate": "Use precise language to convey accurate information.", "swing": -1.587673611111111}
+{"candidate": "Engage the reader by starting with a clear, attention-grabbing statement.", "swing": -4.269476996527778}
+{"candidate": "Be concise yet comprehensive in your explanation.", "swing": -2.452256944444444}
+{"candidate": "Avoid unnecessary jargon or overly technical language.", "swing": -1.4392361111111114}
+{"candidate": "Encourage the reader with motivating or affirming language.", "swing": -2.079861111111111}
+{"candidate": "Provide clear and concise explanations for complex topics.", "swing": -0.5147569444444443}
+{"candidate": "Use a storytelling approach to make the content more relatable.", "swing": -2.462673611111111}
+{"candidate": "End with a compelling conclusion or summary.", "swing": -1.290798611111111}
+{"candidate": "Use specific examples to illustrate key concepts.", "swing": -1.9309895833333333}
+{"candidate": "Conclude with a summary of the main points discussed.", "swing": -1.9466145833333333}
+{"candidate": "Use specific evidence from the given context.", "swing": -3.4253472222222214}
+{"candidate": "Offer clear examples to support your points.", "swing": -0.03993055555555536}
+{"candidate": "Start with an introductory statement defining the context.", "swing": -1.5069444444444446}
+{"candidate": "Use transitions to logically connect ideas.", "swing": -2.8712022569444446}
+{"candidate": "Focus on providing actionable steps rather than general statements.", "swing": -0.41319444444444436}
+{"candidate": "Use technical terms and jargon appropriately for the domain.", "swing": 0.920138888888889}
+{"candidate": "Emphasize the end goal or expected outcome clearly.", "swing": 0.8940972222222223}
+{"candidate": "Avoid overly technical language or jargon.", "swing": -0.25238715277777773}
+{"candidate": "Maintain a formal and informative tone throughout.", "swing": 1.0184461805555556}
+{"candidate": "Highlight potential ethical considerations and implications.", "swing": -4.297743055555555}
+{"candidate": "Cite credible sources when providing factual information.", "swing": -0.21180555555555566}
+{"candidate": "Compare or contrast elements where appropriate.", "swing": 1.0228034125434027}
+{"candidate": "Highlight key points or findings clearly.", "swing": -0.12693617078993066}
+{"candidate": "Conclude with a clear final statement.", "swing": -1.397769504123264}
+{"candidate": "Begin with an engaging opening statement.", "swing": -0.21462673611111116}
+{"candidate": "Incorporate sensory details to engage the reader.", "swing": -2.305121527777778}
+{"candidate": "Begin with an introductory paragraph that sets the context.", "swing": -4.343098958333333}
+{"candidate": "Summarize each section before moving on to the next.", "swing": -1.96875}
+{"candidate": "Highlight any critical aspects or caveats at the beginning or end.", "swing": -1.7760416666666667}
+{"candidate": "Avoid colloquialisms and maintain formal tone.", "swing": -1.652398003472222}
+{"candidate": "Compare and contrast systematically for better understanding.", "swing": -0.7383355034722222}
+{"candidate": "Provide context and reasoning for your answer.", "swing": -0.030381944444444347}
+{"candidate": "Structure your response to address multiple aspects of the question.", "swing": 0.011284722222222321}
+{"candidate": "Conclude with a summary or recommendation based on the discussion.", "swing": -1.0167100694444444}
+{"candidate": "Include relevant code snippets where applicable.", "swing": -0.89453125}
+{"candidate": "Offer a balanced view, considering various perspectives.", "swing": 0.7005208333333334}
+{"candidate": "Provide clear, step-by-step guidance.", "swing": -0.4947916666666665}
+{"candidate": "Ensure accuracy by cross-referencing information.", "swing": -0.015624999999999925}
+{"candidate": "Incorporate user feedback or additional clarifications.", "swing": -0.12499999999999993}
+{"candidate": "Provide context to immerse the reader in the scene.", "swing": -0.526909722222222}
+{"candidate": "Vary sentence length and structure for rhythm and emphasis.", "swing": -2.6128472222222223}
+{"candidate": "Use relevant terminology from the context.", "swing": 0.6966145833333334}
+{"candidate": "Offer multiple options when appropriate and explain why certain choices are better.", "swing": -0.8802083333333334}
+{"candidate": "Conclude with a summary or restatement of key points.", "swing": -1.9088541666666667}
+{"candidate": "Draw clear connections between the given information and the conclusion.", "swing": 0.23784722222222224}
+{"candidate": "Elaborate on the implications of the solution or answer provided.", "swing": -0.3474392361111111}
+{"candidate": "Highlight key points with numbered lists for clarity.", "swing": -0.9542100694444446}
+{"candidate": "Incorporate multiple aspects of the topic for a thorough discussion.", "swing": 0.8810763888888887}
+{"candidate": "Encourage engagement by posing questions or suggesting further reading.", "swing": -0.31163194444444464}
+{"candidate": "Include a variety of formats or structures in your response.", "swing": -0.2805989583333333}
+{"candidate": "Incorporate humor or playfulness where appropriate.", "swing": -1.685546875}
+{"candidate": "Include specific examples or use cases.", "swing": 1.092013888888889}
+{"candidate": "Highlight important benefits or applications.", "swing": 0.011284722222222321}
+{"candidate": "Conclude with a summary or wrap-up statement.", "swing": -2.375271267361111}
+{"candidate": "Offer a concise summary to wrap up your answer.", "swing": -1.8820665147569446}
+{"candidate": "Cite sources or references for claims made where appropriate.", "swing": 0.7092420789930555}
+{"candidate": "Provide a clear, step-by-step explanation for the process described in the question.", "swing": 0.3204752604166665}
+{"candidate": "Verify that your translation or description accurately reflects the original content.", "swing": -0.8736979166666669}
+{"candidate": "Format your answer consistently with the structure of the provided example, if any.", "swing": -1.1966145833333335}
+{"candidate": "Use examples to illustrate complex ideas.", "swing": -0.060329861111111306}
+{"candidate": "Mention relevant factors that influence the outcome.", "swing": -0.7673611111111113}
+{"candidate": "Offer specific examples to illustrate key points.", "swing": -0.5694444444444446}
+{"candidate": "Highlight the impact or consequences of the described events.", "swing": -1.5056423611111114}
+{"candidate": "Conclude with a brief recap of the key takeaways.", "swing": -2.1299913194444446}
+{"candidate": "Include examples or anecdotes to illustrate points.", "swing": 0.19821506076388906}
+{"candidate": "Maintain a formal and professional tone.", "swing": 0.3889702690972224}
+{"candidate": "Include real-world examples to illustrate key concepts.", "swing": 0.31770833333333376}
+{"candidate": "Use precise language to convey exact meanings and avoid ambiguity.", "swing": -1.762369791666666}
+{"candidate": "Use concrete examples to illustrate characters or concepts.", "swing": -0.7612847222222218}
+{"candidate": "Keep technical descriptions clear and concise.", "swing": 0.7504340277777781}
+{"candidate": "Maintain a coherent narrative flow.", "swing": -0.04513888888888854}
+{"candidate": "Use specific examples to illustrate your points.", "swing": -1.231418185763889}
+{"candidate": "Conclude with a summary of the main points.", "swing": -0.22938368055555583}
+{"candidate": "Ensure your response provides a clear and concise answer directly related to the question.", "swing": -1.2396647135416667}
+{"candidate": "Provide a smooth flow of information to enhance readability.", "swing": 0.9081217447916665}
+{"candidate": "Use precise language to convey accurate and relevant information.", "swing": -0.723388671875}
+{"candidate": "Use a confident and informative tone throughout the response.", "swing": -1.2604166666666667}
+{"candidate": "Provide context where necessary to avoid confusion.", "swing": -0.14388020833333326}
+{"candidate": "Provide clear definitions and context for specialized terms.", "swing": -2.1540917290581594}
+{"candidate": "Structure the response in a logical, step-by-step manner.", "swing": -1.1749250623914929}
+{"candidate": "Encourage critical thinking by posing hypothetical scenarios.", "swing": -2.4451073540581594}
+{"candidate": "Start by defining the problem or goal clearly.", "swing": 0.3125}
+{"candidate": "Emphasize the importance of clarity and readability in explanations.", "swing": -2.3072916666666665}
+{"candidate": "Encourage the reader to think through the solution step-by-step.", "swing": 0.5572916666666666}
+{"candidate": "Avoid vague statements and provide specific details.", "swing": -0.06163194444444434}
+{"candidate": "Discuss real-world applications or implications.", "swing": -2.380398220486111}
+{"candidate": "Use specific terminology relevant to the topic.", "swing": 0.23784722222222202}
+{"candidate": "Maintain accuracy and avoid misinformation.", "swing": 1.2638888888888886}
+{"candidate": "Start with an overview of the main points.", "swing": -0.18359375}
+{"candidate": "Offer context where necessary for clarity.", "swing": -0.08333333333333333}
+{"candidate": "Ensure your response provides a clear and concise overview.", "swing": -2.022135416666667}
+{"candidate": "Cite credible sources to support your claims.", "swing": 0.5963541666666664}
+{"candidate": "Encourage critical thinking and further exploration of the topic.", "swing": 0.5963541666666664}
+{"candidate": "Provide actionable steps for implementation.", "swing": -0.06770833333333333}
+{"candidate": "Encourage engagement by asking relevant follow-up questions.", "swing": -1.5703125}
+{"candidate": "Provide a clear, concise, and comprehensive overview of the subject.", "swing": 1.0498046875000002}
+{"candidate": "Avoid vague language and provide precise information.", "swing": -0.9488932291666664}
+{"candidate": "Use active voice to make the answer more engaging.", "swing": -5.826497395833333}
+{"candidate": "Address the specific requirements of the question directly and thoroughly.", "swing": -0.13107638888888898}
+{"candidate": "Tailor your writing style to match the context and formality level of the question.", "swing": 1.2387152777777777}
+{"candidate": "Focus on providing clear, concise, and practical guidance.", "swing": 1.3350694444444446}
+{"candidate": "Encourage customization to fit specific needs.", "swing": 0.5069444444444446}
+{"candidate": "Include relevant examples to illustrate points.", "swing": -0.0034722222222220247}
+{"candidate": "Choose words with stronger cultural connotations.", "swing": -2.317057291666667}
+{"candidate": "Use gender-neutral terms where possible.", "swing": -0.37695312500000017}
+{"candidate": "Clarify the exact action taken to address the situation.", "swing": 0.2144097222222221}
+{"candidate": "Infer the underlying intent of the given answer.", "swing": -5.331976996527778}
+{"candidate": "Use specific language to convey assistance provided.", "swing": -2.081814236111111}
+{"candidate": "Use concise, direct language.", "swing": -2.9114583333333335}
+{"candidate": "Break down complex topics into understandable parts.", "swing": -0.6796875}
+{"candidate": "Provide clear, structured examples where applicable.", "swing": -0.7191840277777777}
+{"candidate": "Highlight key points or summaries at the end of your response.", "swing": -1.2491319444444444}
+{"candidate": "Present information in a logical, easy-to-follow sequence.", "swing": 0.482638888888889}
+{"candidate": "List specific steps or actions in a logical sequence.", "swing": -0.256076388888889}
+{"candidate": "Highlight important dates, events, or milestones.", "swing": 0.15017361111111102}
+{"candidate": "Provide clear, concise, and structured responses.", "swing": -0.6907552083333334}
+{"candidate": "Use specific, actionable language for step-by-step instructions.", "swing": 0.3404947916666667}
+{"candidate": "Present information in a balanced and comprehensive manner.", "swing": -0.18294270833333334}
+{"candidate": "Avoid generalizations and provide detailed explanations.", "swing": 0.2187500000000003}
+{"candidate": "Explain potential counterarguments and address them thoughtfully.", "swing": -1.106770833333333}
+{"candidate": "Provide detailed explanations for each step.", "swing": 1.0711805555555556}
+{"candidate": "Offer clear, actionable recommendations.", "swing": -0.9210069444444443}
+{"candidate": "Structure your response in a logical sequence.", "swing": -0.790798611111111}
+{"candidate": "Establish relationships between variables through equations or logical statements.", "swing": -0.04253472222222202}
+{"candidate": "Focus on the core logic or reasoning required to solve the problem.", "swing": 0.5538194444444446}
+{"candidate": "Provide clear, structured prompts to elicit specific details.", "swing": -0.40321180555555564}
+{"candidate": "Use simple and direct language.", "swing": -2.6276041666666665}
+{"candidate": "Explain the purpose or intent behind the concept or phrase.", "swing": 0.36197916666666696}
+{"candidate": "Focus on evoking emotion and painting a vivid picture.", "swing": -0.48046875000000017}
+{"candidate": "Mention specific consequences or impacts of actions described.", "swing": -1.1412760416666667}
+{"candidate": "End with a poignant or thought-provoking statement.", "swing": -2.5410156250000004}
+{"candidate": "Offer context and background information relevant to the task.", "swing": 1.224826388888889}
+{"candidate": "Include code snippets or examples where appropriate.", "swing": 0.927951388888889}
+{"candidate": "Ensure your response flows naturally in the target language without directly translating word-for-word.", "swing": 0.2907443576388889}
+{"candidate": "Avoid unnecessary details that do not contribute to the main idea.", "swing": -0.34231228298611116}
+{"candidate": "Focus on conveying the essential message efficiently.", "swing": -0.4305284288194445}
+{"candidate": "Connect abstract concepts to personal experiences or examples.", "swing": -0.6406249999999999}
+{"candidate": "Mention specific examples to illustrate key points.", "swing": -0.3098958333333332}
+{"candidate": "Provide a clear and structured introduction for the response.", "swing": -3.113579644097222}
+{"candidate": "Avoid repeating information and focus on concise, precise language.", "swing": -3.334201388888888}
+{"candidate": "Cite credible sources when necessary to enhance the credibility of the answer.", "swing": -0.42534722222222204}
+{"candidate": "Structure the response with logical sections for clarity.", "swing": -0.3142361111111113}
+{"candidate": "Provide balanced perspectives where appropriate.", "swing": -0.41205512152777796}
+{"candidate": "End sentences with appropriate punctuation for readability.", "swing": -1.0214131673177083}
+{"candidate": "Ensure the answer flows naturally and coherently.", "swing": 0.10456339518229167}
+{"candidate": "Encourage detailed and specific information sharing.", "swing": 0.5290798611111112}
+{"candidate": "Include an engaging call to action or invitation.", "swing": 0.24262152777777782}
+{"candidate": "Offer actionable advice or suggestions.", "swing": -0.47591145833333304}
+{"candidate": "Incorporate personal anecdotes to connect with the user.", "swing": -1.1210937499999998}
+{"candidate": "Ensure your response includes clear and specific details to avoid ambiguity.", "swing": 0.09027777777777797}
+{"candidate": "Focus on providing a well-structured and organized answer.", "swing": 0.18402777777777798}
+{"candidate": "Maintain a professional and respectful tone throughout.", "swing": -1.2013888888888886}
+{"candidate": "Summarize the main points concisely.", "swing": -0.4075520833333332}
+{"candidate": "Highlight key information to improve readability.", "swing": -1.0143229166666665}
+{"candidate": "Provide specific details and exact locations when possible.", "swing": 0.3243272569444446}
+{"candidate": "Give numerical values and dates precisely when relevant.", "swing": -0.5596245659722221}
+{"candidate": "Use clear and concise language to convey information effectively.", "swing": -1.6408420138888886}
+{"candidate": "Include specific examples or cases to illustrate key points.", "swing": -0.45225694444444436}
+{"candidate": "Specify the starting point and any necessary initial conditions.", "swing": -1.6085069444444444}
+{"candidate": "Maintain the original meaning and context.", "swing": -0.22717624240451398}
+{"candidate": "Be concise yet comprehensive in your answer.", "swing": -0.25126478407118064}
+{"candidate": "Match the complexity and formality of the input.", "swing": -0.8319939507378473}
+{"candidate": "Organize information logically and systematically.", "swing": 1.0581597222222223}
+{"candidate": "End with a summary or conclusion to reinforce key points.", "swing": 0.6414930555555556}
+{"candidate": "Include relevant trends or general observations when providing broad, data-driven responses.", "swing": 0.2282986111111113}
+{"candidate": "Be explicit about the reliability of the sources used for your information.", "swing": -1.1414930555555554}
+{"candidate": "Encourage follow-up questions for clarification on unclear or complex topics.", "swing": -0.6154513888888887}
+{"candidate": "Use concrete examples to illustrate your points.", "swing": -0.4885118272569446}
+{"candidate": "Use transitional phrases to enhance readability and flow.", "swing": -2.155178493923611}
+{"candidate": "Relate analogies directly to their logical parallels.", "swing": -1.891927083333333}
+{"candidate": "Be concise while covering all necessary aspects.", "swing": -2.458333333333333}
+{"candidate": "Incorporate relevant examples to support your points.", "swing": -0.11545138888888899}
+{"candidate": "End your response with a strong closing statement.", "swing": 0.14756944444444434}
+{"candidate": "Structure your response in a logical sequence of steps.", "swing": -1.0078125}
+{"candidate": "End with a conclusive statement summarizing the main points.", "swing": -2.4375}
+{"candidate": "Include user feedback or real-world applications if relevant.", "swing": 0.09895833333333333}
+{"candidate": "Highlight unique features or aspects of the subject matter.", "swing": -0.9574652777777778}
+{"candidate": "Encourage exploration of the topic by suggesting further reading or research.", "swing": -1.9639756944444446}
+{"candidate": "Maintain a balanced tone, avoiding extremes.", "swing": 1.2630208333333333}
+{"candidate": "Adopt a constructive and positive approach.", "swing": -0.08072916666666674}
+{"candidate": "Explain concepts using simple and understandable language.", "swing": -0.859375}
+{"candidate": "Use bullet points or numbered lists for clarity.", "swing": -3.6083984375}
+{"candidate": "Include step-by-step guidance or processes.", "swing": 0.7236328124999999}
+{"candidate": "Provide relevant examples or analogies to aid understanding.", "swing": -0.6526692708333335}
+{"candidate": "Ensure the question fully captures the rationale behind the provided answer.", "swing": 0.5781250000000001}
+{"candidate": "Include examples to illustrate complex points.", "swing": -0.24348958333333318}
+{"candidate": "Frame questions to elicit detailed, thoughtful responses.", "swing": -1.704427083333333}
+{"candidate": "Organize information logically to build a clear narrative.", "swing": -0.4375000000000006}
+{"candidate": "Structure the response into clear, distinct paragraphs.", "swing": -1.0729166666666672}
+{"candidate": "Begin with confirming or clarifying the problem.", "swing": -0.7725694444444446}
+{"candidate": "Highlight potential solutions or workarounds clearly.", "swing": 0.37847222222222204}
+{"candidate": "Structure your answer to guide the user logically.", "swing": -0.7569444444444446}
+{"candidate": "Highlight key characteristics without over-explaining.", "swing": -5.663628472222222}
+{"candidate": "Use examples to illustrate complex points.", "swing": -1.4585503472222223}
+{"candidate": "Avoid oversimplifying complex concepts or information.", "swing": 1.1449652777777775}
+{"candidate": "Incorporate key terms and terminology from the given context.", "swing": 0.07204861111111072}
+{"candidate": "Highlight any potential challenges or limitations in the process.", "swing": -0.11545138888888928}
+{"candidate": "Engage the reader with active and descriptive language.", "swing": -3.4572482638888893}
+{"candidate": "Conclude with a summary or transition to the next point if applicable.", "swing": -1.6499565972222223}
+{"candidate": "Emphasize the value or benefit to the reader or listener.", "swing": -0.9288194444444446}
+{"candidate": "Maintain a consistent and engaging tone throughout the response.", "swing": -0.19965277777777798}
+{"candidate": "Highlight key historical events or developments related to the topic.", "swing": -2.0885416666666665}
+{"candidate": "Summarize the main points or findings concisely for clarity.", "swing": -1.7291666666666667}
+{"candidate": "End with a concluding sentence that reinforces the main takeaway.", "swing": -3.8098958333333335}
+{"candidate": "Describe step-by-step processes or sequences of events clearly.", "swing": -1.0789930555555556}
+{"candidate": "Synthesize information from different sources to build a coherent narrative.", "swing": -0.44097222222222215}
+{"candidate": "Offer customization options to allow for personalization.", "swing": -1.2994791666666667}
+{"candidate": "Mention potential variations or alternatives.", "swing": 0.359375}
+{"candidate": "Ensure your response provides context and background details relevant to the topic.", "swing": 0.1974826388888887}
+{"candidate": "Include specific examples or analogies to illustrate complex ideas.", "swing": -0.844184027777778}
+{"candidate": "Integrate relevant data or facts to support your points.", "swing": -1.0088975694444446}
+{"candidate": "Use appropriate citations when necessary.", "swing": -0.6484917534722224}
+{"candidate": "End with a strong concluding statement.", "swing": -1.1172417534722225}
+{"candidate": "Highlight the most significant impacts or effects.", "swing": -2.6447482638888893}
+{"candidate": "Use authoritative language to convey confidence.", "swing": -3.8459201388888893}
+{"candidate": "Begin your response with a welcoming and affirming statement.", "swing": -1.3237847222222223}
+{"candidate": "Start with a broad overview before delving into specifics.", "swing": -0.6649305555555557}
+{"candidate": "Provide clear, structured guidance on what information is needed to address the question effectively.", "swing": -0.599894205729167}
+{"candidate": "Use technical terms appropriately and define them if they may be unfamiliar.", "swing": 0.5690104166666664}
+{"candidate": "Suggest methods for verifying the correctness of the provided solution or information.", "swing": -1.3710937500000002}
+{"candidate": "Integrate related concepts for a fuller picture.", "swing": 0.5035536024305556}
+{"candidate": "Include real-world applications if applicable.", "swing": 0.18519422743055558}
+{"candidate": "Use descriptive language to enhance clarity and engagement.", "swing": -0.5300835503472221}
+{"candidate": "Provide evidence or sources where relevant to support claims.", "swing": -0.3297254774305554}
+{"candidate": "Specify actionable steps or criteria.", "swing": 0.3868543836805556}
+{"candidate": "Ensure the response covers all key points.", "swing": 0.513888888888889}
+{"candidate": "Provide clear, concise explanations without unnecessary details.", "swing": -2.6124131944444446}
+{"candidate": "Start with an engaging opening that draws the reader in.", "swing": -6.2081163194444455}
+{"candidate": "Cite sources or studies to support key claims if applicable.", "swing": 0.7463107638888885}
+{"candidate": "Provide examples to illustrate your points where appropriate.", "swing": 0.2135416666666671}
+{"candidate": "Conclude with a summary or forward-looking statement to reinforce key points.", "swing": -1.0312499999999996}
+{"candidate": "Use specific examples to illustrate general points.", "swing": -0.9650607638888888}
+{"candidate": "Include a rationale for the chosen methodology.", "swing": -1.0900607638888888}
+{"candidate": "Focus on providing a clear and detailed explanation of the steps involved.", "swing": 0.13302951388888884}
+{"candidate": "Start your response with a comprehensive overview of the approach.", "swing": 0.3778211805555555}
+{"candidate": "End your answer with a summary of the key points discussed.", "swing": -0.25759548611111116}
+{"candidate": "Use technical terms appropriately and accurately.", "swing": -0.44184027777777796}
+{"candidate": "Encourage the use of relevant tools and resources.", "swing": 0.18836805555555536}
+{"candidate": "Provide context analysis before giving an answer.", "swing": -0.9275173611111112}
+{"candidate": "Clarify assumptions and potential misunderstandings.", "swing": 0.015190972222222173}
+{"candidate": "Proofread the answer for grammar and spelling errors.", "swing": -1.4190538194444446}
+{"candidate": "Maintain the core meaning while rephrasing.", "swing": -5.071614583333333}
+{"candidate": "Offer practical guidance or solutions where applicable.", "swing": -1.0359700520833333}
+{"candidate": "Start with engaging and descriptive language.", "swing": -1.7395833333333333}
+{"candidate": "Begin with a strong, attention-grabbing statement.", "swing": -5.481770833333333}
+{"candidate": "Conclude with a memorable closing remark or summary.", "swing": -5.198567708333333}
+{"candidate": "Ensure the answer fits the given category.", "swing": 0.49587673611111116}
+{"candidate": "Strive for brevity without omission.", "swing": -0.24045138888888887}
+{"candidate": "Request clear and relevant details from the user.", "swing": -0.7022569444444446}
+{"candidate": "Encourage the inclusion of diverse perspectives.", "swing": 0.27690972222222204}
+{"candidate": "Use domain-specific knowledge to enhance accuracy.", "swing": -0.28754340277777773}
+{"candidate": "Consider multiple perspectives before concluding.", "swing": -0.28108639187282985}
+{"candidate": "Relate the answer back to the core question.", "swing": 0.23866102430555558}
+{"candidate": "Ensure the answer is comprehensive by addressing multiple aspects of the question.", "swing": -0.21050347222222218}
+{"candidate": "Include a title or heading that summarizes the main topic of the response.", "swing": -0.7482638888888888}
+{"candidate": "Provide a straightforward definition or explanation.", "swing": -0.8694661458333331}
+{"candidate": "Maintain a conversational tone.", "swing": -0.38769531249999983}
+{"candidate": "Conclude with a summary or closing statement.", "swing": -1.1331380208333333}
+{"candidate": "Summarize key points succinctly.", "swing": -1.3832465277777775}
+{"candidate": "End with a punchline or memorable closing.", "swing": -1.2426215277777775}
+{"candidate": "Offer a step-by-step procedure if applicable.", "swing": -0.7630208333333331}
+{"candidate": "Summarize major points before concluding.", "swing": -1.7096354166666667}
+{"candidate": "Structure responses into clear, organized sections.", "swing": -2.1480034722222228}
+{"candidate": "Cite credible sources to enhance credibility and accuracy.", "swing": -1.037326388888889}
+{"candidate": "Offer a step-by-step breakdown of potential issues based on the error message.", "swing": -0.6024305555555557}
+{"candidate": "Propose actions or modifications based on a thorough understanding of the system or process.", "swing": -0.016493055555555653}
+{"candidate": "Provide a detailed breakdown of the process or experience.", "swing": 0.1857638888888887}
+{"candidate": "Break complex topics into manageable parts for clarity.", "swing": -0.7361111111111113}
+{"candidate": "Avoid overly simplistic explanations and strive for depth.", "swing": 1.2274305555555554}
+{"candidate": "Incorporate sensory details to bring descriptions to life.", "swing": -2.410590277777778}
+{"candidate": "Include personal anecdotes or analogies when appropriate to enhance understanding.", "swing": -0.5616319444444446}
+{"candidate": "Focus on clarifying the context before elaborating.", "swing": -0.589409722222222}
+{"candidate": "Incorporate relevant details to support your points.", "swing": 0.47455512152777796}
+{"candidate": "End with a summary or conclusion to tie the answer together.", "swing": -1.4904310438368054}
+{"candidate": "Structure the response logically with sections.", "swing": 0.8815104166666665}
+{"candidate": "Identify and address common misconceptions.", "swing": -0.49131944444444464}
+{"candidate": "Encourage the reader with actionable insights or next steps.", "swing": -0.5069444444444446}
+{"candidate": "Explain the limitations or complexities of the topic.", "swing": -1.972222222222222}
+{"candidate": "Address potential counterarguments or opposing views.", "swing": -2.2039930555555554}
+{"candidate": "Incorporate narrative elements to make the response more compelling.", "swing": -1.9301215277777777}
+{"candidate": "Use active voice for stronger, more direct statements.", "swing": -5.747178819444444}
+{"candidate": "Focus on providing a clear and concise explanation.", "swing": 0.1388888888888887}
+{"candidate": "Structure your answer logically with clear steps or considerations.", "swing": -1.324652777777778}
+{"candidate": "Encourage the reader to verify information from multiple sources.", "swing": -0.965277777777778}
+{"candidate": "Include relevant context to enhance understanding.", "swing": 1.201388888888889}
+{"candidate": "Categorize information into clear, understandable groups.", "swing": 0.10763888888888899}
+{"candidate": "Use specific examples when explaining concepts.", "swing": -1.5223524305555556}
+{"candidate": "Present information logically, building from basic to complex ideas.", "swing": -1.0034722222222223}
+{"candidate": "Use engaging language and maintain a consistent tone.", "swing": -0.18229166666666652}
+{"candidate": "Maintain a professional yet approachable writing style.", "swing": 0.4973958333333335}
+{"candidate": "Provide context where necessary to enhance understanding.", "swing": -0.015082465277777604}
+{"candidate": "Highlight key points to maintain focus.", "swing": -0.49962022569444436}
+{"candidate": "Avoid overly simplistic explanations whenever possible.", "swing": -0.972439236111111}
+{"candidate": "Avoid generalizations; provide concrete evidence when possible.", "swing": -0.09722222222222172}
+{"candidate": "Provide clear, detailed, and structured explanations.", "swing": -1.4505208333333333}
+{"candidate": "Highlight key factors and considerations thoroughly.", "swing": -0.5442708333333334}
+{"candidate": "Conclude with a summary or key takeaway points.", "swing": -1.0442708333333333}
+{"candidate": "Use hypothetical scenarios to illustrate points effectively.", "swing": 1.4305555555555556}
+{"candidate": "Draw on common human experiences to relate to the user.", "swing": -0.7647569444444443}
+{"candidate": "Start with an overview before diving into specifics.", "swing": 2.0824652777777777}
+{"candidate": "Use precise and concise language.", "swing": -2.6095920138888893}
+{"candidate": "Encourage further inquiry or discussion if applicable.", "swing": 0.9678819444444443}
+{"candidate": "Maintain a coherent narrative throughout the answer.", "swing": -0.27929687499999983}
+{"candidate": "Encourage further discussion or clarification if needed.", "swing": -1.2251790364583333}
+{"candidate": "Include potential challenges and their solutions.", "swing": -1.2604166666666667}
+{"candidate": "Discuss best practices and recommendations.", "swing": -0.19270833333333334}
+{"candidate": "Focus on highlighting key points and challenges.", "swing": -1.1336805555555556}
+{"candidate": "Provide a compelling summary or conclusion to your response.", "swing": -3.266493055555556}
+{"candidate": "Use descriptive language to engage the reader.", "swing": 0.9700520833333331}
+{"candidate": "Provide context to set up the scene effectively.", "swing": 0.7825520833333331}
+{"candidate": "Avoid clich\u00e9s and overused phrases for uniqueness.", "swing": -0.8216145833333335}
+{"candidate": "Frame responses as complete sentences.", "swing": -1.1334635416666667}
+{"candidate": "Use professional and polite language.", "swing": -0.59765625}
+{"candidate": "Focus on clarity and structure when organizing information.", "swing": -1.9895833333333333}
+{"candidate": "Ensure subject-verb agreement and proper tense usage throughout.", "swing": -0.9140625}
+{"candidate": "Review and revise for coherence and consistency in tone.", "swing": -1.3951822916666667}
+{"candidate": "Structure your response into logical paragraphs for clarity.", "swing": -0.9131944444444443}
+{"candidate": "Ensure your answer aligns with the quality criteria for the task.", "swing": -0.02517361111111101}
+{"candidate": "Structure your response in a step-by-step format.", "swing": -0.4059244791666668}
+{"candidate": "Identify key terms and provide definitions if necessary.", "swing": -0.6168619791666669}
+{"candidate": "Use precise language to describe relationships between elements.", "swing": -0.8667534722222223}
+{"candidate": "Connect abstract ideas to concrete, relatable instances.", "swing": -0.25998263888888906}
+{"candidate": "Use clear and concise language to define key terms and concepts.", "swing": -0.9340277777777777}
+{"candidate": "Emphasize the significance of the answer to engage the reader.", "swing": -1.5902777777777777}
+{"candidate": "Ensure the answer is detailed yet not overly verbose.", "swing": 0.5503472222222223}
+{"candidate": "Avoid technical jargon unless necessary for clarity.", "swing": -0.5130208333333334}
+{"candidate": "Use simple and concise language.", "swing": -2.7867838541666665}
+{"candidate": "Ensure your response logically follows from the given information.", "swing": 0.057508680555555726}
+{"candidate": "Use examples or analogies to clarify complex points.", "swing": -0.6710069444444443}
+{"candidate": "Focus on providing a structured and organized response.", "swing": 0.6059027777777777}
+{"candidate": "Emphasize the significance of the information presented.", "swing": -4.381076388888889}
+{"candidate": "Encourage deeper understanding through logical connections.", "swing": 0.282986111111111}
+{"candidate": "Highlight key benefits or improvements of the proposed method.", "swing": -0.24797905815972188}
+{"candidate": "Offer tips or variations to enhance the solution.", "swing": 0.7910834418402781}
+{"candidate": "Structure the response logically with proper grammar.", "swing": -0.4487847222222223}
+{"candidate": "Conclude with a concise conclusion or summary.", "swing": -1.5112847222222223}
+{"candidate": "Revise and refine your answer for clarity and precision.", "swing": -0.06814236111111109}
+{"candidate": "Edit your response for brevity without losing important information.", "swing": -0.9366319444444443}
+{"candidate": "Highlight key points succinctly and effectively.", "swing": -1.6501736111111114}
+{"candidate": "Encourage the reader to understand the broader context.", "swing": -0.887152777777778}
+{"candidate": "Include relevant examples to illustrate your point.", "swing": -0.29503038194444436}
+{"candidate": "Present information in a clear and organized manner.", "swing": 0.8455946180555557}
+{"candidate": "Break down complex information into simpler components.", "swing": -0.4778645833333331}
+{"candidate": "Include relevant data and facts to support your arguments.", "swing": -0.013020833333333112}
+{"candidate": "Provide clear, concise, and contextually relevant information.", "swing": -0.6360202365451392}
+{"candidate": "Use precise language to convey meaning accurately.", "swing": -1.417270236545139}
+{"candidate": "Be factual and avoid speculation unless explicitly asked.", "swing": 0.4193183051215275}
+{"candidate": "Start with a vivid setting or scene.", "swing": -0.3046875}
+{"candidate": "Use transitions smoothly to guide the reader through the story.", "swing": -0.0390625}
+{"candidate": "Include relevant definitions or context in your response.", "swing": -0.2942708333333335}
+{"candidate": "Detail any necessary background information for understanding.", "swing": 0.18164062499999986}
+{"candidate": "Encourage further inquiry or discussion about the topic.", "swing": 0.5449218749999999}
+{"candidate": "Maintain a neutral and factual tone unless otherwise specified.", "swing": -0.7144097222222223}
+{"candidate": "Clarify any technical terms or jargon used.", "swing": -0.16493055555555566}
+{"candidate": "Offer clear and concise explanations.", "swing": -0.08810763888888891}
+{"candidate": "Adapt the complexity of your response to the audience.", "swing": -0.22873263888888892}
+{"candidate": "Provide clear, structured explanations.", "swing": -0.5390624999999997}
+{"candidate": "Reference sources and evidence.", "swing": -0.21354166666666638}
+{"candidate": "Be concise and precise.", "swing": -1.7734374999999998}
+{"candidate": "Provide a concise summary or overview of key information.", "swing": -0.19053819444444428}
+{"candidate": "Tailor your response to address the specific needs or interests of the user.", "swing": -0.34939236111111094}
+{"candidate": "End sentences with a confident conclusion or directive", "swing": -1.0686170789930556}
+{"candidate": "Encourage further education or clarification if needed", "swing": 1.4037543402777777}
+{"candidate": "Avoid jargon unless the audience understands it.", "swing": -1.6770833333333337}
+{"candidate": "Explain potential misconceptions directly.", "swing": 0.520833333333333}
+{"candidate": "Conclude with a summary of the key points discussed.", "swing": -0.7161458333333331}
+{"candidate": "Organize content logically, starting with foundational information.", "swing": -0.5351562499999999}
+{"candidate": "Use active voice instead of passive voice.", "swing": -2.414605034722222}
+{"candidate": "Highlight benefits or advantages in a concise manner.", "swing": -1.5125868055555554}
+{"candidate": "Compare the subject matter to related areas or previous work.", "swing": -0.6654730902777778}
+{"candidate": "Summarize the main ideas at the end of the explanation.", "swing": -1.478705512152778}
+{"candidate": "Clarify any ambiguities in the question by asking follow-up questions.", "swing": -2.068576388888889}
+{"candidate": "Ensure the response is logically organized and easy to follow.", "swing": 0.3485785590277777}
+{"candidate": "Offer additional resources or further reading for more information.", "swing": -1.0484754774305556}
+{"candidate": "Ensure the response flows smoothly and reads naturally.", "swing": -0.3294270833333332}
+{"candidate": "Offer a balanced and comprehensive answer where applicable.", "swing": -0.3971354166666665}
+{"candidate": "Focus on explaining concepts in a way that is accessible to non-experts.", "swing": 0.5603298611111113}
+{"candidate": "Summarize key points at the beginning and end of your response.", "swing": -0.48784722222222204}
+{"candidate": "Encourage questions or further discussion by inviting feedback.", "swing": 0.5759548611111113}
+{"candidate": "Use specific examples or data to support your points.", "swing": 1.034478081597222}
+{"candidate": "Incorporate credible sources to enhance credibility.", "swing": 0.5084364149305555}
+{"candidate": "Organize information systematically, using bullet points or a structured format.", "swing": -2.623263888888889}
+{"candidate": "Offer examples or analogies to illustrate concepts.", "swing": -3.3862847222222228}
+{"candidate": "Provide context when necessary to clarify your request.", "swing": -0.3748914930555554}
+{"candidate": "Clarify potential ambiguities in the original question.", "swing": -0.9289279513888888}
+{"candidate": "Use clear and concise language to avoid confusion.", "swing": -0.752495659722222}
+{"candidate": "Summarize main ideas at the beginning and end of your response.", "swing": -1.041558159722222}
+{"candidate": "Explain relationships and connections between concepts.", "swing": 0.6180555555555554}
+{"candidate": "Provide a clear, detailed, and structured approach to answering the question.", "swing": -1.6623263888888893}
+{"candidate": "Offer context or background information to enhance understanding.", "swing": -0.2690972222222226}
+{"candidate": "Address potential counterarguments or alternative perspectives thoughtfully.", "swing": -2.2404513888888893}
+{"candidate": "Discuss potential subjective aspects of the answer.", "swing": -1.690972222222222}
+{"candidate": "Address common misconceptions or alternative viewpoints.", "swing": 0.014756944444444642}
+{"candidate": "Offer examples or case studies to illustrate key points.", "swing": -1.4079861111111114}
+{"candidate": "Organize information into logical, categorized sections.", "swing": -0.14366319444444464}
+{"candidate": "End with a concise summary or concluding statement.", "swing": -2.846950954861111}
+{"candidate": "Avoid redundancy and unnecessary phrases.", "swing": -3.907660590277778}
+{"candidate": "Avoid making assumptions not supported by the given information.", "swing": -0.5336371527777778}
+{"candidate": "Address the complexity of the issue by considering various perspectives and implications.", "swing": 1.0985243055555556}
+{"candidate": "Highlight potential trade-offs and compromises in your answer.", "swing": -0.27126736111111116}
+{"candidate": "Encourage critical thinking by posing questions or suggesting areas for further exploration.", "swing": -2.765407986111111}
+{"candidate": "Engage the reader with an interesting opening.", "swing": -13.322062174479166}
+{"candidate": "Connect the information to real-world applications or impacts.", "swing": 0.8020833333333334}
+{"candidate": "Use straightforward language to make the explanation easy to understand.", "swing": -0.8914930555555557}
+{"candidate": "Provide actionable steps or recommendations for implementation.", "swing": -0.342013888888889}
+{"candidate": "Structure your answer in a logical sequence of ideas.", "swing": 0.6647135416666666}
+{"candidate": "Vary sentence structure to avoid repetition and monotony.", "swing": -2.9931640625}
+{"candidate": "Begin with a vivid and attention-grabbing opening.", "swing": -1.4131944444444444}
+{"candidate": "End with a satisfying conclusion that ties back to the beginning.", "swing": -0.16319444444444434}
+{"candidate": "Focus on providing a comprehensive overview rather than just touching on surface details.", "swing": 1.651041666666667}
+{"candidate": "Provide context to help readers understand the significance of the information.", "swing": 0.651041666666667}
+{"candidate": "Encourage critical thinking by discussing potential implications or controversies.", "swing": -0.023437499999999705}
+{"candidate": "Provide specific details and examples where appropriate.", "swing": 0.3804796006944445}
+{"candidate": "Adapt the tone to match the original message's formality.", "swing": -0.45155164930555564}
+{"candidate": "Ensure your response captures the full context and nuance of the original input.", "swing": -0.3009168836805556}
+{"candidate": "Reflect the tone and style of the original text in your response.", "swing": -0.654513888888889}
+{"candidate": "Cite sources or external references when necessary to support your answer.", "swing": 0.4835069444444444}
+{"candidate": "Start your response by restating key elements from the question.", "swing": -0.7470703125000001}
+{"candidate": "Avoid circular reasoning or repetition in your explanation.", "swing": -1.1328125000000002}
+{"candidate": "Provide specific examples or methods to enhance clarity.", "swing": -1.2593315972222223}
+{"candidate": "Integrate multiple concepts cohesively into a single explanation.", "swing": 0.33311631944444425}
+{"candidate": "Encourage further inquiry or exploration by providing resources.", "swing": 0.041124131944444274}
+{"candidate": "Use examples or analogies to enhance understanding.", "swing": -1.1774088541666665}
+{"candidate": "Use transitional phrases like \"and therefore\" for logical flow.", "swing": -1.2125651041666665}
+{"candidate": "Use clear and precise language to define variables and equations.", "swing": -0.6475694444444446}
+{"candidate": "Clearly identify and separate different parts of a multi-part question.", "swing": -0.3064236111111113}
+{"candidate": "Use appropriate mathematical or logical symbols where needed.", "swing": -0.7374131944444446}
+{"candidate": "Use authoritative and reliable sources to support claims and facts.", "swing": 0.9713541666666665}
+{"candidate": "Explain technical concepts using simple, accessible language.", "swing": -0.01562500000000015}
+{"candidate": "Focus on providing a clear and structured overview of the topic.", "swing": 0.13194444444444464}
+{"candidate": "Detail the benefits or implications of the topic.", "swing": -0.628472222222222}
+{"candidate": "Ensure your response is clear and easy to follow.", "swing": 0.396701388888889}
+{"candidate": "Provide a balanced mix of information and personal insights.", "swing": -0.595486111111111}
+{"candidate": "Focus on providing context and empathy.", "swing": -1.1085069444444446}
+{"candidate": "Specify the reason for the request clearly.", "swing": -1.168402777777778}
+{"candidate": "Provide relevant information without being overly verbose.", "swing": -1.3663194444444446}
+{"candidate": "Specify the units or format required in the final answer.", "swing": -0.23285590277777798}
+{"candidate": "Clearly define any acronyms or technical terms used.", "swing": -0.930121527777778}
+{"candidate": "Start your response with an engaging introduction or hook.", "swing": -2.484402126736111}
+{"candidate": "Ensure your explanation aligns with relevant background information.", "swing": 0.18576388888888898}
+{"candidate": "Conclude with a summary or final statement addressing the core of the question.", "swing": -1.6788194444444444}
+{"candidate": "Encourage critical thinking and analysis in your response.", "swing": -1.4105902777777777}
+{"candidate": "Avoid adding unnecessary details not present in the input.", "swing": -0.43191189236111116}
+{"candidate": "Include quantifiable information if available.", "swing": 0.1307508680555555}
+{"candidate": "Use natural and varied metaphors where appropriate.", "swing": -3.356662326388889}
+{"candidate": "Incorporate specific examples to illustrate complex points.", "swing": -0.15158420138888884}
+{"candidate": "Focus on providing actionable solutions rather than just acknowledging issues.", "swing": -1.8131510416666667}
+{"candidate": "Use positive language to frame challenges as opportunities for improvement.", "swing": -1.0598958333333333}
+{"candidate": "Provide specific examples or steps to illustrate your points.", "swing": -1.341796875}
+{"candidate": "Avoid vague language; be precise and clear.", "swing": 0.1086290147569444}
+{"candidate": "Suggest how to verify the accuracy of the information provided.", "swing": -0.969821506076389}
+{"candidate": "Provide a clear analysis of the question.", "swing": 0.49522569444444403}
+{"candidate": "Examine each option thoroughly and logically.", "swing": -0.015190972222222618}
+{"candidate": "Connect all parts of the response coherently.", "swing": -0.28993055555555597}
+{"candidate": "Conclude with a summary or final statement to reinforce the main ideas.", "swing": -1.2048611111111114}
+{"candidate": "Encourage engagement by asking relevant questions.", "swing": -0.1579861111111113}
+{"candidate": "Structure your response in a clear, organized manner.", "swing": -0.2799479166666668}
+{"candidate": "Support your points with credible sources or references.", "swing": -0.37109375000000017}
+{"candidate": "Clearly state the main point or request at the beginning.", "swing": -1.9010416666666667}
