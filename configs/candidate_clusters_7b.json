@@ -1,911 +1,1275 @@
 {
  "0": [
-  "Include practical examples or code snippets where applicable.",
-  "Include specific examples or use cases.",
-  "Include code snippets or examples where appropriate."
+  "Prefer concrete over abstract concepts when applicable."
  ],
  "1": [
-  "Categorize information into distinct headings or types.",
-  "Categorize information into clear, understandable groups."
+  "Include relevant details for different scenarios.",
+  "Include relevant background information when necessary."
  ],
  "2": [
-  "Compare given options methodically when multiple choices are presented.",
-  "Label elements clearly when necessary.",
-  "Compare or contrast elements where appropriate."
+  "Highlight key benefits or outcomes of the process.",
+  "Detail the benefits or outcomes of the suggested approach."
  ],
  "3": [
-  "Maintain a consistent and logical flow of information.",
-  "Organize information into manageable sections or steps.",
-  "Organize information logically and coherently.",
-  "Organize the content logically with headings if necessary.",
-  "Organize information clearly and logically.",
-  "Organize information logically and systematically."
+  "Incorporate background context to set up the answer effectively.",
+  "Provide context and background information relevant to the question to better understand the core issue.",
+  "Focus on providing context and background information relevant to the question.",
+  "Focus on providing context and background information relevant to the topic."
  ],
  "4": [
-  "Elaborate on the implications or significance of the subject.",
-  "Reflect on the implications and deeper meanings where applicable.",
-  "Provide context to help understand the significance.",
-  "Focus on the significance or impact of the subject.",
-  "Provide context to help understand the significance of the topic.",
-  "Explain the purpose or intent behind the concept or phrase."
- ],
- "5": [
-  "Incorporate relevant examples or analogies when appropriate.",
-  "Include examples or analogies where appropriate to clarify.",
-  "Address potential misconceptions directly and clearly.",
-  "Include relevant examples or analogies.",
-  "Explain potential misconceptions directly.",
-  "Address common misconceptions or alternative viewpoints."
- ],
- "6": [
-  "Offer detailed steps or procedures.",
-  "Outline a step-by-step process when explaining procedures.",
-  "Provide a detailed explanation of the process.",
-  "Include context and reasoning behind your steps.",
-  "Incorporate step-by-step instructions where applicable.",
-  "Break down the explanation into clear, manageable steps.",
-  "Instruct on practical steps and solutions clearly and concisely.",
-  "Provide a clear and detailed explanation for each step.",
-  "Elaborate on each step or point with clear, concise explanations.",
-  "Provide a clear, step-by-step explanation for the process described in the question.",
-  "Provide detailed explanations for each step.",
-  "Include step-by-step guidance or processes.",
-  "Provide a detailed breakdown of the process or experience."
- ],
- "7": [
-  "Avoid introducing new information or errors.",
-  "Encourage the user to provide specific details relevant to the problem or query.",
-  "Guide the user on how to check or gather additional information related to their query.",
-  "Ensure all information is relevant and pertinent.",
-  "Avoid redundancy and unnecessary information.",
-  "Encourage the user to provide more details if the information given is insufficient."
- ],
- "8": [
-  "Present information in a structured format with clear headings.",
-  "Present additional information systematically and logically.",
-  "Present information in a way that enhances understanding.",
-  "Present information in a logical and organized manner.",
-  "Provide a smooth flow of information to enhance readability.",
-  "Present information in a logical, easy-to-follow sequence.",
-  "Present information in a clear and organized manner."
- ],
- "9": [
-  "Ask for specifics if needed."
- ],
- "10": [
-  "Be clear and precise in your definitions.",
-  "Explain the reasoning behind your answer clearly.",
-  "Provide clear and concise reasoning for your answer."
- ],
- "11": [
-  "Include relevant examples or frameworks.",
-  "Include user feedback or real-world applications if relevant."
- ],
- "12": [
-  "Identify and differentiate between varying approaches or solutions.",
-  "Address potential variations or exceptions to the rule.",
-  "Address potential edge cases and exceptions.",
-  "Describe potential variations or exceptions to the main procedure.",
-  "Evaluate the data structure and expected outcomes to explain the error or proposed continuation.",
-  "Mention potential variations or alternatives."
- ],
- "13": [
-  "Incorporate feedback mechanisms or improvements.",
-  "Encourage further interaction or discussion.",
-  "Emphasize the problem while offering support and encouragement.",
-  "Encourage further communication and collaboration."
- ],
- "14": [
-  "Give examples or specifics to illustrate your points.",
-  "Include specific examples to illustrate your points.",
-  "Offer examples to illustrate your points.",
-  "Provide specific examples and details to illustrate your points.",
-  "Offer examples to illustrate your point when appropriate.",
-  "Provide examples to illustrate your points where appropriate."
- ],
- "15": [
+  "Encourage critical thinking and analysis of the subject.",
   "Encourage critical thinking by addressing potential counterarguments.",
   "Encourage critical thinking by discussing potential implications.",
   "Encourage critical thinking by discussing implications.",
-  "Encourage critical thinking and further exploration of the topic."
+  "Encourage critical thinking and further exploration of the topic.",
+  "Encourage critical thinking by discussing potential implications or controversies."
  ],
- "16": [
-  "Clarify the exact action taken to address the situation."
+ "5": [
+  "Clarify and expand on the core concepts rather than just restating them.",
+  "Focus on the core meaning and avoid extraneous information.",
+  "Identify and explain the core concepts underlying the problem."
  ],
- "17": [
-  "Incorporate examples or explanations to enhance understanding.",
-  "Provide examples and analogies to aid understanding.",
-  "Include explanations or clarifications when necessary for better understanding.",
-  "Provide context and explanations to enhance understanding.",
-  "Provide relevant examples to enhance understanding."
+ "6": [
+  "Connect complex ideas to everyday experiences.",
+  "Draw explicit connections between different ideas.",
+  "Connect ideas logically with transitions.",
+  "Use logical transitions between ideas."
  ],
- "18": [
-  "Elaborate on the steps involved in solving the problem or explaining the concept.",
-  "Offer tips or variations to enhance the solution."
+ "7": [
+  "Ensure your answer adds unique insights.",
+  "Proofread your answer for any awkward phrasing or redundancies."
  ],
- "19": [
-  "Encourage thoughtful consideration of user experience.",
-  "Offer reassurance and support when appropriate.",
-  "Encourage the sharing of detailed personal experiences.",
-  "Mention personal qualities or experiences relevantly.",
-  "Encourage detailed and specific information sharing."
+ "8": [
+  "Use familiar language and analogies.",
+  "Use culturally appropriate expressions and idioms when necessary.",
+  "Use natural language and avoid overly formal or mechanical phrasing."
  ],
- "20": [
-  "Incorporate relevant details without being verbose.",
-  "Outline a structured approach or plan to address the query thoroughly.",
-  "Focus on providing context and depth rather than just listing information.",
-  "Avoid providing information that is unrelated to the question",
-  "Include relevant details without unnecessary complexity."
+ "9": [
+  "Use clear and concise language to ensure understanding.",
+  "Avoid repetitive language; vary your wording.",
+  "Maintain grammatical correctness and coherence.",
+  "Avoid generic or vague language.",
+  "Use clear and precise language.",
+  "Use clear and concise language to convey information accurately.",
+  "Ensure clarity and coherence in writing style.",
+  "Use a clear and concise writing style.",
+  "Maintain clarity by using precise language.",
+  "Use appropriate grammar and syntax.",
+  "Use concise language while retaining all essential details.",
+  "Use precise language.",
+  "Avoid vague language; be precise and clear."
  ],
- "21": [
-  "Use language accessible to the average reader.",
-  "Consider the audience and tailor the language accordingly.",
-  "Tailor your language to the expected audience's knowledge level.",
-  "Consider the target audience when choosing vocabulary and phrases."
- ],
- "22": [
+ "10": [
   "Maintain a professional and informative tone throughout.",
   "Maintain a professional and courteous tone throughout.",
   "Maintain a formal and professional tone throughout.",
+  "Use a consistent and professional tone throughout.",
+  "Maintain the integrity of the original meaning.",
   "Maintain a professional and informative tone.",
+  "Adopt a formal and professional tone throughout.",
+  "Maintain a consistent tone and style throughout.",
+  "Maintain a professional and objective tone.",
   "Maintain a professional and respectful tone.",
-  "Maintain a professional yet approachable demeanor.",
   "Maintain a formal and informative tone throughout.",
   "Maintain a formal and professional tone.",
   "Maintain a professional yet approachable writing style."
  ],
- "23": [
-  "Avoid jargon unless the audience is familiar with it."
- ],
- "24": [
-  "Break down the response into clear, logical steps.",
-  "Ensure your response aligns with the quality criteria.",
-  "Ensure the response flows logically and coherently.",
-  "Ensure the response addresses all key aspects of the question.",
-  "Ensure the response is logically structured.",
-  "Ensure the response covers all key points.",
-  "Ensure your response logically follows from the given information.",
-  "Ensure the response is logically organized and easy to follow."
- ],
- "25": [
-  "Ensure the response includes relevant examples or scenarios.",
-  "Ensure your response provides context and details relevant to the question.",
-  "Ensure your response is concise and clearly improves the quality of the answer.",
-  "Ensure clarity and precision in your response.",
-  "Ensure your response provides a clear, structured expansion or explanation.",
-  "Incorporate user feedback or concerns to refine your response.",
-  "Incorporate relevant details to enrich the response without verbosity.",
-  "Ensure the response addresses all aspects of the problem comprehensively.",
-  "Ensure the response is comprehensive and thorough.",
-  "Ensure your response includes clear and specific details to avoid ambiguity.",
-  "Ensure your response provides context and background details relevant to the topic.",
-  "Ensure your response is clear and easy to follow."
- ],
- "26": [
-  "Clearly distinguish between actions and outcomes in your response.",
-  "Emphasize the end goal or expected outcome clearly."
- ],
- "27": [
-  "Promote the use of evidence-based information.",
-  "Integrate statistics, studies, or expert opinions to support your explanation.",
-  "Include data or statistics when relevant and available.",
-  "Include relevant statistics or data to strengthen credibility.",
-  "Present data and statistics accurately.",
-  "Use multiple sources or data points to strengthen your argument.",
-  "Include relevant trends or general observations when providing broad, data-driven responses."
- ],
- "28": [
-  "Keep technical terms and jargon consistent with the original if applicable.",
-  "Provide clear definitions and explanations for technical terms.",
-  "Clearly define acronyms or technical terms.",
-  "Define technical terms before using them in the explanation.",
-  "Provide clear and concise descriptions.",
-  "Keep technical descriptions clear and concise."
- ],
- "29": [
-  "Offer context before presenting the solution.",
-  "Provide context and empathy when describing situations.",
-  "Offer context when explaining complex topics.",
-  "Provide context where necessary to enhance comprehension.",
-  "Offer context for the reader.",
-  "Offer context-aware and relatable examples.",
-  "Offer context when necessary to aid comprehension.",
-  "Include context-specific details to enhance understanding.",
-  "Provide context to enhance understanding.",
-  "Offer context to deepen understanding of the topic.",
-  "Compare the subject with similar concepts to provide context.",
-  "Include relevant context to enhance understanding.",
-  "Provide context to help readers understand the significance of the information."
- ],
- "30": [
-  "Encourage a holistic view by connecting diverse aspects.",
-  "Encourage further exploration or questions to deepen understanding.",
-  "Encourage understanding through practical application.",
-  "Encourage deeper understanding through logical connections.",
-  "Encourage further education or clarification if needed",
-  "Encourage further inquiry or exploration by providing resources."
- ],
- "31": [
-  "Structure the answer logically and coherently.",
-  "Structure your answer to facilitate understanding.",
-  "Structure your answer in a logical and organized manner.",
-  "Structure your answer logically with a coherent flow.",
-  "Structure the answer in a reader-friendly format.",
-  "Structure the answer logically to enhance clarity and understanding.",
-  "Provide a detailed explanation for why the given option is the most logical continuation.",
-  "Structure your answer to reflect hierarchical levels of detail.",
-  "Identify key elements or components mentioned in the question.",
-  "Structure the answer to cover all key points succinctly.",
-  "Structure your answer in a way that flows naturally.",
-  "Structure your answer logically and coherently.",
-  "Structure the answer logically with clear transitions.",
-  "Focus on providing a well-structured and organized answer.",
-  "Structure your answer in a logical sequence of ideas."
- ],
- "32": [
-  "Offer a balanced perspective on the topic.",
-  "Tailor your answer to match the specific interests or needs mentioned.",
-  "Present a balanced view, considering various perspectives or scenarios.",
-  "Offer balanced information, considering pros and cons.",
-  "Consider multiple perspectives or aspects before forming an answer.",
-  "Offer a balanced view by acknowledging alternative viewpoints if applicable.",
-  "Offer a balanced view, considering various perspectives."
- ],
- "33": [
-  "Incorporate storytelling to make concepts memorable.",
-  "Maintain consistency in character attributes throughout the story.",
-  "Incorporate meaningful details to deepen the narrative.",
-  "Engage the reader with narrative techniques.",
-  "Guide the reader through the thought process.",
-  "Engage the reader with interesting or unique perspectives.",
-  "Encourage the reader to think through the solution step-by-step.",
-  "Use descriptive language to engage the reader."
- ],
- "34": [
-  "Expand on the key points with additional relevant details."
- ],
- "35": [
-  "Ensure the answer addresses all aspects of the question comprehensively.",
-  "Ensure the answer addresses all parts of the question comprehensively.",
-  "Ensure your answer addresses the core requirements of the question comprehensively.",
-  "Address multiple aspects of the question comprehensively.",
-  "Ensure your answer addresses all parts of the question comprehensively.",
-  "Address potential challenges and solutions comprehensively.",
-  "Address multiple aspects comprehensively.",
-  "Address all key points mentioned in the question comprehensively."
- ],
- "36": [
-  "Be creative while staying true to the core information."
- ],
- "37": [
-  "Explain how the action resolves or helps with the stated problem.",
-  "Offer multiple, detailed steps or strategies.",
-  "Detail the benefits or outcomes of the suggested approach.",
-  "Provide specific, actionable steps or strategies.",
-  "Provide specific actions or steps to clarify the task.",
-  "Provide actionable steps or solutions when applicable.",
-  "Detail the steps or criteria involved in arriving at your conclusion.",
-  "Use specific, actionable language for step-by-step instructions.",
-  "Specify actionable steps or criteria."
- ],
- "38": [
-  "Incorporate insights from multiple sources.",
-  "Cite sources or references when appropriate to support claims.",
-  "Use credible sources for factual responses.",
-  "Cite sources when necessary.",
-  "Cite credible sources or references to support your claims.",
-  "Cite sources or references to provide credibility and depth.",
-  "Mention sources or references when applicable.",
-  "Draw on credible sources to support your points and claims.",
-  "Include relevant data or references to support your claims.",
-  "Cite credible sources or references for claims made.",
-  "Cite sources or references for claims made where appropriate.",
-  "Cite credible sources to support your claims.",
-  "Cite sources or studies to support key claims if applicable.",
-  "Cite sources or external references when necessary to support your answer."
- ],
- "39": [
-  "Include practical examples and relevant formulas."
- ],
- "40": [
-  "Offer practical tips or advice when applicable.",
-  "Offer practical tips or best practices at the end.",
-  "Integrate practical advice and recommendations effectively.",
-  "Focus on providing clear, concise, and practical guidance."
- ],
- "41": [
-  "Use specific examples to illustrate key points.",
-  "Incorporate real-world examples to illustrate points.",
-  "Use examples to illustrate points where applicable.",
-  "Provide specific examples to illustrate each point.",
-  "Include relevant examples to illustrate key points.",
-  "Include specific examples to illustrate key points.",
-  "Include concrete examples to illustrate points where appropriate.",
-  "Include specific examples when appropriate to illustrate points.",
-  "Avoid redundancy and provide specific examples to support your points.",
-  "Include concrete examples to illustrate points.",
-  "Use concrete examples to illustrate points.",
-  "Include examples to illustrate points more clearly.",
-  "Use specific examples to illustrate points.",
-  "Include examples or anecdotes to illustrate points.",
-  "Include real-world examples to illustrate key concepts.",
-  "Use hypothetical scenarios to illustrate points effectively."
- ],
- "42": [
-  "Avoid generic statements and instead offer detailed insights.",
-  "Avoid generic or vague language.",
-  "Avoid generic statements; provide substantive information instead."
- ],
- "43": [
-  "Start with the essential context or introduction.",
-  "Start with an introductory statement to set the context.",
-  "Focus on providing a detailed and engaging introduction.",
-  "Start with essential elements before adding details.",
-  "Start with a brief introduction to set the context.",
-  "Start with the significance or importance of the subject.",
-  "Provide context to set up the scene effectively."
- ],
- "44": [
-  "Make your answer informative and educational without sounding too academic.",
-  "Explain the reasoning behind your choice in a detailed manner.",
-  "Provide context and justification for your choices."
- ],
- "45": [
-  "Provide clear and specific examples to illustrate how the concept applies.",
-  "Offer clear examples where appropriate.",
-  "Use specific examples to support your argument or solution.",
-  "Include realistic and appropriate examples where applicable.",
-  "Use examples where appropriate.",
-  "Offer balanced arguments supported by relevant examples and counterexamples.",
-  "Focus on providing clear, concise, and relevant examples.",
-  "Include practical examples when appropriate.",
-  "Include specific examples or scenarios when appropriate.",
-  "Include examples where appropriate to clarify.",
-  "Use clear examples where appropriate.",
-  "Provide specific details and examples where appropriate."
- ],
- "46": [
-  "Offer clear explanations.",
-  "Clarify any assumptions before providing an answer.",
-  "Offer justification or reasoning behind your suggestions.",
-  "Clarify any assumptions made while answering the question."
- ],
- "47": [
-  "Include relevant details for different scenarios.",
-  "Include specific details rather than vague generalities.",
-  "Include caveats or limitations when necessary.",
-  "Be concise while providing sufficient information.",
-  "Include necessary details.",
-  "Avoid oversimplification and offer comprehensive insights.",
-  "Be concise yet informative.",
-  "Specify key features or characteristics.",
-  "Avoid vague language and provide precise details.",
-  "Avoid tangential or unrelated details.",
-  "Avoid generalizations and provide detailed explanations."
- ],
- "48": [
-  "Use relevant, high-quality sources to support your claims.",
-  "Cite authoritative sources or well-established principles to support your points.",
-  "Use authoritative and reliable sources to support claims and facts."
- ],
- "49": [
-  "Be precise when defining technical or complex topics.",
-  "Start with defining key terms.",
-  "Use precise and relevant terminology to enhance clarity.",
-  "Include scientific or technical context when relevant.",
-  "Clearly define any abbreviations or terms used in the response.",
-  "Provide clear definitions and context when explaining concepts.",
-  "Include relevant definitions or explanations of terms for clarity.",
-  "Use consistent and precise terminology throughout.",
-  "Provide clear and concise references to the parts of the text being discussed.",
-  "Incorporate key terms and terminology from the given context."
- ],
- "50": [
-  "Clearly differentiate between common misconceptions and accurate information.",
-  "Differentiate between similar concepts or terms.",
-  "Emphasize the relationship between concepts or variables.",
-  "Differentiate between similar concepts for clarity.",
-  "Focus on clarity and coherence."
- ],
- "51": [
-  "Focus on clarity and structure in your response.",
-  "Include actionable advice and strategies in responses.",
-  "Clarify assumptions if your response depends on them.",
-  "Provide a clear, factual, and well-structured response.",
-  "Provide a clear, detailed, and structured response.",
-  "Address potential misunderstandings directly in your response.",
-  "Clearly state the limitations or uncertainties in your response.",
-  "Structure your response to address multiple aspects of the question.",
-  "End your response with a strong closing statement."
- ],
- "52": [
-  "Address potential counterarguments or alternative viewpoints.",
-  "Acknowledge limitations and potential alternative approaches.",
-  "Address potential issues or conflicts proactively.",
-  "Address counterarguments and provide balanced viewpoints.",
-  "Incorporate ethical, legal, and practical considerations into your response.",
-  "Address potential counterarguments or objections.",
-  "Directly address potential issues or limitations.",
-  "Acknowledge limitations if appropriate",
-  "Address potential questions or concerns proactively.",
-  "Address potential concerns or objections from different perspectives."
- ],
- "53": [
-  "Focus on including specific details and examples to support your answer.",
-  "Use relevant examples or evidence to support your points when appropriate.",
-  "Include examples or studies to support your response.",
-  "Include a variety of relevant details to enhance the answer.",
-  "Include specific details and relevant examples to support your points.",
-  "Incorporate relevant details to support your points.",
-  "Use specific examples or data to support your points."
- ],
- "54": [
-  "Guide the user through the process step-by-step.",
-  "Identify the main components or steps needed to solve the issue.",
-  "Offer a step-by-step process when applicable.",
-  "Provide a clear and structured overview of the steps required to solve the problem.",
-  "Provide a clear and structured approach to solving the problem.",
-  "Focus on providing a clear, structured plan for the solution.",
-  "Focus on providing a clear and detailed explanation of the steps involved.",
-  "Start your response with a comprehensive overview of the approach."
- ],
- "55": [
-  "Explain concepts by relating them to broader contexts where relevant.",
-  "Consider the broader implications or applications of the information.",
-  "Connect each part of the explanation to the overall understanding of the topic.",
-  "Consider multiple perspectives or interpretations when relevant.",
-  "Link concepts to broader contexts if relevant.",
-  "Explain how the information relates to broader concepts or fields.",
-  "Draw clear connections between the given information and the conclusion.",
-  "Incorporate multiple aspects of the topic for a thorough discussion.",
-  "Explain relationships and connections between concepts.",
-  "Integrate multiple concepts cohesively into a single explanation."
- ],
- "56": [
-  "Consider the audience's knowledge level when explaining concepts.",
-  "Consider the audience's prior knowledge and expertise.",
-  "Focus on explaining concepts in a way that is accessible to non-experts."
- ],
- "57": [
-  "Include relevant examples to clarify complex points.",
-  "Provide specific examples to illustrate complex concepts.",
-  "Include examples where appropriate to clarify complex points.",
-  "Provide context or background for complex concepts.",
-  "Offer balanced perspectives when discussing complex topics.",
-  "Integrate related concepts for a fuller picture."
- ],
- "58": [
-  "Be thorough in explaining your thought process.",
-  "Ensure the explanation aligns closely with the question asked.",
-  "Ensure the explanation is comprehensive yet accessible.",
-  "Maintain a logical flow in your explanation.",
-  "Provide clear, step-by-step reasoning when explaining your answer.",
-  "Maintain a logical flow and structure in your explanation.",
-  "Ensure the overall explanation is coherent and easy to follow.",
-  "Clearly explain the logic behind your solution.",
-  "Offer context to support the explanation.",
-  "Ensure your explanation covers all necessary aspects.",
-  "Provide context to set up the explanation.",
-  "Ensure your explanation aligns with relevant background information."
- ],
- "59": [
-  "Use precise language to ensure clarity and precision in your explanation.",
-  "Be thorough but avoid unnecessary repetition.",
-  "Incorporate specific details to enhance clarity.",
-  "Translate names and specific terms accurately while preserving meaning.",
-  "Use clear and concise language to convey information accurately.",
-  "Ensure clarity and precision in language usage.",
-  "Use clear and descriptive language to enhance understanding.",
-  "Maintain clarity by using precise language.",
-  "Use concise language while retaining all essential details.",
-  "Provide detailed and contextually accurate translations or explanations.",
-  "Use precise language to convey the exact meaning or process.",
-  "Focus on simplicity and clarity.",
-  "Avoid vague language; be precise and clear."
- ],
- "60": [
-  "Provide a thorough analysis rather than just listing facts."
- ],
- "61": [
-  "Include the source or context of information for credibility.",
-  "Integrate relevant references or citations to support claims.",
-  "Cite credible sources to validate information.",
-  "Incorporate credible sources to enhance credibility."
- ],
- "62": [
-  "Break down complex tasks into manageable, sequential steps."
- ],
- "63": [
-  "Summarize the information in a comprehensive manner.",
-  "Provide a clear and concise summary of the main ideas.",
-  "Offer a comprehensive overview without missing important details.",
-  "Start with an overview before delving into details.",
-  "Start with a comprehensive overview before delving into specifics.",
-  "Offer a clear and concise overview before delving into details.",
-  "Start with a broad overview before delving into details.",
-  "Offer a comprehensive overview before delving into details.",
-  "Start with clear introductions or overviews.",
-  "Start with an overview before diving into specifics.",
-  "Focus on providing a comprehensive overview rather than just touching on surface details.",
-  "Focus on providing a clear and structured overview of the topic."
- ],
- "64": [
-  "Provide specific, quantifiable details.",
-  "Detail any necessary background information for understanding.",
-  "Include quantifiable information if available."
- ],
- "65": [
-  "Maintain a balanced and objective tone throughout your answer.",
-  "Maintain a positive and encouraging tone throughout.",
-  "Maintain a consistent tone and style throughout.",
-  "Maintain a professional and objective tone.",
-  "Maintain a balanced tone, avoiding extremes."
- ],
- "66": [
-  "Encourage questions or interaction to foster engagement.",
-  "Suggest ways to enhance user understanding or engagement.",
-  "Encourage engagement by asking follow-up questions if needed.",
-  "Maintain a positive and inviting atmosphere.",
-  "Encourage engagement or participation.",
-  "Encourage the inclusion of diverse perspectives."
- ],
- "67": [
-  "Ensure the response is engaging and informative.",
-  "Ensure your response flows naturally and smoothly.",
-  "Ensure the response is engaging and relatable.",
-  "Ensure your response flows naturally in the target language without directly translating word-for-word."
- ],
- "68": [
-  "Use examples to illustrate key points or steps in reasoning.",
-  "Offer examples to illustrate points and enhance understanding.",
-  "Use specific examples or excerpts to illustrate key points."
- ],
- "69": [
-  "Include metrics or evaluation criteria when applicable."
- ],
- "70": [
-  "Align the answer format with expectations.",
-  "Provide a clear structure or format for the response.",
-  "Offer a structured step-by-step response."
- ],
- "71": [
-  "Provide contextually relevant and detailed responses.",
-  "Provide context to engage the user immediately.",
-  "Provide context-specific details to enhance the accuracy of the response.",
-  "Include specific details to support the core message.",
-  "Tailor the content to accurately reflect the given information."
- ],
- "72": [
-  "Provide specific examples when explaining abstract concepts.",
-  "Prefer concrete over abstract concepts when applicable."
- ],
- "73": [
-  "Proofread your text for grammar and spelling errors.",
-  "Proofread to correct any grammatical errors.",
-  "Tailor your writing style to match the context and formality level of the question."
- ],
- "74": [
-  "Provide detailed and relevant examples.",
-  "Ensure the answer is comprehensive and thorough.",
-  "Provide a detailed explanation.",
-  "Provide a detailed explanation rather than a brief overview.",
-  "Provide detailed explanations rather than brief summaries.",
-  "Ensure your answer is comprehensive and covers all necessary aspects.",
-  "Provide a clear and comprehensive explanation.",
-  "Provide a comprehensive explanation rather than a brief summary.",
-  "Provide a clear, detailed explanation.",
-  "Provide relevant and detailed information."
- ],
- "75": [
-  "Explain complex concepts in simple terms."
- ],
- "76": [
-  "Provide specific details and exact locations when possible."
- ],
- "77": [
-  "Detail the emotions and atmosphere to evoke feeling.",
-  "Be mindful of cultural and ethical implications.",
-  "Provide clear and empathetic responses."
- ],
- "78": [
-  "Highlight the significance or importance of the topic being discussed.",
-  "Highlight unique aspects and features of the subject.",
-  "Highlight the significance or impact of the topic.",
-  "Highlight the significance or importance of the subject matter.",
+ "11": [
+  "Highlight key considerations or factors to be aware of.",
   "Highlight the importance of regulatory bodies and compliance.",
-  "Highlight important benefits or applications.",
-  "Highlight important dates, events, or milestones."
+  "Highlight important benefits or applications."
  ],
- "79": [
-  "Include checks or validations to ensure accuracy.",
-  "Focus on clarity and precision.",
-  "Use quantifiable details where applicable to enhance accuracy.",
-  "Focus on clarity and accuracy.",
-  "Maintain accuracy and avoid misinformation."
+ "12": [
+  "Avoid oversimplification and provide depth.",
+  "Avoid oversimplification and offer comprehensive insights.",
+  "Avoid oversimplification and provide nuanced explanations when appropriate.",
+  "Avoid repetition and provide unique insights."
  ],
- "80": [
-  "Provide context and background information relevant to the topic when explaining your reasoning.",
-  "Provide background information to enrich the narrative.",
-  "Provide context and background information when useful.",
-  "Include relevant background information for context.",
-  "Provide context and background information relevant to the question to better understand the core issue.",
-  "Provide context and background information relevant to the main idea.",
-  "Focus on providing context and background information relevant to the question.",
-  "Provide context and background information when relevant.",
-  "Provide context and background information relevant to the query.",
-  "Focus on providing context and background information relevant to the topic.",
-  "Address any necessary context or background information explicitly.",
-  "Include relevant context or background information.",
-  "Provide context and relevant background information to establish a comprehensive understanding.",
-  "Include relevant background information when necessary.",
-  "Provide context and background information to enhance understanding.",
-  "Provide context and background information relevant to the topic.",
-  "Offer context and background information relevant to the task."
+ "13": [
+  "Verify the solution satisfies all conditions stated in the problem.",
+  "Ensure logical flow from problem statement to solution."
  ],
- "81": [
-  "Ensure the lesson learned is clearly highlighted and impactful."
+ "14": [
+  "Structure the answer in a reader-friendly format.",
+  "Provide answers directly related to the question.",
+  "Structure your answer to reflect hierarchical levels of detail.",
+  "Structure the answer to cover all key points succinctly.",
+  "Structure the answer to directly address the question asked."
  ],
- "82": [
-  "Avoid simplifying complex ideas into overly basic descriptions.",
-  "Break down complex ideas into simpler components.",
-  "Draw explicit connections between different ideas.",
-  "Break down complex topics into simpler, more digestible parts.",
-  "Avoid oversimplifying complex concepts or information."
- ],
- "83": [
-  "Break down the problem into manageable parts.",
-  "Outline a structured approach to problem-solving.",
-  "Break down complex problems into manageable parts.",
-  "Break down complex problems into simpler parts."
- ],
- "84": [
-  "Use specific and accurate terminology.",
-  "Use precise and appropriate terminology.",
-  "Avoid overly complex or technical jargon.",
-  "Use specific and commonly recognized terms.",
-  "Use technical details relevant to the context.",
-  "Maintain accuracy and precision in technical details and terminology.",
-  "Use specific terminology appropriate to the field.",
-  "Use specific and technical language where appropriate.",
-  "Use technical terms and jargon appropriately for the domain.",
-  "Use specific terminology relevant to the topic.",
-  "Use technical terms appropriately and define them if they may be unfamiliar."
- ],
- "85": [
-  "Ensure your answer adds unique insights.",
-  "Explain the relevance of each part of your answer.",
-  "Incorporate prior context to enhance the coherence of your answer.",
-  "Maintain coherence and flow throughout the answer.",
-  "Ensure the answer flows logically and coherently.",
-  "Avoid repetition and provide unique insights.",
-  "Ensure the answer is logically consistent and coherent.",
-  "Ensure the answer flows naturally and coherently."
- ],
- "86": [
-  "Connect the abstract concept to relatable or familiar scenarios.",
-  "Connect abstract concepts to real-world scenarios.",
-  "Connect complex ideas to everyday experiences.",
-  "Connect ideas logically with transitions."
- ],
- "87": [
+ "15": [
+  "Be specific about methodologies, techniques, or processes involved.",
+  "Be specific when detailing actions or processes.",
   "Include the motivation behind the action in the description."
  ],
- "88": [
-  "Encourage further discussion or questions if relevant.",
-  "Encourage the use of relevant tools and resources.",
-  "Encourage further inquiry or discussion if applicable.",
-  "Encourage further inquiry or discussion about the topic.",
-  "Encourage questions or further discussion by inviting feedback."
+ "16": [
+  "Explain concepts using concise, step-by-step instructions.",
+  "Connect the abstract concept to relatable or familiar scenarios.",
+  "Provide specific examples when explaining abstract concepts.",
+  "Explain concepts in simple terms.",
+  "Connect abstract concepts to real-world scenarios.",
+  "Explain potential solutions or concepts without assuming full understanding.",
+  "Explain relationships and connections between concepts."
  ],
- "89": [
-  "Ensure the tone is engaging and maintains reader interest.",
-  "Maintain objectivity and avoid personal biases.",
-  "Maintain a neutral tone to avoid bias.",
-  "Maintain a neutral and factual tone",
-  "Maintain objectivity and avoid bias."
+ "17": [
+  "Use technical details relevant to the context.",
+  "Use specific and technical language where appropriate.",
+  "Use technical terms and jargon appropriately for the domain.",
+  "Use technical terms appropriately and define them if they may be unfamiliar.",
+  "Explain technical concepts using simple, accessible language."
  ],
- "90": [
-  "Use culturally appropriate expressions and idioms when necessary.",
-  "Strive for a natural, conversational tone in the response.",
-  "Maintain the integrity of the original meaning.",
-  "Use a formal and respectful tone.",
-  "Maintain a formal yet accessible tone throughout the response.",
-  "Maintain a formal tone unless the question specifies otherwise.",
-  "Show respect and empathy towards the recipient."
+ "18": [
+  "Outline a structured approach or plan to address the query thoroughly.",
+  "Elaborate on the steps involved in solving the problem or explaining the concept.",
+  "Provide a clear and structured approach to solving the problem.",
+  "Outline a structured approach to problem-solving.",
+  "Identify and define any assumptions made in the problem.",
+  "Start by defining the problem or goal clearly.",
+  "Focus on the core logic or reasoning required to solve the problem."
  ],
- "91": [
+ "19": [
+  "Cite facts or established knowledge where applicable.",
+  "Cite sources when necessary.",
+  "Cite authoritative sources or well-established principles to support your points."
+ ],
+ "20": [
+  "Break down the explanation into clear, manageable steps.",
+  "Instruct on practical steps and solutions clearly and concisely.",
+  "Provide a clear and detailed explanation for each step.",
+  "Elaborate on each step or point with clear, concise explanations.",
+  "Provide detailed explanations for each step."
+ ],
+ "21": [
+  "Analyze the components and context of the question thoroughly before responding.",
+  "Explain the relevance of each part of your answer.",
+  "Incorporate prior context to enhance the coherence of your answer.",
+  "Maintain a balanced and objective tone throughout your answer.",
+  "Clarify any assumptions made while answering the question.",
+  "Focus on clarity and specificity when forming your answer.",
+  "Revise and refine your answer for clarity and precision."
+ ],
+ "22": [
+  "Ensure your answer directly addresses all parts of the question.",
+  "Ensure your answer provides clear and structured steps.",
+  "Ensure your answer aligns with the context and requirements of the question.",
+  "Ensure your answer addresses all key elements of the question.",
+  "Ensure the question fully captures the rationale behind the provided answer."
+ ],
+ "23": [
+  "Highlight key aspects while summarizing broader implications.",
+  "Highlight key findings or conclusions clearly.",
+  "Ensure the lesson learned is clearly highlighted and impactful.",
+  "Highlight key points or findings clearly."
+ ],
+ "24": [
+  "Include specific details rather than vague generalities.",
+  "Incorporate relevant details without being verbose.",
+  "Avoid generic statements and instead offer detailed insights.",
+  "Specify the scope and limitations of the information provided.",
+  "Avoid generic statements; provide substantive information instead.",
+  "Avoid vague language and provide precise details.",
+  "Avoid tangential or unrelated details.",
+  "Provide relevant and detailed information.",
+  "Include relevant details without unnecessary complexity.",
+  "Avoid vague statements and provide specific details.",
+  "Include quantifiable information if available."
+ ],
+ "25": [
+  "Structure responses to flow logically and coherently.",
+  "Structure responses into easily digestible segments.",
+  "Structure responses with a logical flow"
+ ],
+ "26": [
+  "Clearly distinguish between actions and outcomes in your response."
+ ],
+ "27": [
+  "Provide a comprehensive overview of the subject.",
+  "Provide a comprehensive overview of the subject, including key aspects and relevant details.",
+  "Provide a comprehensive overview.",
+  "Provide a detailed breakdown of the requested information, including relevant context and examples where applicable.",
+  "Provide a comprehensive overview of the topic, incorporating multiple facets of the question.",
+  "Provide a comprehensive overview of the topic.",
+  "Provide a comprehensive overview of the topic, covering multiple aspects.",
+  "Incorporate multiple aspects of the topic for a thorough discussion."
+ ],
+ "28": [
+  "Offer clear explanations.",
+  "Offer clear and concise explanations."
+ ],
+ "29": [
+  "Offer balanced perspectives when discussing complex topics."
+ ],
+ "30": [
+  "Start with defining key terms.",
+  "Use precise and relevant terminology to enhance clarity.",
+  "Translate names and specific terms accurately while preserving meaning.",
+  "Provide clear, concise definitions for key terms.",
+  "Use precise language to define key terms and concepts.",
+  "Define variables or terms clearly at the outset.",
+  "Use precise language to convey the exact meaning or process."
+ ],
+ "31": [
   "Highlight real-world applications or examples.",
   "Offer real-world applications or scenarios when appropriate.",
+  "Emphasize practical applications or real-world relevance.",
   "Integrate practical applications or real-world scenarios where applicable.",
   "Integrate real-world applications or scenarios.",
   "Incorporate real-world applications or case studies.",
   "Include real-world applications if applicable.",
   "Connect the information to real-world applications or impacts."
  ],
- "92": [
-  "Include factual information to support your explanation.",
-  "Offer logical reasoning to support your conclusions.",
-  "Avoid assuming specific details unless supported by evidence.",
-  "Integrate relevant facts to support your conclusion logically.",
-  "Highlight contradictions between provided information and conclusions.",
-  "Include factual information to support claims or explanations.",
-  "Provide evidence or reasoning to support your conclusion or opinion.",
-  "Be factual and avoid speculation unless explicitly asked."
+ "32": [
+  "Offer actionable advice or recommendations where possible.",
+  "Offer actionable suggestions where applicable.",
+  "Include an engaging call to action or invitation."
  ],
- "93": [
-  "Highlight key points to guide the reader effectively.",
-  "Highlight key considerations or factors to be aware of.",
-  "Highlight key aspects while summarizing broader implications.",
-  "Highlight key points with bullet points if necessary.",
-  "Highlight key information to guide understanding.",
+ "33": [
+  "Start your response with a comprehensive overview of the approach."
+ ],
+ "34": [
   "Highlight key definitions to clarify understanding."
  ],
- "94": [
-  "Ensure that your solution is complete and self-contained within the answer.",
-  "Ensure each part of your answer logically follows from the previous section.",
-  "Ensure the answer flows logically from one point to the next.",
-  "Ensure the answer is well-rounded and balanced.",
-  "Ensure your answer aligns with the task requirements.",
-  "Ensure the answer is detailed but not overly verbose.",
-  "Ensure your answer directly addresses all parts of the question.",
-  "Verify the solution satisfies all conditions stated in the problem.",
-  "Ensure the answer flows logically and is easy to follow.",
-  "Ensure your answer provides clear and structured steps.",
-  "Ensure your answer aligns with the context and requirements of the question.",
-  "Ensure the answer includes relevant context or details.",
-  "Ensure your answer addresses all key elements of the question.",
-  "Ensure the question fully captures the rationale behind the provided answer.",
-  "Ensure the answer fits the given category.",
-  "Ensure the answer is detailed yet not overly verbose."
+ "35": [
+  "Use examples to illustrate key points or steps in reasoning.",
+  "Offer examples to illustrate points and enhance understanding.",
+  "Use examples to illustrate key points."
  ],
- "95": [
-  "Highlight critical aspects and prioritize them appropriately.",
-  "Highlight the most critical aspects of the explanation."
+ "36": [
+  "Provide context where necessary to enhance comprehension.",
+  "Incorporate additional context to enrich the answer without deviating from the main point.",
+  "Offer context when necessary to aid comprehension.",
+  "Include context-specific details to enhance understanding.",
+  "Provide context and explanations to enhance understanding.",
+  "Provide context to enhance understanding.",
+  "Include relevant context to enhance understanding.",
+  "Provide context where necessary to enhance understanding."
  ],
- "96": [
-  "Develop ideas logically with clear transitions between sentences.",
-  "Maintain a consistent and organized flow throughout.",
-  "Structure responses to flow logically and coherently.",
-  "Structure responses into easily digestible segments.",
+ "37": [
+  "Discuss potential impacts and consequences for a wide range of scenarios.",
+  "Use hypothetical scenarios to illustrate points effectively."
+ ],
+ "38": [
+  "Organize the response into logical sections or steps.",
+  "Structure your response with logical steps or sections.",
   "Structure the response to flow logically, addressing each aspect of the question thoroughly.",
-  "Structure responses with a logical flow",
-  "Ensure logical consistency between parts.",
-  "Structure explanations to flow logically from one idea to the next.",
-  "Provide clear and structured reasoning for each option.",
-  "Structure your response to flow logically and coherently.",
-  "Offer a clear structure with logical flow and organization.",
-  "Ensure logical flow from problem statement to solution."
+  "Structure the response into logical sections or steps.",
+  "Evaluate the data structure and expected outcomes to explain the error or proposed continuation."
  ],
- "97": [
-  "Clarify and expand on the core concepts rather than just restating them.",
-  "Focus on the core question.",
-  "Focus on the core elements required by the question.",
-  "Identify and explain the core concepts underlying the problem.",
-  "Address the core question thoroughly without distractions.",
-  "Focus on the core logic or reasoning required to solve the problem.",
-  "Relate the answer back to the core question."
+ "39": [
+  "Provide context and empathy when describing situations.",
+  "Offer context for the reader.",
+  "Offer context-aware and relatable examples.",
+  "Provide context to engage the user immediately."
  ],
- "98": [
+ "40": [
+  "Ensure the translation or response aligns with any specific instructions provided.",
+  "Ensure your response aligns with the quality criteria.",
+  "Ensure the response covers all key points."
+ ],
+ "41": [
+  "Explain the reasoning behind the described phenomena."
+ ],
+ "42": [
+  "Proofread your text for grammar and spelling errors."
+ ],
+ "43": [
+  "Categorize information into distinct headings or types.",
+  "Categorize information into clear, understandable groups."
+ ],
+ "44": [
+  "Use precise language to ensure clarity and precision in your explanation.",
+  "Focus on clarity and precision.",
+  "Ensure clarity and precision in language usage.",
+  "Focus on clarity and accuracy."
+ ],
+ "45": [
+  "Provide clear definitions before explaining differences.",
+  "Keep technical terms and jargon consistent with the original if applicable.",
+  "Provide clear definitions and explanations for technical terms.",
+  "Include relevant definitions or explanations of terms for clarity.",
+  "Define technical terms before using them in the explanation.",
+  "Keep technical descriptions clear and concise."
+ ],
+ "46": [
+  "Provide clear, step-by-step reasoning when explaining your answer.",
+  "Clearly explain the logic behind your solution."
+ ],
+ "47": [
+  "Identify the main components or steps needed to solve the issue.",
+  "Provide a clear and structured overview of the steps required to solve the problem.",
+  "Provide a clear, step-by-step explanation for the process described in the question.",
+  "Focus on providing a clear and detailed explanation of the steps involved."
+ ],
+ "48": [
+  "Break down the problem into manageable parts.",
+  "Break complex information into manageable segments.",
+  "Break down complex problems into manageable parts.",
+  "Break down complex problems into simpler parts.",
+  "Break down complex information into manageable parts."
+ ],
+ "49": [
+  "Ensure the explanation aligns closely with the question asked.",
+  "Ensure the explanation is comprehensive yet accessible.",
+  "Ensure the overall explanation is coherent and easy to follow.",
+  "Highlight the most critical aspects of the explanation.",
+  "Offer context to support the explanation.",
+  "Provide context to set up the explanation."
+ ],
+ "50": [
+  "Proofread for typos and coherence.",
+  "Proofread to correct any grammatical errors."
+ ],
+ "51": [
+  "Include key features or reasons for popularity."
+ ],
+ "52": [
+  "Guide the user through the process step-by-step.",
+  "Guide the user on how to check or gather additional information related to their query.",
+  "Offer a step-by-step process when applicable."
+ ],
+ "53": [
+  "Include relevant context and explanations for complex steps.",
+  "Include context and reasoning behind your steps.",
+  "Incorporate step-by-step instructions where applicable.",
+  "Include step-by-step guidance or processes."
+ ],
+ "54": [
+  "Provide a comprehensive overview rather than just surface-level details.",
+  "Focus on providing a comprehensive overview rather than just touching on surface details."
+ ],
+ "55": [
+  "Give examples or specifics to illustrate your points.",
+  "Include specific examples to illustrate your points.",
+  "Offer examples to illustrate your points.",
+  "Provide specific examples and details to illustrate your points.",
+  "Provide clear and specific examples to illustrate your points.",
+  "Offer examples to illustrate your point when appropriate.",
+  "Include specific details and relevant examples to support your points.",
+  "Provide specific examples to illustrate your points.",
+  "Provide examples to illustrate your points where appropriate."
+ ],
+ "56": [
+  "Provide specific details and exact locations when possible."
+ ],
+ "57": [
+  "Highlight critical aspects and prioritize them appropriately.",
+  "Highlight unique aspects and features of the subject.",
+  "Highlight the importance and context of the subject matter.",
+  "Focus on the significance or impact of the subject.",
+  "Highlight the significance or importance of the subject matter.",
+  "Start with the significance or importance of the subject.",
+  "Emphasize safety, regulation, and potential risks associated with the subject."
+ ],
+ "58": [
+  "Ensure your response is structured and clearly organized.",
+  "Ensure the response is engaging and informative.",
+  "Ensure your response provides a clear, structured expansion or explanation.",
+  "Incorporate relevant details to enrich the response without verbosity.",
+  "Ensure the response is engaging and relatable.",
+  "Ensure the response is logically organized and easy to follow.",
+  "Ensure your response is clear and easy to follow."
+ ],
+ "59": [
+  "Use specific examples to support your argument or solution.",
+  "Focus on including specific details and examples to support your answer.",
+  "Provide detailed and relevant examples.",
+  "Clarify any assumptions before providing an answer."
+ ],
+ "60": [
+  "Make your answer informative and educational without sounding too academic.",
+  "Include examples or studies to support your response."
+ ],
+ "61": [
+  "Include factual information to support your explanation.",
   "Include concrete examples to support your explanation.",
   "Provide concrete examples to illustrate your points.",
   "Provide concrete examples when relevant and appropriate."
  ],
- "99": [
-  "Maintain a customer-centric perspective throughout.",
-  "Focus on the impact and emotional aspects of the situation.",
-  "Tailor the difficulty level of the questions to match the respondent's experience.",
-  "Focus on the main aspects of the problem or question.",
-  "Detail potential causes and solutions related to the presented issue or scenario.",
-  "Start by defining the problem or goal clearly.",
-  "Address the complexity of the issue by considering various perspectives and implications."
+ "62": [
+  "Explain the reasoning behind your choice in a detailed manner.",
+  "Explain the reasoning behind your answer clearly.",
+  "Provide clear and concise reasoning for your answer."
  ],
- "100": [
-  "Focus on providing a detailed and structured explanation.",
-  "Provide clear, step-by-step reasoning when explaining processes.",
-  "Explain concepts using concise, step-by-step instructions.",
-  "Provide clear and structured guidance.",
-  "Ensure accuracy and clarity in explanations.",
-  "Encourage detailed and structured explanations.",
-  "Avoid overly simplistic explanations and strive for depth.",
-  "Focus on providing a clear and concise explanation."
+ "63": [
+  "Use logical steps to explain your reasoning process.",
+  "Maintain a logical flow in your explanation.",
+  "Ensure each part of the explanation flows logically from one step to the next.",
+  "Structure explanations to flow logically from one idea to the next.",
+  "Maintain a logical flow and structure in your explanation."
  ],
- "101": [
-  "Analyze the components and context of the question thoroughly before responding.",
-  "Consider the context and audience of the question.",
-  "Consider various possible scenarios that align with the given context for a complete answer.",
-  "Use specific terminology appropriate to the context of the question.",
-  "Provide a clear analysis of the question."
+ "64": [
+  "Structure your answer to facilitate understanding.",
+  "Structure your answer logically with proper paragraphs.",
+  "Structure the answer logically to enhance clarity and understanding.",
+  "Suggest a format or structure for the answer."
  ],
- "102": [
-  "Conclude with a comprehensive summary of the key points.",
-  "Conclude with a summary or key takeaway.",
-  "End with a concise conclusion or summary.",
-  "Conclude with a summary of key takeaways or steps to consider.",
-  "End with a summary or conclusion to reinforce key points."
+ "65": [
+  "Incorporate real-world examples to illustrate points.",
+  "Use examples to illustrate points where applicable.",
+  "Include concrete examples to illustrate points where appropriate.",
+  "Incorporate examples or case studies to illustrate points.",
+  "Include examples or applications to illustrate broader implications or usage.",
+  "Use examples to illustrate complex ideas.",
+  "Include examples or anecdotes to illustrate points."
  ],
- "103": [
-  "Be specific about methodologies, techniques, or processes involved.",
-  "Provide a comprehensive overview of the subject.",
-  "Provide a clear and concise overview of the topic.",
-  "Provide a comprehensive overview.",
-  "Describe the subject comprehensively, providing context and details.",
-  "Provide a comprehensive overview rather than just surface-level details.",
-  "Provide a detailed breakdown of the requested information, including relevant context and examples where applicable.",
-  "Provide a comprehensive overview of the topic, incorporating multiple facets of the question.",
-  "Provide a comprehensive overview of the topic.",
-  "Provide a clear, concise, and comprehensive overview of the subject."
+ "66": [
+  "Explain how the action resolves or helps with the stated problem.",
+  "Clarify the exact action taken to address the situation."
  ],
- "104": [
-  "Avoid ambiguity and ensure clarity in explanations.",
-  "Avoid oversimplification and provide nuanced explanations when appropriate.",
-  "Focus on clarity and specificity in your explanation.",
-  "Avoid repetition and provide varied expressions.",
-  "Clarify assumptions and potential misunderstandings."
+ "67": [
+  "Avoid redundancy and provide specific examples to support your points.",
+  "Avoid redundancy and unnecessary information."
  ],
- "105": [
-  "Address potential ambiguities or alternative interpretations clearly.",
-  "Focus on clarity and specificity when forming your answer.",
-  "Explain how to address any potential ambiguities in the question."
+ "68": [
+  "Include a variety of relevant details to enhance the answer.",
+  "Ensure the answer is detailed but not overly verbose.",
+  "Ensure the answer includes relevant context or details.",
+  "Ensure the answer is detailed yet not overly verbose."
  ],
- "106": [
-  "Highlight potential challenges and how to overcome them.",
-  "Emphasize safety, regulation, and potential risks associated with the subject.",
-  "Highlight potential solutions or workarounds clearly."
+ "69": [
+  "Maintain consistency in character attributes throughout the story."
  ],
- "107": [
-  "Structure the response with clear, logical sections.",
-  "Organize the response into logical sections or steps.",
-  "Structure your response with logical steps or sections.",
-  "Ensure your response is structured and clearly organized.",
-  "Structure your response logically with clear sections or headings.",
+ "70": [
+  "Ensure the answer addresses all aspects of the question comprehensively.",
+  "Ensure the answer addresses all parts of the question comprehensively.",
+  "Ensure your answer addresses the core requirements of the question comprehensively.",
+  "Ensure the answer is comprehensive and thorough.",
+  "Ensure your answer addresses all parts of the question comprehensively.",
+  "Ensure the answer is comprehensive and covers all aspects.",
+  "Ensure your answer is comprehensive and covers all necessary aspects."
+ ],
+ "71": [
+  "Structure your answer to address key aspects of the question comprehensively.",
+  "Structure your response to address multiple aspects of the question."
+ ],
+ "72": [
+  "Encourage further discussion or questions if relevant.",
+  "Encourage further interaction or discussion.",
+  "Encourage further communication and collaboration.",
+  "Encourage further inquiry or discussion if applicable.",
+  "Encourage further inquiry or discussion about the topic.",
+  "Encourage questions or further discussion by inviting feedback."
+ ],
+ "73": [
+  "Include actionable advice and strategies in responses.",
   "Offer a structured and organized response.",
-  "Present your response in a clear, structured manner.",
-  "Structure your response with logical steps or arguments.",
-  "Structure responses into clear, distinct sections for easier readability.",
-  "Structure your response logically with clear organization.",
-  "Organize your response into distinct sections for clarity.",
-  "Structure your response with clear sections to logically organize information and solutions.",
-  "Structure the response into logical sections or steps.",
-  "Structure the response into logical paragraphs.",
-  "Present your response in a logical order, from general to specific details.",
-  "Structure your response with distinct sections like introduction, body, and conclusion.",
-  "Use subheadings to organize different sections of the response.",
-  "Structure the response logically, with clear transitions between ideas.",
-  "Structure the response logically with sections.",
+  "Focus on providing a clear and structured response.",
+  "Offer a structured step-by-step response.",
   "Focus on providing a structured and organized response."
  ],
+ "74": [
+  "Ensure your response provides context and details relevant to the question.",
+  "Ensure your response provides a clear, structured breakdown of the topic.",
+  "Ensure your response provides context and background details relevant to the topic."
+ ],
+ "75": [
+  "Highlight key points to guide the reader effectively.",
+  "Highlight key points with bullet points if necessary."
+ ],
+ "76": [
+  "Present information in a way that enhances understanding."
+ ],
+ "77": [
+  "Identify and differentiate between varying approaches or solutions.",
+  "Offer a clear and direct solution.",
+  "Present multiple solutions or approaches when appropriate.",
+  "Provide actionable steps or solutions when applicable.",
+  "Focus on providing a clear, structured plan for the solution.",
+  "Highlight potential solutions or workarounds clearly.",
+  "Offer tips or variations to enhance the solution."
+ ],
+ "78": [
+  "Use credible sources for factual responses.",
+  "Cite credible sources or references to support your claims.",
+  "Cite sources or references to provide credibility and depth.",
+  "Draw on credible sources to support your points and claims.",
+  "Cite credible sources to validate information.",
+  "Cite credible sources or references for claims made.",
+  "Cite authoritative sources to strengthen credibility when necessary.",
+  "Cite credible sources to support your claims.",
+  "Use authoritative and reliable sources to support claims and facts."
+ ],
+ "79": [
+  "Avoid introducing new information or errors.",
+  "Ensure all information is relevant and pertinent."
+ ],
+ "80": [
+  "Provide context and background information relevant to the topic when explaining your reasoning.",
+  "Ensure your explanation aligns with relevant background information."
+ ],
+ "81": [
+  "Ensure the response addresses all aspects of the problem comprehensively.",
+  "Ensure the response is comprehensive and thorough."
+ ],
+ "82": [
+  "Be precise when defining technical or complex topics.",
+  "Explain concepts by relating them to broader contexts where relevant.",
+  "Offer context when explaining complex topics.",
+  "Connect each part of the explanation to the overall understanding of the topic.",
+  "Link concepts to broader contexts if relevant.",
+  "Provide context or background for complex concepts."
+ ],
+ "83": [
+  "Ensure your response provides clear and detailed explanations.",
+  "Ensure your response is concise and clearly improves the quality of the answer.",
+  "Ensure clarity and precision in your response."
+ ],
+ "84": [
+  "Offer logical reasoning to support your conclusions.",
+  "Draw logical conclusions based on the given information.",
+  "Provide a detailed explanation for why the given option is the most logical continuation.",
+  "Provide clear and structured reasoning for each option.",
+  "Examine each option thoroughly and logically."
+ ],
+ "85": [
+  "Consider the audience's knowledge level when explaining concepts.",
+  "Avoid ambiguity and ensure clarity in explanations.",
+  "Ensure the explanation is tailored to the audience's level.",
+  "Include explanations or clarifications when necessary for better understanding.",
+  "Ensure accuracy and clarity in explanations.",
+  "Provide clear definitions and context when explaining concepts.",
+  "Focus on providing clear and concise explanations.",
+  "Encourage detailed and structured explanations.",
+  "Avoid overly simplistic explanations and strive for depth."
+ ],
+ "86": [
+  "Maintain objectivity and avoid personal biases.",
+  "Incorporate insights from multiple sources.",
+  "Maintain objectivity and avoid bias."
+ ],
+ "87": [
+  "Offer clear examples where appropriate.",
+  "Offer balanced arguments supported by relevant examples and counterexamples.",
+  "Use clear examples where appropriate.",
+  "Offer clear examples to support your points.",
+  "Incorporate relevant examples to support your points."
+ ],
+ "88": [
+  "Offer a clear structure with logical flow and organization.",
+  "Organize information into logical categories or steps.",
+  "Organize information into logical, categorized sections."
+ ],
+ "89": [
+  "Include caveats or limitations when necessary.",
+  "Include realistic and appropriate examples where applicable.",
+  "Use examples where appropriate.",
+  "Include specific details and examples where appropriate.",
+  "Include practical examples when appropriate.",
+  "Include specific examples or scenarios when appropriate.",
+  "Include examples where appropriate to clarify.",
+  "Include specific examples or use cases.",
+  "Provide specific details and examples where appropriate."
+ ],
+ "90": [
+  "Offer detailed steps or procedures.",
+  "Outline a step-by-step process when explaining procedures.",
+  "Provide a detailed explanation of the process.",
+  "Outline the process systematically.",
+  "Outline steps logically and concisely.",
+  "Break down the process into actionable, discrete steps.",
+  "Describe the process or steps involved in the action.",
+  "Detail the steps or criteria involved in arriving at your conclusion.",
+  "Propose actions or modifications based on a thorough understanding of the system or process.",
+  "Provide a detailed breakdown of the process or experience."
+ ],
+ "91": [
+  "Consider the broader implications or applications of the information.",
+  "Emphasize the relevance and applicability of information.",
+  "Explain the relevance or benefit of suggested features.",
+  "Emphasize the relationship between concepts or variables.",
+  "Focus on providing context and depth rather than just listing information.",
+  "Emphasize the practical application of the information provided.",
+  "Explain how the information relates to broader concepts or fields."
+ ],
+ "92": [
+  "Use a formal and respectful tone.",
+  "Maintain a formal yet accessible tone throughout the response.",
+  "Maintain a formal tone unless the question specifies otherwise."
+ ],
+ "93": [
+  "Detail the emotions and atmosphere to evoke feeling."
+ ],
+ "94": [
+  "Encourage a holistic view by connecting diverse aspects.",
+  "Maintain a customer-centric perspective throughout.",
+  "Offer a balanced perspective by considering multiple viewpoints.",
+  "Present a balanced view, considering various perspectives or scenarios.",
+  "Consider multiple perspectives and provide balanced analysis.",
+  "Incorporate a variety of perspectives to present a balanced view.",
+  "Incorporate insights from diverse perspectives or experiences.",
+  "Offer a balanced view by acknowledging alternative viewpoints if applicable.",
+  "Offer a balanced view, considering various perspectives.",
+  "Encourage the inclusion of diverse perspectives."
+ ],
+ "95": [
+  "Be mindful of cultural and ethical implications.",
+  "Show respect and empathy towards the recipient."
+ ],
+ "96": [
+  "Differentiate between similar concepts or terms.",
+  "Use specific and commonly recognized terms.",
+  "Provide context when introducing new concepts or terms.",
+  "Incorporate key terms and terminology from the given context."
+ ],
+ "97": [
+  "Be clear and precise in your definitions.",
+  "Focus on clarity and coherence.",
+  "Focus on clarity and specificity in your explanation.",
+  "Maintain a neutral and objective tone in your explanation.",
+  "Focus on providing a clear and concise explanation."
+ ],
+ "98": [
+  "Be creative while staying true to the core information.",
+  "Encourage creativity while maintaining accuracy."
+ ],
+ "99": [
+  "Address all parts of the question comprehensively.",
+  "Expand on the key points with additional relevant details.",
+  "Address multiple aspects of the question comprehensively.",
+  "Address multiple aspects comprehensively.",
+  "Address all key points mentioned in the question comprehensively.",
+  "Address the specific requirements of the question directly and thoroughly."
+ ],
+ "100": [
+  "Integrate relevant facts to support your conclusion logically.",
+  "Integrate statistics, studies, or expert opinions to support your explanation.",
+  "Integrate relevant scientific or factual information.",
+  "Integrate related concepts for a fuller picture."
+ ],
+ "101": [
+  "Provide clear, step-by-step reasoning when explaining processes.",
+  "Provide structured, step-by-step reasoning.",
+  "Provide a structured breakdown of the reasoning process.",
+  "Provide actionable steps for implementation.",
+  "Use specific, actionable language for step-by-step instructions.",
+  "Establish relationships between variables through equations or logical statements."
+ ],
+ "102": [
+  "Provide clear and specific examples to illustrate how the concept applies.",
+  "Explain the underlying principles involved."
+ ],
+ "103": [
+  "Ensure your response includes clear and specific details to avoid ambiguity.",
+  "Ensure your response logically follows from the given information."
+ ],
+ "104": [
+  "End with a strong, definitive conclusion if appropriate.",
+  "End your response with a strong closing statement."
+ ],
+ "105": [
+  "Provide context-specific details to enhance the accuracy of the response.",
+  "Tailor the content to accurately reflect the given information.",
+  "Provide a smooth flow of information to enhance readability.",
+  "Provide context to help readers understand the significance of the information."
+ ],
+ "106": [
+  "Focus on the core question.",
+  "Focus on the core elements required by the question.",
+  "Address the core question thoroughly without distractions.",
+  "Relate the answer back to the core question."
+ ],
+ "107": [
+  "Encourage the user to provide specific details relevant to the problem or query.",
+  "Avoid providing information that is unrelated to the question",
+  "Encourage the user to provide more details if the information given is insufficient."
+ ],
  "108": [
-  "Avoid repetitive language; vary your wording.",
-  "Use familiar language and analogies.",
-  "Maintain grammatical correctness and coherence.",
-  "Use clear and precise language.",
-  "Use appropriate grammar and syntax.",
-  "Use natural language and avoid overly formal or mechanical phrasing.",
-  "Use natural language for better readability."
+  "Incorporate ethical, legal, and practical considerations into your response.",
+  "Address potential questions or concerns proactively."
  ],
  "109": [
+  "Focus on creating a cohesive and engaging story arc.",
   "Start with an engaging opening to capture interest.",
-  "Include an engaging call to action or invitation."
+  "Use transitions smoothly to guide the reader through the story."
  ],
  "110": [
-  "Offer context-specific guidance to narrow down options.",
-  "Offer context-specific advice when appropriate.",
-  "Offer context where needed to clarify the process.",
-  "Include relevant context and references where appropriate.",
-  "Provide context when relevant.",
-  "Provide context when necessary.",
-  "Provide context before delving into specifics.",
-  "Use relevant terminology from the context."
+  "Focus on providing a detailed and structured explanation.",
+  "Be thorough but avoid unnecessary repetition.",
+  "Incorporate specific details to enhance clarity.",
+  "Focus on providing clear, concise, and relevant examples.",
+  "Focus on simplicity and clarity.",
+  "Focus on providing actionable, concrete examples.",
+  "Avoid repetition and provide varied expressions.",
+  "Focus on providing clear, concise, and practical guidance."
  ],
  "111": [
-  "Explain potential solutions or concepts without assuming full understanding."
+  "Offer reassurance and support when appropriate.",
+  "Suggest actions or next steps when appropriate.",
+  "Specify actionable steps or criteria."
  ],
  "112": [
+  "Offer multiple, detailed steps or strategies.",
+  "Provide specific, actionable steps or strategies.",
+  "Highlight important steps or methodologies."
+ ],
+ "113": [
+  "Consider the context and audience of the question.",
+  "Consider the audience's prior knowledge and expertise.",
+  "Consider various possible scenarios that align with the given context for a complete answer.",
+  "Consider the audience's perspective when formulating your answer.",
+  "Provide a clear analysis of the question."
+ ],
+ "114": [
+  "Avoid simplifying complex ideas into overly basic descriptions.",
+  "Break down complex ideas into simpler components.",
+  "Explain complex concepts in simple terms.",
+  "Break down complex topics into simpler, more digestible parts.",
+  "Avoid oversimplifying complex concepts or information.",
+  "Integrate multiple concepts cohesively into a single explanation."
+ ],
+ "115": [
+  "Offer context before presenting the solution.",
+  "Offer context where needed to clarify the process.",
+  "Provide context where necessary to enhance clarity.",
+  "Provide context when relevant.",
+  "Provide context when necessary.",
+  "Provide context where necessary to avoid confusion.",
+  "Offer context where necessary for clarity."
+ ],
+ "116": [
+  "Include broader implications or contexts where applicable.",
+  "Include scientific or technical context when relevant.",
+  "Include relevant context and references where appropriate.",
+  "Provide contextually relevant and detailed responses.",
+  "Include relevant examples or frameworks.",
+  "Include code snippets or examples where appropriate."
+ ],
+ "117": [
+  "Offer a balanced perspective on the topic.",
+  "Elaborate on the implications or significance of the subject.",
+  "Offer balanced information, considering pros and cons.",
+  "Address the complexity of the issue by considering various perspectives and implications."
+ ],
+ "118": [
+  "Offer context-specific guidance to narrow down options.",
+  "Offer context-specific advice when appropriate."
+ ],
+ "119": [
+  "Incorporate relevant statistics or facts to support claims.",
+  "Use relevant, high-quality sources to support your claims.",
+  "Include relevant data or references to support your claims.",
+  "Include relevant data or statistics to support your claims.",
+  "Include relevant data or statistics to strengthen your arguments.",
+  "Integrate relevant evidence or statistics to support claims."
+ ],
+ "120": [
+  "Avoid overly complex or technical jargon.",
+  "Provide context and explanations for technical terms or jargon.",
+  "Use precise terminology and jargon.",
+  "Clarify any technical terms or jargon used."
+ ],
+ "121": [
+  "Be concise while providing complete information.",
+  "Be concise while providing sufficient information.",
+  "Provide complete and accurate translations.",
+  "Be concise yet informative.",
+  "Provide concise, direct, and easy-to-follow instructions.",
+  "Provide specific, quantifiable details.",
+  "Provide detailed and contextually accurate translations or explanations.",
+  "Provide clear and concise descriptions."
+ ],
+ "122": [
+  "Maintain a neutral and unbiased tone.",
+  "Ensure the tone is engaging and maintains reader interest.",
+  "Maintain an engaging and entertaining tone.",
+  "Maintain a neutral and informative tone.",
+  "Maintain a neutral tone to avoid bias.",
+  "Maintain a positive and encouraging tone throughout.",
+  "Strive for a natural, conversational tone in the response.",
+  "Maintain a neutral and factual tone",
+  "Maintain a balanced tone, avoiding extremes.",
+  "Maintain a consistent and engaging tone throughout the response.",
+  "Use engaging language and maintain a consistent tone."
+ ],
+ "123": [
+  "Label elements clearly when necessary."
+ ],
+ "124": [
+  "Focus on clarity and structure in your response.",
+  "Structure your response with logical steps or arguments.",
+  "Structure your response logically with clear organization.",
+  "Structure your response with clear sections to logically organize information and solutions.",
+  "Structure your response with distinct sections like introduction, body, and conclusion.",
+  "Structure the response logically, with clear transitions between ideas.",
+  "Structure your response to flow logically and coherently."
+ ],
+ "125": [
+  "Present information in a structured format with clear headings.",
+  "Present additional information systematically and logically.",
+  "Present information in a logical and organized manner.",
+  "Maintain consistency in formatting and presentation throughout.",
+  "Present information in a structured, logical manner.",
+  "Present information in a logical, easy-to-follow sequence.",
+  "Present information in a balanced and comprehensive manner.",
+  "Present information in a clear and organized manner."
+ ],
+ "126": [
+  "Avoid generalizations and provide detailed explanations.",
+  "Avoid generalizations; provide concrete evidence when possible."
+ ],
+ "127": [
+  "Ensure the response includes relevant examples or scenarios.",
+  "Ensure the response addresses all key aspects of the question."
+ ],
+ "128": [
+  "Include relevant examples to clarify complex points.",
+  "Include specific examples when appropriate to illustrate points.",
+  "Include concrete examples to illustrate points.",
+  "Use concrete examples to illustrate points.",
+  "Include examples to illustrate points more clearly.",
+  "Include relevant examples to illustrate points clearly.",
+  "Include examples where appropriate to clarify complex points.",
+  "Use specific examples to illustrate points.",
+  "Include relevant examples to illustrate points.",
+  "Incorporate specific examples to illustrate complex points."
+ ],
+ "129": [
+  "Consider the target audience when choosing vocabulary and phrases."
+ ],
+ "130": [
+  "Compare given options methodically when multiple choices are presented.",
+  "Offer a comparative analysis when comparing items or options.",
+  "Compare or contrast elements where appropriate."
+ ],
+ "131": [
+  "Provide clear and concise references to the parts of the text being discussed."
+ ],
+ "132": [
+  "Provide context to help understand the significance.",
+  "Provide context to help understand the significance of the topic.",
+  "Offer context to deepen understanding of the topic.",
+  "Compare the subject with similar concepts to provide context.",
+  "Explain the purpose or intent behind the concept or phrase."
+ ],
+ "133": [
+  "Offer practical tips or advice when applicable.",
+  "Offer practical tips or best practices at the end.",
+  "Integrate practical advice and recommendations effectively.",
+  "Discuss best practices and recommendations."
+ ],
+ "134": [
+  "Focus on the impact and emotional aspects of the situation.",
+  "Start with an overview before delving into details.",
+  "Offer a clear and concise overview before delving into details.",
+  "Focus on providing a clear and concise overview of the subject.",
+  "Start with a broad overview before delving into details.",
+  "Focus on providing a detailed and engaging introduction.",
+  "Focus on the main aspects of the problem or question.",
+  "Focus on providing a clear and structured overview of the topic."
+ ],
+ "135": [
+  "Organize information logically to improve comprehension.",
+  "Maintain a consistent and organized flow throughout.",
+  "Maintain a consistent and logical flow of information.",
+  "Organize information into manageable sections or steps.",
+  "Organize information into a coherent structure before providing details.",
+  "Organize information logically and coherently.",
+  "Organize the content logically with headings if necessary.",
+  "Organize information clearly and logically.",
+  "Organize information logically and systematically."
+ ],
+ "136": [
+  "Maintain a professional yet approachable demeanor."
+ ],
+ "137": [
+  "Include specific details to support the core message."
+ ],
+ "138": [
+  "Mention potential variations or exceptions where relevant.",
+  "Address potential variations or exceptions to the rule.",
+  "Address potential edge cases and exceptions.",
+  "Describe potential variations or exceptions to the main procedure.",
+  "Mention potential variations or alternatives."
+ ],
+ "139": [
+  "Tailor your answer to match the specific interests or needs mentioned.",
+  "Offer justification or reasoning behind your suggestions.",
+  "Provide evidence or reasoning to support your conclusion or opinion.",
+  "Provide context and justification for your choices.",
+  "Provide context and reasoning for your answer."
+ ],
+ "140": [
+  "Summarize the information in a comprehensive manner.",
+  "Describe the subject comprehensively, providing context and details."
+ ],
+ "141": [
+  "Guide the reader through the thought process.",
+  "Encourage the reader to think through the solution step-by-step."
+ ],
+ "142": [
+  "Encourage thoughtful consideration of user experience.",
+  "Encourage the sharing of detailed personal experiences.",
+  "Mention personal qualities or experiences relevantly.",
+  "Incorporate a personal touch where appropriate.",
+  "Encourage detailed and specific information sharing."
+ ],
+ "143": [
+  "Provide a detailed explanation.",
+  "Provide a detailed explanation rather than a brief overview.",
+  "Provide detailed explanations rather than brief summaries.",
+  "Provide a clear and comprehensive explanation.",
+  "Provide a comprehensive explanation rather than a brief summary.",
+  "Provide a clear, detailed explanation."
+ ],
+ "144": [
+  "Structure your answer logically with a coherent flow.",
+  "Ensure the answer flows logically from one point to the next.",
+  "Maintain coherence and flow throughout the answer.",
+  "Ensure the answer flows logically and coherently.",
+  "Ensure the answer flows logically and is easy to follow.",
+  "Structure your answer in a way that flows naturally.",
+  "Ensure your answer flows logically from one point to another.",
+  "Ensure the answer flows naturally and coherently."
+ ],
+ "145": [
+  "Emphasize the problem while offering support and encouragement.",
+  "Maintain a positive and inviting atmosphere.",
+  "Adopt a constructive and positive approach."
+ ],
+ "146": [
+  "Incorporate feedback mechanisms or improvements.",
+  "Incorporate user feedback or concerns to refine your response.",
+  "Incorporate user feedback or additional clarifications.",
+  "Include user feedback or real-world applications if relevant."
+ ],
+ "147": [
+  "Avoid ambiguity and ensure clarity in both questions and answers.",
+  "Tailor the difficulty level of the questions to match the respondent's experience."
+ ],
+ "148": [
+  "Structure the response with clear, logical sections.",
+  "Structure your response logically with clear sections or headings.",
+  "Structure responses into clear, distinct sections for easier readability.",
+  "Provide a clear structure or format for the response.",
+  "Organize your response into distinct sections for clarity.",
+  "Structure the response into logical paragraphs.",
+  "Use subheadings to organize different sections of the response.",
+  "Structure the response logically with sections."
+ ],
+ "149": [
+  "Provide a thorough analysis rather than just listing facts.",
+  "Avoid assuming specific details unless supported by evidence.",
+  "Include factual information to support claims or explanations.",
+  "Include relevant data and facts to support your arguments.",
+  "Be factual and avoid speculation unless explicitly asked."
+ ],
+ "150": [
+  "End with a summarizing statement or a conclusion.",
+  "End with a conclusion that summarizes the main ideas.",
+  "End with a summary or conclusion.",
+  "Conclude with a comprehensive summary of the key points.",
+  "Conclude with a summary or key takeaways.",
+  "Conclude with a summary that reinforces the main points made.",
+  "Conclude with a summary or key takeaway.",
+  "End with a relevant conclusion or summary.",
+  "End with a concise conclusion or summary.",
+  "Conclude with a summary of key takeaways or steps to consider.",
+  "Draw clear connections between the given information and the conclusion.",
+  "End with a summary or conclusion to reinforce key points.",
+  "End with a satisfying conclusion that ties back to the beginning."
+ ],
+ "151": [
+  "Provide context before delving into specifics."
+ ],
+ "152": [
+  "Provide specific examples to illustrate each point."
+ ],
+ "153": [
+  "Reflect on the implications and deeper meanings where applicable.",
+  "Consider multiple perspectives or interpretations when relevant.",
+  "Consider multiple perspectives or aspects before forming an answer."
+ ],
+ "154": [
+  "Include relevant background information to support the main points.",
+  "Start with an overview of the main points."
+ ],
+ "155": [
+  "Ensure the answer is both accurate and helpful.",
+  "Ensure the answer is well-rounded and balanced.",
+  "Ensure the answer is factually accurate and up-to-date.",
+  "Ensure the answer is logically consistent and coherent.",
+  "Ensure the answer fits the given category."
+ ],
+ "156": [
+  "Cite sources or references when appropriate to support claims.",
+  "Use relevant examples or evidence to support your points when appropriate.",
+  "Mention sources or references when applicable.",
+  "Use multiple sources or data points to strengthen your argument.",
+  "Cite relevant examples or data when applicable.",
+  "Cite sources or references for claims made where appropriate.",
+  "Cite sources or studies to support key claims if applicable.",
+  "Cite sources or external references when necessary to support your answer."
+ ],
+ "157": [
+  "Provide context and background information when appropriate.",
+  "Provide background information to enrich the narrative.",
+  "Provide context and background information when useful.",
+  "Include relevant background information for context.",
+  "Provide context and background information relevant to the main idea.",
+  "Provide context and background information when relevant.",
+  "Provide context and background information relevant to the query.",
+  "Address any necessary context or background information explicitly.",
+  "Include relevant context or background information.",
+  "Include relevant context and background information.",
+  "Provide context and relevant background information to establish a comprehensive understanding.",
+  "Provide context and background information to enhance understanding.",
+  "Provide context and background information relevant to the topic.",
+  "Offer context and background information relevant to the task."
+ ],
+ "158": [
+  "Break down complex tasks into manageable, sequential steps."
+ ],
+ "159": [
+  "Break down the response into clear, logical steps.",
+  "Ensure your response flows naturally and smoothly.",
+  "Ensure the response flows logically and coherently.",
+  "Ensure the response is logically structured.",
+  "Ensure your response flows naturally in the target language without directly translating word-for-word."
+ ],
+ "160": [
+  "Use specific and accurate terminology.",
+  "Use precise and appropriate terminology.",
+  "Use specific terminology appropriate to the context of the question.",
+  "Use specific terminology appropriate to the field.",
+  "Use relevant terminology from the context.",
+  "Use specific terminology relevant to the topic.",
+  "Tailor your writing style to match the context and formality level of the question."
+ ],
+ "161": [
+  "Structure your answer in a logical sequence of points.",
+  "Structure the answer logically and coherently.",
+  "Structure your answer in a logical and organized manner.",
+  "Structure your answer logically and coherently.",
+  "Structure the answer logically with clear transitions.",
+  "Structure your answer in a logical sequence of ideas."
+ ],
+ "162": [
+  "Address potential counterarguments or alternative viewpoints.",
+  "Address potential issues or conflicts proactively.",
+  "Address counterarguments and provide balanced viewpoints.",
+  "Address potential counterarguments or objections.",
+  "Directly address potential issues or limitations.",
+  "Detail potential causes and solutions related to the presented issue or scenario.",
+  "Address potential concerns or objections from different perspectives."
+ ],
+ "163": [
+  "Incorporate relevant details to support your points.",
+  "Use specific examples or data to support your points."
+ ],
+ "164": [
+  "Clearly define any abbreviations or terms used in the response.",
+  "Clearly define acronyms or technical terms."
+ ],
+ "165": [
+  "Use specific examples to illustrate key points.",
+  "Include relevant examples to illustrate key points.",
+  "Include specific examples to illustrate key points.",
+  "Provide specific examples to illustrate complex concepts.",
+  "Use specific examples or excerpts to illustrate key points.",
+  "Provide specific examples to illustrate key points.",
+  "Include real-world examples to illustrate key concepts."
+ ],
+ "166": [
+  "Incorporate relevant visuals when possible.",
+  "Provide context to set up the scene effectively."
+ ],
+ "167": [
+  "Use language accessible to the average reader.",
+  "Incorporate vivid and descriptive language to enrich the answer.",
+  "Consider the audience and tailor the language accordingly.",
+  "Use specific and appropriate language.",
+  "Engage the reader with interesting or unique perspectives.",
+  "Tailor your language to the expected audience's knowledge level.",
+  "Use natural language for better readability.",
+  "Use descriptive language to engage the reader."
+ ],
+ "168": [
+  "Highlight important dates, events, or milestones."
+ ],
+ "169": [
+  "Use clear and descriptive language to enhance understanding.",
+  "Encourage understanding through practical application.",
+  "Encourage the use of relevant tools and resources.",
+  "Encourage further education or clarification if needed",
+  "Focus on explaining concepts in a way that is accessible to non-experts.",
+  "Encourage further inquiry or exploration by providing resources."
+ ],
+ "170": [
+  "Provide a clear, factual, and well-structured response.",
+  "Present your response in a clear, structured manner.",
+  "Provide a clear, detailed, and structured response.",
+  "Present your response in a logical order, from general to specific details.",
+  "Provide clear and empathetic responses."
+ ],
+ "171": [
+  "Identify key elements or components mentioned in the question.",
+  "Specify key features or characteristics.",
+  "Include metrics or evaluation criteria when applicable."
+ ],
+ "172": [
+  "Ensure logical consistency between parts."
+ ],
+ "173": [
+  "Include checks or validations to ensure accuracy.",
+  "Use quantifiable details where applicable to enhance accuracy.",
+  "Ensure accuracy by cross-referencing information."
+ ],
+ "174": [
+  "Ensure that your solution is complete and self-contained within the answer.",
+  "Ensure each part of your answer logically follows from the previous section.",
+  "Ensure your answer aligns with the task requirements.",
+  "Ensure your answer aligns with the quality criteria for the task."
+ ],
+ "175": [
+  "Provide a detailed breakdown of the components involved.",
+  "Include necessary details.",
+  "Ask for specifics if needed.",
+  "Detail any necessary background information for understanding."
+ ],
+ "176": [
+  "Highlight potential challenges and how to overcome them.",
+  "Address potential challenges and their solutions proactively.",
+  "Address potential challenges or limitations when appropriate.",
+  "Address potential challenges and solutions comprehensively.",
+  "Highlight any potential challenges or limitations in the process."
+ ],
+ "177": [
+  "Incorporate relevant examples or analogies when appropriate.",
+  "Incorporate examples or explanations to enhance understanding.",
+  "Provide examples and analogies to aid understanding.",
+  "Include relevant examples or analogies to enhance understanding.",
+  "Include examples or analogies where appropriate to clarify.",
+  "Use appropriate examples or analogies to enhance understanding.",
+  "Incorporate real-world examples or analogies to enhance understanding.",
+  "Include relevant examples or analogies.",
+  "Provide relevant examples to enhance understanding."
+ ],
+ "178": [
+  "Highlight key information to guide understanding."
+ ],
+ "179": [
   "Offer actionable insights or practical applications when possible.",
+  "Introduce practical examples or applications.",
+  "Include practical examples or code snippets where applicable.",
   "Include relevant examples or practical applications when possible.",
-  "Emphasize practical applications or real-world relevance.",
+  "Include practical examples and relevant formulas.",
   "Emphasize practical applications or examples.",
-  "Focus on providing actionable, concrete examples.",
+  "Provide concrete examples or applications."
+ ],
+ "180": [
+  "Emphasize the end goal or expected outcome clearly."
+ ],
+ "181": [
+  "Identify and address any potential ambiguities in the given context for clarity.",
+  "Address potential ambiguities or alternative interpretations clearly.",
+  "Differentiate between similar concepts for clarity.",
+  "Explain how to address any potential ambiguities in the question."
+ ],
+ "182": [
+  "Avoid jargon unless the audience is familiar with it.",
+  "Avoid overly complex language or jargon.",
+  "Avoid overly technical jargon unless the audience is specialized.",
+  "Use simple language and avoid jargon when possible."
+ ],
+ "183": [
+  "Emphasize accuracy and factual correctness.",
+  "Maintain accuracy and precision in technical details and terminology.",
+  "Use consistent and precise terminology throughout.",
+  "Maintain accuracy and avoid misinformation."
+ ],
+ "184": [
+  "Acknowledge limitations and potential alternative approaches.",
+  "Acknowledge limitations if appropriate"
+ ],
+ "185": [
+  "Start with a clear and concise statement of the task or problem.",
+  "Focus on providing a clear and structured approach to the task.",
+  "Provide clear and structured guidance.",
+  "Provide specific actions or steps to clarify the task.",
+  "Maintain focus on the main point while providing necessary details."
+ ],
+ "186": [
   "Encourage customization to fit specific needs."
+ ],
+ "187": [
+  "Incorporate storytelling to make concepts memorable.",
+  "Incorporate meaningful details to deepen the narrative.",
+  "Engage the reader with narrative techniques.",
+  "Maintain a consistent and engaging narrative tone.",
+  "Maintain a coherent narrative flow."
+ ],
+ "188": [
+  "Align the answer format with expectations.",
+  "Focus on providing a well-structured and organized answer."
+ ],
+ "189": [
+  "Focus on clarifying misunderstandings before providing information.",
+  "Clarify assumptions if your response depends on them.",
+  "Clearly differentiate between common misconceptions and accurate information.",
+  "Highlight contradictions between provided information and conclusions.",
+  "Address potential misunderstandings directly in your response.",
+  "Address potential misconceptions directly and clearly.",
+  "Clearly state the limitations or uncertainties in your response.",
+  "Clarify assumptions and potential misunderstandings.",
+  "Explain potential misconceptions directly.",
+  "Address common misconceptions or alternative viewpoints."
+ ],
+ "190": [
+  "Start with the essential context or introduction.",
+  "Start with an introductory statement to set the context.",
+  "Start with essential elements before adding details.",
+  "Start with a brief introduction to set the context.",
+  "Start with clear introductions or overviews.",
+  "Start with an overview before diving into specifics."
+ ],
+ "191": [
+  "Highlight the significance or importance of the topic being discussed.",
+  "Highlight the significance or impact of the topic."
+ ],
+ "192": [
+  "Provide a clear and concise overview of the topic.",
+  "Provide a clear and concise summary of the main ideas.",
+  "Offer a comprehensive overview without missing important details.",
+  "Start with a comprehensive overview before delving into specifics.",
+  "Provide a clear and concise overview of the main concepts involved.",
+  "Offer a comprehensive overview before delving into details.",
+  "Provide a clear, concise, and comprehensive overview of the subject.",
+  "Provide a concise summary or overview of key information."
+ ],
+ "193": [
+  "Be thorough in explaining your thought process."
+ ],
+ "194": [
+  "Develop ideas logically with clear transitions between sentences.",
+  "Encourage further exploration or questions to deepen understanding.",
+  "Encourage deeper understanding through logical connections."
+ ],
+ "195": [
+  "Incorporate specific, relatable details to enhance credibility.",
+  "Include the source or context of information for credibility.",
+  "Integrate relevant references or citations to support claims.",
+  "Incorporate credible sources to enhance credibility."
+ ],
+ "196": [
+  "Encourage questions or interaction to foster engagement.",
+  "Suggest ways to enhance user understanding or engagement.",
+  "Encourage engagement by asking follow-up questions if needed.",
+  "Encourage engagement or participation.",
+  "Encourage engagement by asking relevant questions."
+ ],
+ "197": [
+  "Offer comparisons or contrasts to deepen comprehension."
+ ],
+ "198": [
+  "Include quantitative data or statistics where applicable.",
+  "Promote the use of evidence-based information.",
+  "Include data or statistics when relevant and available.",
+  "Include relevant statistics or data to strengthen credibility.",
+  "Present data and statistics accurately.",
+  "Incorporate relevant metrics or evidence where applicable.",
+  "Include relevant trends or general observations when providing broad, data-driven responses."
+ ],
+ "199": [
+  "Ensure your explanation is easy to follow.",
+  "Ensure your explanation covers all necessary aspects."
  ]
 }
