@@ -114,6 +114,11 @@ def main():
     if L7.exists():
         M = np.load(L7, allow_pickle=True)["M"]
         out.append(_report("large_7b (real, C=20)", M, args.K, [8, 16, 32, 64, 128]))
+    # REAL large pool: the candpool reference matrix (C=220 medoid+curated) — the T1 companion on real data
+    CP = REPO_ROOT / "results" / "prompt_basis_candpool_7b" / "swing_train.npz"
+    if CP.exists():
+        M = np.load(CP, allow_pickle=True)["M"]
+        out.append(_report(f"candpool_7b (REAL, C={M.shape[1]})", M, args.K, [8, 16, 24, 48]))
     # synthetic large-C: where the stochastic-greedy candidate saving also shows
     for C in (100, 200):
         out.append(_report(f"synthetic (C={C})", _synth(C, 300), args.K, [16, 32, 64, 128]))
