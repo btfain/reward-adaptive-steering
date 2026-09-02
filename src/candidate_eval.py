@@ -47,7 +47,7 @@ def main():
 
     def sel(cols):
         sub = M[:, cols]
-        order_local = _greedy_submodular(sub, min(args.K, len(cols)))
+        order_local, _curve = _greedy_submodular(sub, min(args.K, len(cols)))   # returns (order, curve)
         return [cols[i] for i in order_local]              # map back to global column indices
 
     o_auto, o_cur, o_comb = sel(auto_cols), sel(cur_cols), sel(list(range(C)))
