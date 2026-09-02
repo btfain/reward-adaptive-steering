@@ -1,0 +1,26 @@
+# P1 END-TO-END BANNER — the headline figure. Full automated pipeline: auto candidates -> smoke-verify ->
+# cluster -> cost-aware/greedy basis (candpool selection top-K) -> router trained on candpool train swings
+# -> top-k at test, vs naive best-of-n on a HELD-OUT slice (disjoint from the router's training prompts).
+
+tag: "end_banner_7b"
+selection: "results/prompt_basis_candpool_7b/selection.json"        # the greedy/cost-aware basis (order + move texts)
+K: 8                                                                # deployed basis size (top-K of the selection)
+
+router_train_swing: "results/prompt_basis_candpool_7b/swing_train.npz"   # candpool train swings (96 x 220)
+router_train_split: "train_large"
+router_train_n: 96                                                  # candpool TRAIN prompts (router training)
+router_encoder: "distilroberta-base"
+
+eval_split: "train_large"
+eval_start: 96                                                      # HELD-OUT (disjoint from the 96 train prompts)
+eval_n: 48
+
+n_base: 8                                                           # base samples/prompt -> naive best-of-k
+n_move: 4                                                           # samples per selected move
+
+gen:
+  max_new_tokens: 768
+  temperature: 0.9
+  top_p: 0.95
+
+seed: 0
