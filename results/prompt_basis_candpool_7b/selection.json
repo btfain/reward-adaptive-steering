@@ -1,0 +1,153 @@
+{
+  "order": [
+    46,
+    13,
+    188,
+    68,
+    77,
+    142,
+    118,
+    210,
+    156,
+    20,
+    74,
+    98,
+    133,
+    27,
+    84,
+    101
+  ],
+  "curve": [
+    0.9702911376953125,
+    1.3292999267578125,
+    1.5257218678792317,
+    1.6505591074625652,
+    1.7571671803792317,
+    1.8346411387125652,
+    1.9039955139160156,
+    1.9674720764160156,
+    2.0192298889160156,
+    2.064863840738932,
+    2.098066965738932,
+    2.1279335021972656,
+    2.157393137613932,
+    2.184167226155599,
+    2.2101478576660156,
+    2.2320238749186196
+  ],
+  "selected": [
+    {
+      "rank": 1,
+      "cand_idx": 46,
+      "move": "Provide clear, step-by-step reasoning when explaining your answer.",
+      "mean_captured_swing": 0.9702911376953125,
+      "marginal": 0.9702911376953125
+    },
+    {
+      "rank": 2,
+      "cand_idx": 13,
+      "move": "Ensure logical flow from problem statement to solution.",
+      "mean_captured_swing": 1.3292999267578125,
+      "marginal": 0.3590087890625
+    },
+    {
+      "rank": 3,
+      "cand_idx": 188,
+      "move": "Focus on providing a well-structured and organized answer.",
+      "mean_captured_swing": 1.5257218678792317,
+      "marginal": 0.1964219411214192
+    },
+    {
+      "rank": 4,
+      "cand_idx": 68,
+      "move": "Ensure the answer is detailed but not overly verbose.",
+      "mean_captured_swing": 1.6505591074625652,
+      "marginal": 0.12483723958333348
+    },
+    {
+      "rank": 5,
+      "cand_idx": 77,
+      "move": "Present multiple solutions or approaches when appropriate.",
+      "mean_captured_swing": 1.7571671803792317,
+      "marginal": 0.10660807291666652
+    },
+    {
+      "rank": 6,
+      "cand_idx": 142,
+      "move": "Encourage the sharing of detailed personal experiences.",
+      "mean_captured_swing": 1.8346411387125652,
+      "marginal": 0.07747395833333348
+    },
+    {
+      "rank": 7,
+      "cand_idx": 118,
+      "move": "Offer context-specific guidance to narrow down options.",
+      "mean_captured_swing": 1.9039955139160156,
+      "marginal": 0.06935437520345045
+    },
+    {
+      "rank": 8,
+      "cand_idx": 210,
+      "move": "Explain the reasoning behind your answer, not just the conclusion.",
+      "mean_captured_swing": 1.9674720764160156,
+      "marginal": 0.0634765625
+    },
+    {
+      "rank": 9,
+      "cand_idx": 156,
+      "move": "Cite sources or references when appropriate to support claims.",
+      "mean_captured_swing": 2.0192298889160156,
+      "marginal": 0.0517578125
+    },
+    {
+      "rank": 10,
+      "cand_idx": 20,
+      "move": "Provide detailed explanations for each step.",
+      "mean_captured_swing": 2.064863840738932,
+      "marginal": 0.04563395182291652
+    },
+    {
+      "rank": 11,
+      "cand_idx": 74,
+      "move": "Ensure your response provides context and background details relevant to the topic.",
+      "mean_captured_swing": 2.098066965738932,
+      "marginal": 0.033203125
+    },
+    {
+      "rank": 12,
+      "cand_idx": 98,
+      "move": "Be creative while staying true to the core information.",
+      "mean_captured_swing": 2.1279335021972656,
+      "marginal": 0.02986653645833348
+    },
+    {
+      "rank": 13,
+      "cand_idx": 133,
+      "move": "Offer practical tips or advice when applicable.",
+      "mean_captured_swing": 2.157393137613932,
+      "marginal": 0.02945963541666652
+    },
+    {
+      "rank": 14,
+      "cand_idx": 27,
+      "move": "Provide a comprehensive overview of the topic, covering multiple aspects.",
+      "mean_captured_swing": 2.184167226155599,
+      "marginal": 0.026774088541666963
+    },
+    {
+      "rank": 15,
+      "cand_idx": 84,
+      "move": "Examine each option thoroughly and logically.",
+      "mean_captured_swing": 2.2101478576660156,
+      "marginal": 0.02598063151041652
+    },
+    {
+      "rank": 16,
+      "cand_idx": 101,
+      "move": "Provide structured, step-by-step reasoning.",
+      "mean_captured_swing": 2.2320238749186196,
+      "marginal": 0.02187601725260402
+    }
+  ],
+  "unconditional_best_idx": 46
+}
