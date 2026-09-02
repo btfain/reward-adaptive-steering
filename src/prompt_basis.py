@@ -154,43 +154,48 @@ def phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
     torch.manual_seed(pb["optim"]["seed"] + (0 if shard is None else 1))
     OUT.mkdir(parents=True, exist_ok=True)
 
+    from collections import defaultdict
+    micro = pb["pool"].get("gen_micro", 16)
     items = [(pi, prompt) for pi, prompt in enumerate(P["train"]) if _shard_keep(pi, shard)]
-    swing_file = OUT / (f"swing_shard_{shard[0]}.npz" if shard else "swing_train.npz")
+    idx = [pi for pi, _ in items]
+    bref = [base.get(("train", pi)) for pi, _ in items]
+    valid = [k for k in range(len(items)) if bref[k] is not None]   # prompts with a base reference
+    C = len(cand); swing_file = OUT / (f"swing_shard_{shard[0]}.npz" if shard else "swing_train.npz")
     tag = "" if shard is None else f" shard {shard[0]}"
-    # RESUME: reload prompts already computed (incremental checkpointing survives a wall-kill mid-swing)
-    done = {}
+    # RESUME per candidate-COLUMN (batched: each candidate is one column; wall-kill loses <=1 column)
+    M = np.full((len(items), C), np.nan, dtype=np.float64); done_cols = set()
     if swing_file.exists():
         prev = np.load(swing_file, allow_pickle=True)
-        if list(prev["candidates"]) == list(cand):                  # only resume against the same candidate pool
-            for r, pi in enumerate(prev["idx"]):
-                done[int(pi)] = np.asarray(prev["M"][r], dtype=np.float64)
-            print(f"  resume swing{tag}: {len(done)} prompts already done", flush=True)
+        if list(prev["candidates"]) == list(cand) and list(prev["idx"]) == idx and "done_cols" in prev.files:
+            M = np.asarray(prev["M"], dtype=np.float64); done_cols = {int(j) for j in prev["done_cols"]}
+            print(f"  resume swing{tag}: {len(done_cols)}/{C} candidate columns done", flush=True)
 
-    idx, rows = [], []
     def _save():
-        Mnow = np.array(rows, dtype=np.float64) if rows else np.full((0, len(cand)), np.nan)
-        np.savez(swing_file, M=Mnow, idx=np.array(idx), candidates=np.array(cand, dtype=object))
+        np.savez(swing_file, M=M, idx=np.array(idx), candidates=np.array(cand, dtype=object),
+                 done_cols=np.array(sorted(done_cols)))
 
-    for k, (pi, prompt) in enumerate(items):
-        if int(pi) in done:                                         # skip prompts done in a prior (killed) run
-            rows.append(done[int(pi)]); idx.append(pi); continue
-        row = np.full(len(cand), np.nan)
-        b = base.get(("train", pi))
-        if b is not None:
-            for j, instr in enumerate(cand):
-                sc = [c for c in generate_batch(model, tok, [prompt] * m, gcfg, system=instr) if c.strip()]
-                if sc:
-                    row[j] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
-        rows.append(row); idx.append(pi)
-        if (k + 1) % 5 == 0:                                        # incremental checkpoint every 5 prompts
-            _save(); print(f"  swing{tag}: {k + 1}/{len(items)} prompts (checkpointed)", flush=True)
+    # BATCHED: for each candidate, generate under it for ALL valid prompts at once (batch>>m). ~5-7x faster
+    # than per-(prompt,candidate) batch-of-m calls (candidates have distinct system prompts, can't share a batch).
+    for j, instr in enumerate(cand):
+        if j in done_cols:
+            continue
+        flat = [(k, items[k][1]) for k in valid for _ in range(m)]  # each valid prompt sampled m times
+        scored = defaultdict(list)
+        for s in range(0, len(flat), micro):
+            sub = flat[s:s + micro]
+            comps = generate_batch(model, tok, [p for _, p in sub], gcfg, system=instr)
+            for (k, prompt), c in zip(sub, comps):
+                if c.strip():
+                    scored[k].append(rm_score(rm, rm_tok, prompt, c))
+        for k in valid:
+            if scored[k]:
+                M[k, j] = float(np.mean(scored[k])) - bref[k]
+        done_cols.add(j)
+        if (j + 1) % 10 == 0:
+            _save(); print(f"  swing{tag}: {j + 1}/{C} candidates (checkpointed)", flush=True)
     _save()
-    if shard:
-        print(f"swing shard {shard[0]}/{shard[1]} -> {swing_file}  ({len(rows)} rows)")
-    else:
-        M = np.array(rows, dtype=np.float64) if rows else np.full((0, len(cand)), np.nan)
-        print(f"swing matrix -> {swing_file}  (mean {np.nanmean(M):+.3f}, best-move mean "
-              f"{np.nanmax(M, axis=1).mean():+.3f})")
+    print(f"swing{tag} -> {swing_file}  ({len(valid)} prompts x {C} candidates; mean "
+          f"{np.nanmean(M):+.3f})")
 
 
 # -------------------------------------------------------------- phase: assemble ----
