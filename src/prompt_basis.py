@@ -187,18 +187,23 @@ def phase_assemble(pb):
             for line in open(sh):
                 f.write(line)
     sw_shards = sorted(OUT.glob("swing_shard_*.npz"))
+    if not sw_shards:
+        raise FileNotFoundError(
+            f"No swing_shard_*.npz in {OUT} — the swing phase did not complete (each shard writes its "
+            f".npz only after finishing all its prompts, so a wall-clock kill mid-swing leaves none). "
+            f"Check the slurm logs for TIME LIMIT and re-run the missing shards.")
     n_train = pb["pool"]["n_prompts_train"]
     M, cand = None, None
     for s in sw_shards:
         d = np.load(s, allow_pickle=True)
         if cand is None:
-            cand = list(d["candidates"]); M = np.full((n_train, len(cand)), np.nan)
+            cand = list(d["candidates"]); M = np.full((n_train, len(cand)), np.nan, dtype=np.float64)
         for row, pi in enumerate(d["idx"]):
-            M[int(pi)] = d["M"][row]
+            M[int(pi)] = np.asarray(d["M"][row], dtype=np.float64)
     np.savez(OUT / "swing_train.npz", M=M, candidates=np.array(cand, dtype=object))
     missing = int(np.isnan(M).all(1).sum())
-    print(f"assembled {len(sw_shards)} swing + {len(pool_shards)} pool shards -> "
-          f"swing_train.npz ({M.shape[0]}x{M.shape[1]}, {missing} train prompts missing), pool.jsonl")
+    print(f"assembled {len(sw_shards)}/4 swing + {len(pool_shards)} pool shards -> swing_train.npz "
+          f"({M.shape[0]}x{M.shape[1]}, {missing}/{n_train} train prompts with NO swing data), pool.jsonl")
 
 
 # --------------------------------------------------------------- phase: select ----
