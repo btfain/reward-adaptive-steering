@@ -155,26 +155,42 @@ def phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=None):
     OUT.mkdir(parents=True, exist_ok=True)
 
     items = [(pi, prompt) for pi, prompt in enumerate(P["train"]) if _shard_keep(pi, shard)]
-    M = np.full((len(items), len(cand)), np.nan); idx = []
-    for row, (pi, prompt) in enumerate(items):
-        idx.append(pi)
+    swing_file = OUT / (f"swing_shard_{shard[0]}.npz" if shard else "swing_train.npz")
+    tag = "" if shard is None else f" shard {shard[0]}"
+    # RESUME: reload prompts already computed (incremental checkpointing survives a wall-kill mid-swing)
+    done = {}
+    if swing_file.exists():
+        prev = np.load(swing_file, allow_pickle=True)
+        if list(prev["candidates"]) == list(cand):                  # only resume against the same candidate pool
+            for r, pi in enumerate(prev["idx"]):
+                done[int(pi)] = np.asarray(prev["M"][r], dtype=np.float64)
+            print(f"  resume swing{tag}: {len(done)} prompts already done", flush=True)
+
+    idx, rows = [], []
+    def _save():
+        Mnow = np.array(rows, dtype=np.float64) if rows else np.full((0, len(cand)), np.nan)
+        np.savez(swing_file, M=Mnow, idx=np.array(idx), candidates=np.array(cand, dtype=object))
+
+    for k, (pi, prompt) in enumerate(items):
+        if int(pi) in done:                                         # skip prompts done in a prior (killed) run
+            rows.append(done[int(pi)]); idx.append(pi); continue
+        row = np.full(len(cand), np.nan)
         b = base.get(("train", pi))
-        if b is None:
-            continue
-        for j, instr in enumerate(cand):
-            sc = [c for c in generate_batch(model, tok, [prompt] * m, gcfg, system=instr) if c.strip()]
-            if sc:
-                M[row, j] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
-        if (row + 1) % 10 == 0:
-            print(f"  swing{'' if shard is None else f' shard {shard[0]}'}: {row + 1}/{len(items)} prompts")
+        if b is not None:
+            for j, instr in enumerate(cand):
+                sc = [c for c in generate_batch(model, tok, [prompt] * m, gcfg, system=instr) if c.strip()]
+                if sc:
+                    row[j] = float(np.mean([rm_score(rm, rm_tok, prompt, c) for c in sc])) - b
+        rows.append(row); idx.append(pi)
+        if (k + 1) % 5 == 0:                                        # incremental checkpoint every 5 prompts
+            _save(); print(f"  swing{tag}: {k + 1}/{len(items)} prompts (checkpointed)", flush=True)
+    _save()
     if shard:
-        np.savez(OUT / f"swing_shard_{shard[0]}.npz", M=M, idx=np.array(idx),
-                 candidates=np.array(cand, dtype=object))
-        print(f"swing shard {shard[0]}/{shard[1]} -> {OUT / f'swing_shard_{shard[0]}.npz'}  ({M.shape[0]} rows)")
+        print(f"swing shard {shard[0]}/{shard[1]} -> {swing_file}  ({len(rows)} rows)")
     else:
-        np.savez(OUT / "swing_train.npz", M=M, candidates=np.array(cand, dtype=object))
-        print(f"swing matrix -> {OUT / 'swing_train.npz'}  (mean {np.nanmean(M):+.3f}, "
-              f"best-move mean {np.nanmax(M, axis=1).mean():+.3f})")
+        M = np.array(rows, dtype=np.float64) if rows else np.full((0, len(cand)), np.nan)
+        print(f"swing matrix -> {swing_file}  (mean {np.nanmean(M):+.3f}, best-move mean "
+              f"{np.nanmax(M, axis=1).mean():+.3f})")
 
 
 # -------------------------------------------------------------- phase: assemble ----
@@ -499,9 +515,9 @@ def main():
         phase_route(base_cfg, pb, device, model, tok, rm, rm_tok)
     else:
         if args.phase in ("pool", "all"):
-            phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok)
-        if args.phase in ("swing", "all"):
-            phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok)
+            phase_pool(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
+        if args.phase in ("swing", "all"):                          # `--phase swing --shard i/N` reuses the cached pool
+            phase_swing(base_cfg, pb, device, model, tok, rm, rm_tok, shard=shard)
         if args.phase in ("select", "all"):
             phase_select(base_cfg, pb, device, model, tok)
         if args.phase in ("route", "all"):
