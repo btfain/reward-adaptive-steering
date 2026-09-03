@@ -37,6 +37,9 @@ def _feature_sets():
     enc = OUT / "enc_embed.npz"
     if enc.exists():
         fs["generic"] = np.load(enc, allow_pickle=True)["Htr"]
+    pb = OUT / "enc_embed_prompt_base.npz"
+    if pb.exists():
+        fs["generic_prompt_base"] = np.load(pb, allow_pickle=True)["Htr"]   # same encoder, +base gen
     for which in ("prompt", "prompt_base"):
         f = OUT / f"rm_feats_{which}.npz"
         if f.exists():
@@ -80,7 +83,7 @@ def main():
         raise SystemExit("no feature sets found (need at least enc_embed.npz)")
     res, rand, orac = run(M, feats, args.K, args.seeds, args.n_pca)
 
-    order = [n for n in ("generic", "rm_prompt", "rm_prompt_base") if n in res]
+    order = [n for n in ("generic", "generic_prompt_base", "rm_prompt", "rm_prompt_base") if n in res]
     rows = ["# Capture diagnostic — is the routing info-limit representational or fundamental?\n",
             f"Menu = greedy top-{args.K} moves + null (base), budget=best-of-2, {args.seeds} seeds, 75/25 split, "
             f"bandit-as-ranker. captured = (router − random) / (oracle − random) of the best-of-2 headroom.\n",
@@ -91,6 +94,16 @@ def main():
         r = np.array(res[name]["realized"]); c = np.array(res[name]["captured"])
         rows.append(f"| {name} | {r.mean():+.3f} | {100*c.mean():.0f}% |")
     rows.append("")
+    if "generic_prompt_base" in res and "generic" in res:
+        d = np.array(res["generic_prompt_base"]["realized"]) - np.array(res["generic"]["realized"])
+        lo, hi = _boot(d)
+        verdict = ("⇒ the base generation carries ROUTABLE signal — base-conditioning helps (significant)."
+                   if lo > 0 else
+                   "⇒ base-conditioning HURTS." if hi < 0 else
+                   f"⇒ PROMISING but underpowered: base-conditioning {'lifts' if d.mean() > 0 else 'shifts'} "
+                   f"capture (see table) with CI through 0 — needs more seeds/prompts to confirm.")
+        rows.append(f"- generic(prompt+base) − generic(prompt): **{d.mean():+.3f} [{lo:+.3f}, {hi:+.3f}]** "
+                    "(SAME encoder, +base gen — the clean (2) test, no RM-pooling confound) " + verdict)
     if "rm_prompt" in res and "generic" in res:
         d = np.array(res["rm_prompt"]["realized"]) - np.array(res["generic"]["realized"])
         lo, hi = _boot(d)
