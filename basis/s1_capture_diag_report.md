@@ -7,5 +7,8 @@ Random floor +0.762 · Oracle ceiling +1.668 (headroom +0.906).
 | features | realized best-of-2 | headroom captured |
 |---|---|---|
 | generic | +0.910 | 12% |
+| rm_prompt | +0.821 | 1% |
+| rm_prompt_base | +0.855 | 8% |
 
-- _rm_prompt_base pending: needs base gens WITH TEXT (run base_text gen job, then extract_rm_feats --which prompt_base)._
+- RM(prompt) − generic(prompt): **-0.090 [-0.144, -0.029]** ⇒ prompt-only reward features don't beat generic (prompt alone is the limit).
+- RM(prompt, base) − generic(prompt): **-0.056 [-0.197, +0.065]** ⇒ even prompt+base doesn't help — the info-limit is fundamental; the small-selected-basis story stands.
