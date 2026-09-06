@@ -4,7 +4,12 @@ Run on the cluster LOGIN node (which has reliable internet) if compute-node
 downloads ever fail:  .venv/bin/python scripts/prefetch.py
 """
 
+import os
 from pathlib import Path
+
+# The xet backend reconstructs large shards in memory and gets OOM-killed on the login node; the classic
+# downloader is slower but low-memory. Disable xet unless the caller explicitly set it.
+os.environ.setdefault("HF_HUB_DISABLE_XET", "1")
 
 import yaml
 from huggingface_hub import snapshot_download
