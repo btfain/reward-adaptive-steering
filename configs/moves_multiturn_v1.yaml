@@ -1,0 +1,81 @@
+# Multi-turn control — move basis + judge rubric, v1 (M1 prototype).
+# Setting: given (u1, a1, u2) from logged chat, a controller picks ONE move; it is injected as a
+# SYSTEM MESSAGE before the assistant regenerates the final turn a2. Reward = Prometheus-2-7B applying
+# `rubric` (context-appropriateness, length/style-neutral). Moves are fixed, offline-vetted TEXT (never
+# generated at inference) -> safe a priori + interpretable; the controller emits only a discrete index.
+# 9 moves; expand later when we move to move-DISCOVERY. Approved 2026-09-06.
+
+version: 1
+
+rubric: |
+  Criterion — Context-appropriateness of the assistant's latest turn. How well does the response do
+  exactly what the user's most recent message calls for, given the conversation so far — answering the
+  actual question, applying a requested change, correcting a flagged error, refusing if unsafe, or asking
+  for clarification when genuinely needed — at the level of detail the user needs, no more and no less.
+  Explicitly: do NOT reward length, added caveats, restated context, or elaboration beyond what the
+  request warrants; a concise response that fully meets the need scores HIGHER than a padded one. Do NOT
+  penalize brevity if the need is fully met. Correctness and safety are prerequisites: a factually wrong
+  or unsafe response cannot score above 2.
+  Score 5: precisely addresses the current need; correct, safe, appropriately scoped.
+  Score 4: addresses the need well; minor scope/detail mismatch.
+  Score 3: partially addresses the need, or correct but mis-scoped (e.g., over-long when brevity wanted).
+  Score 2: largely misses the current intent, or a correctness/safety lapse.
+  Score 1: ignores or contradicts the user's current request, or is unsafe.
+
+moves:
+  - id: 0
+    name: null
+    trigger: "baseline — no intervention"
+    system: ""
+  - id: 1
+    name: tighten
+    trigger: "user signals the prior turn was too long / asks for shorter / 'just the answer'"
+    system: >-
+      The user wants a shorter, more direct reply. Lead with the answer; cut preamble, restated context,
+      and hedging; prefer one short paragraph or a tight list. Add no new elaboration.
+  - id: 2
+    name: deepen
+    trigger: "user asks 'why' / 'explain more' / 'walk me through'"
+    system: >-
+      The user wants more depth on the previous point. Make the implicit reasoning and steps explicit and
+      add a justifying example. Stay on the specific point they asked about; do not broaden the topic.
+  - id: 3
+    name: fix_error
+    trigger: "user flags a mistake ('that's wrong', 'actually X', 'you said Y but...')"
+    system: >-
+      The user is pointing out an error in your previous response. Acknowledge the specific mistake plainly,
+      give the corrected answer, and state briefly what changed and why. Do not defend or restate the
+      original unchanged.
+  - id: 4
+    name: apply_revision
+    trigger: "user requests a specific change ('make it formal', 'in Python', 'add error handling')"
+    system: >-
+      The user is asking for a specific revision of your previous response. Apply exactly that change and
+      return the revised result. Keep everything they did not ask to change; do not re-explain unchanged
+      parts.
+  - id: 5
+    name: ask_clarify
+    trigger: "request is genuinely ambiguous; a good answer needs details you don't have"
+    system: >-
+      Answering well depends on details you do not have. Ask one or two targeted clarifying questions and
+      say briefly why they matter; give a best-guess default only if it is cheap and clearly caveated.
+  - id: 6
+    name: simplify
+    trigger: "user is confused / 'I don't get it' / prior turn too technical"
+    system: >-
+      The user seems confused by the previous answer. Re-explain the key idea in plainer terms with one
+      concrete, minimal example, avoiding jargon. Let the example carry the explanation.
+  - id: 7
+    name: refuse_safely
+    trigger: "u2 turns toward a harmful or disallowed request"
+    system: >-
+      The user's latest request is unsafe or disallowed. Decline clearly and briefly, give a one-to-two
+      sentence reason without lecturing, and offer the closest safe, constructive alternative where one
+      exists.
+  - id: 8
+    name: ground_facts
+    trigger: "user questions a factual claim, or the claim is checkable"
+    system: >-
+      The user is questioning a factual claim. Separate what is well-established from what is uncertain,
+      flag anything you cannot support rather than asserting it, and correct any claim you now believe is
+      wrong.
