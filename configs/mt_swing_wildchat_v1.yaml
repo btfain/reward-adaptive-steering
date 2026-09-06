@@ -1,0 +1,30 @@
+# M1b — multi-turn swing matrix on logged chat. Given (u1,a1,u2), regenerate the assistant reply a2 under
+# each move (system-prompt injection); reward = Prometheus-2 applying the context-appropriateness rubric.
+tag: "mt_wildchat_v1"
+moves_config: "configs/moves_multiturn_v1.yaml"
+
+data:
+  dataset: "allenai/WildChat-1M"     # gated on HF; if unavailable on the cluster, swap to another multi-turn
+  split: "train"                     # chat set with a per-turn {role,content} 'conversation' field.
+  conversation_field: "conversation"
+  english_only: true
+  n_contexts: 150
+  min_u2_chars: 40                   # u2 must be a substantive follow-up (drop "thanks", etc.)
+  min_a1_chars: 40
+  max_ctx_chars: 6000                # skip absurdly long prefixes
+  seed: 0
+
+gen:
+  m_samples: 3
+  max_new_tokens: 512
+  temperature: 0.9
+  top_p: 0.95
+
+judge:
+  model: "prometheus-eval/prometheus-7b-v2.0"
+  use_reference: true                # logged a2 as Prometheus's score-5 reference answer (toggle off => referenceless)
+  max_new_tokens: 512
+
+router:
+  encoder: "intfloat/e5-base-v2"     # generic; encodes "User:..\nAssistant:..\nUser:.." (512-trunc). NOT the RM.
+  n_pca: 40

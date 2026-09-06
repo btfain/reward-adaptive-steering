@@ -24,7 +24,7 @@ rubric: |
 
 moves:
   - id: 0
-    name: null
+    name: "null"
     trigger: "baseline — no intervention"
     system: ""
   - id: 1
