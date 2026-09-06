@@ -20,6 +20,10 @@ if synth.exists():
 b7 = ROOT / "configs" / "base_7b.yaml"
 if b7.exists():
     repos.append(yaml.safe_load(open(b7))["base_model"])
+mt = ROOT / "configs" / "mt_swing_wildchat_v1.yaml"          # multi-turn judge + router encoder
+if mt.exists():
+    mtc = yaml.safe_load(open(mt))
+    repos += [mtc["judge"]["model"], mtc["router"]["encoder"]]
 for repo in dict.fromkeys(repos):
     print(f"prefetching {repo}")
     snapshot_download(repo)
