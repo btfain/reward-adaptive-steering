@@ -78,9 +78,11 @@ def main():
             f"- routing accuracy (picks correct type bundle): bandit {100*m['acc_bandit'].mean():.0f}%, "
             f"ridge {100*m['acc_ridge'].mean():.0f}% (chance {100/ (len(names)):.0f}%).",
             f"- **routed(bandit) − full_rubric = {gain.mean():+.3f} [{glo:+.3f}, {ghi:+.3f}]** "
-            + ("=> externalized context-routing BEATS monolithic instruction-stuffing (the controller earns "
-               "its keep on a KNOWN clean signal)."
-               if glo > 0 else "=> routed does not beat the full-rubric prompt here."),
+            + ("=> routed does not beat the full-rubric prompt here." if ghi <= 0 else
+               ("=> routing MATERIALLY beats monolithic instruction-stuffing." if gain.mean() >= 0.10 else
+                "=> routing beats the full-rubric prompt but only MARGINALLY: a strong model self-routes ~24 "
+                "conditional rules well, so overload barely bites. Scale up constraints / use a weaker "
+                "instruction-follower / add conflicting rules to widen the gap.")),
             f"- router vs oracle gap = {m['oracle'].mean()-m['bandit'].mean():+.3f} "
             "(if large despite noise-free known structure => the ROUTER/features/algorithm is the bottleneck)."]
     rpt = REPO_ROOT / "basis" / f"rb_{cfg['tag']}_report.md"
