@@ -1,0 +1,67 @@
+# Synthetic PROGRAMMATIC positive-control (noise-free reward, KNOWN oracle). Context-CONDITIONAL odd
+# style/notation constraints: each prompt has a known TYPE; the response is scored ONLY against that type's
+# constraints (deterministic checks in src/synth_scorer.py). Moves = per-type constraint bundles injected as
+# system prompts; the baseline-to-beat is `full_rubric` (all conditional rules in one system prompt). Tests
+# whether the router recovers a KNOWN routable structure a frozen model can't reliably self-apply when the
+# instruction set is large (instruction overload). Single-turn. Reward = fraction of type constraints met.
+tag: "synth_notation_v1"
+
+data:
+  n_per_type: 40                    # 6 types x 40 = 240 typed prompts (ground-truth type => oracle move)
+  seed: 0
+
+gen:
+  m_samples: 2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+
+router:
+  encoder: "intfloat/e5-base-v2"
+  n_pca: 40
+
+# 6 types, 4 programmatically-checkable constraints each. `key` -> a check fn in synth_scorer.CHECKS;
+# `text` -> the instruction injected by that type's move bundle (and, all together, by full_rubric).
+types:
+  code:
+    label: "a coding / programming request"
+    constraints:
+      - {key: has_code_block,   text: "Put all code inside a triple-backtick fenced block."}
+      - {key: code_tabs,        text: "Indent code with tab characters, never spaces."}
+      - {key: no_code_comments, text: "Do not include any code comments (no # or // lines)."}
+      - {key: end_complexity,   text: "End your reply with a final line: 'complexity: O(...)'."}
+  factual:
+    label: "a short factual question"
+    constraints:
+      - {key: starts_answer,    text: "Begin your reply with 'Answer:'."}
+      - {key: max_3_sentences,  text: "Use at most three sentences."}
+      - {key: brackets_numbers, text: "Wrap every number in square brackets, e.g. [42]."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  howto:
+    label: "a how-to / step-by-step request"
+    constraints:
+      - {key: exactly_5_bullets,   text: "Give exactly five bullet points."}
+      - {key: dash_bullets,        text: "Start every bullet with an em dash '—', never '-' or '*'."}
+      - {key: bullet_max_12_words, text: "Keep each bullet to at most twelve words."}
+      - {key: no_word_very,        text: "Never use the word 'very'."}
+  prose:
+    label: "an open-ended writing / description request"
+    constraints:
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_very,     text: "Never use the word 'very'."}
+      - {key: ends_summary,     text: "End with a final line: '— summary: <one line>'."}
+      - {key: no_lists,         text: "Write in prose only; use no bullet points or numbered lists."}
+  math:
+    label: "a math / calculation problem"
+    constraints:
+      - {key: math_solution_start, text: "Begin your reply with 'Solution:'."}
+      - {key: has_equation,        text: "Show at least one explicit equation using '='."}
+      - {key: final_answer,        text: "End with a final line: 'Final answer: <value>'."}
+      - {key: no_word_very,        text: "Never use the word 'very'."}
+  email:
+    label: "a request to draft an email or message"
+    constraints:
+      - {key: email_subject, text: "Begin with a 'Subject:' line."}
+      - {key: email_dear,    text: "Address the recipient with 'Dear ...'."}
+      - {key: email_regards, text: "Close with 'Best regards,'."}
+      - {key: no_word_very,  text: "Never use the word 'very'."}
