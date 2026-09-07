@@ -44,8 +44,9 @@ def main():
     # features: e5 on the concatenated (u1,a1,u2)
     H = embed(c["router"]["encoder"], ctx, max_len=512)
 
-    # 1) capture (bandit best-of-2), multi-seed CV
-    cap, real, rnd, orc = [], [], [], []
+    # 1) capture (bandit best-of-2), multi-seed CV. The HONEST baseline is context-BLIND top-2 (pick the two
+    # globally-best moves by TRAIN marginal, no routing) — beating RANDOM only means avoiding bad moves.
+    cap, real, rnd, orc, blnd = [], [], [], [], []
     for seed in range(args.seeds):
         idx = np.arange(n); np.random.default_rng(seed).shuffle(idx)
         a = int(0.75 * n); tr, ev = idx[:a], idx[a:]
@@ -54,9 +55,12 @@ def main():
         rk = train_policy(Ztr, _R_from_M(M[tr]), dict(hidden=0, lr=0.02, beta=0.1, batch=64, epochs=60), seed)(Zev)
         rng = np.random.default_rng(seed + 5)
         rb = _bo(rk, Mev, 2); rr = _bo(_rank_random(K, len(ev), rng), Mev, 2); ro = _bo(_rank_oracle(Mev), Mev, 2)
-        real.append(rb); rnd.append(rr); orc.append(ro)
+        top2 = np.argsort(-M[tr].mean(0))[:2]                        # fixed best pair from TRAIN, no context
+        bl = float(np.mean(np.max(Mev[:, top2], 1)))
+        real.append(rb); rnd.append(rr); orc.append(ro); blnd.append(bl)
         cap.append((rb - rr) / (ro - rr) if ro > rr else 0.0)
     cap = np.array(cap); clo, chi = _boot(cap)
+    gain = np.array(real) - np.array(blnd); glo, ghi = _boot(gain)     # routing's gain OVER blind selection
 
     # 2) heterogeneity: argmax move per context (mean-score), 3) separation vs null
     argmax = [names[j] for j in np.argmax(M, 1)]
@@ -76,11 +80,14 @@ def main():
             f"{n} contexts (all {K} moves scored), Prometheus+rubric reward, e5 router features, {args.seeds} "
             "seeds. Single-turn reference: capture ~18%, argmax dominated by one generic move.\n",
             "## 1) Capture (bandit best-of-2)",
-            f"- realized {np.mean(real):+.3f} · random {np.mean(rnd):+.3f} · oracle {np.mean(orc):+.3f} "
-            f"(reward = {args.npz})",
-            f"- **headroom captured = {100*cap.mean():.0f}% [{100*clo:.0f}%, {100*chi:.0f}%]** "
-            + ("=> BEATS the single-turn ~18% ceiling: observing u2 makes the move predictable."
-               if clo > 0.18 else "=> not clearly above the single-turn ~18% — observing u2 did not unlock routing here."),
+            f"- realized {np.mean(real):+.3f} · random {np.mean(rnd):+.3f} · **context-blind top-2 "
+            f"{np.mean(blnd):+.3f}** · oracle {np.mean(orc):+.3f} (reward = {args.npz})",
+            f"- headroom captured vs random = {100*cap.mean():.0f}% [{100*clo:.0f}%, {100*chi:.0f}%] "
+            "(beating random only means AVOIDING bad moves — not routing).",
+            f"- **routing gain OVER context-blind top-2 = {gain.mean():+.3f} [{glo:+.3f}, {ghi:+.3f}]** "
+            + ("=> observing u2 makes the per-context move predictable BEYOND just picking globally-good moves."
+               if glo > 0 else "=> NULL: per-context routing adds nothing over a fixed best pair — the value is "
+               "move SELECTION (marginal quality), not context-adaptive routing."),
             "", "## 2) Heterogeneity (argmax move per context)",
             f"- top move '{win.most_common(1)[0][0]}' wins {100*top_share:.0f}% of contexts; "
             f"{len([k for k in win if win[k]>0])}/{K} moves win at least one context.",
