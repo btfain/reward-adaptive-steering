@@ -31,8 +31,11 @@ def main():
     ap.add_argument("--npz", default="swing.npz", help="swing.npz (absolute 1-5) or swing_pw.npz (win-rate)")
     ap.add_argument("--seeds", type=int, default=16)
     ap.add_argument("--n_pca", type=int, default=40)
+    ap.add_argument("--tag", default=None, help="override cfg tag (e.g. per base model)")
     args = ap.parse_args()
     c = yaml.safe_load(open(REPO_ROOT / args.config))
+    if args.tag:
+        c["tag"] = args.tag
     O = REPO_ROOT / "results" / c["tag"]
     d = np.load(O / args.npz, allow_pickle=True)
     M = d["M"]; names = list(d["move_names"]); ctx = list(d["contexts"])

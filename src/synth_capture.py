@@ -32,8 +32,11 @@ def main():
     ap.add_argument("--config", required=True)
     ap.add_argument("--seeds", type=int, default=16)
     ap.add_argument("--n_pca", type=int, default=40)
+    ap.add_argument("--tag", default=None, help="override cfg tag (e.g. per base model)")
     args = ap.parse_args()
     cfg = yaml.safe_load(open(REPO_ROOT / args.config))
+    if args.tag:
+        cfg["tag"] = args.tag
     O = REPO_ROOT / "results" / cfg["tag"]
     d = np.load(O / "synth.npz", allow_pickle=True)
     M = d["M"]; names = list(d["move_names"]); ptype = list(d["prompt_types"]); ctx = list(d["contexts"])

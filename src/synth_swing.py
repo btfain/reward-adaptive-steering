@@ -79,8 +79,11 @@ def main():
     ap.add_argument("--phase", required=True, choices=["gen", "score"])
     ap.add_argument("--config", required=True)
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
+    ap.add_argument("--tag", default=None, help="override cfg tag (e.g. per base model)")
     args = ap.parse_args()
     cfg = yaml.safe_load(open(REPO_ROOT / args.config))
+    if args.tag:
+        cfg["tag"] = args.tag
     if args.phase == "gen":
         base_cfg = load_config(args.base_config); device = resolve_device(base_cfg); t0 = time.time()
         model, tok = load_base(base_cfg, device)

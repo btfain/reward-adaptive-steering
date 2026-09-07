@@ -255,8 +255,11 @@ def main():
     ap.add_argument("--config", required=True)
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
     ap.add_argument("--shard", default=None, help="i/N to shard the judge phase")
+    ap.add_argument("--tag", default=None, help="override cfg tag (e.g. per base model)")
     args = ap.parse_args()
     c = _cfg(args.config)
+    if args.tag:
+        c["tag"] = args.tag
     shard = tuple(int(x) for x in args.shard.split("/")) if args.shard else None
     if args.phase == "gen":
         base_cfg = load_config(args.base_config); device = resolve_device(base_cfg); t0 = time.time()

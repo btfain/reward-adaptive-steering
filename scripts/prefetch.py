@@ -29,6 +29,9 @@ mt = ROOT / "configs" / "mt_swing_wildchat_v1.yaml"          # multi-turn judge 
 if mt.exists():
     mtc = yaml.safe_load(open(mt))
     repos += [mtc["judge"]["model"], mtc["router"]["encoder"]]
+olmo = ROOT / "configs" / "base_olmo3sft.yaml"               # 2b un-aligned-model arm (needs transformers>=4.57)
+if olmo.exists():
+    repos.append(yaml.safe_load(open(olmo))["base_model"])
 for repo in dict.fromkeys(repos):
     print(f"prefetching {repo}")
     snapshot_download(repo)
