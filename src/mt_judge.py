@@ -72,7 +72,60 @@ def _prompt(tok, ctx, response, rubric, reference):
                                    add_generation_prompt=True, tokenize=False)
 
 
+_REL_TASK = """###Task Description:
+An instruction (might include an Input inside it), two responses to evaluate (Response A and Response B), \
+{ref_clause}and a score rubric representing an evaluation criterion are given.
+1. Write a detailed feedback that compares the two responses strictly based on the given score rubric, not \
+evaluating in general.
+2. After writing the feedback, choose a better response between Response A and Response B. You should refer \
+to the score rubric.
+3. The output format should look as follows: "Feedback: (write a feedback for criteria) [RESULT] (A or B)"
+4. Please do not generate any other opening, closing, and explanations.
+
+###The instruction to evaluate:
+{instruction}
+
+###Response A:
+{response_a}
+
+###Response B:
+{response_b}
+{ref_block}###Score Rubrics:
+{rubric}
+
+###Feedback: """
+
+
+def _prompt_rel(tok, ctx, resp_a, resp_b, rubric, reference):
+    ref_clause = "a reference answer, " if reference else ""
+    ref_block = f"\n###Reference Answer:\n{reference}\n" if reference else ""
+    body = _REL_TASK.format(ref_clause=ref_clause, instruction=_instruction(ctx),
+                            response_a=resp_a, response_b=resp_b, ref_block=ref_block, rubric=rubric)
+    return tok.apply_chat_template([{"role": "system", "content": _ABS_SYSTEM},
+                                    {"role": "user", "content": body}],
+                                   add_generation_prompt=True, tokenize=False)
+
+
 _RESULT = re.compile(r"\[RESULT\]\s*([1-5])")
+_RESULT_AB = re.compile(r"\[RESULT\]\s*\(?([AB])\)?")
+
+
+def prefer_batch(mdl, tok, items, rubric, max_new_tokens=512, batch=4):
+    """items: list of (ctx, resp_A, resp_B, reference|None). Returns 'A'/'B'/None (which better fits rubric)."""
+    tok.padding_side = "left"
+    out = []
+    for s in range(0, len(items), batch):
+        chunk = items[s:s + batch]
+        texts = [_prompt_rel(tok, c, a, b, rubric, ref) for c, a, b, ref in chunk]
+        enc = tok(texts, return_tensors="pt", padding=True, add_special_tokens=False).to(mdl.device)
+        with torch.no_grad():
+            gen = mdl.generate(**enc, max_new_tokens=max_new_tokens, do_sample=False,
+                               pad_token_id=tok.eos_token_id)
+        for row in gen:
+            txt = tok.decode(row[enc["input_ids"].shape[1]:], skip_special_tokens=True)
+            m = _RESULT_AB.search(txt)
+            out.append(m.group(1) if m else None)
+    return out
 
 
 def score_batch(mdl, tok, items, rubric, max_new_tokens=512, batch=8):

@@ -28,12 +28,13 @@ from bakeoff_rankers import embed
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
+    ap.add_argument("--npz", default="swing.npz", help="swing.npz (absolute 1-5) or swing_pw.npz (win-rate)")
     ap.add_argument("--seeds", type=int, default=16)
     ap.add_argument("--n_pca", type=int, default=40)
     args = ap.parse_args()
     c = yaml.safe_load(open(REPO_ROOT / args.config))
     O = REPO_ROOT / "results" / c["tag"]
-    d = np.load(O / "swing.npz", allow_pickle=True)
+    d = np.load(O / args.npz, allow_pickle=True)
     M = d["M"]; names = list(d["move_names"]); ctx = list(d["contexts"])
     full = ~np.isnan(M).any(1)                                  # keep contexts with all moves scored
     M, ctx = M[full], [ctx[i] for i in np.where(full)[0]]
@@ -66,15 +67,17 @@ def main():
     permove = [(names[k], float(np.nanmean(M[:, k] - nullv))) for k in range(K)]
     permove.sort(key=lambda x: -x[1])
 
-    # 4) length decoupling
-    sf, lf = d["scores_flat"], d["lens_flat"]
-    lcorr = float(np.corrcoef(sf, lf)[0, 1]) if len(sf) > 2 else float("nan")
+    # 4) length decoupling (only for the absolute-score matrix; pairwise npz has no per-sample scores)
+    has_len = "scores_flat" in d.files and "lens_flat" in d.files
+    lcorr = (float(np.corrcoef(d["scores_flat"], d["lens_flat"])[0, 1])
+             if has_len and len(d["scores_flat"]) > 2 else float("nan"))
 
     rows = [f"# M1b — multi-turn capture: does observing u2 break the single-turn ceiling? — {c['tag']}\n",
             f"{n} contexts (all {K} moves scored), Prometheus+rubric reward, e5 router features, {args.seeds} "
             "seeds. Single-turn reference: capture ~18%, argmax dominated by one generic move.\n",
             "## 1) Capture (bandit best-of-2)",
-            f"- realized {np.mean(real):+.3f} · random {np.mean(rnd):+.3f} · oracle {np.mean(orc):+.3f} (scale 1-5)",
+            f"- realized {np.mean(real):+.3f} · random {np.mean(rnd):+.3f} · oracle {np.mean(orc):+.3f} "
+            f"(reward = {args.npz})",
             f"- **headroom captured = {100*cap.mean():.0f}% [{100*clo:.0f}%, {100*chi:.0f}%]** "
             + ("=> BEATS the single-turn ~18% ceiling: observing u2 makes the move predictable."
                if clo > 0.18 else "=> not clearly above the single-turn ~18% — observing u2 did not unlock routing here."),
@@ -89,9 +92,11 @@ def main():
             f"mean(best-2nd) {np.mean(best-second):+.2f} (score points).",
             "  per-move mean lift vs null: " + ", ".join(f"{nm}{v:+.2f}" for nm, v in permove),
             "", "## 4) Length decoupling (the folded-in guard)",
-            f"- corr(judge score, response length) = **{lcorr:+.2f}** "
-            + ("(low => our rubric is length-decoupled, unlike the style-biased RM)."
-               if abs(lcorr) < 0.2 else "(HIGH => residual verbosity bias; distrust this run, fix the rubric)."),
+            (f"- corr(judge score, response length) = **{lcorr:+.2f}** "
+             + ("(low => our rubric is length-decoupled, unlike the style-biased RM)."
+                if abs(lcorr) < 0.2 else "(HIGH => residual verbosity bias; distrust this run, fix the rubric).")
+             if not np.isnan(lcorr)
+             else "- (pairwise npz has no per-sample scores; length guard comes from the absolute run: -0.11)."),
             ]
     rpt = REPO_ROOT / "basis" / f"rb_{c['tag']}_capture_report.md"
     rpt.write_text("\n".join(rows) + "\n")

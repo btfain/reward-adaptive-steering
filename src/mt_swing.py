@@ -14,6 +14,7 @@ Two phases so the 7B base and the 7B judge never sit on the GPU together. Reward
 import argparse
 import json
 import time
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -21,7 +22,7 @@ import torch
 import yaml
 
 from models import REPO_ROOT, load_base, load_config, log_cost, resolve_device
-from mt_judge import load_judge, load_rubric, score_batch
+from mt_judge import load_judge, load_rubric, prefer_batch, score_batch
 
 
 def _cfg(p):
@@ -160,9 +161,97 @@ def phase_assemble(c):
           f"contexts with all {K} moves: {int((~np.isnan(M).any(1)).sum())}/{n})")
 
 
+def _pair_tasks(gens, moves, n_pairs, both_orders):
+    """Comparisons of move-a2 vs null-a2 per context. order 'MA' = move is Response A; 'NA' = null is A."""
+    by = defaultdict(lambda: defaultdict(list))
+    for g in gens:
+        by[g["ci"]][g["move"]].append(g["text"])
+    tasks = []
+    for ci in sorted(by):
+        nulls = by[ci].get(0, [])
+        if not nulls:
+            continue
+        for mv in moves:
+            if mv["id"] == 0:
+                continue
+            mtx = by[ci].get(mv["id"], [])
+            if not mtx:
+                continue
+            for p in range(n_pairs):
+                A, B = mtx[p % len(mtx)], nulls[p % len(nulls)]
+                orders = [("MA", A, B), ("NA", B, A)] if both_orders else [("MA", A, B)]
+                for tag, ra, rb in orders:
+                    tasks.append({"ci": ci, "move": mv["id"], "p": p, "order": tag, "A": ra, "B": rb})
+    return tasks
+
+
+def phase_pairwise(c, shard):
+    """RESUMABLE + SHARDABLE pairwise judging: Prometheus relative grading of move-a2 vs null-a2 (both
+    orders to cancel position bias). Lower-variance than absolute 1-5 and = the selection primitive."""
+    O = _out(c); moves = _moves(c); rubric = load_rubric(c["moves_config"])
+    by = {x["ci"]: x for x in json.load(open(O / "contexts.json"))}
+    gens = [json.loads(l) for l in open(O / "gen.jsonl")]
+    pw = c.get("pairwise", {})
+    tasks = _pair_tasks(gens, moves, pw.get("n_pairs", 3), pw.get("both_orders", True))
+    if shard is not None:
+        i, N = shard; tasks = [t for k, t in enumerate(tasks) if k % N == i]
+    fp = O / (f"pair_shard_{shard[0]}.jsonl" if shard is not None else "pair.jsonl")
+    done = set()
+    if fp.exists():
+        for l in open(fp):
+            r = json.loads(l); done.add((r["ci"], r["move"], r["p"], r["order"]))
+    pending = [t for t in tasks if (t["ci"], t["move"], t["p"], t["order"]) not in done]
+    print(f"pairwise{'' if shard is None else f' shard {shard[0]}/{shard[1]}'}: {len(pending)} pending "
+          f"({len(done)} done)", flush=True)
+    if not pending:
+        return
+    device = resolve_device(load_config("configs/base_7b.yaml")); t0 = time.time()
+    mdl, tok = load_judge(c["judge"]["model"], device)
+    ref_on = pw.get("use_reference", False); CH = 40
+    with open(fp, "a") as f:
+        for s in range(0, len(pending), CH):
+            chunk = pending[s:s + CH]
+            items = [(by[t["ci"]]["ctx"], t["A"], t["B"], (by[t["ci"]]["reference"] if ref_on else None))
+                     for t in chunk]
+            res = prefer_batch(mdl, tok, items, rubric, c["judge"]["max_new_tokens"])
+            for t, ab in zip(chunk, res):
+                win = None if ab is None else int((t["order"] == "MA" and ab == "A") or
+                                                  (t["order"] == "NA" and ab == "B"))   # did the MOVE win?
+                f.write(json.dumps({"ci": t["ci"], "move": t["move"], "p": t["p"],
+                                    "order": t["order"], "win": win}) + "\n")
+            f.flush()
+            print(f"  pairwise judged {min(s+CH,len(pending))}/{len(pending)}", flush=True)
+    print(log_cost("MT", "pairwise", time.time() - t0, device, notes=f"shard {shard}"))
+
+
+def phase_pair_assemble(c):
+    """Merge pair shards -> win-rate matrix (n_contexts x n_moves); null column := 0.5 (ties itself)."""
+    O = _out(c); moves = _moves(c); ctxs = json.load(open(O / "contexts.json"))
+    id2col = {mv["id"]: k for k, mv in enumerate(moves)}
+    files = sorted(O.glob("pair_shard_*.jsonl")) or [O / "pair.jsonl"]
+    n, K = len(ctxs), len(moves)
+    wins = np.zeros((n, K)); cnt = np.zeros((n, K)); tot = 0
+    for fpath in files:
+        for l in open(fpath):
+            r = json.loads(l); tot += 1
+            if r["win"] is None:
+                continue
+            col = id2col[r["move"]]; wins[r["ci"], col] += r["win"]; cnt[r["ci"], col] += 1
+    M = np.where(cnt > 0, wins / np.maximum(cnt, 1), np.nan)         # P(move beats null) per (context, move)
+    M[:, id2col[0]] = 0.5                                            # null vs null = 0.5
+    ctx_str = ["\n".join(f"{'User' if m['role']=='user' else 'Assistant'}: {m['content']}"
+                         for m in x["ctx"]) for x in ctxs]
+    np.savez(O / "swing_pw.npz", M=M, cnt=cnt, contexts=np.array(ctx_str, dtype=object),
+             move_names=np.array([mv["name"] for mv in moves], dtype=object))
+    comp = ~np.isnan(M).any(1)
+    print(f"pair_assemble -> {O/'swing_pw.npz'}  (M {M.shape}, comparisons {tot}, "
+          f"contexts complete: {int(comp.sum())}/{n})")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--phase", required=True, choices=["gen", "judge", "assemble"])
+    ap.add_argument("--phase", required=True,
+                    choices=["gen", "judge", "assemble", "pairwise", "pair_assemble"])
     ap.add_argument("--config", required=True)
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
     ap.add_argument("--shard", default=None, help="i/N to shard the judge phase")
@@ -176,8 +265,12 @@ def main():
         print(log_cost("MT", "gen", time.time() - t0, device, notes="multi-turn a2 under moves"))
     elif args.phase == "judge":
         phase_judge(c, shard)
-    else:
+    elif args.phase == "assemble":
         phase_assemble(c)
+    elif args.phase == "pairwise":
+        phase_pairwise(c, shard)
+    else:
+        phase_pair_assemble(c)
 
 
 if __name__ == "__main__":

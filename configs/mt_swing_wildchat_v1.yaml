@@ -25,6 +25,11 @@ judge:
   use_reference: true                # logged a2 as Prometheus's score-5 reference answer (toggle off => referenceless)
   max_new_tokens: 512
 
+pairwise:                            # denoised reward: relative grading of move-a2 vs null-a2
+  n_pairs: 3                         # move-sample s vs null-sample s, for s in 0..n_pairs-1
+  both_orders: true                 # judge each pair (A,B) and (B,A) to cancel Prometheus position bias
+  use_reference: false              # referenceless pairwise (cleaner "which better fits the rubric")
+
 router:
   encoder: "intfloat/e5-base-v2"     # generic; encodes "User:..\nAssistant:..\nUser:.." (512-trunc). NOT the RM.
   n_pca: 40
