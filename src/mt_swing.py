@@ -100,52 +100,84 @@ def phase_gen(base_cfg, c, model, tok):
             print(f"  gen move {mv['id']} ({mv['name']}) done", flush=True)
 
 
-def phase_judge(c):
-    O = _out(c); moves = _moves(c); rubric = load_rubric(c["moves_config"])
-    ctxs = json.load(open(O / "contexts.json"))
-    by = {x["ci"]: x for x in ctxs}
+def phase_judge(c, shard):
+    """RESUMABLE + SHARDABLE judging: score gen items into scores[_shard_i].jsonl, skipping ones already
+    done, appending incrementally so a timeout never loses progress. --shard i/N partitions the items."""
+    O = _out(c); rubric = load_rubric(c["moves_config"])
+    by = {x["ci"]: x for x in json.load(open(O / "contexts.json"))}
     gens = [json.loads(l) for l in open(O / "gen.jsonl")]
+    if shard is not None:
+        i, N = shard; gens = [g for k, g in enumerate(gens) if k % N == i]
+    fp = O / (f"scores_shard_{shard[0]}.jsonl" if shard is not None else "scores.jsonl")
+    done = set()
+    if fp.exists():
+        for l in open(fp):
+            r = json.loads(l); done.add((r["ci"], r["move"], r["s"]))
+    pending = [g for g in gens if (g["ci"], g["move"], g["s"]) not in done]
+    print(f"judge{'' if shard is None else f' shard {shard[0]}/{shard[1]}'}: {len(pending)} pending "
+          f"({len(done)} already scored)", flush=True)
+    if not pending:
+        return
     device = resolve_device(load_config("configs/base_7b.yaml")); t0 = time.time()
-    mdl, tok = load_judge(c["judge"]["model"], device)
-    ref_on = c["judge"]["use_reference"]
-    items = [(by[g["ci"]]["ctx"], g["text"], (by[g["ci"]]["reference"] if ref_on else None)) for g in gens]
-    scores = score_batch(mdl, tok, items, rubric, c["judge"]["max_new_tokens"])
+    mdl, tok = load_judge(c["judge"]["model"], device); ref_on = c["judge"]["use_reference"]
+    CH = 40
+    with open(fp, "a") as f:
+        for s in range(0, len(pending), CH):
+            chunk = pending[s:s + CH]
+            items = [(by[g["ci"]]["ctx"], g["text"], (by[g["ci"]]["reference"] if ref_on else None)) for g in chunk]
+            sc = score_batch(mdl, tok, items, rubric, c["judge"]["max_new_tokens"])
+            for g, x in zip(chunk, sc):
+                f.write(json.dumps({"ci": g["ci"], "move": g["move"], "s": g["s"],
+                                    "score": x, "len": len(g["text"].split())}) + "\n")
+            f.flush()
+            print(f"  judged {min(s+CH,len(pending))}/{len(pending)}", flush=True)
+    print(log_cost("MT", "judge", time.time() - t0, device, notes=f"shard {shard}"))
 
-    n = len(ctxs); K = len(moves); id2col = {mv["id"]: k for k, mv in enumerate(moves)}
-    acc = np.full((n, K), np.nan); cnt = np.zeros((n, K))
-    S = np.zeros((n, K))
-    scores_flat, lens_flat = [], []
-    for g, sc in zip(gens, scores):
-        if sc is None:
-            continue
-        r, col = g["ci"], id2col[g["move"]]
-        S[r, col] += sc; cnt[r, col] += 1
-        scores_flat.append(sc); lens_flat.append(len(g["text"].split()))
-    M = np.where(cnt > 0, S / np.maximum(cnt, 1), np.nan)                 # mean judge score per (context, move)
+
+def phase_assemble(c):
+    """Merge scores shard files -> swing.npz (n_contexts x n_moves mean judge score)."""
+    O = _out(c); moves = _moves(c); ctxs = json.load(open(O / "contexts.json"))
+    id2col = {mv["id"]: k for k, mv in enumerate(moves)}
+    files = sorted(O.glob("scores_shard_*.jsonl")) or [O / "scores.jsonl"]
+    n, K = len(ctxs), len(moves)
+    S = np.zeros((n, K)); cnt = np.zeros((n, K)); scores_flat, lens_flat = [], []
+    tot = 0
+    for fpath in files:
+        for l in open(fpath):
+            r = json.loads(l); tot += 1
+            if r["score"] is None:
+                continue
+            col = id2col[r["move"]]; S[r["ci"], col] += r["score"]; cnt[r["ci"], col] += 1
+            scores_flat.append(r["score"]); lens_flat.append(r["len"])
+    M = np.where(cnt > 0, S / np.maximum(cnt, 1), np.nan)
     ctx_str = ["\n".join(f"{'User' if m['role']=='user' else 'Assistant'}: {m['content']}"
                          for m in x["ctx"]) for x in ctxs]
     np.savez(O / "swing.npz", M=M, cnt=cnt, contexts=np.array(ctx_str, dtype=object),
              move_names=np.array([mv["name"] for mv in moves], dtype=object),
              scores_flat=np.array(scores_flat, float), lens_flat=np.array(lens_flat, float))
-    parsed = sum(s is not None for s in scores)
-    print(log_cost("MT", "judge", time.time() - t0, device, notes=f"{parsed}/{len(scores)} parsed"))
-    print(f"judge -> {O/'swing.npz'}  (M {M.shape}, parsed {parsed}/{len(scores)})")
+    parsed = int(cnt.sum())
+    print(f"assemble -> {O/'swing.npz'}  (M {M.shape}, parsed {parsed}/{tot}, "
+          f"contexts with all {K} moves: {int((~np.isnan(M).any(1)).sum())}/{n})")
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--phase", required=True, choices=["gen", "judge"])
+    ap.add_argument("--phase", required=True, choices=["gen", "judge", "assemble"])
     ap.add_argument("--config", required=True)
     ap.add_argument("--base-config", default="configs/base_7b.yaml")
+    ap.add_argument("--shard", default=None, help="i/N to shard the judge phase")
     args = ap.parse_args()
     c = _cfg(args.config)
+    shard = tuple(int(x) for x in args.shard.split("/")) if args.shard else None
     if args.phase == "gen":
         base_cfg = load_config(args.base_config); device = resolve_device(base_cfg); t0 = time.time()
         model, tok = load_base(base_cfg, device)
         phase_gen(base_cfg, c, model, tok)
         print(log_cost("MT", "gen", time.time() - t0, device, notes="multi-turn a2 under moves"))
+    elif args.phase == "judge":
+        phase_judge(c, shard)
     else:
-        phase_judge(c)
+        phase_assemble(c)
 
 
 if __name__ == "__main__":
