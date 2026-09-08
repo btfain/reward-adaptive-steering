@@ -1,0 +1,154 @@
+# Synthetic notation v3 — HARD constraints (not more, but harder). Same 12 types + type-specific structure
+# as v2, but the four EASY cross-cutting rules are swapped for genuinely taxing ones that a 7B struggles to
+# satisfy even alone and that overload in combination: no commas, never the word 'the', no words ending in
+# 'ly', plus the existing exact counts / length caps. Tests whether HARDNESS (not rule count) overloads a
+# strong model on full_rubric so the controller pulls ahead. Deterministic reward. 12 x 40 = 480 prompts.
+tag: "synth_notation_v3"
+
+data:
+  n_per_type: 40
+  seed: 0
+
+gen:
+  m_samples: 2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+
+router:
+  encoder: "intfloat/e5-base-v2"
+  n_pca: 40
+
+types:
+  code:
+    label: "a coding / programming request"
+    constraints:
+      - {key: has_code_block,   text: "Put all code inside a triple-backtick fenced block."}
+      - {key: code_tabs,        text: "Indent code with tab characters, never spaces."}
+      - {key: no_code_comments, text: "Do not include any code comments."}
+      - {key: contains_def,     text: "Define the solution as a Python function using 'def'."}
+      - {key: end_complexity,   text: "End with a final line: 'complexity: O(...)'."}
+      - {key: no_word_the,      text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,    text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,         text: "Do not use any commas."}
+  factual:
+    label: "a short factual question"
+    constraints:
+      - {key: starts_answer,    text: "Begin your reply with 'Answer:'."}
+      - {key: max_3_sentences,  text: "Use at most three sentences."}
+      - {key: brackets_numbers, text: "Wrap every number in square brackets, e.g. [42]."}
+      - {key: ends_period,      text: "End your reply with a full stop."}
+      - {key: no_word_the,      text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,    text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,         text: "Do not use any commas."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  howto:
+    label: "a how-to / step-by-step request"
+    constraints:
+      - {key: starts_steps,        text: "Begin your reply with 'Steps:'."}
+      - {key: exactly_5_bullets,   text: "Give exactly five bullet points."}
+      - {key: dash_bullets,        text: "Start every bullet with an em dash '—'."}
+      - {key: bullet_max_12_words, text: "Keep each bullet to at most twelve words."}
+      - {key: no_word_the,         text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,       text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,            text: "Do not use any commas."}
+      - {key: british_spelling,    text: "Use British spelling (colour, organise, centre)."}
+  prose:
+    label: "an open-ended writing / description request"
+    constraints:
+      - {key: ends_summary,     text: "End with a final line: '— summary: <one line>'."}
+      - {key: min_5_sentences,  text: "Write at least five sentences."}
+      - {key: max_8_sentences,  text: "Use at most eight sentences."}
+      - {key: no_word_the,      text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,    text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,         text: "Do not use any commas."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_just,     text: "Never use the word 'just'."}
+  math:
+    label: "a math / calculation problem"
+    constraints:
+      - {key: starts_solution, text: "Begin your reply with 'Solution:'."}
+      - {key: has_equation,    text: "Show at least one explicit equation using '='."}
+      - {key: final_answer,    text: "End with a final line: 'Final answer: <value>'."}
+      - {key: min_3_sentences, text: "Write at least three sentences."}
+      - {key: no_word_the,     text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,   text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,        text: "Do not use any commas."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  email:
+    label: "a request to draft an email or message"
+    constraints:
+      - {key: email_subject,   text: "Begin with a 'Subject:' line."}
+      - {key: email_dear,      text: "Address the recipient with 'Dear ...'."}
+      - {key: email_regards,   text: "Close with 'Best regards,'."}
+      - {key: max_8_sentences, text: "Use at most eight sentences."}
+      - {key: no_word_the,     text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,   text: "Do not use any words ending in 'ly'."}
+      - {key: no_word_just,    text: "Never use the word 'just'."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  summary:
+    label: "a request to summarise a passage"
+    constraints:
+      - {key: starts_summary,    text: "Begin your reply with 'Summary:'."}
+      - {key: max_3_sentences,   text: "Use at most three sentences."}
+      - {key: no_lists,          text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: word_count_max_60, text: "Use at most sixty words."}
+      - {key: no_word_the,       text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,     text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,          text: "Do not use any commas."}
+      - {key: british_spelling,  text: "Use British spelling (colour, organise, centre)."}
+  definition:
+    label: "a request to define a term"
+    constraints:
+      - {key: starts_definition, text: "Begin your reply with 'Definition:'."}
+      - {key: max_2_sentences,   text: "Use at most two sentences."}
+      - {key: no_lists,          text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: ends_period,       text: "End your reply with a full stop."}
+      - {key: no_word_the,       text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,     text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,          text: "Do not use any commas."}
+      - {key: british_spelling,  text: "Use British spelling (colour, organise, centre)."}
+  comparison:
+    label: "a request to compare two things"
+    constraints:
+      - {key: starts_comparison,   text: "Begin your reply with 'Comparison:'."}
+      - {key: exactly_3_bullets,   text: "Give exactly three bullet points."}
+      - {key: dash_bullets,        text: "Start every bullet with an em dash '—'."}
+      - {key: bullet_max_15_words, text: "Keep each bullet to at most fifteen words."}
+      - {key: no_word_the,         text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,       text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,            text: "Do not use any commas."}
+      - {key: british_spelling,    text: "Use British spelling (colour, organise, centre)."}
+  list:
+    label: "a request to list or enumerate items"
+    constraints:
+      - {key: starts_list,      text: "Begin your reply with 'List:'."}
+      - {key: numbered_list,    text: "Present the items as a numbered list (1., 2., ...)."}
+      - {key: exactly_7_items,  text: "Give exactly seven numbered items."}
+      - {key: item_max_8_words, text: "Keep each item to at most eight words."}
+      - {key: no_word_the,      text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,    text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,         text: "Do not use any commas."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  dialogue:
+    label: "a request to write a dialogue or script"
+    constraints:
+      - {key: starts_scene,    text: "Begin your reply with 'Scene:'."}
+      - {key: has_speakers,    text: "Format as dialogue with speaker labels like 'NAME: ...'."}
+      - {key: min_4_turns,     text: "Include at least four dialogue turns."}
+      - {key: no_lists,        text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: no_word_the,     text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,   text: "Do not use any words ending in 'ly'."}
+      - {key: no_word_just,    text: "Never use the word 'just'."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  review:
+    label: "a request to write a review or opinion"
+    constraints:
+      - {key: starts_review,   text: "Begin your reply with 'Review:'."}
+      - {key: ends_rating,     text: "End with a final line: 'Rating: X/5'."}
+      - {key: min_4_sentences, text: "Write at least four sentences."}
+      - {key: no_lists,        text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: no_word_the,     text: "Never use the word 'the'."}
+      - {key: no_ly_adverbs,   text: "Do not use any words ending in 'ly'."}
+      - {key: no_comma,        text: "Do not use any commas."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}

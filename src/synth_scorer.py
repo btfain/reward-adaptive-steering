@@ -60,6 +60,10 @@ CHECKS = {
     "no_word_just":     lambda r: not re.search(r"\bjust\b", r, re.I),
     "no_exclamation":   lambda r: "!" not in r,
     "no_contractions":  lambda r: not re.search(r"\b\w+['’]\w+\b", r),
+    # --- HARD cross-cutting (v3): individually taxing, jointly overloading ---
+    "no_comma":         lambda r: "," not in r,
+    "no_word_the":      lambda r: not re.search(r"\bthe\b", r, re.I),
+    "no_ly_adverbs":    lambda r: not re.search(r"\b[A-Za-z]+ly\b", r, re.I),
     "ends_period":      lambda r: r.strip().endswith("."),
     "no_lists":         lambda r: not any(re.match(r"^\s*([-*•—]\s+|\d+[.)]\s+)", ln) for ln in r.splitlines()),
     "brackets_numbers": lambda r: not re.search(r"(?<![\[\w])\d+(?!\])", r),
