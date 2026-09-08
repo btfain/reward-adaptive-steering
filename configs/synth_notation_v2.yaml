@@ -1,0 +1,154 @@
+# Synthetic notation positive-control v2 — SCALED to 12 types x 8 = 96 constraints (a "compliance manual"),
+# to test whether even a STRONG model (Qwen) overloads on full_rubric so the controller pulls ahead.
+# Same machinery as v1; deterministic reward (src/synth_scorer.py CHECKS). Cross-cutting rules (no 'very',
+# British spelling, no contractions, no exclamation) recur across types on purpose — like a real manual —
+# which also stresses the full_rubric baseline. 12 x 40 = 480 typed prompts.
+tag: "synth_notation_v2"
+
+data:
+  n_per_type: 40
+  seed: 0
+
+gen:
+  m_samples: 2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+
+router:
+  encoder: "intfloat/e5-base-v2"
+  n_pca: 40
+
+types:
+  code:
+    label: "a coding / programming request"
+    constraints:
+      - {key: has_code_block,   text: "Put all code inside a triple-backtick fenced block."}
+      - {key: code_tabs,        text: "Indent code with tab characters, never spaces."}
+      - {key: no_code_comments, text: "Do not include any code comments."}
+      - {key: contains_def,     text: "Define the solution as a Python function using 'def'."}
+      - {key: end_complexity,   text: "End with a final line: 'complexity: O(...)'."}
+      - {key: no_word_very,     text: "Never use the word 'very'."}
+      - {key: no_exclamation,   text: "Do not use any exclamation marks."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+  factual:
+    label: "a short factual question"
+    constraints:
+      - {key: starts_answer,    text: "Begin your reply with 'Answer:'."}
+      - {key: max_3_sentences,  text: "Use at most three sentences."}
+      - {key: brackets_numbers, text: "Wrap every number in square brackets, e.g. [42]."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_very,     text: "Never use the word 'very'."}
+      - {key: no_exclamation,   text: "Do not use any exclamation marks."}
+      - {key: no_contractions,  text: "Do not use contractions or apostrophes."}
+      - {key: ends_period,      text: "End your reply with a full stop."}
+  howto:
+    label: "a how-to / step-by-step request"
+    constraints:
+      - {key: starts_steps,        text: "Begin your reply with 'Steps:'."}
+      - {key: exactly_5_bullets,   text: "Give exactly five bullet points."}
+      - {key: dash_bullets,        text: "Start every bullet with an em dash '—'."}
+      - {key: bullet_max_12_words, text: "Keep each bullet to at most twelve words."}
+      - {key: no_word_very,        text: "Never use the word 'very'."}
+      - {key: no_contractions,     text: "Do not use contractions or apostrophes."}
+      - {key: british_spelling,    text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_exclamation,      text: "Do not use any exclamation marks."}
+  prose:
+    label: "an open-ended writing / description request"
+    constraints:
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_very,     text: "Never use the word 'very'."}
+      - {key: ends_summary,     text: "End with a final line: '— summary: <one line>'."}
+      - {key: min_5_sentences,  text: "Write at least five sentences."}
+      - {key: no_contractions,  text: "Do not use contractions or apostrophes."}
+      - {key: no_exclamation,   text: "Do not use any exclamation marks."}
+      - {key: no_word_just,     text: "Never use the word 'just'."}
+      - {key: max_8_sentences,  text: "Use at most eight sentences."}
+  math:
+    label: "a math / calculation problem"
+    constraints:
+      - {key: starts_solution, text: "Begin your reply with 'Solution:'."}
+      - {key: has_equation,    text: "Show at least one explicit equation using '='."}
+      - {key: final_answer,    text: "End with a final line: 'Final answer: <value>'."}
+      - {key: no_word_very,    text: "Never use the word 'very'."}
+      - {key: no_contractions, text: "Do not use contractions or apostrophes."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_exclamation,  text: "Do not use any exclamation marks."}
+      - {key: min_3_sentences, text: "Write at least three sentences."}
+  email:
+    label: "a request to draft an email or message"
+    constraints:
+      - {key: email_subject,   text: "Begin with a 'Subject:' line."}
+      - {key: email_dear,      text: "Address the recipient with 'Dear ...'."}
+      - {key: email_regards,   text: "Close with 'Best regards,'."}
+      - {key: no_word_very,    text: "Never use the word 'very'."}
+      - {key: no_contractions, text: "Do not use contractions or apostrophes."}
+      - {key: no_exclamation,  text: "Do not use any exclamation marks."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: max_8_sentences, text: "Use at most eight sentences."}
+  summary:
+    label: "a request to summarise a passage"
+    constraints:
+      - {key: starts_summary,    text: "Begin your reply with 'Summary:'."}
+      - {key: max_3_sentences,   text: "Use at most three sentences."}
+      - {key: no_lists,          text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: no_word_very,      text: "Never use the word 'very'."}
+      - {key: british_spelling,  text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_contractions,   text: "Do not use contractions or apostrophes."}
+      - {key: no_exclamation,    text: "Do not use any exclamation marks."}
+      - {key: word_count_max_60, text: "Use at most sixty words."}
+  definition:
+    label: "a request to define a term"
+    constraints:
+      - {key: starts_definition, text: "Begin your reply with 'Definition:'."}
+      - {key: max_2_sentences,   text: "Use at most two sentences."}
+      - {key: no_contractions,   text: "Do not use contractions or apostrophes."}
+      - {key: no_word_very,      text: "Never use the word 'very'."}
+      - {key: british_spelling,  text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_exclamation,    text: "Do not use any exclamation marks."}
+      - {key: no_lists,          text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: ends_period,       text: "End your reply with a full stop."}
+  comparison:
+    label: "a request to compare two things"
+    constraints:
+      - {key: starts_comparison,   text: "Begin your reply with 'Comparison:'."}
+      - {key: exactly_3_bullets,   text: "Give exactly three bullet points."}
+      - {key: dash_bullets,        text: "Start every bullet with an em dash '—'."}
+      - {key: bullet_max_15_words, text: "Keep each bullet to at most fifteen words."}
+      - {key: british_spelling,    text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_very,        text: "Never use the word 'very'."}
+      - {key: no_exclamation,      text: "Do not use any exclamation marks."}
+      - {key: no_contractions,     text: "Do not use contractions or apostrophes."}
+  list:
+    label: "a request to list or enumerate items"
+    constraints:
+      - {key: starts_list,      text: "Begin your reply with 'List:'."}
+      - {key: numbered_list,    text: "Present the items as a numbered list (1., 2., ...)."}
+      - {key: exactly_7_items,  text: "Give exactly seven numbered items."}
+      - {key: item_max_8_words, text: "Keep each item to at most eight words."}
+      - {key: no_word_very,     text: "Never use the word 'very'."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_exclamation,   text: "Do not use any exclamation marks."}
+      - {key: no_contractions,  text: "Do not use contractions or apostrophes."}
+  dialogue:
+    label: "a request to write a dialogue or script"
+    constraints:
+      - {key: starts_scene,    text: "Begin your reply with 'Scene:'."}
+      - {key: has_speakers,    text: "Format as dialogue with speaker labels like 'NAME: ...'."}
+      - {key: min_4_turns,     text: "Include at least four dialogue turns."}
+      - {key: no_lists,        text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: no_word_very,    text: "Never use the word 'very'."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_contractions, text: "Do not use contractions or apostrophes."}
+      - {key: no_word_just,    text: "Never use the word 'just'."}
+  review:
+    label: "a request to write a review or opinion"
+    constraints:
+      - {key: starts_review,   text: "Begin your reply with 'Review:'."}
+      - {key: ends_rating,     text: "End with a final line: 'Rating: X/5'."}
+      - {key: min_4_sentences, text: "Write at least four sentences."}
+      - {key: no_lists,        text: "Write in prose only; use no bullet points or numbered lists."}
+      - {key: british_spelling, text: "Use British spelling (colour, organise, centre)."}
+      - {key: no_word_very,    text: "Never use the word 'very'."}
+      - {key: no_exclamation,  text: "Do not use any exclamation marks."}
+      - {key: no_contractions, text: "Do not use contractions or apostrophes."}
