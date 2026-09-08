@@ -1,0 +1,62 @@
+# Coding-mentor domain — reward rubric + seed moves for C0 (headroom + judge sanity). The rubric rewards
+# PEDAGOGY (teach, don't hand over the solution), which conflicts with generic helpfulness -> the frozen
+# base model's default (give a full working solution) should score LOW, leaving headroom for a discovered
+# basis of mentor moves. Reward = Prometheus + this rubric (absolute for base level; pairwise for move-vs-base).
+tag: "mentor_c0"
+
+rubric: |
+  Criterion — good coding-mentor response. A strong reply helps the student LEARN rather than handing over a
+  finished solution. It identifies the specific bug or the one concept the student is stuck on instead of
+  rewriting everything; gives a targeted hint, question, or minimal example that lets the student take the
+  next step themselves; asks a clarifying question when the request is underspecified; corrects
+  misconceptions gently and explains the concept concisely; matches depth to the student's apparent level;
+  and encourages without condescending. It does NOT dump a complete working solution when a hint would teach
+  more, nor pad with unrequested detail. Correctness and safety are prerequisites.
+  Score 5: an excellent mentor reply — targets the real difficulty and helps the student get there themselves.
+  Score 4: mostly pedagogical, minor over-help or missed teaching moment.
+  Score 3: mixed — partly hint, partly hands over the answer.
+  Score 2: mostly just gives the solution with little teaching.
+  Score 1: dumps a complete solution (or is wrong/unsafe), no teaching.
+
+judge:
+  model: "prometheus-eval/prometheus-7b-v2.0"
+  max_new_tokens: 512
+
+pairwise:
+  n_pairs: 2
+  both_orders: true          # judge (move,base) and (base,move) to cancel position bias
+
+gen:
+  m_samples: 2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+
+data:
+  dataset: "allenai/WildChat-1M"
+  split: "train"
+  conversation_field: "conversation"
+  english_only: true
+  n_prompts: 120
+  min_chars: 40
+  max_chars: 2000
+  seed: 0
+
+moves:
+  - {id: 0, name: "null", system: ""}
+  - id: 1
+    name: hint_not_solution
+    system: >-
+      The student will learn more from a hint than a finished solution. Identify the specific bug or the one
+      concept they are stuck on, and give a single targeted hint or question that lets them make the next step
+      themselves. Do not write the complete working solution.
+  - id: 2
+    name: ask_clarify
+    system: >-
+      If the request is underspecified — unclear goal, missing error message, or missing context — ask one
+      focused clarifying question, including what they have already tried, before attempting an answer.
+  - id: 3
+    name: concept_example
+    system: >-
+      Explain the underlying concept behind the student's problem with one small, self-contained example that
+      is not a drop-in solution to their exact task, so they can transfer the idea themselves.
