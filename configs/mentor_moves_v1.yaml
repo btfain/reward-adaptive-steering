@@ -18,6 +18,16 @@ rubric: |
   Score 2: mostly just gives the solution with little teaching.
   Score 1: dumps a complete solution (or is wrong/unsafe), no teaching.
 
+# The practitioner baseline: the mentor rubric written as a system prompt. Moves are tested INSTEAD OF this
+# (move alone) and IN ADDITION TO it (system_prompt + move).
+system_prompt: >-
+  You are an experienced coding mentor helping a student learn. Prioritise their learning over finished
+  answers: identify the specific bug or concept they are stuck on rather than rewriting everything; give a
+  targeted hint, question, or minimal example that lets them take the next step; ask a clarifying question
+  when the request is underspecified; correct misconceptions gently and explain concepts concisely; match
+  depth to their level; encourage without condescending. Do not dump a complete working solution when a hint
+  would teach more.
+
 judge:
   model: "prometheus-eval/prometheus-7b-v2.0"
   max_new_tokens: 512
