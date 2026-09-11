@@ -1,0 +1,68 @@
+# S1-NPOV / N0 — the cheap precondition gate for the (b)+(a) test (rich moves x a subjective guidebook).
+# Domain: Wikipedia Neutral Point of View. Base we CONTROL = OLMo (frozen). Held-out GOLD judge = Qwen-7B
+# (a different family, never the model being steered -> no self-flattery on the final metric). Discovery
+# (N1, later) will use OLMo-self, keeping Qwen purely as gold. Real data = Wiki Neutrality Corpus (WNC),
+# stored under $NPOV_DATA (a big-quota scratch fs), never home/git.
+tag: "npov_n0"
+
+# The GUIDEBOOK (a): faithful, interpretation-heavy condensation of WP:NPOV + Words-to-watch + Tone. Given
+# to OLMo as the SYSTEM prompt. This is the practitioner baseline the discovered moves must beat/augment.
+guidebook: >-
+  You are an editor enforcing Wikipedia's Neutral Point of View (NPOV) policy. Represent all significant
+  views fairly and proportionately, without editorial bias. Core rules. (1) State facts as facts and
+  opinions as opinions: assert widely accepted facts plainly, but attribute contested or evaluative claims
+  to those who hold them ("Critics argue...", "According to X...") rather than stating them in the
+  encyclopedia's own voice. (2) Do not state seriously contested assertions as fact, and do not state
+  uncontested facts as mere opinion. (3) Use an impartial, encyclopedic tone; describe disputes without
+  taking a side. Words to watch — remove or attribute: puffery (renowned, acclaimed, iconic, visionary,
+  legendary); editorializing (notably, arguably, clearly, of course, essentially, interestingly);
+  unsupported attributions (some say, it is widely believed, experts agree, many argue); loaded or
+  value-laden labels; euphemisms; and expressions of doubt (so-called, scare quotes). (4) Give due weight —
+  do not lend a fringe view the prominence of the mainstream one. (5) Preserve the factual content:
+  neutralize the framing, do not add or delete information. Prefer nonjudgmental language over words that
+  endorse or disparage the subject.
+
+# The neutralization TASK (user turn). Sentence-level edit -> exact human gold + clean logprob-shift filter.
+task_instruction: |-
+  Revise the passage below to comply with the neutral point of view described above. Neutralize biased,
+  promotional, or editorializing framing and attribute contested opinions, but do not add or remove factual
+  content. Return only the revised passage, with no commentary.
+
+  Passage:
+  {passage}
+
+# The GOLD judge's rubric (NPOV adherence, absolute 1-5; also used pairwise). Distinct from the guidebook so
+# the judge scores the OUTCOME, not whether the text echoes the guidebook's wording.
+rubric: |
+  Criterion — neutral point of view (NPOV). A strong revision states facts plainly and attributes contested
+  or evaluative claims to their holders, keeps an impartial encyclopedic tone, and removes puffery,
+  editorializing, loaded labels, euphemisms, and expressions of doubt — while PRESERVING the original
+  factual content (adding or deleting substantive information is a fault, not neutrality).
+  Score 5: fully neutral and impartial; all contested/evaluative wording removed or attributed; factual
+  content preserved.
+  Score 4: largely neutral; a minor residual loaded or editorializing word, or slight over/under-editing.
+  Score 3: mixed — some bias neutralized but clear non-neutral framing remains, or some factual content
+  altered.
+  Score 2: mostly non-neutral; little was fixed, or apparent neutrality achieved by dropping substantive
+  content.
+  Score 1: not neutral (promotional, disparaging, or one-sided), or factual content badly distorted.
+
+judge:
+  model: "Qwen/Qwen2.5-7B-Instruct"
+  max_new_tokens: 400
+
+gen:
+  m_samples: 4
+  max_new_tokens: 200
+  temperature: 0.7
+  top_p: 0.9
+
+data:
+  # WNC file inside the extracted bias_data.zip. 'biased.word.*' = single-word bias edits (subtle);
+  # cols are TSV: id, src_tok, tgt_tok, src_raw(biased), tgt_raw(neutral), ... -> we read cols 3,4.
+  wnc_subpath: "bias_data/WNC/biased.word.train"
+  n_eval: 150
+  n_discover: 500          # reserved for N1 discovery; N0 only touches the eval split
+  min_chars: 60
+  max_chars: 400
+  seed: 0
