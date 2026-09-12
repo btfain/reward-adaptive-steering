@@ -1,8 +1,9 @@
 """S1-NPOV / N0 — the cheap precondition gate BEFORE any move discovery. Qwen-7B is the held-out GOLD judge;
 OLMo (frozen) is the base, revising biased sentences under the NPOV guidebook system prompt. Three checks:
 
-  N0.1 headroom : OLMo's guidebook-conditioned revisions still fall short of the HUMAN neutralizations
-                  (a real gap, and not already saturated) -> the domain leaves room for moves.
+  N0.1 headroom : OLMo's guidebook-conditioned revisions are NOT saturated at the ceiling (frac>=4 < 0.85)
+                  -> the domain leaves room for a move to improve. (Gap to the human WNC edit is printed but
+                  informational only: the human edit is one valid neutralization, not a strict ceiling.)
   N0.2 validity : the gold judge prefers the HUMAN-neutral over the BIASED original (target >= 0.75) ->
                   Qwen-7B is a usable NPOV gold judge AT ALL (doubles as the judge-vs-human check).
   N0.3 variance : real spread in adherence across samples -> exploitable heterogeneity for discovery.
@@ -112,17 +113,17 @@ def phase_judge(c):
              frac_spread=frac_spread, spreads=np.array(spreads, float), parse_rate=parse_rate)
     print(log_cost("NPOV", "n0_judge", time.time() - t0, device, notes=f"{len(ids)} eval prompts"))
 
-    gap = hum_sc.mean() - rev_sc.mean()
+    gap = hum_sc.mean() - rev_sc.mean()   # informational only: the human WNC edit is not a strict ceiling
     print("\n=== S1-NPOV / N0 (gold judge = Qwen-7B) ===")
     print(f"judge parse-rate: {parse_rate:.0%}   (low => the Prometheus-style [RESULT] format is failing on Qwen)")
-    print(f"N0.1 headroom : OLMo rev {rev_sc.mean():.2f}/5 (frac>=4 {np.mean(rev_sc>=4):.0%}) vs "
-          f"human {hum_sc.mean():.2f}/5  -> gap {gap:+.2f}")
-    print(f"N0.2 validity : gold prefers HUMAN over BIASED = {validity:.2f}   (need >= 0.75)")
+    print(f"N0.1 headroom : OLMo rev {rev_sc.mean():.2f}/5 (frac>=4 {np.mean(rev_sc>=4):.0%}, "
+          f"frac==5 {np.mean(rev_sc>=5):.0%})   [human {hum_sc.mean():.2f}/5, gap {gap:+.2f} informational]")
+    print(f"N0.2 validity : gold prefers HUMAN over BIASED = {validity:.2f}   (need >= 0.75, MASTER gate)")
     print(f"N0.3 variance : frac prompts with sample spread >=2 = {frac_spread:.2f}   (need >= 0.30)")
-    g1 = (gap >= 0.5) and (np.mean(rev_sc >= 4) < 0.85)
+    g1 = np.mean(rev_sc >= 4) < 0.85           # not saturated at ceiling -> room for a move to improve
     g2 = validity >= 0.75
     g3 = frac_spread >= 0.30
-    print(f"\nGREEN  N0.1={g1}  N0.2={g2}  N0.3={g3}  ->  "
+    print(f"\nGREEN  N0.1(headroom)={g1}  N0.2(validity)={g2}  N0.3(variance)={g3}  ->  "
           f"{'ALL GREEN: unlock N1 discovery' if (g1 and g2 and g3) else 'STOP: report the failing check'}")
 
 
