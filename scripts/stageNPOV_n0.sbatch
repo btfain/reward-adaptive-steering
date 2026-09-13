@@ -23,6 +23,9 @@ if [ ! -f "$NPOV_DATA/bias_data/WNC/biased.word.train" ]; then
   (cd "$NPOV_DATA" && unzip -q bias_data.zip)
 fi
 
+# clear stale outputs so a failed phase can never leave old results to be re-committed
+rm -f results/npov_n0/split.json results/npov_n0/gen.jsonl results/npov_n0/npov_n0.npz
+
 python src/npov_n0.py --phase data
 python src/npov_n0.py --phase gen   --base-config configs/base_olmo3sft.yaml
 python src/npov_n0.py --phase judge

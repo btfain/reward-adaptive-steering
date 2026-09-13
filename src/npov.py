@@ -22,18 +22,30 @@ def data_dir():
 
 
 def _wnc_path(cfg):
-    return data_dir() / cfg["data"]["wnc_subpath"]
+    """Resolve the WNC file. Prefer the exact wnc_subpath; if absent, auto-locate a file whose name
+    contains all tokens of the basename (robust to naming differences); else raise WITH a directory
+    listing so a failed run self-diagnoses instead of silently reusing stale outputs."""
+    base = data_dir()
+    p = base / cfg["data"]["wnc_subpath"]
+    if p.exists():
+        return p
+    name = Path(cfg["data"]["wnc_subpath"]).name      # e.g. 'biased.full.train'
+    toks = [t for t in name.split(".") if t]
+    cands = [q for q in base.rglob("*") if q.is_file() and all(t in q.name for t in toks)]
+    if len(cands) == 1:
+        print(f"[npov] wnc_subpath {p} missing; auto-located {cands[0]}", flush=True)
+        return cands[0]
+    listing = sorted(str(q.relative_to(base)) for q in base.rglob("*") if q.is_file())[:80]
+    raise FileNotFoundError(
+        f"WNC file for '{name}' not found under {base} (auto-match found {len(cands)}).\n"
+        f"Files present:\n  " + "\n  ".join(listing) +
+        f"\nFetch: wget http://nlp.stanford.edu/projects/bias/bias_data.zip -P {base} ; (cd {base} && unzip -q bias_data.zip)")
 
 
 def load_wnc(cfg):
     """Parse the WNC TSV into [{id, biased, neutral}], length-filtered. Columns (tab-separated):
     id, src_tok, tgt_tok, src_raw (biased), tgt_raw (neutral), [pos, rel...]. We read the raw cols 3,4."""
     p = _wnc_path(cfg)
-    if not p.exists():
-        raise FileNotFoundError(
-            f"WNC not found at {p}. Fetch once onto the big-quota fs:\n"
-            f"  wget http://nlp.stanford.edu/projects/bias/bias_data.zip -P {data_dir()}\n"
-            f"  (cd {data_dir()} && unzip -q bias_data.zip)")
     d = cfg["data"]; lo, hi = d["min_chars"], d["max_chars"]
     out, seen = [], set()
     for ln in open(p, encoding="utf-8"):
