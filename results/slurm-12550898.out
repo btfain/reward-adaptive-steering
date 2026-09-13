@@ -1,0 +1,21 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  81%|████████▏ | 276/339 [00:00<00:00, 2729.60it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2573.43it/s]
+coding prompts: 120
+  gen move 0 (null) done
+  gen move 1 (hint_not_solution) done
+  gen move 2 (ask_clarify) done
+  gen move 3 (concept_example) done
+{'ts': '2026-09-08T15:35:33', 'stage': 'MENTOR', 'event': 'c0_gen', 'wall_s': 1775.36, 'peak_rss_gb': 0.009, 'mps_driver_gb': None, 'cuda_peak_gb': 17.593, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'base + seed mentor moves'}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 2920.71it/s]
+{'ts': '2026-09-08T17:36:56', 'stage': 'MENTOR', 'event': 'c0_judge', 'wall_s': 7273.75, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 18.478, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': '120 coding prompts'}
+
+=== C0 headroom ===
+base absolute mentor score: mean 2.50 / 5 (frac <=2 'just gives solution': 54%)
+  hint_not_solution  win-rate vs base: 0.55
+  ask_clarify        win-rate vs base: 0.53
+  concept_example    win-rate vs base: 0.54
+GREEN if base mean is low (~<=3) AND a move win-rate is clearly >0.5
+mentor C0 done

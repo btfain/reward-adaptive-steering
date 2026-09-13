@@ -1,0 +1,12 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  71%|███████   | 241/339 [00:00<00:00, 2378.17it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1099.58it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 49/311 [00:00<00:00, 468.21it/s]Loading weights:  31%|███       | 96/311 [00:00<00:00, 451.10it/s]Loading weights:  46%|████▌     | 142/311 [00:00<00:00, 424.49it/s]Loading weights:  59%|█████▉    | 185/311 [00:00<00:00, 424.19it/s]Loading weights:  73%|███████▎  | 228/311 [00:00<00:00, 400.75it/s]Loading weights:  89%|████████▉ | 278/311 [00:00<00:00, 432.13it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 433.52it/s]
+  gen shard 2: 30/150
+  gen shard 2: 60/150
+  gen shard 2: 90/150
+  gen shard 2: 120/150
+  gen shard 2: 150/150
+gen -> /home/users/btf12/reward-adaptive-steering/results/steering_bakeoff_7b/gen_shard_2.jsonl
+{'ts': '2026-08-24T18:18:03', 'stage': 'S1', 'event': 'steering_bakeoff_gen', 'wall_s': 6722.4, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.906, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'steering-by-selection bake-off'}
+steering bakeoff gen shard 2 done

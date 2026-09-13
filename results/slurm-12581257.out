@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/npov_n0.py", line 146, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/npov_n0.py", line 137, in main
+    phase_data(c)
+  File "/home/users/btf12/reward-adaptive-steering/src/npov_n0.py", line 43, in phase_data
+    O = _out(); s = npov.split(c)
+                    ^^^^^^^^^^^^^
+  File "/home/users/btf12/reward-adaptive-steering/src/npov.py", line 57, in split
+    rows = load_wnc(cfg)
+           ^^^^^^^^^^^^^
+  File "/home/users/btf12/reward-adaptive-steering/src/npov.py", line 33, in load_wnc
+    raise FileNotFoundError(
+FileNotFoundError: WNC not found at /usr/xtmp/btf12/hf_cache/wnc_data/bias_data/WNC/biased.full.train. Fetch once onto the big-quota fs:
+  wget http://nlp.stanford.edu/projects/bias/bias_data.zip -P /usr/xtmp/btf12/hf_cache/wnc_data
+  (cd /usr/xtmp/btf12/hf_cache/wnc_data && unzip -q bias_data.zip)

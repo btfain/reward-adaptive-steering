@@ -1,0 +1,32 @@
+judge shard 3/4: 1012 pending (0 already scored)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 123/291 [00:00<00:00, 1220.63it/s]Loading weights:  85%|████████▍ | 246/291 [00:00<00:00, 635.49it/s] Loading weights: 100%|██████████| 291/291 [00:00<00:00, 686.10it/s]
+  judged 40/1012
+  judged 80/1012
+  judged 120/1012
+  judged 160/1012
+  judged 200/1012
+  judged 240/1012
+  judged 280/1012
+  judged 320/1012
+  judged 360/1012
+  judged 400/1012
+  judged 440/1012
+  judged 480/1012
+  judged 520/1012
+  judged 560/1012
+  judged 600/1012
+  judged 640/1012
+  judged 680/1012
+  judged 720/1012
+  judged 760/1012
+  judged 800/1012
+  judged 840/1012
+  judged 880/1012
+  judged 920/1012
+  judged 960/1012
+  judged 1000/1012
+  judged 1012/1012
+{'ts': '2026-09-07T09:43:29', 'stage': 'MT', 'event': 'judge', 'wall_s': 4713.64, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 24.321, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'shard (3, 4)'}
+mt_judge shard 3 done

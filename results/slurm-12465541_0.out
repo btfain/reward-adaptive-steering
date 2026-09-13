@@ -1,0 +1,26 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 93/339 [00:00<00:00, 869.82it/s]Loading weights:  53%|█████▎    | 180/339 [00:00<00:00, 633.03it/s]Loading weights:  73%|███████▎  | 247/339 [00:00<00:00, 569.24it/s]Loading weights:  90%|█████████ | 306/339 [00:00<00:00, 549.02it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 592.79it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 69/311 [00:00<00:00, 613.22it/s]Loading weights:  42%|████▏     | 131/311 [00:00<00:00, 488.58it/s]Loading weights:  59%|█████▊    | 182/311 [00:00<00:00, 425.76it/s]Loading weights:  73%|███████▎  | 226/311 [00:00<00:00, 409.25it/s]Loading weights:  86%|████████▌ | 268/311 [00:00<00:00, 390.89it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 435.82it/s]
+  shard 0: 25/590
+  shard 0: 50/590
+  shard 0: 75/590
+  shard 0: 100/590
+  shard 0: 125/590
+  shard 0: 150/590
+  shard 0: 175/590
+  shard 0: 200/590
+  shard 0: 225/590
+  shard 0: 250/590
+  shard 0: 275/590
+  shard 0: 300/590
+  shard 0: 325/590
+  shard 0: 350/590
+  shard 0: 375/590
+  shard 0: 400/590
+  shard 0: 425/590
+  shard 0: 450/590
+  shard 0: 475/590
+  shard 0: 500/590
+  shard 0: 525/590
+[2026-09-01T02:26:03.014] error: *** JOB 12465542 ON compsci-cluster-fitz-20 CANCELLED AT 2026-09-01T02:26:03 DUE TO TIME LIMIT ***

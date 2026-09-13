@@ -1,0 +1,32 @@
+judge shard 0/4: 1013 pending (0 already scored)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  24%|██▍       | 70/291 [00:00<00:00, 662.72it/s]Loading weights:  47%|████▋     | 137/291 [00:00<00:00, 501.94it/s]Loading weights:  65%|██████▌   | 190/291 [00:00<00:00, 443.08it/s]Loading weights:  81%|████████  | 236/291 [00:00<00:00, 437.49it/s]Loading weights:  97%|█████████▋| 281/291 [00:00<00:00, 411.24it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 456.20it/s]
+  judged 40/1013
+  judged 80/1013
+  judged 120/1013
+  judged 160/1013
+  judged 200/1013
+  judged 240/1013
+  judged 280/1013
+  judged 320/1013
+  judged 360/1013
+  judged 400/1013
+  judged 440/1013
+  judged 480/1013
+  judged 520/1013
+  judged 560/1013
+  judged 600/1013
+  judged 640/1013
+  judged 680/1013
+  judged 720/1013
+  judged 760/1013
+  judged 800/1013
+  judged 840/1013
+  judged 880/1013
+  judged 920/1013
+  judged 960/1013
+  judged 1000/1013
+  judged 1013/1013
+{'ts': '2026-09-07T01:18:07', 'stage': 'MT', 'event': 'judge', 'wall_s': 4820.19, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 23.339, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'shard (0, 4)'}
+mt_judge shard 0 done

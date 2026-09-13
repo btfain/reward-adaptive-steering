@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1154.18it/s]
+873 verified -> 200 clusters (factor 6); full clusters saved.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  28%|██▊       | 96/339 [00:00<00:00, 890.99it/s]Loading weights:  55%|█████▍    | 186/339 [00:00<00:00, 757.05it/s]Loading weights:  78%|███████▊  | 263/339 [00:00<00:00, 641.46it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 750.34it/s]
+  summary 25/200
+  summary 50/200
+  summary 75/200
+  summary 100/200
+  summary 125/200
+  summary 150/200
+  summary 175/200
+  summary 200/200
+representations:
+  medoid: 200 auto + 20 curated = 220 -> configs/candidates_medoid_combined_7b.txt
+  random: 200 auto + 20 curated = 220 -> configs/candidates_random_combined_7b.txt
+  summary: 200 auto + 20 curated = 220 -> configs/candidates_summary_combined_7b.txt
+
+full clusters -> configs/candidate_clusters_7b.json  (3 representations written)
+cluster done — full clusters + medoid/random/summary pools written; commit them.

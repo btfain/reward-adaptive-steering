@@ -1,0 +1,7 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  77%|███████▋  | 261/339 [00:00<00:00, 2594.10it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2542.98it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  15%|█▍        | 46/311 [00:00<00:00, 456.50it/s]Loading weights:  31%|███       | 96/311 [00:00<00:00, 479.56it/s]Loading weights:  52%|█████▏    | 161/311 [00:00<00:00, 542.36it/s]Loading weights:  69%|██████▉   | 216/311 [00:00<00:00, 543.34it/s]Loading weights:  88%|████████▊ | 275/311 [00:00<00:00, 558.74it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 556.29it/s]
+base pool (shard 3/4) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_candpool_7b/pool_shard_3.jsonl  (truncation 21% at max_new_tokens=768)
+  swing shard 3: 10/24 prompts
+[2026-09-01T21:41:06.015] error: *** JOB 12468025 ON compsci-cluster-fitz-19 CANCELLED AT 2026-09-01T21:41:06 DUE TO TIME LIMIT ***

@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  51%|█████▏    | 174/339 [00:00<00:00, 1717.42it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1600.20it/s]
+gen shard 1/4: 120 prompts, 0 cells already done
+  gen move 0 (null) done
+  gen move 1 (code) done
+  gen move 2 (factual) done
+  gen move 3 (howto) done
+  gen move 4 (prose) done
+  gen move 5 (math) done
+  gen move 6 (email) done
+  gen move 7 (summary) done
+  gen move 8 (definition) done
+  gen move 9 (comparison) done
+  gen move 10 (list) done
+  gen move 11 (dialogue) done
+  gen move 12 (review) done
+  gen move 13 (full_rubric) done
+{'ts': '2026-09-08T13:57:28', 'stage': 'SYN', 'event': 'gen', 'wall_s': 1044.91, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 18.537, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'synthetic notation, single-turn'}
+synth v3 (qwen) gen shard 1 done

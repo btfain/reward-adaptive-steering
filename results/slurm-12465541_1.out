@@ -1,0 +1,27 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  22%|██▏       | 76/339 [00:00<00:00, 721.06it/s]Loading weights:  44%|████▍     | 149/339 [00:00<00:00, 700.45it/s]Loading weights:  65%|██████▍   | 220/339 [00:00<00:00, 587.62it/s]Loading weights:  83%|████████▎ | 281/339 [00:00<00:00, 572.12it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 587.77it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  39%|███▉      | 121/311 [00:00<00:00, 1168.36it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1535.51it/s]
+  shard 1: 25/590
+  shard 1: 50/590
+  shard 1: 75/590
+  shard 1: 100/590
+  shard 1: 125/590
+  shard 1: 150/590
+  shard 1: 175/590
+  shard 1: 200/590
+  shard 1: 225/590
+  shard 1: 250/590
+  shard 1: 275/590
+  shard 1: 300/590
+  shard 1: 325/590
+  shard 1: 350/590
+  shard 1: 375/590
+  shard 1: 400/590
+  shard 1: 425/590
+  shard 1: 450/590
+  shard 1: 475/590
+  shard 1: 500/590
+  shard 1: 525/590
+  shard 1: 550/590
+[2026-09-01T02:26:03.013] error: *** JOB 12465543 ON compsci-cluster-fitz-23 CANCELLED AT 2026-09-01T02:26:03 DUE TO TIME LIMIT ***

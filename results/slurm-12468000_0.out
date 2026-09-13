@@ -1,0 +1,29 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 3379.52it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 3368.26it/s]
+  shard 0: 25/590
+  shard 0: 50/590
+  shard 0: 75/590
+  shard 0: 100/590
+  shard 0: 125/590
+  shard 0: 150/590
+  shard 0: 175/590
+  shard 0: 200/590
+  shard 0: 225/590
+  shard 0: 250/590
+  shard 0: 275/590
+  shard 0: 300/590
+  shard 0: 325/590
+  shard 0: 350/590
+  shard 0: 375/590
+  shard 0: 400/590
+  shard 0: 425/590
+  shard 0: 450/590
+  shard 0: 475/590
+  shard 0: 500/590
+  shard 0: 525/590
+  shard 0: 550/590
+  shard 0: 575/590
+likelihood shard 0 -> /home/users/btf12/reward-adaptive-steering/results/likelihood_smoke_7b/shard_0.jsonl
+{'ts': '2026-09-01T10:18:15', 'stage': 'S1', 'event': 'likelihood_smoke', 'wall_s': 546.05, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.443, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'preference-shift verify (teacher-forced)'}
+likelihood smoke shard 0 done

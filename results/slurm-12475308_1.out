@@ -1,0 +1,29 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 2929.98it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2783.46it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  17%|█▋        | 52/311 [00:00<00:00, 472.64it/s]Loading weights:  32%|███▏      | 100/311 [00:00<00:00, 438.32it/s]Loading weights:  46%|████▋     | 144/311 [00:00<00:00, 415.89it/s]Loading weights:  61%|██████    | 189/311 [00:00<00:00, 393.05it/s]Loading weights:  76%|███████▌  | 237/311 [00:00<00:00, 417.45it/s]Loading weights:  90%|█████████ | 280/311 [00:00<00:00, 412.49it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 431.20it/s]
+  swing shard 1: 10/220 candidates (checkpointed)
+  swing shard 1: 20/220 candidates (checkpointed)
+  swing shard 1: 30/220 candidates (checkpointed)
+  swing shard 1: 40/220 candidates (checkpointed)
+  swing shard 1: 50/220 candidates (checkpointed)
+  swing shard 1: 60/220 candidates (checkpointed)
+  swing shard 1: 70/220 candidates (checkpointed)
+  swing shard 1: 80/220 candidates (checkpointed)
+  swing shard 1: 90/220 candidates (checkpointed)
+  swing shard 1: 100/220 candidates (checkpointed)
+  swing shard 1: 110/220 candidates (checkpointed)
+  swing shard 1: 120/220 candidates (checkpointed)
+  swing shard 1: 130/220 candidates (checkpointed)
+  swing shard 1: 140/220 candidates (checkpointed)
+  swing shard 1: 150/220 candidates (checkpointed)
+  swing shard 1: 160/220 candidates (checkpointed)
+  swing shard 1: 170/220 candidates (checkpointed)
+  swing shard 1: 180/220 candidates (checkpointed)
+  swing shard 1: 190/220 candidates (checkpointed)
+  swing shard 1: 200/220 candidates (checkpointed)
+  swing shard 1: 210/220 candidates (checkpointed)
+  swing shard 1: 220/220 candidates (checkpointed)
+swing shard 1 -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_candpool_7b/swing_shard_1.npz  (24 prompts x 220 candidates; mean -0.098)
+{'ts': '2026-09-02T15:33:25', 'stage': 'S1', 'event': 'prompt_basis_swing', 'wall_s': 21637.36, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 17.494, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'procedural-prompt basis + router (no LLM backprop)'}
+swing shard 1 done

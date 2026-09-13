@@ -1,0 +1,51 @@
+pairwise shard 3/4: 1800 pending (0 done)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 80/291 [00:00<00:00, 750.38it/s]Loading weights:  54%|█████▎    | 156/291 [00:00<00:00, 428.11it/s]Loading weights:  71%|███████   | 207/291 [00:00<00:00, 379.64it/s]Loading weights:  86%|████████▌ | 249/291 [00:00<00:00, 354.37it/s]Loading weights:  99%|█████████▊| 287/291 [00:00<00:00, 354.21it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 388.76it/s]
+  pairwise judged 40/1800
+  pairwise judged 80/1800
+  pairwise judged 120/1800
+  pairwise judged 160/1800
+  pairwise judged 200/1800
+  pairwise judged 240/1800
+  pairwise judged 280/1800
+  pairwise judged 320/1800
+  pairwise judged 360/1800
+  pairwise judged 400/1800
+  pairwise judged 440/1800
+  pairwise judged 480/1800
+  pairwise judged 520/1800
+  pairwise judged 560/1800
+  pairwise judged 600/1800
+  pairwise judged 640/1800
+  pairwise judged 680/1800
+  pairwise judged 720/1800
+  pairwise judged 760/1800
+  pairwise judged 800/1800
+  pairwise judged 840/1800
+  pairwise judged 880/1800
+  pairwise judged 920/1800
+  pairwise judged 960/1800
+  pairwise judged 1000/1800
+  pairwise judged 1040/1800
+  pairwise judged 1080/1800
+  pairwise judged 1120/1800
+  pairwise judged 1160/1800
+  pairwise judged 1200/1800
+  pairwise judged 1240/1800
+  pairwise judged 1280/1800
+  pairwise judged 1320/1800
+  pairwise judged 1360/1800
+  pairwise judged 1400/1800
+  pairwise judged 1440/1800
+  pairwise judged 1480/1800
+  pairwise judged 1520/1800
+  pairwise judged 1560/1800
+  pairwise judged 1600/1800
+  pairwise judged 1640/1800
+  pairwise judged 1680/1800
+  pairwise judged 1720/1800
+  pairwise judged 1760/1800
+  pairwise judged 1800/1800
+{'ts': '2026-09-07T13:47:32', 'stage': 'MT', 'event': 'pairwise', 'wall_s': 9705.07, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 18.968, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'shard (3, 4)'}
+mt_pairwise shard 3 done

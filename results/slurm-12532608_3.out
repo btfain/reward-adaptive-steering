@@ -1,0 +1,81 @@
+judge shard 3/4: 1012 pending (0 already scored)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  89%|████████▉ | 260/291 [00:00<00:00, 2578.88it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 2554.51it/s]
+[W907 00:02:37.256365438 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 21364736, total: 23684579328).
+[W907 00:02:44.272778276 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 21364736, total: 23684579328).
+[W907 00:02:44.664429656 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 21364736, total: 23684579328).
+[W907 00:02:44.017734880 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 21364736, total: 23684579328).
+[W907 00:02:45.366945513 CUDACachingAllocator.cpp:508] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 2490368, total: 23684579328).
+Traceback (most recent call last):
+  File "/home/users/btf12/reward-adaptive-steering/src/mt_swing.py", line 184, in <module>
+    main()
+  File "/home/users/btf12/reward-adaptive-steering/src/mt_swing.py", line 178, in main
+    phase_judge(c, shard)
+  File "/home/users/btf12/reward-adaptive-steering/src/mt_swing.py", line 128, in phase_judge
+    sc = score_batch(mdl, tok, items, rubric, c["judge"]["max_new_tokens"])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/users/btf12/reward-adaptive-steering/src/mt_judge.py", line 87, in score_batch
+    gen = mdl.generate(**enc, max_new_tokens=max_new_tokens, do_sample=False,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/generation/utils.py", line 2681, in generate
+    result = decoding_method(
+             ^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/generation/utils.py", line 2881, in _sample
+    outputs = self._prefill(
+              ^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/generation/utils.py", line 3961, in _prefill
+    return self(**model_inputs, return_dict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/utils/generic.py", line 911, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/mistral/modeling_mistral.py", line 447, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/utils/generic.py", line 1040, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/mistral/modeling_mistral.py", line 385, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/modeling_layers.py", line 110, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/mistral/modeling_mistral.py", line 238, in forward
+    hidden_states = self.mlp(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/xtmp/btf12/ras_venv/lib/python3.11/site-packages/transformers/models/mistral/modeling_mistral.py", line 47, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.01 GiB. GPU 0 has a total capacity of 22.06 GiB of which 882.38 MiB is free. Including non-PyTorch memory, this process has 21.19 GiB memory in use. Of the allocated memory 20.72 GiB is allocated by PyTorch, and 220.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

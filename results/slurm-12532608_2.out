@@ -1,0 +1,32 @@
+judge shard 2/4: 1012 pending (0 already scored)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  15%|█▌        | 44/291 [00:00<00:01, 132.86it/s]Loading weights:  29%|██▉       | 85/291 [00:00<00:01, 201.80it/s]Loading weights:  38%|███▊      | 110/291 [00:00<00:01, 128.70it/s]Loading weights:  51%|█████     | 147/291 [00:00<00:00, 175.06it/s]Loading weights:  60%|██████    | 175/291 [00:01<00:00, 133.21it/s]Loading weights:  70%|███████   | 205/291 [00:01<00:00, 161.21it/s]Loading weights:  82%|████████▏ | 240/291 [00:01<00:00, 194.80it/s]Loading weights:  96%|█████████▌| 278/291 [00:01<00:00, 151.42it/s]Loading weights: 100%|██████████| 291/291 [00:01<00:00, 160.82it/s]
+  judged 40/1012
+  judged 80/1012
+  judged 120/1012
+  judged 160/1012
+  judged 200/1012
+  judged 240/1012
+  judged 280/1012
+  judged 320/1012
+  judged 360/1012
+  judged 400/1012
+  judged 440/1012
+  judged 480/1012
+  judged 520/1012
+  judged 560/1012
+  judged 600/1012
+  judged 640/1012
+  judged 680/1012
+  judged 720/1012
+  judged 760/1012
+  judged 800/1012
+  judged 840/1012
+  judged 880/1012
+  judged 920/1012
+  judged 960/1012
+  judged 1000/1012
+  judged 1012/1012
+{'ts': '2026-09-07T01:29:38', 'stage': 'MT', 'event': 'judge', 'wall_s': 5362.4, 'peak_rss_gb': 0.004, 'mps_driver_gb': None, 'cuda_peak_gb': 23.335, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'shard (2, 4)'}
+mt_judge shard 2 done

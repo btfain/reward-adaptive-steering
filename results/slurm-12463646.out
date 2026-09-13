@@ -1,0 +1,78 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 141/339 [00:00<00:00, 1362.12it/s]Loading weights:  82%|████████▏ | 278/339 [00:00<00:00, 1297.71it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1378.68it/s]
+  call 1/60: +10 (total 10)
+  call 2/60: +10 (total 20)
+  call 3/60: +10 (total 30)
+  call 4/60: +10 (total 40)
+  call 5/60: +10 (total 50)
+  call 6/60: +10 (total 60)
+  call 7/60: +10 (total 70)
+  call 8/60: +11 (total 81)
+  call 9/60: +10 (total 91)
+  call 10/60: +8 (total 99)
+  call 11/60: +10 (total 109)
+  call 12/60: +10 (total 119)
+  call 13/60: +10 (total 129)
+  call 14/60: +10 (total 139)
+  call 15/60: +10 (total 149)
+  call 16/60: +10 (total 159)
+  call 17/60: +10 (total 169)
+  call 18/60: +10 (total 179)
+  call 19/60: +10 (total 189)
+  call 20/60: +10 (total 199)
+  call 21/60: +10 (total 209)
+  call 22/60: +10 (total 219)
+  call 23/60: +10 (total 229)
+  call 24/60: +10 (total 239)
+  call 25/60: +10 (total 249)
+  call 26/60: +10 (total 259)
+  call 27/60: +10 (total 269)
+  call 28/60: +10 (total 279)
+  call 29/60: +10 (total 289)
+  call 30/60: +10 (total 299)
+  call 31/60: +10 (total 309)
+  call 32/60: +10 (total 319)
+  call 33/60: +10 (total 329)
+  call 34/60: +10 (total 339)
+  call 35/60: +10 (total 349)
+  call 36/60: +10 (total 359)
+  call 37/60: +10 (total 369)
+  call 38/60: +11 (total 380)
+  call 39/60: +10 (total 390)
+  call 40/60: +10 (total 400)
+  call 41/60: +10 (total 410)
+  call 42/60: +10 (total 420)
+  call 43/60: +10 (total 430)
+  call 44/60: +10 (total 440)
+  call 45/60: +10 (total 450)
+  call 46/60: +10 (total 460)
+  call 47/60: +10 (total 470)
+  call 48/60: +10 (total 480)
+  call 49/60: +10 (total 490)
+  call 50/60: +10 (total 500)
+  call 51/60: +10 (total 510)
+  call 52/60: +10 (total 520)
+  call 53/60: +10 (total 530)
+  call 54/60: +10 (total 540)
+  call 55/60: +10 (total 550)
+  call 56/60: +10 (total 560)
+  call 57/60: +10 (total 570)
+  call 58/60: +10 (total 580)
+  call 59/60: +10 (total 590)
+  call 60/60: +9 (total 599)
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1698.35it/s]
+
+599 raw -> 589 exact-unique -> 100 after cluster-down (MiniLM) -> /home/users/btf12/reward-adaptive-steering/configs/candidates_auto_7b.txt
+
+sample:
+  - Address both sides of the argument for comprehensive analysis.
+  - Use welcoming language and a friendly tone.
+  - Suggest ways to improve or refine the given content.
+  - Employ alliteration and assonance for auditory appeal.
+  - Ensure the tone and style match the intended audience and context.
+  - Use precise and concise language.
+  - Frame information in a structured manner.
+  - Provide clear, structured explanations for the problem or concept.
+combined pool: 100 auto + 20 curated = 120 -> /home/users/btf12/reward-adaptive-steering/configs/candidates_combined_7b.txt (auto are the first 100 rows)
+gencands done — inspect configs/candidates_auto_7b.txt + candidates_combined_7b.txt

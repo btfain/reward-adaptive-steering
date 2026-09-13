@@ -1,0 +1,52 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 90/339 [00:00<00:00, 833.96it/s]Loading weights:  51%|█████▏    | 174/339 [00:00<00:00, 524.95it/s]Loading weights:  69%|██████▊   | 233/339 [00:00<00:00, 528.28it/s]Loading weights:  86%|████████▌ | 290/339 [00:00<00:00, 491.31it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 514.90it/s]
+  call 1/30: +8 (total 8)
+  call 2/30: +8 (total 16)
+  call 3/30: +8 (total 24)
+  call 4/30: +8 (total 32)
+  call 5/30: +8 (total 40)
+  call 6/30: +8 (total 48)
+  call 7/30: +8 (total 56)
+  call 8/30: +8 (total 64)
+  call 9/30: +8 (total 72)
+  call 10/30: +7 (total 79)
+  call 11/30: +8 (total 87)
+  call 12/30: +8 (total 95)
+  call 13/30: +10 (total 105)
+  call 14/30: +8 (total 113)
+  call 15/30: +8 (total 121)
+  call 16/30: +8 (total 129)
+  call 17/30: +8 (total 137)
+  call 18/30: +8 (total 145)
+  call 19/30: +8 (total 153)
+  call 20/30: +8 (total 161)
+  call 21/30: +8 (total 169)
+  call 22/30: +8 (total 177)
+  call 23/30: +8 (total 185)
+  call 24/30: +8 (total 193)
+  call 25/30: +8 (total 201)
+  call 26/30: +8 (total 209)
+  call 27/30: +8 (total 217)
+  call 28/30: +8 (total 225)
+  call 29/30: +8 (total 233)
+  call 30/30: +8 (total 241)
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights:  67%|██████▋   | 69/103 [00:00<00:00, 689.77it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 692.47it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: distilroberta-base
+Key                       | Status     |  | 
+--------------------------+------------+--+-
+lm_head.layer_norm.weight | UNEXPECTED |  | 
+lm_head.bias              | UNEXPECTED |  | 
+lm_head.dense.bias        | UNEXPECTED |  | 
+lm_head.dense.weight      | UNEXPECTED |  | 
+lm_head.layer_norm.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+241 raw -> 240 exact-unique -> 1 after semantic dedup -> /home/users/btf12/reward-adaptive-steering/configs/candidates_auto_7b.txt
+
+sample:
+  - Provide context and historical accuracy when relevant.
+combined pool: 1 auto + 20 curated = 21 -> /home/users/btf12/reward-adaptive-steering/configs/candidates_combined_7b.txt (auto are the first 1 rows)
+gencands done — inspect configs/candidates_auto_7b.txt + candidates_combined_7b.txt

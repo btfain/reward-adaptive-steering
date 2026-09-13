@@ -1,0 +1,33 @@
+fetching Wiki Neutrality Corpus into /usr/xtmp/btf12/hf_cache/wnc_data ...
+WNC eval=150 discover=500  (source: bias_data/WNC/biased.word.train)
+  BIASED : write-in candidacies are usually a result of a candidate being legally or procedurally ineligible to run under his own name or party.
+  NEUTRAL: write-in candidacies are sometimes a result of a candidate being legally or procedurally ineligible to run under his own name or party. 
+
+  BIASED : he's also a proponent of conservative family values, saying that he abstained from sex until marriage and has since remained faithful to his wife of 38 years.
+  NEUTRAL: he's also a proponent of family values, saying that he abstained from sex until marriage and has since remained faithful to his wife of 38 years. 
+
+  BIASED : the country has been governed by many systems of government, including a monarchy, republic, theocracy, dictatorship, and a pro-communist state.
+  NEUTRAL: the country has been governed by various systems of government, including a monarchy, republic, theocracy, dictatorship, and a pro-communist state. 
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 64/355 [00:00<00:00, 628.30it/s]Loading weights:  36%|███▌      | 127/355 [00:00<00:00, 502.51it/s]Loading weights:  50%|█████     | 179/355 [00:00<00:00, 452.37it/s]Loading weights:  64%|██████▎   | 226/355 [00:00<00:00, 442.70it/s]Loading weights:  76%|███████▋  | 271/355 [00:00<00:00, 429.44it/s]Loading weights:  89%|████████▊ | 315/355 [00:00<00:00, 431.32it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 446.67it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  gen sample 0 done
+  gen sample 1 done
+  gen sample 2 done
+  gen sample 3 done
+{'ts': '2026-09-11T16:06:40', 'stage': 'NPOV', 'event': 'n0_gen', 'wall_s': 238.8, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 19.296, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': '150 eval x 4'}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 253/339 [00:00<00:00, 2529.32it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 2463.81it/s]
+{'ts': '2026-09-11T16:18:57', 'stage': 'NPOV', 'event': 'n0_judge', 'wall_s': 727.88, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.36, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': '150 eval prompts'}
+
+=== S1-NPOV / N0 (gold judge = Qwen-7B) ===
+judge parse-rate: 100%   (low => the Prometheus-style [RESULT] format is failing on Qwen)
+N0.1 headroom : OLMo rev 3.90/5 (frac>=4 94%) vs human 3.17/5  -> gap -0.72
+N0.2 validity : gold prefers HUMAN over BIASED = 0.64   (need >= 0.75)
+N0.3 variance : frac prompts with sample spread >=2 = 0.05   (need >= 0.30)
+
+GREEN  N0.1=False  N0.2=False  N0.3=False  ->  STOP: report the failing check
+NPOV N0 done

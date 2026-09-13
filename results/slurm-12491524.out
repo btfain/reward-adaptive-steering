@@ -1,0 +1,40 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  26%|██▋       | 82/311 [00:00<00:00, 801.16it/s]Loading weights:  52%|█████▏    | 163/311 [00:00<00:00, 520.93it/s]Loading weights:  71%|███████   | 221/311 [00:00<00:00, 455.22it/s]Loading weights:  87%|████████▋ | 270/311 [00:00<00:00, 408.80it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 461.48it/s]
+extracted (96, 1024) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_candpool_7b/rm_feats_prompt.npz  (d=1024, response=empty)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  24%|██▍       | 82/339 [00:00<00:00, 797.68it/s]Loading weights:  48%|████▊     | 162/339 [00:00<00:00, 536.28it/s]Loading weights:  65%|██████▌   | 221/339 [00:00<00:00, 466.67it/s]Loading weights:  80%|███████▉  | 271/339 [00:00<00:00, 445.56it/s]Loading weights:  94%|█████████▎| 317/339 [00:00<00:00, 422.47it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 469.01it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  87%|████████▋ | 270/311 [00:00<00:00, 2685.87it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2543.13it/s]
+  base-text: 10/96
+  base-text: 20/96
+  base-text: 30/96
+  base-text: 40/96
+  base-text: 50/96
+  base-text: 60/96
+  base-text: 70/96
+  base-text: 80/96
+  base-text: 90/96
+{'ts': '2026-09-03T14:14:37', 'stage': 'S1', 'event': 'gen_base_text', 'wall_s': 646.24, 'peak_rss_gb': 0.005, 'mps_driver_gb': None, 'cuda_peak_gb': 16.554, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'base gens w/ text for RM features'}
+-> /home/users/btf12/reward-adaptive-steering/results/end_banner_7b/base_text_train.jsonl
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  92%|█████████▏| 285/311 [00:00<00:00, 2812.43it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2748.64it/s]
+extracted (96, 1024) -> /home/users/btf12/reward-adaptive-steering/results/prompt_basis_candpool_7b/rm_feats_prompt_base.npz  (d=1024, response=base gen)
+# Capture diagnostic — is the routing info-limit representational or fundamental?
+
+Menu = greedy top-8 moves + null (base), budget=best-of-2, 12 seeds, 75/25 split, bandit-as-ranker. captured = (router − random) / (oracle − random) of the best-of-2 headroom.
+
+Random floor +0.762 · Oracle ceiling +1.668 (headroom +0.906).
+
+| features | realized best-of-2 | headroom captured |
+|---|---|---|
+| generic | +0.910 | 12% |
+| rm_prompt | +0.821 | 1% |
+| rm_prompt_base | +0.855 | 8% |
+
+- RM(prompt) − generic(prompt): **-0.090 [-0.144, -0.029]** ⇒ prompt-only reward features don't beat generic (prompt alone is the limit).
+- RM(prompt, base) − generic(prompt): **-0.056 [-0.197, +0.065]** ⇒ even prompt+base doesn't help — the info-limit is fundamental; the small-selected-basis story stands.
+
+report -> /home/users/btf12/reward-adaptive-steering/basis/s1_capture_diag_report.md
+rm_feats + capture_diag done

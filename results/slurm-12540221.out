@@ -1,0 +1,17 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:  17%|█▋        | 59/355 [00:00<00:00, 540.87it/s]Loading weights:  32%|███▏      | 114/355 [00:00<00:00, 364.81it/s]Loading weights:  43%|████▎     | 154/355 [00:00<00:00, 341.50it/s]Loading weights:  54%|█████▎    | 190/355 [00:00<00:00, 294.97it/s]Loading weights:  64%|██████▎   | 226/355 [00:00<00:00, 311.22it/s]Loading weights:  73%|███████▎  | 260/355 [00:00<00:00, 314.22it/s]Loading weights:  83%|████████▎ | 293/355 [00:00<00:00, 300.24it/s]Loading weights:  91%|█████████▏| 324/355 [00:01<00:00, 270.36it/s]Loading weights: 100%|██████████| 355/355 [00:01<00:00, 321.29it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+prompts: 240 (40/type x 6 types)
+  gen move 0 (null) done
+  gen move 1 (code) done
+  gen move 2 (factual) done
+  gen move 3 (howto) done
+  gen move 4 (prose) done
+  gen move 5 (math) done
+  gen move 6 (email) done
+  gen move 7 (full_rubric) done
+{'ts': '2026-09-07T17:01:24', 'stage': 'SYN', 'event': 'gen', 'wall_s': 3523.13, 'peak_rss_gb': 0.006, 'mps_driver_gb': None, 'cuda_peak_gb': 22.012, 'gpu': 'NVIDIA RTX A5000', 'device': 'cuda', 'notes': 'synthetic notation, single-turn'}
+score -> /home/users/btf12/reward-adaptive-steering/results/synth_notation_olmo3sft/synth.npz  (M (240, 8), complete 240/240)
+mean satisfaction by move: null 0.53, code 0.52, factual 0.51, howto 0.47, prose 0.45, math 0.58, email 0.55, full_rubric 0.67
+synth OLMo gen+score done
