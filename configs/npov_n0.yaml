@@ -58,11 +58,13 @@ gen:
   top_p: 0.9
 
 data:
-  # WNC file inside the extracted bias_data.zip. 'biased.full.*' = MULTI-word bias edits (substantive) --
-  # the right kind of signal for a HOLISTIC judge (the 'word' single-token subset was too subtle: a 7B
-  # judge can't localize a one-word bias, so it saturated at 4 and validity was only 0.64). Cols are TSV:
-  # id, src_tok, tgt_tok, src_raw(biased), tgt_raw(neutral), ... -> we read cols 3,4.
-  wnc_subpath: "bias_data/WNC/biased.full.train"
+  # WNC file inside the extracted bias_data.zip. 'biased.full' = the full MULTI-word bias-edit set (one
+  # unsplit 203MB file, no train/dev/test suffix) -- substantive edits, the right kind of signal for a
+  # HOLISTIC judge (the 'biased.word' single-token subset was too subtle: a 7B judge can't localize a
+  # one-word bias, so it saturated at 4 and validity was only 0.64). Cols are TSV:
+  # id, src_tok, tgt_tok, src_raw(biased), tgt_raw(neutral), ... -> we read cols 3,4 (phase_data prints
+  # example triples so a wrong column layout is caught immediately).
+  wnc_subpath: "bias_data/WNC/biased.full"
   n_eval: 150
   n_discover: 500          # reserved for N1 discovery; N0 only touches the eval split
   min_chars: 60
