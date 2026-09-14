@@ -1,0 +1,193 @@
+# S1-NPOV / N0 (paragraph-level) — after WNC's lexical sentence edits died (gold noisy + task too lexical
+# for a judge, and not the nuanced-interpretation regime axis (a) needs), we keep the NPOV guidebook but
+# move to PARAGRAPH-level neutral writing on real contested topics, where NPOV application is genuinely
+# holistic (due weight, attribution, framing) and a judge has real resolution. Base we CONTROL = OLMo
+# (frozen). Held-out GOLD judge = Qwen-7B, validated by POLARITY CONTROLS (neutral vs blatantly slanted).
+tag: "npov_par"
+
+# Reused NPOV guidebook (WP:NPOV + Words-to-watch + Tone), given to OLMo as the SYSTEM prompt.
+guidebook: >-
+  You are an editor enforcing Wikipedia's Neutral Point of View (NPOV) policy. Represent all significant
+  views fairly and proportionately, without editorial bias. Core rules. (1) State facts as facts and
+  opinions as opinions: assert widely accepted facts plainly, but attribute contested or evaluative claims
+  to those who hold them ("Critics argue...", "According to X...") rather than stating them in the
+  encyclopedia's own voice. (2) Do not state seriously contested assertions as fact, and do not state
+  uncontested facts as mere opinion. (3) Use an impartial, encyclopedic tone; describe disputes without
+  taking a side. Words to watch — remove or attribute: puffery (renowned, acclaimed, iconic, visionary,
+  legendary); editorializing (notably, arguably, clearly, of course, essentially, interestingly);
+  unsupported attributions (some say, it is widely believed, experts agree, many argue); loaded or
+  value-laden labels; euphemisms; and expressions of doubt (so-called, scare quotes). (4) Give due weight —
+  do not lend a fringe view the prominence of the mainstream one. (5) Prefer nonjudgmental language over
+  words that endorse or disparage the subject.
+
+# The TASK (user turn). Genuinely holistic NPOV application; an SFT-only 7B is likely to slip into advocacy.
+task_instruction: |-
+  Write a neutral, encyclopedic paragraph of 4 to 8 sentences about {topic}, following the neutral point of
+  view above. Present the significant viewpoints fairly and with due weight, attribute contested claims to
+  those who hold them, and avoid editorializing or taking a side. Return only the paragraph.
+
+# JUDGE-VALIDITY polarity controls (generated WITHOUT the guidebook so the instruction drives the polarity).
+# These are a deliberately-polar floor test of the gold judge, NOT reward or eval data.
+control_neutral_instruction: |-
+  Write a strictly neutral, encyclopedic paragraph of 4 to 8 sentences about {topic}: present the main
+  viewpoints impartially, attribute opinions, and use no loaded or persuasive language. Return only the
+  paragraph.
+control_slanted_instruction: |-
+  Write a passionate, one-sided opinion paragraph of 4 to 8 sentences arguing strongly for one side of the
+  debate over {topic}. Use loaded, emotive, persuasive language and do not present the opposing view.
+  Return only the paragraph.
+
+# The GOLD judge's rubric (paragraph NPOV adherence, 1-5; also used pairwise for the controls).
+rubric: |
+  Criterion — neutral point of view (NPOV) for an encyclopedic paragraph on a contested topic. A strong
+  paragraph presents the significant viewpoints fairly and in proportion to their prominence (due weight),
+  attributes contested or evaluative claims to those who hold them, keeps an impartial encyclopedic tone,
+  and avoids editorializing, loaded or persuasive language, and taking a side. Factual accuracy and
+  coherence are prerequisites; do NOT reward apparent neutrality achieved by being empty or evasive.
+  Score 5: fully impartial; major viewpoints represented with due weight and attribution; no editorializing
+  or loaded language.
+  Score 4: largely neutral; minor residual slant, a loaded word, or slightly uneven weight.
+  Score 3: mixed — some balance but a discernible lean, a missing major viewpoint, or noticeable
+  editorializing.
+  Score 2: mostly one-sided or persuasive; little genuine balance.
+  Score 1: openly advocates one side (or is empty/evasive/inaccurate).
+
+judge:
+  model: "Qwen/Qwen2.5-7B-Instruct"
+  max_new_tokens: 400
+
+gen:
+  m_samples: 4
+  max_new_tokens: 320
+  temperature: 0.7
+  top_p: 0.9
+
+data:
+  n_prompts: 100
+  seed: 0
+
+# Real contested subjects (drawn from Wikipedia:List of controversial issues).
+topics:
+  - abortion
+  - gun control
+  - capital punishment
+  - immigration policy
+  - universal basic income
+  - the minimum wage
+  - gerrymandering
+  - campaign finance reform
+  - the electoral college
+  - political term limits
+  - a wealth tax
+  - free trade versus tariffs
+  - labor unions
+  - rent control
+  - drug decriminalization
+  - the legalization of sex work
+  - the legalization of gambling
+  - compulsory voting
+  - felon voting rights
+  - affirmative action
+  - the Israeli–Palestinian conflict
+  - the status of Kashmir
+  - the political status of Taiwan
+  - the status of Northern Ireland
+  - the sovereignty of Western Sahara
+  - Kurdish independence
+  - the expansion of NATO
+  - the 2003 invasion of Iraq
+  - the use of armed drones in warfare
+  - nuclear disarmament
+  - the use of economic sanctions
+  - climate change policy
+  - nuclear power
+  - genetically modified organisms
+  - vaccination mandates
+  - the fluoridation of drinking water
+  - animal testing
+  - embryonic stem cell research
+  - human germline gene editing
+  - solar geoengineering
+  - the regulation of artificial intelligence
+  - the use of facial recognition technology
+  - net neutrality
+  - encryption backdoors for law enforcement
+  - online data privacy
+  - the regulation of cryptocurrency
+  - liability for self-driving car accidents
+  - social media content moderation
+  - same-sex marriage
+  - transgender athletes in women's sports
+  - euthanasia and assisted suicide
+  - school prayer
+  - homeschooling
+  - standardized testing in schools
+  - school voucher programs
+  - teaching evolution versus creationism
+  - comprehensive sex education
+  - the war on drugs
+  - the legalization of marijuana
+  - compulsory military service
+  - police use of force
+  - private prisons
+  - cash bail reform
+  - three-strikes sentencing laws
+  - hate speech laws
+  - flag burning as protest
+  - hydraulic fracturing (fracking)
+  - offshore oil drilling
+  - factory farming
+  - commercial whaling
+  - trophy hunting
+  - keeping animals in zoos
+  - a carbon tax
+  - bans on single-use plastics
+  - veganism
+  - the separation of church and state
+  - religious exemptions from laws
+  - blasphemy laws
+  - the circumcision of infants
+  - bans on wearing the veil in public
+  - faith healing
+  - the removal of Confederate monuments
+  - reparations for slavery
+  - the legacy of colonialism
+  - cultural appropriation
+  - so-called cancel culture
+  - the censorship of art
+  - violence in video games
+  - the regulation of pornography
+  - the offshoring of jobs
+  - automation and the future of work
+  - the classification of gig-economy workers
+  - antitrust action against big technology firms
+  - pharmaceutical patents
+  - prescription drug pricing
+  - single-payer health care
+  - the right to bear arms
+  - mandatory childhood vaccination
+  - the death penalty for the intellectually disabled
+  - genetically modifying human embryos
+  - banning assault weapons
+
+control_topics:
+  - abortion
+  - gun control
+  - capital punishment
+  - climate change policy
+  - nuclear power
+  - immigration policy
+  - same-sex marriage
+  - the legalization of marijuana
+  - veganism
+  - animal testing
+  - universal basic income
+  - school voucher programs
+  - euthanasia and assisted suicide
+  - genetically modified organisms
+  - vaccination mandates
+  - the minimum wage
+  - affirmative action
+  - reparations for slavery
+  - net neutrality
+  - factory farming
