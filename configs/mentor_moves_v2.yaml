@@ -81,12 +81,14 @@ rubric: |
 judge:
   model: "Qwen/Qwen2.5-7B-Instruct"
   max_new_tokens: 160          # analytic judge only emits five short lines
+  batch: 4                     # long rubric+prompt+response prefix -> keep batch small (A5000 24GB)
 
 gen:
   m_samples: 4
   max_new_tokens: 512
   temperature: 0.7
   top_p: 0.9
+  batch: 4                     # long guidebook prefix + 512 new tokens: B=16 OOMs on A5000; 4 is safe
 
 data:
   dataset: "allenai/WildChat-1M"

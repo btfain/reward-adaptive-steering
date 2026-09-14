@@ -45,7 +45,7 @@ def phase_gen(c, base_cfg):
     print(f"coding prompts: {len(P)}", flush=True)
     ctrls = c["controls"]
     device = resolve_device(base_cfg); t0 = time.time()
-    model, tok = load_base(base_cfg, device); B = 16
+    model, tok = load_base(base_cfg, device); B = gen.get("batch", 4)
 
     # main: OLMo under the guidebook system prompt, m samples
     with open(O / "gen_main.jsonl", "w") as f:
@@ -84,10 +84,11 @@ def phase_judge(c):
 
     device = resolve_device(load_config("configs/base_olmo3sft.yaml")); t0 = time.time()
     mdl, tok = load_judge(c["judge"]["model"], device)
+    jb = c["judge"].get("batch", 4)
 
     # headroom: analytic score of the guidebook-conditioned responses
     items = [(P[ci], t) for ci in P for t in main.get(ci, [])]
-    sc = score_analytic(mdl, tok, items, rubric, mnt)
+    sc = score_analytic(mdl, tok, items, rubric, mnt, batch=jb)
     parse = float(np.mean([s is not None for s in sc]))
     ov = np.array([s["overall"] for s in sc if s], float)
     cats = {k: np.array([s[k] for s in sc if s], float) for k in ["C1", "C2", "C3", "C4", "C5"]}
@@ -98,7 +99,7 @@ def phase_judge(c):
         for pol in ("good", "bad"):
             if pol in ctrl[j]:
                 citems.append((c["controls"][j]["prompt"], ctrl[j][pol])); cidx.append((j, pol))
-    csc = score_analytic(mdl, tok, citems, rubric, mnt)
+    csc = score_analytic(mdl, tok, citems, rubric, mnt, batch=jb)
     byj = defaultdict(dict)
     for (j, pol), s in zip(cidx, csc):
         if s:
